@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="100.0" prefWidth="360.0"  styleClass="anchor-pane-dialog" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+      <GridPane layoutX="10.0" layoutY="10.0" minHeight="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+      		<Label fx:id="errorLabel" alignment="TOP_LEFT" prefWidth="360.0" text="Label" wrapText="true" />
+				<JFXButton fx:id="okButton" defaultButton="true" mnemonicParsing="false" onAction="#closeDialog" styleClass="button-popup" text="%dialog.button.ok" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <GridPane.margin>
+                  <Insets bottom="5.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXButton>
+         </children>
+      </GridPane>
+	</children>
+</AnchorPane>

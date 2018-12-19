@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane styleClass="anchor-pane-dialog" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.languagepopup.gui.controller.LanguageNotification">
+    <children>
+      <VBox>
+         <children>
+              <GridPane>
+                  <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="350.0" percentWidth="45.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="10.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints />
+                  <RowConstraints vgrow="ALWAYS" />
+      
+                                    </rowConstraints>
+                  <children>
+                      <Label fx:id="englishLabel" alignment="TOP_LEFT" maxHeight="Infinity" text="English" wrapText="true" GridPane.rowIndex="1" />
+                  <Label fx:id="polishLabel" alignment="TOP_LEFT" maxHeight="Infinity" text="Polish" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="fiche-icon" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROWS_H" styleClass="fiche-label" textAlignment="CENTER" />
+                     </graphic>
+                  </Label>
+                  </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+              </GridPane>
+            <GridPane alignment="BOTTOM_CENTER" vgap="25.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="65.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="65.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="65.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="65.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="65.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXButton fx:id="verySadButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#saveVerySadLevel" textAlignment="CENTER">
+                     <graphic>
+                        <EmojiOneView glyphName="FROWNING2" strokeLineCap="ROUND" styleClass="very-sad" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="face-button" />
+                        <String fx:value="very-sad" />
+                     </styleClass>
+                  </JFXButton>
+                      <JFXButton fx:id="sadButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#saveSadLevel" textAlignment="CENTER" GridPane.columnIndex="1">
+                     <graphic>
+                        <EmojiOneView glyphName="SLIGHT_FROWN" strokeLineCap="ROUND" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="face-button" />
+                        <String fx:value="sad" />
+                     </styleClass>
+                  </JFXButton>
+                  <JFXButton fx:id="neutralButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#saveNeutralLevel" textAlignment="CENTER" GridPane.columnIndex="2">
+                     <graphic>
+                        <EmojiOneView glyphName="NEUTRAL_FACE" strokeLineCap="ROUND" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="face-button" />
+                        <String fx:value="neutral" />
+                     </styleClass>
+                  </JFXButton>
+                  <JFXButton fx:id="smileButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#saveSmileLevel" textAlignment="CENTER" GridPane.columnIndex="3">
+                     <graphic>
+                        <EmojiOneView glyphName="SLIGHT_SMILE" strokeLineCap="ROUND" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="face-button" />
+                        <String fx:value="smile" />
+                     </styleClass>
+                  </JFXButton>
+                  <JFXButton fx:id="verySmileButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#saveVerySmileLevel" textAlignment="CENTER" GridPane.columnIndex="4">
+                     <graphic>
+                        <EmojiOneView glyphName="RELAXED" strokeLineCap="ROUND" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="face-button" />
+                        <String fx:value="very-smile" />
+                     </styleClass>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </GridPane>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

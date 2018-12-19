@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="outsideBox" maxWidth="1.7976931348623157E308" minHeight="100.0" styleClass="outside-schema-box" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.languagepopup.gui.controller.SchemaGroupController">
+   <children>
+      <GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="grid-outside-schema-box" vgap="10.0" StackPane.alignment="TOP_LEFT">
+        <columnConstraints>
+          <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+          <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="-Infinity" />
+        </rowConstraints>
+         <StackPane.margin>
+            <Insets left="20.0" top="-12.0" />
+         </StackPane.margin>
+         <children>
+            <JFXTextField fx:id="groupNameTextField" alignment="TOP_LEFT" promptText="%group" text="%group" />
+            <JFXTextField fx:id="iterationsTextField" promptText="%iternation.1" text="1" GridPane.columnIndex="1" />
+         </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </GridPane>
+       <GridPane fx:id="buttonsGridPane" maxHeight="-Infinity" maxWidth="-Infinity" vgap="10.0" StackPane.alignment="CENTER_RIGHT">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <children>
+               <JFXButton fx:id="moveButton" contentDisplay="GRAPHIC_ONLY" onAction="#upActionBlock" styleClass="small-animated-option-button">
+                   <graphic>
+                       <FontAwesomeIconView glyphName="ARROWS_V" size="12" styleClass="sub-icon" />
+                   </graphic>
+               </JFXButton>
+               <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#downActionBlock" styleClass="small-animated-option-button" GridPane.rowIndex="1">
+                   <graphic>
+                       <FontAwesomeIconView glyphName="MINUS" size="12" styleClass="sub-icon" />
+                   </graphic>
+               </JFXButton>
+           </children>
+           <StackPane.margin>
+               <Insets right="-30.0" />
+           </StackPane.margin>
+       </GridPane>
+      <VBox fx:id="innerBox" maxWidth="1.7976931348623157E308">
+         <StackPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </StackPane.margin>
+      </VBox>
+   </children>
+</StackPane>

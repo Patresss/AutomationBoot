@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.languagepopup.gui.controller.MainController">
+   <BorderPane>
+       <top>
+           <JFXToolbar fx:id="title" BorderPane.alignment="CENTER">
+               <leftItems>
+                   <JFXRippler maskType="CIRCLE" style="-fx-ripple-color:WHITE;">
+                       <control>
+                           <StackPane fx:id="titleBurgerContainer" />
+                       </control>
+                   </JFXRippler>
+                   <Label text="%application.name" />
+               </leftItems>
+               <rightItems>
+                   <JFXRippler fx:id="optionsRippler" maskType="CIRCLE" style="-fx-ripple-color:WHITE;">
+                       <control>
+                           <StackPane fx:id="optionsBurger">
+                               <children>
+                                   <JFXHamburger styleClass="jfx-options-burger" />
+                               </children>
+                           </StackPane>
+                       </control>
+                   </JFXRippler>
+               </rightItems>
+            <center>
+
+            </center>
+            <center>
+               <GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER">
+                  <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" />
+                     <ColumnConstraints hgrow="SOMETIMES" />
+                     <ColumnConstraints hgrow="SOMETIMES" />
+                     <ColumnConstraints hgrow="SOMETIMES" />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <children>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" styleClass="animated-option-button" GridPane.columnIndex="3">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="REFRESH" size="24" styleClass="sub-icon" />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" styleClass="animated-option-button" GridPane.columnIndex="1">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="SAVE" size="24" styleClass="sub-icon" />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#addNewSchema" styleClass="animated-option-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="PLUS" size="24" styleClass="sub-icon" />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="removeButton" contentDisplay="GRAPHIC_ONLY" styleClass="animated-option-button" GridPane.columnIndex="2">
+                            <graphic>
+                                <FontAwesomeIconView fx:id="minusButton" glyphName="MINUS" size="24" styleClass="sub-icon" />
+                            </graphic>
+                        </JFXButton>
+                  </children>
+               </GridPane>
+            </center>
+           </JFXToolbar>
+       </top>
+      <center>
+            <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                <tabs>
+                    <Tab text="%fiches.title">
+                        <content>
+                     <StackPane fx:id="fichesTab" />
+                        </content>
+                    </Tab>
+               <Tab text="%settings.title">
+                  <content>
+                     <StackPane fx:id="settingsTab" />
+                  </content>
+               </Tab>
+                </tabs>
+            </JFXTabPane>
+      </center>
+   </BorderPane>
+</StackPane>

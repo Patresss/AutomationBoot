@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="rootStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.languagepopup.gui.controller.SettingsController">
+    <BorderPane>
+      <top>
+         <GridPane hgap="10.0" vgap="20.0" BorderPane.alignment="CENTER">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+               <Label styleClass="fiche-label" text="%settings.popupMinutes" />
+               <JFXTextField fx:id="minutesTextField" promptText="%settings.minutes" styleClass="fiche-label" GridPane.columnIndex="1" />
+               <Label styleClass="fiche-label" text="%settings.popupPositionX" GridPane.rowIndex="1" />
+               <Label styleClass="fiche-label" text="%settings.popupPositionY" GridPane.rowIndex="2" />
+               <Label styleClass="fiche-label" text="%settings.opacityBackground" GridPane.rowIndex="4" />
+               <JFXTextField fx:id="positionXTextField" promptText="%settings.positionX" styleClass="fiche-label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <JFXTextField fx:id="positionYTextField" promptText="%settings.positionY" styleClass="fiche-label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <JFXSlider fx:id="opacitySlider" styleClass="settings-slider" value="90.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <Label styleClass="fiche-label" text="%settings.popupFontSize" GridPane.rowIndex="3" />
+               <JFXTextField fx:id="fontSizeTextField" promptText="%settings.fontSize" styleClass="fiche-label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </children>
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="40.0" />
+            </padding>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+         </GridPane>
+      </top>
+    </BorderPane>
+    <JFXNodesList fx:id="nodesList" rotate="180.0" spacing="15" StackPane.alignment="BOTTOM_RIGHT">
+        <children>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" styleClass="main-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="CARET_UP" size="24" styleClass="main-icon" />
+                </graphic>
+            </JFXButton>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#reload" styleClass="animated-option-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="REFRESH" size="24" styleClass="sub-icon" />
+                </graphic>
+            </JFXButton>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#save" styleClass="animated-option-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="SAVE" size="24" styleClass="sub-icon" />
+                </graphic>
+            </JFXButton>
+        </children>
+        <StackPane.margin>
+            <Insets bottom="50.0" right="50.0" />
+        </StackPane.margin>
+    </JFXNodesList>
+
+</StackPane>
