@@ -2,17 +2,11 @@ package com.patres.languagepopup.gui.controller
 
 import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXListView
-import com.jfoenix.controls.JFXNodesList
 import com.jfoenix.controls.JFXPopup
 import com.patres.languagepopup.Action
-import com.patres.languagepopup.Main
+import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
-import javafx.fxml.FXML
-import javafx.geometry.Pos
 import javafx.scene.control.Label
-import javafx.scene.control.ScrollPane
-import javafx.scene.layout.StackPane
-import javafx.scene.layout.VBox
 
 
 class ActionBarController(rootSchemaGroupController: RootSchemaGroupController) {

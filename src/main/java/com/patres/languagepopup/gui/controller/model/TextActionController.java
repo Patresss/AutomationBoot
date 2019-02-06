@@ -1,15 +1,17 @@
-package com.patres.languagepopup.gui.controller;
+package com.patres.languagepopup.gui.controller.model;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.patres.languagepopup.Main;
+import com.patres.languagepopup.gui.controller.Controllable;
+import com.patres.languagepopup.gui.controller.PointerController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class ActionPaneController implements Controllable {
+public class TextActionController extends AutomationController {
 
     @FXML
     private JFXTextField valueTextField;

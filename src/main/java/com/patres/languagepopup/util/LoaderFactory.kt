@@ -1,33 +1,38 @@
 package com.patres.languagepopup.util
 
 import com.patres.languagepopup.Main
-import com.patres.languagepopup.model.RootSchemaGroup
-import com.patres.languagepopup.gui.controller.RootSchemaGroupController
-import com.patres.languagepopup.gui.controller.SchemaGroupController
+import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
+import com.patres.languagepopup.gui.controller.model.SchemaGroupController
+import com.patres.languagepopup.model.RootSchemaGroupModel
+import com.patres.languagepopup.model.SchemaGroupModel
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 
 object LoaderFactory {
 
-    fun loadSchemaGroup(): FXMLLoader {
+    fun createSchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?): SchemaGroupModel {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/SchemaGroup.fxml")
         loader.resources = Main.bundle
         loader.load<SchemaGroupController>()
-        return loader
+        val controller = loader.getController<SchemaGroupController>()
+        val model = SchemaGroupModel(controller, root, parent)
+        controller.model = model
+        return model
     }
 
-    fun loadRootSchemaGroup(): FXMLLoader {
+    fun loadRootSchemaGroupModel(): RootSchemaGroupModel {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/RootSchemaGroup.fxml")
         loader.resources = Main.bundle
         loader.load<RootSchemaGroupController>()
-        return loader
+        val controller = loader.getController<RootSchemaGroupController>()
+        return RootSchemaGroupModel(controller)
     }
 
-    fun createRootSchemaGroup(tabPane: TabPane?): RootSchemaGroup {
-        val rootSchemaGroup = RootSchemaGroup().apply {
+    fun createRootSchemaGroup(tabPane: TabPane?): RootSchemaGroupModel {
+        val rootSchemaGroup = loadRootSchemaGroupModel().apply {
             controller.insidePane.content = schemaGroup.controller.getMainOutsideNode()
         }
 

@@ -1,12 +1,13 @@
-package com.patres.languagepopup.gui.controller
+package com.patres.languagepopup.gui.controller.model
 
+import com.patres.languagepopup.gui.controller.ActionBarController
 import javafx.fxml.FXML
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 
 
-class RootSchemaGroupController {
+open class RootSchemaGroupController {
 
     @FXML
     lateinit var rootStackPane: StackPane

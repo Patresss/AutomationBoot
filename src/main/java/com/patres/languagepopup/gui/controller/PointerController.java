@@ -2,6 +2,7 @@ package com.patres.languagepopup.gui.controller;
 
 import com.patres.languagepopup.Main;
 import com.patres.languagepopup.Point;
+import com.patres.languagepopup.gui.controller.model.TextActionController;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.geometry.Rectangle2D;
@@ -22,11 +23,11 @@ public class PointerController implements Controllable {
     private Scene scene;
     private Pane pane;
     private Stage stage;
-    private ActionPaneController pointPane;
+    private TextActionController pointPane;
     private Circle circlePoint;
 
 
-    public PointerController(Stage stage, ActionPaneController pointPane) {
+    public PointerController(Stage stage, TextActionController pointPane) {
         this.pane = new Pane();
         this.pointPane = pointPane;
         this.stage = stage;
