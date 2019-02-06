@@ -1,3 +1,3 @@
 package com.patres.languagepopup.excpetion
 
-class ApplicationException(override var message: String) : Exception(message)
+abstract class ApplicationException(override var message: String) : Exception(message)

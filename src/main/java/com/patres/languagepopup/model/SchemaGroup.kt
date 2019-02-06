@@ -1,22 +1,27 @@
-package com.patres.languagepopup.gui
+package com.patres.languagepopup.model
 
 import com.patres.languagepopup.gui.controller.SchemaGroupController
+import com.patres.languagepopup.util.LoaderFactory
 import javafx.scene.Node
 
-class SchemaGroup(rootParent: RootSchemaGroup, parent: SchemaGroup?) : ActionBlock(rootParent, parent) {
+class SchemaGroup(rootParent: RootSchemaGroup, parent: SchemaGroup?) : AutomationModel(rootParent, parent) {
 
     val controller = LoaderFactory.loadSchemaGroup().getController<SchemaGroupController>()
 
-    val actionBlocks = ArrayList<ActionBlock>()
+    val actionBlocks = ArrayList<AutomationModel>()
 
     var schemaGroups = emptyList<SchemaGroup>()
         get() = actionBlocks.filterIsInstance<SchemaGroup>()
 
-    var allChildrenActionBlocks = emptyList<ActionBlock>()
+    var allChildrenActionBlocks = emptyList<AutomationModel>()
         get() = actionBlocks + schemaGroups.flatMap { it.allChildrenActionBlocks }
 
     init {
         controller.actionBlock = this
+    }
+
+    fun unselectSecectActionButton() {
+        controller.unselectAction()
     }
 
     fun addNewSchemaGroup(name: String = "Group") {
@@ -25,27 +30,27 @@ class SchemaGroup(rootParent: RootSchemaGroup, parent: SchemaGroup?) : ActionBlo
         addActionBlocks(newSchemaGroup)
     }
 
-    fun addActionBlocks(actionBlock: ActionBlock) {
+    fun addActionBlocks(actionBlock: AutomationModel) {
         actionBlocks.add(actionBlock)
         actionBlock.parent = this
         controller.getMainInsideNode().children.add(actionBlock.getMainNode())
     }
 
-    fun addActionBlockToList(actionBlock: ActionBlock, index: Int) {
+    fun addActionBlockToList(actionBlock: AutomationModel, index: Int) {
         actionBlocks.add(actionBlock)
         actionBlock.parent = this
         controller.getMainInsideNode().children.add(index, actionBlock.getMainNode())
 
     }
 
-    fun moveActionBlockAbove(actionBlock: ActionBlock) {
+    fun moveActionBlockAbove(actionBlock: AutomationModel) {
         actionBlock.parent?.removeNode(actionBlock)
 
         val index = parent?.controller?.getMainInsideNode()?.children?.indexOf(getMainNode())?: 0
         parent?.addActionBlockToList(actionBlock, index)
     }
 
-    fun moveActionBlockUnder(actionBlock: ActionBlock) {
+    fun moveActionBlockUnder(actionBlock: AutomationModel) {
         actionBlock.parent?.removeNode(actionBlock)
 
         val index = (parent?.controller?.getMainInsideNode()?.children?.indexOf(getMainNode())?: 0) + 1
@@ -53,7 +58,7 @@ class SchemaGroup(rootParent: RootSchemaGroup, parent: SchemaGroup?) : ActionBlo
     }
 
 
-    fun addActionBlockToTop(actionBlock: ActionBlock) {
+    fun addActionBlockToTop(actionBlock: AutomationModel) {
         actionBlock.parent?.removeNode(actionBlock)
 
         actionBlocks.add(actionBlock)
@@ -61,7 +66,7 @@ class SchemaGroup(rootParent: RootSchemaGroup, parent: SchemaGroup?) : ActionBlo
         controller.getMainInsideNode().children.add(0, actionBlock.getMainNode())
     }
 
-    fun addActionBlockToBottom(actionBlock: ActionBlock) {
+    fun addActionBlockToBottom(actionBlock: AutomationModel) {
         actionBlock.parent?.removeNode(actionBlock)
 
         actionBlocks.add(actionBlock)
@@ -69,7 +74,7 @@ class SchemaGroup(rootParent: RootSchemaGroup, parent: SchemaGroup?) : ActionBlo
         controller.getMainInsideNode().children.add(actionBlock.getMainNode())
     }
 
-    fun removeNode(actionBlock: ActionBlock) {
+    fun removeNode(actionBlock: AutomationModel) {
         actionBlocks.remove(actionBlock)
         controller.getMainInsideNode().children.remove(actionBlock.getMainNode())
     }

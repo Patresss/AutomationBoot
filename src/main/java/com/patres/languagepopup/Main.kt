@@ -31,6 +31,9 @@ class Main : Application() {
         fun main(args: Array<String>) {
             launch(Main::class.java)
         }
+
+        fun getStylesheet() = Main::class.java.getResource("/css/style_day.css").toExternalForm()
+
     }
 
     override fun start(primaryStage: Stage) {
@@ -109,7 +112,7 @@ class Main : Application() {
     }
 
     private fun setStyle(scene: Scene) {
-        scene.stylesheets.add(Main::class.java.getResource("/css/style_day.css").toExternalForm())
+        scene.stylesheets.add(getStylesheet())
     }
 
 

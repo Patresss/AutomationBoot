@@ -1,0 +1,15 @@
+Category:
+click:          L R M
+double click:   L R M
+press:          L R M
+release:        L R M
+move
+Delay
+
+
+
+LEFT    Click   Double click    Press   Release
+RIGHT   Click   Double click    Press   Release
+MIDDLE  Click   Double click    Press   Release
+Move
+Delay

@@ -1,20 +1,16 @@
 package com.patres.languagepopup.gui.controller
 
-import com.patres.languagepopup.gui.ActionBlock
-import com.patres.languagepopup.util.swap
+import com.patres.languagepopup.model.AutomationModel
 import com.sun.javafx.geometry.BoundsUtils
 import javafx.geometry.Bounds
 import javafx.geometry.Point2D
-import javafx.scene.Cursor
 import javafx.scene.Node
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.Pane
-import javafx.scene.layout.StackPane
-import java.awt.Point
 
 abstract class ActionBlockController() {
 
-    var actionBlock: ActionBlock? = null
+    var actionBlock: AutomationModel? = null
 
     var boundsInScene: Bounds = BoundsUtils.createBoundingBox(Point2D(0.0, 0.0), Point2D(0.0, 0.0), Point2D(0.0, 0.0), Point2D(0.0, 0.0))
         get() = getMainInsideNode().localToScene(getMainInsideNode().boundsInLocal)

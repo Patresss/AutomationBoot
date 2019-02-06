@@ -2,8 +2,8 @@
 //
 //import com.jfoenix.controls.JFXButton
 //import com.jfoenix.controls.JFXTextField
-//import com.patres.languagepopup.gui.ActionBlock
-//import com.patres.languagepopup.gui.SchemaGroup
+//import com.patres.languagepopup.model.ActionBlock
+//import com.patres.languagepopup.model.SchemaGroup
 //import javafx.fxml.FXML
 //import javafx.scene.Cursor
 //import javafx.scene.Node
