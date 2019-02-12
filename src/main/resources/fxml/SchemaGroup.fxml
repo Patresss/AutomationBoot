@@ -43,11 +43,11 @@
          </children>
       </StackPane>
    </center>
-   <right>
+   <left>
        <JFXButton fx:id="selectActionButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
        </JFXButton>
-   </right>
+   </left>
 </BorderPane>

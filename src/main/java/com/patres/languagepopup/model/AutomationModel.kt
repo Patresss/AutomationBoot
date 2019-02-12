@@ -30,7 +30,7 @@ abstract class AutomationModel< ControllerType : AutomationController>(
 
     abstract fun getMainInsideNode(): Node
 
-    fun hasTheSameParent(actionBlock: AutomationModel<AutomationController>) = parent == actionBlock.parent
+    fun hasTheSameParent(actionBlock: AutomationModel<out AutomationController>) = parent == actionBlock.parent
 
     fun willBeParent(actionBlock: AutomationModel<AutomationController>) = parent == actionBlock.parent
 

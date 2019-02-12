@@ -29,7 +29,7 @@
             <JFXTextField fx:id="valueTextField" GridPane.columnIndex="2" />
             <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="3">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="CROSSHAIRS" size="" styleClass="sub-icon" />
+                  <FontAwesomeIconView glyphName="CROSSHAIRS" styleClass="sub-icon" />
                </graphic>
                <GridPane.margin>
                   <Insets left="10.0" />

@@ -9,6 +9,7 @@ class TextActionModel(
         parent: SchemaGroupModel?
 ) : AutomationModel<TextActionController>(controller, root, parent) {
 
+
     override fun getMainNode(): Node {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

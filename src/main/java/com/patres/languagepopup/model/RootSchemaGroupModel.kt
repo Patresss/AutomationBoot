@@ -8,6 +8,12 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
 
     val schemaGroup = LoaderFactory.createSchemaGroupModel(this, null)
 
+    var selectedModel: AutomationModel<out AutomationController>? = null
+        set(value) {
+            field = value
+            controller.actionBarController.updateDisabledButtons()
+        }
+
     var actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
         get() = schemaGroup.actionBlocks
 
@@ -21,6 +27,9 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
         get() = actionBlocks.filterIsInstance<SchemaGroupModel>()
 
 
+    fun initAfterSetController() {
+        controller.actionBarController.initAfterSetModel()
+    }
 
     fun addNewSchemaGroup(name: String = "Group") {
         schemaGroup.addNewSchemaGroup(name)
@@ -33,5 +42,13 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
     fun unselectAllButton() {
         allSchemaActionBlocks.forEach { it.unselectSecectActionButton() }
     }
+
+    fun removeSelectedModel() {
+        selectedModel?.let {
+            it.parent?.removeNode(it)
+        }
+        selectedModel = null
+    }
+
 
 }

@@ -1,6 +1,8 @@
 package com.patres.languagepopup.gui.controller.model
 
 import com.patres.languagepopup.gui.controller.ActionBarController
+import com.patres.languagepopup.model.RootSchemaGroupModel
+import com.patres.languagepopup.model.SchemaGroupModel
 import javafx.fxml.FXML
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.StackPane
@@ -20,8 +22,7 @@ open class RootSchemaGroupController {
 
     lateinit var actionBarController: ActionBarController
 
-    var selectedAction: SchemaGroupController? = null
-
+    lateinit var model: RootSchemaGroupModel
 
     fun initialize() {
         actionBarController = ActionBarController(this)

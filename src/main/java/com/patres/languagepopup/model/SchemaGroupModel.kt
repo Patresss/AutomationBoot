@@ -31,21 +31,21 @@ class SchemaGroupModel(controller: SchemaGroupController, root: RootSchemaGroupM
         controller.getMainInsideNode().children.add(actionBlock.getMainNode())
     }
 
-    fun addActionBlockToList(actionBlock: AutomationModel<AutomationController>, index: Int) {
+    fun addActionBlockToList(actionBlock: AutomationModel<out AutomationController>, index: Int) {
         actionBlocks.add(actionBlock)
         actionBlock.parent = this
         controller.getMainInsideNode().children.add(index, actionBlock.getMainNode())
 
     }
 
-    fun moveActionBlockAbove(actionBlock: AutomationModel<AutomationController>) {
+    fun moveActionBlockAbove(actionBlock: AutomationModel<out AutomationController>) {
         actionBlock.parent?.removeNode(actionBlock)
 
         val index = parent?.controller?.getMainInsideNode()?.children?.indexOf(getMainNode())?: 0
         parent?.addActionBlockToList(actionBlock, index)
     }
 
-    fun moveActionBlockUnder(actionBlock: AutomationModel<AutomationController>) {
+    fun moveActionBlockUnder(actionBlock: AutomationModel<out AutomationController>) {
         actionBlock.parent?.removeNode(actionBlock)
 
         val index = (parent?.controller?.getMainInsideNode()?.children?.indexOf(getMainNode())?: 0) + 1
@@ -53,7 +53,7 @@ class SchemaGroupModel(controller: SchemaGroupController, root: RootSchemaGroupM
     }
 
 
-    fun addActionBlockToTop(actionBlock: AutomationModel<AutomationController>) {
+    fun addActionBlockToTop(actionBlock: AutomationModel<out AutomationController>) {
         actionBlock.parent?.removeNode(actionBlock)
 
         actionBlocks.add(actionBlock)
@@ -61,7 +61,7 @@ class SchemaGroupModel(controller: SchemaGroupController, root: RootSchemaGroupM
         controller.getMainInsideNode().children.add(0, actionBlock.getMainNode())
     }
 
-    fun addActionBlockToBottom(actionBlock: AutomationModel<AutomationController>) {
+    fun addActionBlockToBottom(actionBlock: AutomationModel<out AutomationController>) {
         actionBlock.parent?.removeNode(actionBlock)
 
         actionBlocks.add(actionBlock)
@@ -69,7 +69,7 @@ class SchemaGroupModel(controller: SchemaGroupController, root: RootSchemaGroupM
         controller.getMainInsideNode().children.add(actionBlock.getMainNode())
     }
 
-    fun removeNode(actionBlock: AutomationModel<AutomationController>) {
+    fun removeNode(actionBlock: AutomationModel<out AutomationController>) {
         actionBlocks.remove(actionBlock)
         controller.getMainInsideNode().children.remove(actionBlock.getMainNode())
     }
