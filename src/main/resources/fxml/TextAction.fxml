@@ -5,18 +5,18 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane>
+<BorderPane fx:id="mainPane" minHeight="65.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.languagepopup.gui.controller.model.TextActionController">
+   <center>
+      <GridPane hgap="10.0">
         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
         </columnConstraints>
         <rowConstraints>
@@ -33,8 +33,10 @@
                </graphic>
                <GridPane.margin>
                   <Insets left="10.0" />
-               </GridPane.margin></JFXButton>
+               </GridPane.margin>
+            </JFXButton>
+              <JFXButton fx:id="selectActionButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" />
          </children>
       </GridPane>
-   </children>
-</StackPane>
+   </center>
+</BorderPane>

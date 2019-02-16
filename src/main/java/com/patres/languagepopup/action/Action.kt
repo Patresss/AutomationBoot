@@ -23,7 +23,7 @@ enum class Action(
     MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", null, true),
     RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", null, true),
 
-    CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", LEFT_MOUSE_BUTTON, false),
+    CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", LEFT_MOUSE_BUTTON, false, actionHandler = ActionHandlers.addLeftClickMouse),
     CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", MIDDLE_MOUSE_BUTTON, false),
     CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", RIGHT_MOUSE_BUTTON, false),
     DOUBLE_CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.doubleMouseClick", LEFT_MOUSE_BUTTON, false),

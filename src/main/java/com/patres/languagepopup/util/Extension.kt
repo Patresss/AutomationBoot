@@ -78,19 +78,11 @@ fun Parent.swap(node: Node, nodeToSwap: Node) {
     }
 }
 
-
-fun Node.moveTo(newPlace: Int) {
-    if (parent != null) {
-        parent.moveTo(this, newPlace)
-    }
+fun <TYPE> MutableList<TYPE>.swap(elementA: TYPE, elementB: TYPE) {
+    val indexOfActionBlock = indexOf(elementA)
+    val indexOfActionBlockToSwap = indexOf(elementB)
+    this[indexOfActionBlock] = set(indexOfActionBlockToSwap, this[indexOfActionBlock])
 }
-
-fun Node.swap(nodeToSwap: Node) {
-    if (parent != null) {
-        parent.swap(this, nodeToSwap)
-    }
-}
-
 
 fun getObjectFromField(clazz: KClass<out Any>, instance: Any, nameOfField: String): Any {
     val field = clazz.java.getDeclaredField(nameOfField)

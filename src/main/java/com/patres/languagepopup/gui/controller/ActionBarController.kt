@@ -1,22 +1,29 @@
 package com.patres.languagepopup.gui.controller
 
 import com.jfoenix.controls.JFXButton
+import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
 import com.patres.languagepopup.action.Action
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import com.patres.languagepopup.model.RootSchemaGroupModel
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+import javafx.collections.FXCollections
 import javafx.event.EventHandler
-import javafx.scene.control.Button
+import javafx.scene.Node
 import javafx.scene.control.Label
+import javafx.scene.control.ListCell
+import javafx.scene.control.ListView
+import javafx.scene.input.MouseEvent
+import javafx.util.Callback
 
 
 class ActionBarController(val rootSchemaGroupController: RootSchemaGroupController) {
 
     var actionBox = rootSchemaGroupController.actionBox
 
-    val buttonActionMap = HashMap<Button, Action>()
+    val nodeActionMap = HashMap<Node, Action>()
+    val listViews = ArrayList<ListView<Action>>()
 
     var rootModel: RootSchemaGroupModel? = null
         get() = rootSchemaGroupController.model
@@ -47,17 +54,29 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
         val nestedAction = Action.findAllWithAction(action)
         if (!nestedAction.isEmpty()) {
             createPopup(nestedAction, button)
+        } else {
+            nodeActionMap[button] = action
         }
         actionBox.children.add(button)
 
-        buttonActionMap[button] = action
     }
 
     private fun createPopup(nestedAction: List<Action>, button: JFXButton) {
-        val labels = nestedAction.map { it.label }
-        val list = JFXListView<Label>()
-        list.items.addAll(labels)
-        val popup = JFXPopup(list)
+        val actions = FXCollections.observableArrayList<Action>(nestedAction)
+        val listView = JFXListView<Action>().apply { items = actions }
+
+        listView.cellFactory = Callback {
+            object : JFXListCell<Action>() {
+                override fun updateItem(item: Action?, empty: Boolean) {
+                    super.updateItem(item, empty)
+                    if (item != null) {
+                        text = item.actionName
+                    }
+                }
+            }
+        }
+        val popup = JFXPopup(listView)
+        listViews.add(listView)
         button.setOnMouseClicked { popup.show(button, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 35.0, 0.0) }
     }
 
@@ -70,7 +89,7 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
 
     fun updateDisabledButtons() {
         rootModel?.let { model ->
-            buttonActionMap.forEach { (button, action) ->
+            nodeActionMap.forEach { (button, action) ->
                 button.isDisable = action.shouldBeDisabled(model)
             }
         }
@@ -78,8 +97,11 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
 
     fun updateActions() {
         rootModel?.let { model ->
-            buttonActionMap.forEach { (button, action) ->
-                button.onAction = EventHandler { action.actionHandler(model) }
+            nodeActionMap.forEach { (button, action) ->
+                button.onMouseClicked = EventHandler { action.actionHandler(model) }
+            }
+            listViews.forEach {listView ->
+                listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.actionHandler(model) }
             }
         }
     }

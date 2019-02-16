@@ -1,5 +1,6 @@
 package com.patres.languagepopup.model
 
+import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.TextActionController
 import javafx.scene.Node
 
@@ -10,13 +11,9 @@ class TextActionModel(
 ) : AutomationModel<TextActionController>(controller, root, parent) {
 
 
-    override fun getMainNode(): Node {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun getMainInsideNode(): Node {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getMainNode(): Node = controller.getMainOutsideNode()
 
+    override fun getMainInsideNode(): Node = controller.getMainInsideNode()
 
 }

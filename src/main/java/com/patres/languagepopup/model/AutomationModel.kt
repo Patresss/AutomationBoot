@@ -1,44 +1,71 @@
 package com.patres.languagepopup.model
 
 import com.patres.languagepopup.gui.controller.model.AutomationController
-import com.patres.languagepopup.gui.controller.model.SchemaGroupController
-import com.sun.javafx.geometry.BoundsUtils
-import javafx.geometry.Bounds
-import javafx.geometry.Point2D
 import javafx.scene.Node
 
-abstract class AutomationModel< ControllerType : AutomationController>(
+abstract class AutomationModel<ControllerType : AutomationController>(
         val controller: ControllerType,
         val root: RootSchemaGroupModel,
         var parent: SchemaGroupModel?
 ) {
 
-//    var rootParentModel: SchemaGroupModel? = if (parent == null) parent else parent?.rootParentModel
-//
-//    var rootParentController: SchemaGroupController? = rootParentModel?.controller
-
-    private var boundsInScene: Bounds = BoundsUtils.createBoundingBox(Point2D(0.0, 0.0), Point2D(0.0, 0.0), Point2D(0.0, 0.0), Point2D(0.0, 0.0))
-        get() = getMainNode().localToScene(getMainNode().boundsInLocal)
-
-    var startPositionY = 0.0
-        get() = boundsInScene.minY
-
-    var endPositionY = 0.0
-        get() = boundsInScene.maxY
+    fun unselectSelectActionButton() {
+        controller.unselectAction()
+    }
 
     abstract fun getMainNode(): Node
 
     abstract fun getMainInsideNode(): Node
 
-    fun hasTheSameParent(actionBlock: AutomationModel<out AutomationController>) = parent == actionBlock.parent
+    fun isLast(): Boolean = parent?.actionBlocks?.last() == this
 
-    fun willBeParent(actionBlock: AutomationModel<AutomationController>) = parent == actionBlock.parent
+    fun isFirst(): Boolean = parent?.actionBlocks?.first() == this
 
-    fun willBeTriedOutOfGroup(actionBlock: AutomationModel<AutomationController>) = endPositionY <= actionBlock.endPositionY
+    fun swap(actionBlockToSwap: AutomationModel<out AutomationController>) {
+        parent?.swap(this, actionBlockToSwap)
+    }
 
-    fun isLast() = parent?.actionBlocks?.maxBy { it.endPositionY } == this
+    fun addActionBlockUnder(actionBlock: AutomationModel<out AutomationController>) {
+        val index = parent?.actionBlocks?.indexOf(this)?: 0
+        parent?.addActionBlockToList(actionBlock, index + 1)
+    }
 
-    fun isFirst() = parent?.actionBlocks?.minBy { it.startPositionY } == this
+    fun downActionBlock() {
+        val bottomNode = findNodeOnTheBottom()
+        when {
+            bottomNode == null && root.schemaGroup != parent -> parent?.leaveGroupToDown(this)
+            bottomNode is TextActionModel -> swap(bottomNode)
+            bottomNode is SchemaGroupModel -> bottomNode.moveActionBlockToTop(this)
+        }
+    }
 
+    fun upActionBlock() {
+        val topNode = findNodeOnTheTop()
+        when {
+            topNode == null && root.schemaGroup != parent -> parent?.leaveGroupToUp(this)
+            topNode is TextActionModel -> swap(topNode)
+            topNode is SchemaGroupModel -> topNode.moveActionBlockToBottom(this)
+        }
+    }
+
+    private fun findNodeOnTheBottom(): AutomationModel<out AutomationController>? {
+        val parentVal = parent
+        return if (!isLast() && parentVal != null) {
+            val currentActionIndex = parentVal.actionBlocks.indexOf(this)
+            parentVal.actionBlocks[currentActionIndex + 1]
+        } else {
+            null
+        }
+    }
+
+    private fun findNodeOnTheTop(): AutomationModel<out AutomationController>? {
+        val parentVal = parent
+        return if (!isFirst() && parentVal != null) {
+            val currentActionIndex = parentVal.actionBlocks.indexOf(this)
+            parentVal.actionBlocks[currentActionIndex - 1]
+        } else {
+            null
+        }
+    }
 
 }

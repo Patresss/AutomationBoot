@@ -15,9 +15,9 @@ object LoaderFactory {
 
     fun createTextActionModel(root: RootSchemaGroupModel, parent: SchemaGroupModel): TextActionModel {
         val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/TextAction.fxml.fxml")
+        loader.location = javaClass.getResource("/fxml/TextAction.fxml")
         loader.resources = Main.bundle
-        loader.load<SchemaGroupController>()
+        loader.load<TextActionController>()
         val controller = loader.getController<TextActionController>()
         val model = TextActionModel(controller, root, parent)
         controller.model = model

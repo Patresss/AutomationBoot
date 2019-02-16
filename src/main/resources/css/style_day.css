@@ -189,7 +189,7 @@ root {
 .jfx-list-cell {
     -fx-cursor: hand;
     -fx-background-insets: 0.0;
-    -fx-text-fill: -color-background;
+    -fx-text-fill: -color-primary-text;
 }
 
 
@@ -209,6 +209,7 @@ root {
 .jfx-list-cell:odd:focused,
 .jfx-list-cell:even:focused,
 .list-cell:filled:hover {
+
     -fx-background-color: -color-primary-ligth;
 }
 
@@ -536,13 +537,13 @@ root {
 
 .select-action-button {
     -fx-border-color: -color-primary-text;
-    -fx-border-radius: 15px;
+    -fx-border-radius: 10px;
     -fx-border-width: 2px;
 
     -fx-background-color: #F1F1F1;
-    -fx-background-radius: 15px;
-    -fx-pref-height: 15px;
-    -fx-pref-width: 15px;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 10px;
+    -fx-pref-width: 10px;
     -fx-min-width: -fx-pref-width;
     -fx-max-width: -fx-pref-width;
     -fx-min-height: -fx-pref-height;

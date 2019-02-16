@@ -20,9 +20,6 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
     var allChildrenActionBlocks = emptyList<AutomationModel<out AutomationController>>()
         get() = schemaGroup.allChildrenActionBlocks
 
-    var allSchemaActionBlocks = emptyList<SchemaGroupModel>()
-        get() = allChildrenActionBlocks.filterIsInstance<SchemaGroupModel>()
-
     var schemaGroups = emptyList<SchemaGroupModel>()
         get() = actionBlocks.filterIsInstance<SchemaGroupModel>()
 
@@ -35,12 +32,22 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
         schemaGroup.addNewSchemaGroup(name)
     }
 
-    fun addActionBlocks(actionBlock: AutomationModel<AutomationController>) {
+    fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
         schemaGroup.addActionBlocks(actionBlock)
     }
 
     fun unselectAllButton() {
-        allSchemaActionBlocks.forEach { it.unselectSecectActionButton() }
+        allChildrenActionBlocks.forEach { it.unselectSelectActionButton() }
+    }
+
+    fun addTextAction() {
+        val selectedModelVal = selectedModel
+        val textActionModel = LoaderFactory.createTextActionModel(this, schemaGroup)
+        when (selectedModelVal) {
+            null -> addActionBlocks(textActionModel)
+            is SchemaGroupModel -> selectedModelVal.moveActionBlockToBottom(textActionModel)
+            is TextActionModel -> selectedModelVal.addActionBlockUnder(textActionModel)
+        }
     }
 
     fun removeSelectedModel() {

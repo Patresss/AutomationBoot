@@ -4,10 +4,12 @@ import com.patres.languagepopup.model.RootSchemaGroupModel
 
 object ActionHandlers {
 
-    val moveToDown: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.selectedModel?.controller?.downActionBlock() }
+    val moveToDown: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.selectedModel?.downActionBlock() }
 
-    val moveToUp: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.selectedModel?.controller?.upActionBlock() }
+    val moveToUp: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.selectedModel?.upActionBlock() }
 
     val remove: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.removeSelectedModel() }
+
+    val addLeftClickMouse: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addTextAction() }
 
 }
