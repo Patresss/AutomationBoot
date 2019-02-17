@@ -1,4 +1,4 @@
-package com.patres.languagepopup
+package com.patres.languagepopup.action
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView

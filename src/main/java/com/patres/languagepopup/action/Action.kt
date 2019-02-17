@@ -15,9 +15,11 @@ enum class Action(
 ) {
 
 
-    MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, "robot.action.moveToUp", null, true, ActionValidators.isNotSelectedAction, ActionHandlers.moveToUp),
-    MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, "robot.action.moveToDown", null, true, ActionValidators.isNotSelectedAction, ActionHandlers.moveToDown),
-    REMOVE(FontAwesomeIcon.TRASH_ALT, "robot.action.remove", null, true, ActionValidators.isNotSelectedAction, ActionHandlers.remove),
+    MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, "robot.action.moveToUp", null, false, ActionValidators.isNotSelectedAction, ActionHandlers.moveToUp),
+    MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, "robot.action.moveToDown", null, false, ActionValidators.isNotSelectedAction, ActionHandlers.moveToDown),
+    REMOVE(FontAwesomeIcon.TRASH_ALT, "robot.action.remove", null, false, ActionValidators.isNotSelectedAction, ActionHandlers.remove),
+
+    ADD_GROUP(FontAwesomeIcon.OBJECT_GROUP, "robot.action.addGroup", null, false, actionHandler = ActionHandlers.addSchemeGroup),
 
     LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", null, true),
     MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick", null, true),

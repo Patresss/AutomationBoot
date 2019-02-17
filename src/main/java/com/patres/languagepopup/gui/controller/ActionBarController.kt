@@ -43,6 +43,8 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
                 Action.MOVE_TO_DOWN,
                 Action.REMOVE,
 
+                Action.ADD_GROUP,
+
                 Action.LEFT_MOUSE_BUTTON,
                 Action.MIDDLE_MOUSE_BUTTON,
                 Action.RIGHT_MOUSE_BUTTON)
