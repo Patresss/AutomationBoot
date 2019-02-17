@@ -31,7 +31,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
     }
 
     fun downActionBlock() {
-        val bottomNode = findNodeOnTheBottom()
+        val bottomNode = findNodeOnTheBottomFromGroup()
         when {
             bottomNode == null && root.schemaGroup != parent -> parent?.leaveGroupToDown(this)
             bottomNode is TextActionModel -> swap(bottomNode)
@@ -40,7 +40,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
     }
 
     fun upActionBlock() {
-        val topNode = findNodeOnTheTop()
+        val topNode = findNodeOnTheTopFromGroup()
         when {
             topNode == null && root.schemaGroup != parent -> parent?.leaveGroupToUp(this)
             topNode is TextActionModel -> swap(topNode)
@@ -48,7 +48,16 @@ abstract class AutomationModel<ControllerType : AutomationController>(
         }
     }
 
-    private fun findNodeOnTheBottom(): AutomationModel<out AutomationController>? {
+    fun findNodeOnTheTop(): AutomationModel<out AutomationController>? {
+        val topNodeInGroup = findNodeOnTheTopFromGroup()
+        if (topNodeInGroup != null) {
+            return topNodeInGroup
+        }
+        return parent
+    }
+
+
+    private fun findNodeOnTheBottomFromGroup(): AutomationModel<out AutomationController>? {
         val parentVal = parent
         return if (!isLast() && parentVal != null) {
             val currentActionIndex = parentVal.actionBlocks.indexOf(this)
@@ -58,7 +67,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
         }
     }
 
-    private fun findNodeOnTheTop(): AutomationModel<out AutomationController>? {
+    private fun findNodeOnTheTopFromGroup(): AutomationModel<out AutomationController>? {
         val parentVal = parent
         return if (!isFirst() && parentVal != null) {
             val currentActionIndex = parentVal.actionBlocks.indexOf(this)

@@ -10,8 +10,12 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
 
     var selectedModel: AutomationModel<out AutomationController>? = null
         set(value) {
-            field = value
-            controller.actionBarController.updateDisabledButtons()
+            if (value != schemaGroup) {
+                field = value
+                controller.actionBarController.updateDisabledButtons()
+            } else {
+                field = null
+            }
         }
 
     var actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
@@ -41,10 +45,11 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
     }
 
     fun removeSelectedModel() {
+        val futureSelectedNode = selectedModel?.findNodeOnTheTop()
         selectedModel?.let {
             it.parent?.removeNode(it)
+            futureSelectedNode?.controller?.selectAction()
         }
-        selectedModel = null
     }
 
     fun addTextAction() {
