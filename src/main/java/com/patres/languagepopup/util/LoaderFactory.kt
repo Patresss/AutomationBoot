@@ -58,9 +58,6 @@ object LoaderFactory {
             selectionModel?.select(newTab)
         }
 
-        val controller = rootSchemaGroup.schemaGroup.controller
-        controller.mainSchemaBox.children.remove(controller.selectActionButton)
-
         return rootSchemaGroup
     }
 }

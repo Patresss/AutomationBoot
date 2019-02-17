@@ -43,7 +43,8 @@ class TextActionController : AutomationController() {
 
 
     @FXML
-    fun initialize() {
+    override fun initialize() {
+        super.initialize()
         setHandler()
     }
 

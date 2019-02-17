@@ -559,6 +559,14 @@ root {
     -fx-background-color: #F1F1F1;
 }
 
+.select-button-pane {
+    -fx-padding: 15 5 15 5;
+    -fx-background-color: -color-background;
+}
+
+.select-button-pane:hover {
+    -fx-cursor: hand;
+}
 
 /* Action Pane */
 .sub-action-button {

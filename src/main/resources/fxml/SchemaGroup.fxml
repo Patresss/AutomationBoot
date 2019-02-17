@@ -41,14 +41,19 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </StackPane.margin>
             </VBox>
+            <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" StackPane.alignment="CENTER_LEFT">
+               <children>
+                   <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                   </JFXButton>
+               </children>
+               <StackPane.margin>
+                  <Insets left="-10.0" />
+               </StackPane.margin>
+            </StackPane>
          </children>
       </StackPane>
    </center>
-   <left>
-       <JFXButton fx:id="selectActionButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-       </JFXButton>
-   </left>
 </BorderPane>

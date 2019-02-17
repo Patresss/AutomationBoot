@@ -3,6 +3,7 @@ package com.patres.languagepopup.gui.controller.model
 import com.jfoenix.controls.JFXTextField
 import com.patres.languagepopup.model.AutomationModel
 import com.patres.languagepopup.model.SchemaGroupModel
+import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.layout.BorderPane
@@ -32,8 +33,6 @@ class SchemaGroupController : AutomationController() {
 
     override fun getModel(): AutomationModel<out AutomationController> = model
 
-    fun initialize() {
-    }
 
     fun getMainOutsideNode(): Node = mainSchemaBox
 

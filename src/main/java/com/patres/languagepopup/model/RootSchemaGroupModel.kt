@@ -10,12 +10,8 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
 
     var selectedModel: AutomationModel<out AutomationController>? = null
         set(value) {
-            if (value != schemaGroup) {
-                field = value
-                controller.actionBarController.updateDisabledButtons()
-            } else {
-                field = null
-            }
+            field = value
+            controller.actionBarController.updateDisabledButtons()
         }
 
     var actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
@@ -24,13 +20,16 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
     var allChildrenActionBlocks = emptyList<AutomationModel<out AutomationController>>()
         get() = schemaGroup.allChildrenActionBlocks
 
+    var allChildrenActionBlocksRoot = emptyList<AutomationModel<out AutomationController>>()
+        get() = allChildrenActionBlocks + schemaGroup
+
     var schemaGroups = emptyList<SchemaGroupModel>()
         get() = actionBlocks.filterIsInstance<SchemaGroupModel>()
 
 
     fun initAfterSetController() {
         controller.actionBarController.initAfterSetModel()
-        schemaGroup.controller.mainSchemaBox.minHeightProperty().bind( controller.rootStackPane.heightProperty())
+        schemaGroup.controller.mainSchemaBox.minHeightProperty().bind(controller.rootStackPane.heightProperty())
     }
 
     fun addNewSchemaGroup(name: String = "Group") {
@@ -42,7 +41,7 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
     }
 
     fun unselectAllButton() {
-        allChildrenActionBlocks.forEach { it.unselectSelectActionButton() }
+        allChildrenActionBlocksRoot.forEach { it.unselectSelectActionButton() }
     }
 
     fun removeSelectedModel() {
