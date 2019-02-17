@@ -43,13 +43,6 @@ class MainController {
         val rootSchemaGroup = LoaderFactory.createRootSchemaGroup(tabPane)
 
         rootSchemaGroup.addNewSchemaGroup("1")
-        rootSchemaGroup.addNewSchemaGroup("2")
-        rootSchemaGroup.addNewSchemaGroup("3")
-
-        rootSchemaGroup.schemaGroups[1].addNewSchemaGroup("2a")
-        rootSchemaGroup.schemaGroups[1].addNewSchemaGroup("2b")
-        rootSchemaGroup.schemaGroups[1].addNewSchemaGroup("2c")
-        rootSchemaGroup.schemaGroups[1].addNewSchemaGroup("2d")
     }
 
     private fun initTabs() {

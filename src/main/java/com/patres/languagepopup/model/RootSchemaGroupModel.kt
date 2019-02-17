@@ -30,6 +30,7 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
 
     fun initAfterSetController() {
         controller.actionBarController.initAfterSetModel()
+        schemaGroup.controller.mainSchemaBox.minHeightProperty().bind( controller.rootStackPane.heightProperty())
     }
 
     fun addNewSchemaGroup(name: String = "Group") {

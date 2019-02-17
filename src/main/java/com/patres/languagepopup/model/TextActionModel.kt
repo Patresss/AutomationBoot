@@ -1,6 +1,5 @@
 package com.patres.languagepopup.model
 
-import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.TextActionController
 import javafx.scene.Node
 
@@ -9,8 +8,6 @@ class TextActionModel(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel?
 ) : AutomationModel<TextActionController>(controller, root, parent) {
-
-
 
     override fun getMainNode(): Node = controller.getMainOutsideNode()
 
