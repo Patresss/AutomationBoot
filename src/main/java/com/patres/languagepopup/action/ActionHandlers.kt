@@ -13,6 +13,6 @@ object ActionHandlers {
 
     val addSchemeGroup: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addSchemaGroup() }
 
-    val addLeftClickMouse: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addTextAction() }
+    val addLeftClickMouse: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addTextAction(Action.CLICK_LEFT_MOUSE_BUTTON) }
 
 }

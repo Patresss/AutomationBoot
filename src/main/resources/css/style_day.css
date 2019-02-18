@@ -16,6 +16,8 @@
     -color-sad: #EE7B26;
     -color-very-sad: #dc3545;
 
+    -color-root-error: #ff4d4d;
+
 
     -main-button-size: 30px;
     -small-button-size: 10px;
@@ -72,6 +74,10 @@ root {
 \* ================================================================================*/
 .label {
     -fx-text-fill: -color-primary-text;
+}
+
+.label.error{
+    -fx-text-fill: -color-root-error;
 }
 
 .text {
@@ -579,4 +585,14 @@ root {
     -fx-min-height: -fx-pref-height;
     -fx-max-height: -fx-pref-height;
     -jfx-button-type: RAISED;
+}
+
+
+
+/* ================================================================================*\
+ * Text field
+\* ================================================================================*/
+.text-field.error{
+    -jfx-focus-color: -color-root-error;
+    -jfx-unfocus-color: -color-root-error;
 }

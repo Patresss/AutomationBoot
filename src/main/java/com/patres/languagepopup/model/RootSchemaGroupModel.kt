@@ -1,10 +1,13 @@
 package com.patres.languagepopup.model
 
+import com.patres.languagepopup.action.Action
 import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import com.patres.languagepopup.util.LoaderFactory
 
 class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
+
+    var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
     val schemaGroup = LoaderFactory.createSchemaGroupModel(this, null)
 
@@ -52,8 +55,8 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
         }
     }
 
-    fun addTextAction() {
-        val textActionModel = LoaderFactory.createTextActionModel(this, schemaGroup)
+    fun addTextAction(action: Action) {
+        val textActionModel = LoaderFactory.createTextActionModel(this, schemaGroup, action)
         addNewActionModel(textActionModel)
     }
 

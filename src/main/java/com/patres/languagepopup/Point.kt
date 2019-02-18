@@ -13,7 +13,6 @@ class Point(
     }
 
     companion object {
-        @Throws(PointFormatException::class)
         fun stringToPoint(pointString: String): Point {
             try {
                 val pointArray = pointString.substring(1, pointString.length - 1).split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -23,7 +22,6 @@ class Point(
             } catch (e: Exception) {
                 throw PointFormatException(pointString)
             }
-
         }
     }
 }

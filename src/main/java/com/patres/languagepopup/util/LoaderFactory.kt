@@ -1,6 +1,8 @@
 package com.patres.languagepopup.util
 
 import com.patres.languagepopup.Main
+import com.patres.languagepopup.action.Action
+import com.patres.languagepopup.action.mouse.click.LeftMouseClickAction
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import com.patres.languagepopup.gui.controller.model.SchemaGroupController
 import com.patres.languagepopup.gui.controller.model.TextActionController
@@ -13,15 +15,24 @@ import javafx.scene.control.TabPane
 
 object LoaderFactory {
 
-    fun createTextActionModel(root: RootSchemaGroupModel, parent: SchemaGroupModel): TextActionModel {
+    fun createTextActionModel(root: RootSchemaGroupModel, parent: SchemaGroupModel, action: Action): TextActionModel {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/TextAction.fxml")
         loader.resources = Main.bundle
         loader.load<TextActionController>()
-        val controller = loader.getController<TextActionController>()
-        val model = TextActionModel(controller, root, parent)
+        val controller = loader.getController<TextActionController>().apply {
+            actionLabel.text = action.actionName
+        }
+        val model = getActionModel(controller, root, parent, action)
         controller.model = model
         return model
+    }
+
+    private fun getActionModel(controller: TextActionController, root: RootSchemaGroupModel, parent: SchemaGroupModel, action: Action): TextActionModel {
+        return when (action) {
+            Action.CLICK_LEFT_MOUSE_BUTTON -> LeftMouseClickAction(controller, root, parent)
+            else -> LeftMouseClickAction(controller, root, parent) // TODO
+        }
     }
 
     fun createSchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?): SchemaGroupModel {

@@ -9,6 +9,8 @@ abstract class AutomationModel<ControllerType : AutomationController>(
         var parent: SchemaGroupModel?
 ) {
 
+    val robot = root.robot
+
     fun unselectSelectActionButton() {
         controller.unselectAction()
     }
