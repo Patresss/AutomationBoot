@@ -4,7 +4,7 @@ import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 
-class DialogController(private val handlerDialog: HandlerDialog, private val message: String) {
+class DialogController(private val exceptionHandlerDialog: ExceptionHandlerDialog, private val exception: Exception) {
 
     @FXML
     private lateinit var errorLabel: Label
@@ -13,12 +13,12 @@ class DialogController(private val handlerDialog: HandlerDialog, private val mes
     private val okButton: Button? = null
 
     fun initialize() {
-        errorLabel.text = message
+        errorLabel.text = exception.message
     }
 
     @FXML
     fun closeDialog() {
-        handlerDialog.closeDialog()
+        exceptionHandlerDialog.closeDialog()
     }
 
 }

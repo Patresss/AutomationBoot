@@ -1,5 +1,6 @@
 package com.patres.languagepopup.model
 
+import com.patres.languagepopup.GlobalKeyListener
 import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.SchemaGroupController
 import com.patres.languagepopup.util.LoaderFactory
@@ -70,6 +71,35 @@ class SchemaGroupModel(controller: SchemaGroupController, root: RootSchemaGroupM
     fun swap(actionBlock: AutomationModel<out AutomationController>, actionBlockToSwap: AutomationModel<out AutomationController>) {
         controller.getMainInsideNode().swap(actionBlock.getMainNode(), actionBlockToSwap.getMainNode())
         actionBlocks.swap(actionBlock, actionBlockToSwap)
+    }
+
+    fun checkValidation() {
+        actionBlocks.forEach { it.checkValidations()  }
+    }
+
+    fun getNumberOfIteration(): Int {
+        val text = controller.iterationsTextField.text
+        return if (text == "INF") {
+            Integer.MAX_VALUE
+        } else {
+            try {
+                Integer.parseInt(controller.iterationsTextField.text)
+            } catch (nfe: NumberFormatException) {
+                1
+            }
+        }
+    }
+
+    override fun runAction() {
+        for (i in 0 until getNumberOfIteration()) {
+            for (action in actionBlocks) {
+                if (!GlobalKeyListener.isStop()) {
+                    action.runAction()
+                } else {
+                    return
+                }
+            }
+        }
     }
 
     override fun getMainNode(): Node = controller.getMainOutsideNode()

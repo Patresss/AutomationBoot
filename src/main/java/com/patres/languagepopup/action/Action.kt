@@ -15,6 +15,7 @@ enum class Action(
 ) {
 
 
+    RUN(FontAwesomeIcon.PLAY, "robot.action.runAutomation", null, false, actionHandler = ActionHandlers.runAutomation),
     MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, "robot.action.moveToUp", null, false, ActionValidators.isNotSelectedActionOrIsRoot, ActionHandlers.moveToUp),
     MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, "robot.action.moveToDown", null, false, ActionValidators.isNotSelectedActionOrIsRoot, ActionHandlers.moveToDown),
     REMOVE(FontAwesomeIcon.TRASH_ALT, "robot.action.remove", null, false, ActionValidators.isNotSelectedActionOrIsRoot, ActionHandlers.remove),

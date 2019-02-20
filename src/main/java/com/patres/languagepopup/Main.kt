@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.layout.Pane
+import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import org.slf4j.LoggerFactory
 import java.awt.*
@@ -25,6 +26,7 @@ class Main : Application() {
         const val sceneHeight = 700
         var bundle = ResourceBundle.getBundle("language/Bundle", Locale("pl"))!!
         var mainStage: Stage = Stage()
+        var mainPane: StackPane = StackPane()
         lateinit var mainController: MainController
 
         @JvmStatic
@@ -99,7 +101,7 @@ class Main : Application() {
         loader.location = Main::class.java.getResource("/fxml/Main.fxml")
         loader.resources = bundle
 
-        val mainPane = loader.load<Pane>()
+        mainPane = loader.load<StackPane>()
         mainController = loader.getController<MainController>()
         return mainPane
     }

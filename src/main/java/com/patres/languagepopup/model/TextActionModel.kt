@@ -1,5 +1,6 @@
 package com.patres.languagepopup.model
 
+import com.patres.languagepopup.GlobalKeyListener
 import com.patres.languagepopup.Point
 import com.patres.languagepopup.excpetion.ApplicationException
 import com.patres.languagepopup.excpetion.PointFormatException
@@ -7,7 +8,7 @@ import com.patres.languagepopup.gui.controller.model.TextActionController
 import com.patres.languagepopup.validation.PointValidation
 import javafx.scene.Node
 
-open class TextActionModel(
+abstract class TextActionModel(
         controller: TextActionController,
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel?
@@ -31,12 +32,12 @@ open class TextActionModel(
         pointValidation?.activateControlListener()
     }
 
-    @Throws(ApplicationException::class)
-    fun checkValidation() {
+    override fun checkValidations() {
         if (pointValidation?.isConditionFulfilled == false) {
             throw PointFormatException(controller.valueTextField.text)
         }
     }
+
 
     override fun getMainNode(): Node = controller.getMainOutsideNode()
 

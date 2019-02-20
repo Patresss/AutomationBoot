@@ -17,7 +17,12 @@ abstract class AutomationModel<ControllerType : AutomationController>(
 
     abstract fun getMainNode(): Node
 
+    abstract fun runAction()
+
     abstract fun getMainInsideNode(): Node
+
+    open fun checkValidations() {
+    }
 
     fun isLast(): Boolean = parent?.actionBlocks?.last() == this
 

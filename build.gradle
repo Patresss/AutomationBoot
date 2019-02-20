@@ -20,6 +20,7 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.1.7'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'com.1stleg:jnativehook:2.1.0'
 
     compile 'de.jensd:fontawesomefx-emojione:2.2.7-2'
     compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-5'

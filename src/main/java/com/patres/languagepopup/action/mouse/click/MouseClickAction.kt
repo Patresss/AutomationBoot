@@ -13,7 +13,7 @@ abstract class MouseClickAction(
 
     abstract val buttonBit: Int
 
-    fun run() {
+    override fun runAction() {
         loadPoint()
         if (point != null) {
             robot.mouseMove(point!!.x, point!!.y)

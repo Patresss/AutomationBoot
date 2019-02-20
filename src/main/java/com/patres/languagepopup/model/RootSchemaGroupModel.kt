@@ -1,11 +1,22 @@
 package com.patres.languagepopup.model
 
+import com.patres.languagepopup.Main
 import com.patres.languagepopup.action.Action
+import com.patres.languagepopup.excpetion.ApplicationException
 import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
+import com.patres.languagepopup.gui.dialog.ExceptionHandlerDialog
 import com.patres.languagepopup.util.LoaderFactory
+import org.slf4j.LoggerFactory
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 
 class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
+
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
+    }
+
 
     var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
@@ -63,8 +74,25 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
     fun addSchemaGroup() {
         val schemaGroupModel = LoaderFactory.createSchemaGroupModel(this, schemaGroup)
         addNewActionModel(schemaGroupModel)
-
     }
+
+    fun runAutomation() {
+        try {
+            schemaGroup.checkValidation()
+            Main.mainStage.isIconified = true
+            schemaGroup.runAction()
+            Thread.sleep(200)
+        } catch (e: ApplicationException) {
+            LOGGER.error("ApplicationException: {}", e.message)
+            val dialog = ExceptionHandlerDialog(e)
+            dialog.show()
+        } catch (e: Exception) {
+            LOGGER.error("Exception: {}", e)
+        } finally {
+            Main.mainStage.isIconified = false
+        }
+    }
+
 
     private fun addNewActionModel(actionModel: AutomationModel<out AutomationController>) {
         val selectedModelVal = selectedModel
@@ -75,6 +103,5 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
         }
         actionModel.controller.selectAction()
     }
-
 
 }

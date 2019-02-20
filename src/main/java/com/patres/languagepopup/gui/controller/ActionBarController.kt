@@ -39,6 +39,7 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
 
     private fun addActions() {
         val actionToAdd = listOf(
+                Action.RUN,
                 Action.MOVE_TO_UP,
                 Action.MOVE_TO_DOWN,
                 Action.REMOVE,

@@ -38,4 +38,5 @@ class SchemaGroupController : AutomationController() {
 
     fun getMainInsideNode(): Pane = innerBox
 
+
 }
