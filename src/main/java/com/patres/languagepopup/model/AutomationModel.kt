@@ -4,10 +4,11 @@ import com.patres.languagepopup.gui.controller.model.AutomationController
 import javafx.scene.Node
 
 abstract class AutomationModel<ControllerType : AutomationController>(
-        val controller: ControllerType,
         val root: RootSchemaGroupModel,
         var parent: SchemaGroupModel?
 ) {
+
+    abstract val controller: ControllerType
 
     val robot = root.robot
 

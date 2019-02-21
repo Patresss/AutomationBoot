@@ -1,10 +1,10 @@
-package com.patres.languagepopup.action
+package com.patres.languagepopup.menuItem
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.scene.Node
 
-enum class GroupAction(
+enum class MenuItemGroup(
         val graphic: Node?,
         val bundleName: String = ""
 ){

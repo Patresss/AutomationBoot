@@ -1,21 +1,19 @@
 package com.patres.languagepopup.util
 
 import com.patres.languagepopup.Main
-import com.patres.languagepopup.action.Action
-import com.patres.languagepopup.action.mouse.click.LeftMouseClickAction
+import com.patres.languagepopup.menuItem.MenuItem
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import com.patres.languagepopup.gui.controller.model.SchemaGroupController
 import com.patres.languagepopup.gui.controller.model.TextActionController
 import com.patres.languagepopup.model.RootSchemaGroupModel
 import com.patres.languagepopup.model.SchemaGroupModel
-import com.patres.languagepopup.model.TextActionModel
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 
 object LoaderFactory {
 
-    fun createTextActionModel(root: RootSchemaGroupModel, parent: SchemaGroupModel, action: Action): TextActionModel {
+    fun createTextActionController(root: RootSchemaGroupModel, parent: SchemaGroupModel, action: MenuItem): TextActionController {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/TextAction.fxml")
         loader.resources = Main.bundle
@@ -23,43 +21,28 @@ object LoaderFactory {
         val controller = loader.getController<TextActionController>().apply {
             actionLabel.text = action.actionName
         }
-        val model = getActionModel(controller, root, parent, action)
-        controller.model = model
-        return model
+        return controller
     }
 
-    private fun getActionModel(controller: TextActionController, root: RootSchemaGroupModel, parent: SchemaGroupModel, action: Action): TextActionModel {
-        return when (action) {
-            Action.CLICK_LEFT_MOUSE_BUTTON -> LeftMouseClickAction(controller, root, parent)
-            else -> LeftMouseClickAction(controller, root, parent) // TODO
-        }
-    }
-
-    fun createSchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?): SchemaGroupModel {
+    fun createSchemaGroupController(root: RootSchemaGroupModel, parent: SchemaGroupModel?): SchemaGroupController {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/SchemaGroup.fxml")
         loader.resources = Main.bundle
         loader.load<SchemaGroupController>()
         val controller = loader.getController<SchemaGroupController>()
-        val model = SchemaGroupModel(controller, root, parent)
-        controller.model = model
-        return model
+        return controller
     }
 
-    fun loadRootSchemaGroupModel(): RootSchemaGroupModel {
+    fun createRootSchemaGroupController(): RootSchemaGroupController {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/RootSchemaGroup.fxml")
         loader.resources = Main.bundle
         loader.load<RootSchemaGroupController>()
-        val controller = loader.getController<RootSchemaGroupController>()
-        val model = RootSchemaGroupModel(controller)
-        controller.model = model
-        model.initAfterSetController()
-        return model
+        return loader.getController()
     }
 
     fun createRootSchemaGroup(tabPane: TabPane?): RootSchemaGroupModel {
-        val rootSchemaGroup = loadRootSchemaGroupModel().apply {
+        val rootSchemaGroup = RootSchemaGroupModel().apply {
             controller.insidePane.content = schemaGroup.controller.getMainOutsideNode()
         }
 

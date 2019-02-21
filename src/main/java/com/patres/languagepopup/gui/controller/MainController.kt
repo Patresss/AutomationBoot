@@ -28,11 +28,8 @@ class MainController {
 
     private lateinit var snackBar: JFXSnackbar
 
-    // ================================================================================
-    // Configuration methods
-    // ================================================================================
+
     fun initialize() {
-        initTabs()
         snackBar = JFXSnackbar(root)
         tabPane?.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS
         addNewSchema()
@@ -40,31 +37,8 @@ class MainController {
 
     @FXML
     fun addNewSchema() {
-        val rootSchemaGroup = LoaderFactory.createRootSchemaGroup(tabPane)
-
-        rootSchemaGroup.addNewSchemaGroup("1")
+        LoaderFactory.createRootSchemaGroup(tabPane)
     }
-
-    private fun initTabs() {
-        initFicheTab()
-        initSettingsTab()
-    }
-
-    private fun initFicheTab() {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/SchemaGroup.fxml")
-        loader.resources = Main.bundle
-        fichesTab.children.add(loader.load<StackPane>())
-    }
-
-    private fun initSettingsTab() {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/SettingsTab.fxml")
-        loader.resources = Main.bundle
-        settingsTab.children.add(loader.load<StackPane>())
-        loader.getController<SettingsController>().mainController = this
-    }
-
 
     fun setMessageToSnackBar(message: String) {
         snackBar.fireEvent(
@@ -73,8 +47,5 @@ class MainController {
                         false,
                         EventHandler { snackBar.close() }))
     }
-
-
-
 
 }

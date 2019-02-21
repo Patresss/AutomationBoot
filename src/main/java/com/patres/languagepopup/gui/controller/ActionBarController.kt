@@ -4,17 +4,14 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
-import com.patres.languagepopup.action.Action
+import com.patres.languagepopup.menuItem.MenuItem
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import com.patres.languagepopup.model.RootSchemaGroupModel
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
 import javafx.scene.Node
-import javafx.scene.control.Label
-import javafx.scene.control.ListCell
 import javafx.scene.control.ListView
-import javafx.scene.input.MouseEvent
 import javafx.util.Callback
 
 
@@ -22,8 +19,8 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
 
     var actionBox = rootSchemaGroupController.actionBox
 
-    val nodeActionMap = HashMap<Node, Action>()
-    val listViews = ArrayList<ListView<Action>>()
+    val nodeActionMap = HashMap<Node, MenuItem>()
+    val listViews = ArrayList<ListView<MenuItem>>()
 
     var rootModel: RootSchemaGroupModel? = null
         get() = rootSchemaGroupController.model
@@ -39,22 +36,22 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
 
     private fun addActions() {
         val actionToAdd = listOf(
-                Action.RUN,
-                Action.MOVE_TO_UP,
-                Action.MOVE_TO_DOWN,
-                Action.REMOVE,
+                MenuItem.RUN,
+                MenuItem.MOVE_TO_UP,
+                MenuItem.MOVE_TO_DOWN,
+                MenuItem.REMOVE,
 
-                Action.ADD_GROUP,
+                MenuItem.ADD_GROUP,
 
-                Action.LEFT_MOUSE_BUTTON,
-                Action.MIDDLE_MOUSE_BUTTON,
-                Action.RIGHT_MOUSE_BUTTON)
+                MenuItem.LEFT_MOUSE_BUTTON,
+                MenuItem.MIDDLE_MOUSE_BUTTON,
+                MenuItem.RIGHT_MOUSE_BUTTON)
         actionToAdd.forEach { createGroup(it) }
     }
 
-    private fun createGroup(action: Action) {
+    private fun createGroup(action: MenuItem) {
         val button = createButton(action)
-        val nestedAction = Action.findAllWithAction(action)
+        val nestedAction = MenuItem.findAllWithAction(action)
         if (!nestedAction.isEmpty()) {
             createPopup(nestedAction, button)
         } else {
@@ -64,13 +61,13 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
 
     }
 
-    private fun createPopup(nestedAction: List<Action>, button: JFXButton) {
-        val actions = FXCollections.observableArrayList<Action>(nestedAction)
-        val listView = JFXListView<Action>().apply { items = actions }
+    private fun createPopup(nestedAction: List<MenuItem>, button: JFXButton) {
+        val actions = FXCollections.observableArrayList<MenuItem>(nestedAction)
+        val listView = JFXListView<MenuItem>().apply { items = actions }
 
         listView.cellFactory = Callback {
-            object : JFXListCell<Action>() {
-                override fun updateItem(item: Action?, empty: Boolean) {
+            object : JFXListCell<MenuItem>() {
+                override fun updateItem(item: MenuItem?, empty: Boolean) {
                     super.updateItem(item, empty)
                     if (item != null) {
                         text = item.actionName
@@ -83,7 +80,7 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
         button.setOnMouseClicked { popup.show(button, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 35.0, 0.0) }
     }
 
-    private fun createButton(action: Action): JFXButton {
+    private fun createButton(action: MenuItem): JFXButton {
         return JFXButton().apply {
             styleClass.add("animated-option-button")
             graphic = FontAwesomeIconView(action.graphic).apply { styleClass.add("sub-icon") }

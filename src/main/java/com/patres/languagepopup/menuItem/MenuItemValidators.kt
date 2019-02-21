@@ -1,8 +1,8 @@
-package com.patres.languagepopup.action
+package com.patres.languagepopup.menuItem
 
 import com.patres.languagepopup.model.RootSchemaGroupModel
 
-object ActionValidators {
+object MenuItemValidators {
 
     val isNotSelectedAction: (rootSchemaGroupModel: RootSchemaGroupModel) -> Boolean = { it.selectedModel == null }
 

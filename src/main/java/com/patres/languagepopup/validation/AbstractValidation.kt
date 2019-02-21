@@ -36,8 +36,6 @@ abstract class AbstractValidation(
     fun activateControlListener() {
         activateLabelValidate()
         validationTextField.textProperty().addListener { _, _, _ -> activateLabelValidate() }
-
     }
-
 
 }

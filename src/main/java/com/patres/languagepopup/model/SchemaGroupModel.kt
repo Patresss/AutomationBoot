@@ -1,6 +1,6 @@
 package com.patres.languagepopup.model
 
-import com.patres.languagepopup.GlobalKeyListener
+import com.patres.languagepopup.keyboard.GlobalKeyListener
 import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.SchemaGroupController
 import com.patres.languagepopup.util.LoaderFactory
@@ -8,7 +8,9 @@ import com.patres.languagepopup.util.swap
 import javafx.scene.Node
 import java.util.*
 
-class SchemaGroupModel(controller: SchemaGroupController, root: RootSchemaGroupModel, parent: SchemaGroupModel?) : AutomationModel<SchemaGroupController>(controller, root, parent) {
+class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : AutomationModel<SchemaGroupController>(root, parent) {
+
+    override val controller: SchemaGroupController = LoaderFactory.createSchemaGroupController(root, parent).also { it.model = this }
 
     val actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
 
@@ -20,7 +22,7 @@ class SchemaGroupModel(controller: SchemaGroupController, root: RootSchemaGroupM
 
 
     fun addNewSchemaGroup(name: String = "Group") {
-        val newSchemaGroup = LoaderFactory.createSchemaGroupModel(root, this)
+        val newSchemaGroup = SchemaGroupModel(root, this)
         newSchemaGroup.controller.groupNameTextField.text = name
         addActionBlocks(newSchemaGroup)
     }

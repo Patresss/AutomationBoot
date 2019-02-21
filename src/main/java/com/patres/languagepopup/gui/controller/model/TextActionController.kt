@@ -34,10 +34,6 @@ class TextActionController : AutomationController() {
     lateinit var pointButton: JFXButton
 
 
-    lateinit var model: TextActionModel
-
-    override fun getModel(): AutomationModel<out AutomationController> = model
-
     val value: String
         get() = valueTextField.text
 

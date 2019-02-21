@@ -1,8 +1,8 @@
-package com.patres.languagepopup.action
+package com.patres.languagepopup.menuItem
 
 import com.patres.languagepopup.model.RootSchemaGroupModel
 
-object ActionHandlers {
+object MenuItemHandlers {
 
 
     val runAutomation: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.runAutomation() }
@@ -15,6 +15,6 @@ object ActionHandlers {
 
     val addSchemeGroup: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addSchemaGroup() }
 
-    val addLeftClickMouse: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addTextAction(Action.CLICK_LEFT_MOUSE_BUTTON) }
+    val addLeftClickMouse: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addTextAction(MenuItem.CLICK_LEFT_MOUSE_BUTTON) }
 
 }

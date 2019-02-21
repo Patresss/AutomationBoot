@@ -1,4 +1,4 @@
-package com.patres.languagepopup;
+package com.patres.languagepopup.keyboard;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;

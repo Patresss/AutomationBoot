@@ -29,11 +29,6 @@ class SchemaGroupController : AutomationController() {
     @FXML
     lateinit var iterationsTextField: JFXTextField
 
-    lateinit var model: SchemaGroupModel
-
-    override fun getModel(): AutomationModel<out AutomationController> = model
-
-
     fun getMainOutsideNode(): Node = mainSchemaBox
 
     fun getMainInsideNode(): Pane = innerBox

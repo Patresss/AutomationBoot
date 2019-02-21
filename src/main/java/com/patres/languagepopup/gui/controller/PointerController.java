@@ -16,7 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class PointerController implements Controllable {
+public class PointerController {
 
     private final static double CIRCLE_OPACITY = 0.6;
 

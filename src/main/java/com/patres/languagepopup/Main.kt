@@ -117,5 +117,4 @@ class Main : Application() {
         scene.stylesheets.add(getStylesheet())
     }
 
-
 }

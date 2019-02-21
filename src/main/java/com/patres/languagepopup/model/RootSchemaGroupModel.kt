@@ -1,26 +1,26 @@
 package com.patres.languagepopup.model
 
 import com.patres.languagepopup.Main
-import com.patres.languagepopup.action.Action
+import com.patres.languagepopup.menuItem.MenuItem
+import com.patres.languagepopup.action.mouse.click.LeftMouseClickAction
 import com.patres.languagepopup.excpetion.ApplicationException
 import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import com.patres.languagepopup.gui.dialog.ExceptionHandlerDialog
 import com.patres.languagepopup.util.LoaderFactory
 import org.slf4j.LoggerFactory
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
 
-class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
+class RootSchemaGroupModel {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
     }
 
+    val controller: RootSchemaGroupController = LoaderFactory.createRootSchemaGroupController().also {it.model = this}
 
     var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
-    val schemaGroup = LoaderFactory.createSchemaGroupModel(this, null)
+    val schemaGroup = SchemaGroupModel(this, null)
 
     var selectedModel: AutomationModel<out AutomationController>? = null
         set(value) {
@@ -41,7 +41,7 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
         get() = actionBlocks.filterIsInstance<SchemaGroupModel>()
 
 
-    fun initAfterSetController() {
+    init {
         controller.actionBarController.initAfterSetModel()
         schemaGroup.controller.mainSchemaBox.minHeightProperty().bind(controller.rootStackPane.heightProperty())
     }
@@ -66,13 +66,13 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
         }
     }
 
-    fun addTextAction(action: Action) {
-        val textActionModel = LoaderFactory.createTextActionModel(this, schemaGroup, action)
+    fun addTextAction(action: MenuItem) {
+        val textActionModel = LeftMouseClickAction(this, schemaGroup)
         addNewActionModel(textActionModel)
     }
 
     fun addSchemaGroup() {
-        val schemaGroupModel = LoaderFactory.createSchemaGroupModel(this, schemaGroup)
+        val schemaGroupModel = SchemaGroupModel(this, schemaGroup)
         addNewActionModel(schemaGroupModel)
     }
 
@@ -92,7 +92,6 @@ class RootSchemaGroupModel(val controller: RootSchemaGroupController) {
             Main.mainStage.isIconified = false
         }
     }
-
 
     private fun addNewActionModel(actionModel: AutomationModel<out AutomationController>) {
         val selectedModelVal = selectedModel

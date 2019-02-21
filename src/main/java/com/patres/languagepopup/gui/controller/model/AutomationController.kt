@@ -15,8 +15,7 @@ abstract class AutomationController {
     @FXML
     lateinit var selectStackPane: StackPane
 
-    abstract fun getModel(): AutomationModel<out AutomationController>
-
+    lateinit var model: AutomationModel<out AutomationController>
 
     @FXML
     open fun initialize() {
@@ -24,9 +23,9 @@ abstract class AutomationController {
     }
 
     fun selectAction() {
-        getModel().root.unselectAllButton()
+        model.root.unselectAllButton()
         selectActionButton.styleClass.add("select-action-button-selected")
-        getModel().root.selectedModel = getModel()
+        model.root.selectedModel = model
     }
 
     fun unselectAction() {
