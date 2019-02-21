@@ -5,12 +5,11 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.scene.Node
 
 enum class MenuItemGroup(
-        val graphic: Node?,
-        val bundleName: String = ""
+        val graphic: Node?
 ){
 
-   LEFT_MOUSE_BUTTON(FontAwesomeIconView(FontAwesomeIcon.MOUSE_POINTER), "robot.action.mouseClick"),
-   MIDDLE_MOUSE_BUTTON(FontAwesomeIconView(FontAwesomeIcon.MOUSE_POINTER), "robot.action.mouseClick"),
-   RIGHT_MOUSE_BUTTON(FontAwesomeIconView(FontAwesomeIcon.MOUSE_POINTER), "robot.action.mouseClick"),
+   LEFT_MOUSE_BUTTON(FontAwesomeIconView(FontAwesomeIcon.MOUSE_POINTER)),
+   MIDDLE_MOUSE_BUTTON(FontAwesomeIconView(FontAwesomeIcon.MOUSE_POINTER)),
+   RIGHT_MOUSE_BUTTON(FontAwesomeIconView(FontAwesomeIcon.MOUSE_POINTER)),
 
 }

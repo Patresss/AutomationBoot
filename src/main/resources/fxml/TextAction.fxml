@@ -25,7 +25,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="actionLabel" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
             <Label fx:id="validLabel" styleClass="error" text="Label" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <JFXTextField fx:id="valueTextField" GridPane.columnIndex="2" />
             <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="3">

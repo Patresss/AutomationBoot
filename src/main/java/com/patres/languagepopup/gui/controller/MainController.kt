@@ -28,7 +28,6 @@ class MainController {
 
     private lateinit var snackBar: JFXSnackbar
 
-
     fun initialize() {
         snackBar = JFXSnackbar(root)
         tabPane?.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS

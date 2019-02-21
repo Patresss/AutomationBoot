@@ -1,7 +1,6 @@
 package com.patres.languagepopup.util
 
 import com.patres.languagepopup.Main
-import com.patres.languagepopup.menuItem.MenuItem
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
 import com.patres.languagepopup.gui.controller.model.SchemaGroupController
 import com.patres.languagepopup.gui.controller.model.TextActionController
@@ -13,15 +12,12 @@ import javafx.scene.control.TabPane
 
 object LoaderFactory {
 
-    fun createTextActionController(root: RootSchemaGroupModel, parent: SchemaGroupModel, action: MenuItem): TextActionController {
+    fun createTextActionController(root: RootSchemaGroupModel, parent: SchemaGroupModel): TextActionController {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/TextAction.fxml")
         loader.resources = Main.bundle
         loader.load<TextActionController>()
-        val controller = loader.getController<TextActionController>().apply {
-            actionLabel.text = action.actionName
-        }
-        return controller
+        return loader.getController()
     }
 
     fun createSchemaGroupController(root: RootSchemaGroupModel, parent: SchemaGroupModel?): SchemaGroupController {

@@ -231,7 +231,7 @@ root {
 .jfx-popup,
 .jfx-popup .jfx-popup-container,
 .jfx-popup .jfx-list-view{
-   -fx-pref-width: 230px;
+   -fx-pref-width: 280px;
 
 }
 
@@ -336,13 +336,6 @@ root {
     -fx-background-color: -color-accent;
 }
 
-/*******************************************************************************
- * Game list                                                                   *
- ******************************************************************************/
-.game-list {
-    -fx-pref-width: 160.0px;
-    -fx-background-color: -color-primary-dark;
-}
 
 /*******************************************************************************
  * Hamburger                                                                   *

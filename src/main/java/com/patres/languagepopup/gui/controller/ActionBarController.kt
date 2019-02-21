@@ -98,10 +98,10 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
     fun updateActions() {
         rootModel?.let { model ->
             nodeActionMap.forEach { (button, action) ->
-                button.onMouseClicked = EventHandler { action.actionHandler(model) }
+                button.onMouseClicked = EventHandler { action.menuItemHandler(model) }
             }
             listViews.forEach {listView ->
-                listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.actionHandler(model) }
+                listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.menuItemHandler(model) }
             }
         }
     }

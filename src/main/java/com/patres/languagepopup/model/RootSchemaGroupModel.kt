@@ -1,8 +1,6 @@
 package com.patres.languagepopup.model
 
 import com.patres.languagepopup.Main
-import com.patres.languagepopup.menuItem.MenuItem
-import com.patres.languagepopup.action.mouse.click.LeftMouseClickAction
 import com.patres.languagepopup.excpetion.ApplicationException
 import com.patres.languagepopup.gui.controller.model.AutomationController
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
@@ -66,8 +64,7 @@ class RootSchemaGroupModel {
         }
     }
 
-    fun addTextAction(action: MenuItem) {
-        val textActionModel = LeftMouseClickAction(this, schemaGroup)
+    fun addTextAction(textActionModel: TextActionModel) {
         addNewActionModel(textActionModel)
     }
 
@@ -101,6 +98,15 @@ class RootSchemaGroupModel {
             is TextActionModel -> selectedModelVal.addActionBlockUnder(actionModel)
         }
         actionModel.controller.selectAction()
+    }
+
+     fun getSelectedShemaGroupModel(): SchemaGroupModel {
+        val selectedModelVal = selectedModel
+        return if (selectedModelVal != null && selectedModelVal is SchemaGroupModel) {
+            selectedModelVal
+        } else {
+            schemaGroup
+        }
     }
 
 }

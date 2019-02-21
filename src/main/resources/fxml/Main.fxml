@@ -80,16 +80,7 @@
       <center>
             <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                 <tabs>
-                    <Tab text="%fiches.title">
-                        <content>
-                     <StackPane fx:id="fichesTab" />
-                        </content>
-                    </Tab>
-               <Tab text="%settings.title">
-                  <content>
-                     <StackPane fx:id="settingsTab" />
-                  </content>
-               </Tab>
+
                 </tabs>
             </JFXTabPane>
       </center>
