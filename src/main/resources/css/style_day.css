@@ -567,6 +567,10 @@ root {
     -fx-cursor: hand;
 }
 
+.select-pane:hover {
+    -fx-cursor: hand;
+}
+
 /* Action Pane */
 .sub-action-button {
     -fx-background-color: #F1F1F1;

@@ -12,6 +12,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
 
     val robot = root.robot
 
+
     fun unselectSelectActionButton() {
         controller.unselectAction()
     }
@@ -21,6 +22,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
     abstract fun runAction()
 
     abstract fun getMainInsideNode(): Node
+
 
     open fun checkValidations() {
     }
@@ -42,7 +44,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
         val bottomNode = findNodeOnTheBottomFromGroup()
         when {
             bottomNode == null && root.schemaGroup != parent -> parent?.leaveGroupToDown(this)
-            bottomNode is TextActionModel -> swap(bottomNode)
+            bottomNode is ActionNodeModel -> swap(bottomNode)
             bottomNode is SchemaGroupModel -> bottomNode.moveActionBlockToTop(this)
         }
     }
@@ -51,7 +53,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
         val topNode = findNodeOnTheTopFromGroup()
         when {
             topNode == null && root.schemaGroup != parent -> parent?.leaveGroupToUp(this)
-            topNode is TextActionModel -> swap(topNode)
+            topNode is ActionNodeModel -> swap(topNode)
             topNode is SchemaGroupModel -> topNode.moveActionBlockToBottom(this)
         }
     }

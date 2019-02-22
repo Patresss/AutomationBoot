@@ -10,7 +10,7 @@ import java.util.*
 
 class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : AutomationModel<SchemaGroupController>(root, parent) {
 
-    override val controller: SchemaGroupController = LoaderFactory.createSchemaGroupController(root, parent).also { it.model = this }
+    override val controller: SchemaGroupController = LoaderFactory.createSchemaGroupController(this)
 
     val actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
 
@@ -20,6 +20,9 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     var allChildrenActionBlocks = emptyList<AutomationModel<out AutomationController>>()
         get() = actionBlocks + schemaGroups.flatMap { it.allChildrenActionBlocks }
 
+    init {
+        controller.afterInit()
+    }
 
     fun addNewSchemaGroup(name: String = "Group") {
         val newSchemaGroup = SchemaGroupModel(root, this)
@@ -104,7 +107,7 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
         }
     }
 
-    override fun getMainNode(): Node = controller.getMainOutsideNode()
+    override fun getMainNode(): Node = controller.getMainNode()
 
     override fun getMainInsideNode(): Node = controller.getMainInsideNode()
 

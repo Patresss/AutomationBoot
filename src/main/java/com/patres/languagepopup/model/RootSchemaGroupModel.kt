@@ -14,7 +14,7 @@ class RootSchemaGroupModel {
         private val LOGGER = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
     }
 
-    val controller: RootSchemaGroupController = LoaderFactory.createRootSchemaGroupController().also {it.model = this}
+    val controller: RootSchemaGroupController = LoaderFactory.createRootSchemaGroupController(this)
 
     var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
@@ -26,26 +26,15 @@ class RootSchemaGroupModel {
             controller.actionBarController.updateDisabledButtons()
         }
 
-    var actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
-        get() = schemaGroup.actionBlocks
-
     var allChildrenActionBlocks = emptyList<AutomationModel<out AutomationController>>()
         get() = schemaGroup.allChildrenActionBlocks
 
     var allChildrenActionBlocksRoot = emptyList<AutomationModel<out AutomationController>>()
         get() = allChildrenActionBlocks + schemaGroup
 
-    var schemaGroups = emptyList<SchemaGroupModel>()
-        get() = actionBlocks.filterIsInstance<SchemaGroupModel>()
-
-
     init {
         controller.actionBarController.initAfterSetModel()
         schemaGroup.controller.mainSchemaBox.minHeightProperty().bind(controller.rootStackPane.heightProperty())
-    }
-
-    fun addNewSchemaGroup(name: String = "Group") {
-        schemaGroup.addNewSchemaGroup(name)
     }
 
     fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
@@ -64,7 +53,7 @@ class RootSchemaGroupModel {
         }
     }
 
-    fun addTextAction(textActionModel: TextActionModel) {
+    fun addTextAction(textActionModel: ActionNodeModel<out AutomationController>) {
         addNewActionModel(textActionModel)
     }
 
@@ -95,7 +84,7 @@ class RootSchemaGroupModel {
         when (selectedModelVal) {
             null -> addActionBlocks(actionModel)
             is SchemaGroupModel -> selectedModelVal.moveActionBlockToBottom(actionModel)
-            is TextActionModel -> selectedModelVal.addActionBlockUnder(actionModel)
+            is ActionNodeModel -> selectedModelVal.addActionBlockUnder(actionModel)
         }
         actionModel.controller.selectAction()
     }

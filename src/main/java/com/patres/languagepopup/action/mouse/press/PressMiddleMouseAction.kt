@@ -10,7 +10,6 @@ class PressMiddleMouseAction(
         parent: SchemaGroupModel
 ) : PressMouseAction(root, parent) {
 
-
     init {
         controller.actionLabel.text = MenuItem.PRESS_MIDDLE_MOUSE_BUTTON.actionName
     }

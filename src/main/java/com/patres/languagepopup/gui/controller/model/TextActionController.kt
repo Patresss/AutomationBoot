@@ -4,28 +4,16 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXTextField
 import com.patres.languagepopup.Main
 import com.patres.languagepopup.gui.controller.PointerController
-import com.patres.languagepopup.model.AutomationModel
-import com.patres.languagepopup.model.SchemaGroupModel
-import com.patres.languagepopup.model.TextActionModel
 import javafx.fxml.FXML
-import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.control.Label
-import javafx.scene.layout.BorderPane
-import javafx.scene.layout.Pane
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 
-class TextActionController : AutomationController() {
-
-    @FXML
-    lateinit var mainPane: BorderPane
+class TextActionController : LabelActionController() {
 
     @FXML
     lateinit var valueTextField: JFXTextField
-
-    @FXML
-    lateinit var actionLabel: Label
 
     @FXML
     lateinit var validLabel: Label
@@ -65,7 +53,4 @@ class TextActionController : AutomationController() {
         return pointController.scene
     }
 
-    fun getMainOutsideNode(): Node = mainPane
-
-    fun getMainInsideNode(): Pane = mainPane
 }

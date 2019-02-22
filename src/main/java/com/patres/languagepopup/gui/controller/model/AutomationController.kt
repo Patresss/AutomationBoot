@@ -22,6 +22,12 @@ abstract class AutomationController {
         selectStackPane.onMouseClicked = EventHandler { selectAction() }
     }
 
+    fun afterInit() {
+//        model.getMainNode().onMouseClicked = EventHandler { selectAction() }
+//        model.getMainNode().isPickOnBounds = true
+    }
+
+
     fun selectAction() {
         model.root.unselectAllButton()
         selectActionButton.styleClass.add("select-action-button-selected")
