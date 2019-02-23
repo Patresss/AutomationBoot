@@ -10,21 +10,10 @@ import javafx.scene.control.Label
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 
-class TextActionController : LabelActionController() {
-
-    @FXML
-    lateinit var valueTextField: JFXTextField
-
-    @FXML
-    lateinit var validLabel: Label
+class MousePointActionController : TextFieldActionController() {
 
     @FXML
     lateinit var pointButton: JFXButton
-
-
-    val value: String
-        get() = valueTextField.text
-
 
     @FXML
     override fun initialize() {

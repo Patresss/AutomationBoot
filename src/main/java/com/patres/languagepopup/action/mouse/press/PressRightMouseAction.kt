@@ -14,7 +14,6 @@ class PressRightMouseAction(
         controller.actionLabel.text = MenuItem.PRESS_RIGHT_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int
-        get() = MOUSE_RIGHT_BTN
+    override val buttonBit: Int = MOUSE_RIGHT_BTN
 
 }

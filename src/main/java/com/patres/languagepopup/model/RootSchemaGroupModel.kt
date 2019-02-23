@@ -53,7 +53,7 @@ class RootSchemaGroupModel {
         }
     }
 
-    fun addTextAction(textActionModel: ActionNodeModel<out AutomationController>) {
+    fun addNodeAction(textActionModel: ActionNodeModel<out AutomationController>) {
         addNewActionModel(textActionModel)
     }
 

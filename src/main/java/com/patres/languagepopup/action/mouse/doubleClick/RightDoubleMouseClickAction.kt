@@ -14,7 +14,6 @@ class RightDoubleMouseClickAction(
         controller.actionLabel.text = MenuItem.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int
-        get() = MOUSE_RIGHT_BTN
+    override val buttonBit: Int = MOUSE_RIGHT_BTN
 
 }

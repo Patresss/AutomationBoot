@@ -6,7 +6,7 @@ import com.patres.languagepopup.model.SchemaGroupModel
 import com.patres.languagepopup.util.LoaderFactory
 import javafx.scene.Node
 
-abstract class MouseLabelAction(
+abstract class LabelAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
 ) : MouseAction<LabelActionController>(root, parent) {

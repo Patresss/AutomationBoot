@@ -15,7 +15,6 @@ class ReleaseLeftMouseAction(
         controller.actionLabel.text = MenuItem.RELEASE_LEFT_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int
-        get() = Robot.MOUSE_LEFT_BTN
+    override val buttonBit: Int = Robot.MOUSE_LEFT_BTN
 
 }

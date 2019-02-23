@@ -2,7 +2,7 @@ package com.patres.languagepopup.action.mouse
 
 import com.patres.languagepopup.Point
 import com.patres.languagepopup.excpetion.PointFormatException
-import com.patres.languagepopup.gui.controller.model.TextActionController
+import com.patres.languagepopup.gui.controller.model.MousePointActionController
 import com.patres.languagepopup.model.RootSchemaGroupModel
 import com.patres.languagepopup.model.SchemaGroupModel
 import com.patres.languagepopup.util.LoaderFactory
@@ -12,9 +12,9 @@ import javafx.scene.Node
 abstract class MousePointAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : MouseAction<TextActionController>(root, parent) {
+) : MouseAction<MousePointActionController>(root, parent) {
 
-    override val controller: TextActionController = LoaderFactory.createTextActionController(this)
+    override val controller: MousePointActionController = LoaderFactory.createMousePointActionController(this)
 
     var point: Point? = null
 
@@ -26,8 +26,8 @@ abstract class MousePointAction(
 
     override fun runAction() {
         loadPoint()
-        if (point != null) {
-            robot.mouseMove(point!!.x, point!!.y)
+        point?.let {
+            robot.mouseMove(it.x, it.y)
         }
         runMouseAction()
     }

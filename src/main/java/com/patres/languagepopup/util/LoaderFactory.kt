@@ -2,10 +2,7 @@ package com.patres.languagepopup.util
 
 import com.patres.languagepopup.Main
 import com.patres.languagepopup.action.mouse.MouseAction
-import com.patres.languagepopup.gui.controller.model.LabelActionController
-import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
-import com.patres.languagepopup.gui.controller.model.SchemaGroupController
-import com.patres.languagepopup.gui.controller.model.TextActionController
+import com.patres.languagepopup.gui.controller.model.*
 import com.patres.languagepopup.model.RootSchemaGroupModel
 import com.patres.languagepopup.model.SchemaGroupModel
 import com.patres.languagepopup.model.ActionNodeModel
@@ -25,13 +22,22 @@ object LoaderFactory {
         }
     }
 
-
-    fun createTextActionController(model: ActionNodeModel<TextActionController>): TextActionController {
+    fun createTextFieldActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
         val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/TextAction.fxml")
+        loader.location = javaClass.getResource("/fxml/TextFieldAction.fxml")
         loader.resources = Main.bundle
-        loader.load<TextActionController>()
-        return loader.getController<TextActionController>().also {
+        loader.load<TextFieldActionController>()
+        return loader.getController<TextFieldActionController>().also {
+            it.model = model
+        }
+    }
+
+    fun createMousePointActionController(model: ActionNodeModel<MousePointActionController>): MousePointActionController {
+        val loader = FXMLLoader()
+        loader.location = javaClass.getResource("/fxml/MousePointAction.fxml")
+        loader.resources = Main.bundle
+        loader.load<MousePointActionController>()
+        return loader.getController<MousePointActionController>().also {
             it.model = model
         }
     }

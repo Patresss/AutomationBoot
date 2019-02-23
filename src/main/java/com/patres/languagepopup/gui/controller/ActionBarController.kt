@@ -4,8 +4,8 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
-import com.patres.languagepopup.menuItem.MenuItem
 import com.patres.languagepopup.gui.controller.model.RootSchemaGroupController
+import com.patres.languagepopup.menuItem.MenuItem
 import com.patres.languagepopup.model.RootSchemaGroupModel
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
@@ -35,18 +35,22 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
     }
 
     private fun addActions() {
-        val actionToAdd = listOf(
-                MenuItem.RUN,
-                MenuItem.MOVE_TO_UP,
-                MenuItem.MOVE_TO_DOWN,
-                MenuItem.REMOVE,
-
-                MenuItem.ADD_GROUP,
-
-                MenuItem.LEFT_MOUSE_BUTTON,
-                MenuItem.MIDDLE_MOUSE_BUTTON,
-                MenuItem.RIGHT_MOUSE_BUTTON)
-        actionToAdd.forEach { createGroup(it) }
+//        val actionToAdd = listOf(
+//                MenuItem.RUN,
+//                MenuItem.MOVE_TO_UP,
+//                MenuItem.MOVE_TO_DOWN,
+//                MenuItem.REMOVE,
+//
+//                MenuItem.ADD_GROUP,
+//
+//                MenuItem.MOVE_MOUSE,
+//
+//                MenuItem.LEFT_MOUSE_BUTTON,
+//                MenuItem.MIDDLE_MOUSE_BUTTON,
+//                MenuItem.RIGHT_MOUSE_BUTTON)
+        MenuItem.values()
+                .filter { it.parent == null }
+                .forEach { createGroup(it) }
     }
 
     private fun createGroup(action: MenuItem) {
@@ -100,7 +104,7 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
             nodeActionMap.forEach { (button, action) ->
                 button.onMouseClicked = EventHandler { action.menuItemHandler(model) }
             }
-            listViews.forEach {listView ->
+            listViews.forEach { listView ->
                 listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.menuItemHandler(model) }
             }
         }

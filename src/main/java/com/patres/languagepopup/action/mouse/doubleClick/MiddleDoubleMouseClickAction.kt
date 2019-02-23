@@ -10,12 +10,10 @@ class MiddleDoubleMouseClickAction(
         parent: SchemaGroupModel
 ) : MouseDoubleClickAction(root, parent) {
 
-
     init {
         controller.actionLabel.text = MenuItem.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int
-        get() = MOUSE_MIDDLE_BTN
+    override val buttonBit: Int = MOUSE_MIDDLE_BTN
 
 }

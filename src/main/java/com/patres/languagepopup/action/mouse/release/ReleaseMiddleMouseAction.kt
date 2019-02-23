@@ -1,6 +1,5 @@
 package com.patres.languagepopup.action.mouse.release
 
-import com.patres.languagepopup.action.mouse.doubleClick.MouseDoubleClickAction
 import com.patres.languagepopup.menuItem.MenuItem
 import com.patres.languagepopup.model.RootSchemaGroupModel
 import com.patres.languagepopup.model.SchemaGroupModel
@@ -16,7 +15,6 @@ class ReleaseMiddleMouseAction(
         controller.actionLabel.text = MenuItem.RELEASE_MIDDLE_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int
-        get() = MOUSE_MIDDLE_BTN
+    override val buttonBit: Int = MOUSE_MIDDLE_BTN
 
 }

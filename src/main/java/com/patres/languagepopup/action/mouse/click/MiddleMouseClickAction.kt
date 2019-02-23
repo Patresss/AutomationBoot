@@ -14,7 +14,6 @@ class MiddleMouseClickAction(
         controller.actionLabel.text = MenuItem.CLICK_MIDDLE_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int
-        get() = MOUSE_MIDDLE_BTN
+    override val buttonBit: Int = MOUSE_MIDDLE_BTN
 
 }

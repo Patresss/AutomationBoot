@@ -15,7 +15,6 @@ class LeftDoubleMouseClickAction(
         controller.actionLabel.text = MenuItem.DOUBLE_CLICK_LEFT_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int
-        get() = Robot.MOUSE_LEFT_BTN
+    override val buttonBit: Int = Robot.MOUSE_LEFT_BTN
 
 }
