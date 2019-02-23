@@ -13,6 +13,7 @@ import javafx.event.EventHandler
 import javafx.scene.Node
 import javafx.scene.control.ListView
 import javafx.scene.control.Separator
+import javafx.scene.control.Tooltip
 import javafx.util.Callback
 
 
@@ -56,8 +57,8 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         } else {
             nodeActionMap[button] = action
         }
+        button.tooltip = Tooltip(action.actionName)
         actionBox.children.add(button)
-
     }
 
     private fun createPopup(nestedAction: List<MenuItem>, button: JFXButton) {

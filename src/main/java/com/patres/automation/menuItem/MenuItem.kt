@@ -23,9 +23,9 @@ enum class MenuItem(
     DELAY(FontAwesomeIcon.HOURGLASS, "robot.action.delay", null, menuItemHandler = MenuItemHandlers.addDelay),
     MOVE_MOUSE(FontAwesomeIcon.ARROWS_ALT, "robot.action.moveMouse", null, menuItemHandler = MenuItemHandlers.addMoveMouse),
 
-    LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "", null ),
-    MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "", null),
-    RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "", null),
+    LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "roboto.action.mouse.left", null ),
+    MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "roboto.action.mouse.middle", null),
+    RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "roboto.action.mouse.right", null),
 
     CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addLeftClickMouse),
     CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addMiddleClickMouse),

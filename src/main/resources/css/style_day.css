@@ -3,25 +3,18 @@
     -color-primary-dark: #0288D1;
     -color-primary-ligth: #B3E5FC;
 
-    -color-primary-text: #01547a;
+   -color-primary-text: #01547a;  /*1, 84, 122*/
+    -color-primary-text-transparent: rgba(1, 84, 122, 0.9);
 
     -color-background: #FFFFFF;
     -color-accent: #FFC107;
     -color-accent-ligth: #ffecb4;
     -color-divider: #B6B6B6;
 
-    -color-very-smile: #28a745;
-    -color-smile: #94B426;
-    -color-neutral: #ffc107;
-    -color-sad: #EE7B26;
-    -color-very-sad: #dc3545;
-
     -color-root-error: #ff4d4d;
-
 
     -main-button-size: 30px;
     -small-button-size: 10px;
-
 }
 
 root {
@@ -499,16 +492,6 @@ root {
     -fx-alignment: center;
 }
 
-/*.tab .tab-close-button {*/
-/*-fx-background-color: transparent;*/
-/*-fx-text-fill: -color-very-sad;*/
-/*}*/
-
-/*.tab .tab-close-button .label {*/
-/*-fx-text-fill: -color-very-sad;*/
-/*}*/
-
-
 .tab .tab-close-button {
     -fx-background-color: transparent;
     -fx-shape: "M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12z";
@@ -599,4 +582,12 @@ root {
 
 .stackpane-background {
     -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* ================================================================================*\
+ * Tool tip
+\* ================================================================================*/
+.tooltip {
+    -fx-background-color: -color-primary-text-transparent;
 }
