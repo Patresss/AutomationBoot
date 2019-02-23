@@ -35,7 +35,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": "com.patres.languagepopup.Main"
+        attributes "Main-Class": "com.patres.automation.Main"
     }
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
