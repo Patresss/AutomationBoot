@@ -14,6 +14,10 @@ abstract class MousePointAction(
         parent: SchemaGroupModel
 ) : MouseAction<MousePointActionController>(root, parent) {
 
+    companion object {
+        private const val DELAY = 150L
+    }
+
     override val controller: MousePointActionController = LoaderFactory.createMousePointActionController(this)
 
     var point: Point? = null
@@ -30,6 +34,7 @@ abstract class MousePointAction(
             robot.mouseMove(it.x, it.y)
         }
         runMouseAction()
+        Thread.sleep(DELAY)
     }
 
     private fun loadPoint() {
