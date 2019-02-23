@@ -6,24 +6,22 @@ import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.menuItem.MenuItem
-import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.menuItem.MenuItemGroup
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
 import javafx.scene.Node
 import javafx.scene.control.ListView
+import javafx.scene.control.Separator
 import javafx.util.Callback
 
 
-class ActionBarController(val rootSchemaGroupController: RootSchemaGroupController) {
+class ActionBarController(private val rootSchemaGroupController: RootSchemaGroupController) {
 
-    var actionBox = rootSchemaGroupController.actionBox
+    private var actionBox = rootSchemaGroupController.actionBox
 
-    val nodeActionMap = HashMap<Node, MenuItem>()
-    val listViews = ArrayList<ListView<MenuItem>>()
-
-    var rootModel: RootSchemaGroupModel? = null
-        get() = rootSchemaGroupController.model
+    private val nodeActionMap = HashMap<Node, MenuItem>()
+    private val listViews = ArrayList<ListView<MenuItem>>()
 
     init {
         addActions()
@@ -35,22 +33,19 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
     }
 
     private fun addActions() {
-//        val actionToAdd = listOf(
-//                MenuItem.RUN,
-//                MenuItem.MOVE_TO_UP,
-//                MenuItem.MOVE_TO_DOWN,
-//                MenuItem.REMOVE,
-//
-//                MenuItem.ADD_GROUP,
-//
-//                MenuItem.MOVE_MOUSE,
-//
-//                MenuItem.LEFT_MOUSE_BUTTON,
-//                MenuItem.MIDDLE_MOUSE_BUTTON,
-//                MenuItem.RIGHT_MOUSE_BUTTON)
-        MenuItem.values()
-                .filter { it.parent == null }
-                .forEach { createGroup(it) }
+        MenuItemGroup.values()
+                .forEach { menuItemGroup ->
+                    menuItemGroup.menuItems
+                            .filter { it.parent == null }
+                            .forEach { createGroup(it) }
+                    addSeparator(menuItemGroup)
+                }
+    }
+
+    private fun addSeparator(menuItemGroup: MenuItemGroup) {
+        if (MenuItemGroup.values().last() != menuItemGroup) {
+            actionBox.children.add(Separator())
+        }
     }
 
     private fun createGroup(action: MenuItem) {
@@ -92,21 +87,19 @@ class ActionBarController(val rootSchemaGroupController: RootSchemaGroupControll
     }
 
     fun updateDisabledButtons() {
-        rootModel?.let { model ->
-            nodeActionMap.forEach { (button, action) ->
-                button.isDisable = action.shouldBeDisabled(model)
-            }
+        val model = rootSchemaGroupController.model
+        nodeActionMap.forEach { (button, action) ->
+            button.isDisable = action.shouldBeDisabled(model)
         }
     }
 
-    fun updateActions() {
-        rootModel?.let { model ->
-            nodeActionMap.forEach { (button, action) ->
-                button.onMouseClicked = EventHandler { action.menuItemHandler(model) }
-            }
-            listViews.forEach { listView ->
-                listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.menuItemHandler(model) }
-            }
+    private fun updateActions() {
+        val model = rootSchemaGroupController.model
+        nodeActionMap.forEach { (button, action) ->
+            button.onMouseClicked = EventHandler { action.menuItemHandler(model) }
+        }
+        listViews.forEach { listView ->
+            listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.menuItemHandler(model) }
         }
     }
 
