@@ -2,11 +2,13 @@ package com.patres.automation.menuItem
 
 import com.patres.automation.Main
 import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.font.FontAutomationIcon
+import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import javafx.scene.control.Label
 
 enum class MenuItem(
-        val graphic: FontAwesomeIcon?,
+        val graphic: GlyphIcons?,
         bundleName: String = "",
         val parent: MenuItem?,
         val shouldBeDisabled: (rootSchemaGroupModel: RootSchemaGroupModel) -> Boolean = { false },
@@ -16,16 +18,16 @@ enum class MenuItem(
     RUN(FontAwesomeIcon.PLAY, "robot.action.runAutomation", null,  menuItemHandler = MenuItemHandlers.runAutomation),
     MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, "robot.action.moveToUp", null, MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToUp),
     MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, "robot.action.moveToDown", null, MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToDown),
-    REMOVE(FontAwesomeIcon.TRASH_ALT, "robot.action.remove", null, MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.remove),
+    REMOVE(FontAwesomeIcon.REMOVE, "robot.action.remove", null, MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.remove),
 
     ADD_GROUP(FontAwesomeIcon.OBJECT_GROUP, "robot.action.addGroup", null,  menuItemHandler = MenuItemHandlers.addSchemeGroup),
 
     DELAY(FontAwesomeIcon.HOURGLASS, "robot.action.delay", null, menuItemHandler = MenuItemHandlers.addDelay),
-    MOVE_MOUSE(FontAwesomeIcon.ARROWS_ALT, "robot.action.moveMouse", null, menuItemHandler = MenuItemHandlers.addMoveMouse),
+    MOVE_MOUSE(FontAutomationIcon.MOVE_MOUSE, "robot.action.moveMouse", null, menuItemHandler = MenuItemHandlers.addMoveMouse),
 
-    LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "roboto.action.mouse.left", null ),
-    MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "roboto.action.mouse.middle", null),
-    RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "roboto.action.mouse.right", null),
+    LEFT_MOUSE_BUTTON(FontAutomationIcon.LEFT_MOUSE_BUTTON_EDGE_ALT, "roboto.action.mouse.left", null ),
+    MIDDLE_MOUSE_BUTTON(FontAutomationIcon.MIDDLE_MOUSE_BUTTON_SMALL, "roboto.action.mouse.middle", null),
+    RIGHT_MOUSE_BUTTON(FontAutomationIcon.RIGHT_MOUSE_BUTTON_EDGE_ALT, "roboto.action.mouse.right", null),
 
     CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addLeftClickMouse),
     CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addMiddleClickMouse),

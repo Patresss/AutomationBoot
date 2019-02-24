@@ -7,6 +7,9 @@ import com.jfoenix.controls.JFXPopup
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.menuItem.MenuItemGroup
+import com.patres.automation.font.FontAutomationIcon
+import com.patres.automation.font.FontAutomationIconView
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
@@ -83,7 +86,12 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     private fun createButton(action: MenuItem): JFXButton {
         return JFXButton().apply {
             styleClass.add("animated-option-button")
-            graphic = FontAwesomeIconView(action.graphic).apply { styleClass.add("sub-icon") }
+            val icon = action.graphic
+            when (icon) {
+                is FontAwesomeIcon -> graphic = FontAwesomeIconView(icon)
+                is FontAutomationIcon -> graphic = FontAutomationIconView(icon)
+            }
+            graphic.apply { styleClass.add("sub-icon") }
         }
     }
 
