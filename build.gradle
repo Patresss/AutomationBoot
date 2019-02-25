@@ -31,7 +31,6 @@ dependencies {
     compile 'de.jensd:fontawesomefx-weathericons:2.0.10-5'
     compile 'de.jensd:fontawesomefx-commons:8.15'
 
-    compile group: 'com.github.afester.javafx', name: 'FranzXaver', version: '0.1'
 }
 
 

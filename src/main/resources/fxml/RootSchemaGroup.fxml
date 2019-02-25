@@ -2,25 +2,26 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="rootStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.automation.gui.controller.model.RootSchemaGroupController">
-    <BorderPane>
-      <center>
-         <ScrollPane fx:id="insidePane" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-      </center>
-      <left>
-         <VBox fx:id="actionBox" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" spacing="10.0" styleClass="root-schema-group-box-buttons" BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-               <Insets />
-            </BorderPane.margin>
-            <padding>
-               <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-            </padding>
-         </VBox>
-      </left>
-    </BorderPane>
-
-</StackPane>
+<BorderPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.automation.gui.controller.model.RootSchemaGroupController">
+   <center>
+      <ScrollPane fx:id="insidePane" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <left>
+      <AnchorPane>
+         <children>
+            <VBox fx:id="actionBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="1.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" spacing="10.0" styleClass="root-schema-group-box-buttons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets right="10.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </left>
+ </BorderPane>
