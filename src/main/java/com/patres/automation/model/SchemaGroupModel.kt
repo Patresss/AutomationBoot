@@ -107,6 +107,20 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
         }
     }
 
+    fun getGroupName() = controller.groupNameTextField.text
+
+    fun setGroupName(text: String) {
+        controller.groupNameTextField.text = text
+    }
+
+    fun getNumberOfIterations() = controller.iterationsTextField.text
+
+    fun setNumberOfIterations(text: String) {
+        controller.iterationsTextField.text = text
+    }
+
+
+
     override fun getMainNode(): Node = controller.getMainNode()
 
     override fun getMainInsideNode(): Node = controller.getMainInsideNode()

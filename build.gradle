@@ -3,13 +3,13 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'kotlinx-serialization'
 
 sourceCompatibility = 1.8
 
 repositories {
-    maven {
-        url  "https://dl.bintray.com/jerady/maven"
-    }
+    maven { url  "https://dl.bintray.com/jerady/maven" }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
     mavenCentral()
 }
 
@@ -31,6 +31,9 @@ dependencies {
     compile 'de.jensd:fontawesomefx-weathericons:2.0.10-5'
     compile 'de.jensd:fontawesomefx-commons:8.15'
 
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.10.0"
+
 }
 
 
@@ -43,13 +46,14 @@ jar {
     }
 }
 buildscript {
-    ext.kotlin_version = '1.2.51'
+    ext.kotlin_version = '1.3.21'
     repositories {
-
+        jcenter()
         mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 compileKotlin {

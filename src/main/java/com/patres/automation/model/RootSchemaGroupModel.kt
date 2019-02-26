@@ -18,7 +18,7 @@ class RootSchemaGroupModel {
 
     var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
-    val schemaGroup = SchemaGroupModel(this, null)
+    var schemaGroup = SchemaGroupModel(this, null)
 
     var selectedModel: AutomationModel<out AutomationController>? = null
         set(value) {

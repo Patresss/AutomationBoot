@@ -62,7 +62,7 @@ object LoaderFactory {
         }
     }
 
-    fun createRootSchemaGroup(tabPane: TabPane?): RootSchemaGroupModel {
+    fun createRootSchemaGroup(tabPane: TabPane?): Pair<Tab, RootSchemaGroupModel> {
         val rootSchemaGroup = RootSchemaGroupModel().apply {
             controller.insidePane.content = schemaGroup.controller.getMainNode()
         }
@@ -73,6 +73,6 @@ object LoaderFactory {
             selectionModel?.select(newTab)
         }
 
-        return rootSchemaGroup
+        return Pair(newTab, rootSchemaGroup)
     }
 }

@@ -12,7 +12,10 @@ open class TextFieldActionController : LabelActionController() {
     @FXML
     lateinit var validLabel: Label
 
-    val value: String
+    var value: String
         get() = valueTextField.text
+        set(value) {
+            valueTextField.text = value
+        }
 
 }

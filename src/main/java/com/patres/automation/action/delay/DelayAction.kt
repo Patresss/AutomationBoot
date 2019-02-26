@@ -48,13 +48,19 @@ class DelayAction(
     }
 
     private fun getDelay(): Int {
-        val text = controller.value
+        val text = getActionValue()
         try {
             return Integer.parseInt(text)
         } catch (e: Exception) {
             throw DelayFormatException(text)
         }
 
+    }
+
+    fun getActionValue() = controller.value
+
+    fun setActionValue(actionValue: String) {
+        controller.value = actionValue
     }
 
     override fun getMainNode(): Node = controller.getMainNode()

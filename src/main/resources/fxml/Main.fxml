@@ -7,7 +7,6 @@
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -57,7 +56,7 @@
                                 <FontAwesomeIconView glyphName="REFRESH" size="24" styleClass="sub-icon" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton contentDisplay="GRAPHIC_ONLY" styleClass="animated-option-button" GridPane.columnIndex="1">
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#saveRootSchema" styleClass="animated-option-button" GridPane.columnIndex="1">
                             <graphic>
                                 <FontAwesomeIconView glyphName="SAVE" size="24" styleClass="sub-icon" />
                             </graphic>
@@ -67,7 +66,7 @@
                                 <FontAwesomeIconView glyphName="PLUS" size="24" styleClass="sub-icon" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="removeButton" contentDisplay="GRAPHIC_ONLY" styleClass="animated-option-button" GridPane.columnIndex="2">
+                        <JFXButton fx:id="removeButton" contentDisplay="GRAPHIC_ONLY" onAction="#loadRootSchema" styleClass="animated-option-button" GridPane.columnIndex="2">
                             <graphic>
                                 <FontAwesomeIconView fx:id="minusButton" glyphName="MINUS" size="24" styleClass="sub-icon" />
                             </graphic>
