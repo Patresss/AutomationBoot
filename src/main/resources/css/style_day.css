@@ -1,5 +1,31 @@
 .root {
+
+    -color-primary-bright-10: #ffffff;
+    -color-primary-bright-9: #e5f3fa;
+    -color-primary-bright-8: #cce7f5;
+    -color-primary-bright-7: #b3dbf1;
+    -color-primary-bright-6: #99cfec;
+    -color-primary-bright-5: #80c3e8;
+    -color-primary-bright-4: #67b7e3;
+    -color-primary-bright-3: #4dabde;
+    -color-primary-bright-2: #349fda;
+    -color-primary-bright-1: #1b93d5;
     -color-primary: #0288D1;
+    -color-primary-dark-1: #017abc;
+    -color-primary-dark-2: #016ca7;
+    -color-primary-dark-3: #015f92;
+    -color-primary-dark-4: #01517d;
+    -color-primary-dark-5: #014468;
+    -color-primary-dark-6: #003653;
+    -color-primary-dark-7: #00283e;
+    -color-primary-dark-8: #001b29;
+    -color-primary-dark-9: #000d14;
+    -color-primary-dark-10: #000000;
+
+
+
+
+
     -color-primary-dark: #0288D1;
     -color-primary-ligth: #B3E5FC;
 
@@ -447,7 +473,7 @@ root {
 
 
 .jfx-snackbar-content {
-    -fx-background-color: -color-primary-text;
+    -fx-background-color: -color-primary-dark-3;
     -fx-padding: 5;
     -fx-spacing: 5;
 }
@@ -591,3 +617,25 @@ root {
 .tooltip {
     -fx-background-color: -color-primary-text-transparent;
 }
+
+/* ================================================================================*\
+ * Menu Bar
+\* ================================================================================*/
+.context-menu,
+.menu-bar{
+    -fx-background-color: -color-primary-dark;
+    -fx-font-weight: bold;
+}
+
+.menu .label {
+    -fx-text-fill: -color-background;
+    -fx-font-weight: bold;
+}
+
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing,
+.menu-item:focused {
+    -fx-background-color:  -color-primary-bright-2;
+}
+

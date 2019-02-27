@@ -3,21 +3,27 @@ package com.patres.automation.gui.controller
 import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
+import com.patres.automation.Main
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.serialize.RootSchemaGroupMapper
 import com.patres.automation.serialize.model.RootSchemaGroupSerialized
 import com.patres.automation.util.LoaderFactory
+import com.patres.automation.util.LoaderFile
 import javafx.event.EventHandler
 import javafx.fxml.FXML
-import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import javafx.scene.layout.StackPane
 import kotlinx.serialization.json.Json
 import java.io.File
+import java.text.MessageFormat
 
 
 class MainController {
 
+    companion object {
+        val FILE_IS_SAVED: String = Main.bundle.getString("message.snackbar.fileIsSaved")
+        const val MESSAGE_SNACKBAR_TIMEOUT: Long = 5000
+    }
 
     @FXML
     var root: StackPane? = null
@@ -28,50 +34,75 @@ class MainController {
     private lateinit var snackBar: JFXSnackbar
 
 
-    private val tabRootSchemaMap = HashMap<Tab?, RootSchemaGroupModel>()
+    private val tabContainers = ArrayList<TabContainer>()
 
     fun initialize() {
         snackBar = JFXSnackbar(root)
         tabPane?.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS
-        addNewSchema()
+        createNewRootSchema()
     }
 
     @FXML
-    fun addNewSchema() {
-        val pairTabRoot = LoaderFactory.createRootSchemaGroup(tabPane)
-        tabRootSchemaMap.put(pairTabRoot.first, pairTabRoot.second)
+    fun createNewRootSchema() {
+        val tabContainer = LoaderFactory.createRootSchemaGroup(tabPane)
+        tabContainers.add(tabContainer)
     }
 
     @FXML
-    fun saveRootSchema() {
-        getSelectedRootSchema()?.let { rootSchema ->
-            val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchema)
+    fun openRootSchema() {
+        val fileToOpen = LoaderFile.chooseFileToLoad()
+        if (fileToOpen != null) {
+            val serializedRootGroup = fileToOpen.readText()
+            val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
+            val rootGroup: RootSchemaGroupModel = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
+
+            val tabContainer = LoaderFactory.loadRootSchemaGroup(tabPane, rootGroup).apply {
+                file = fileToOpen
+            }
+            tabContainers.add(tabContainer)
+        }
+    }
+
+
+    @FXML
+    fun saveExistingRootSchema() {
+        getSelectedTabContainer()?.let { tabContainer ->
+            var file = tabContainer.file
+            if (file == null) {
+                file = LoaderFile.chooseFileToSave()
+            }
+            if (file != null) {
+                saveRootSchema(file)
+            }
+        }
+    }
+
+    @FXML
+    fun saveAsRootSchema() {
+        getSelectedTabContainer()?.let { tabContainer ->
+            val file = LoaderFile.chooseFileToSave()
+            if (file != null) {
+                saveRootSchema(file)
+            }
+        }
+    }
+
+    private fun saveRootSchema(file: File) {
+        getSelectedTabContainer()?.let { tabContainer ->
+            val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(tabContainer.rootSchema)
             val serializedRootGroup = Json.stringify(RootSchemaGroupSerialized.serializer(), rootSchemaGroupSerialized)
-            val homeDirectory = "P:\\Programowanie\\Projekty\\Mouse and keyboard automat\\Examples"
-            File(homeDirectory, "file.json").writeText(serializedRootGroup)
+            file.writeText(serializedRootGroup)
+            tabContainer.file = file
+            setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, file.name))
         }
-
     }
 
-    @FXML
-    fun loadRootSchema() {
-        val homeDirectory = "P:\\Programowanie\\Projekty\\Mouse and keyboard automat\\Examples"
-        val serializedRootGroup = File(homeDirectory, "file.json").readText()
-        val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
-        val rootGroup: RootSchemaGroupModel = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized).apply {
-            controller.insidePane.content = schemaGroup.controller.getMainNode()
-        }
-        val tab = tabPane?.selectionModel?.selectedItem
-        tabRootSchemaMap[tab] = rootGroup
-        tab?.content = rootGroup.controller.rootStackPane
-    }
+    private fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane?.selectionModel?.selectedItem }
 
-    fun getSelectedRootSchema(): RootSchemaGroupModel? = tabRootSchemaMap[tabPane?.selectionModel?.selectedItem]
-
-    fun setMessageToSnackBar(message: String) {
+    private fun setMessageToSnackBar(message: String) {
         snackBar.fireEvent(
                 SnackbarEvent(message, "X",
-                        2000,
+                        MESSAGE_SNACKBAR_TIMEOUT,
                         false,
                         EventHandler { snackBar.close() }))
     }

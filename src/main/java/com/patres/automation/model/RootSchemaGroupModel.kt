@@ -19,6 +19,10 @@ class RootSchemaGroupModel {
     var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
     var schemaGroup = SchemaGroupModel(this, null)
+        set(value) {
+            field = value
+            loadControllerContent()
+        }
 
     var selectedModel: AutomationModel<out AutomationController>? = null
         set(value) {
@@ -34,7 +38,7 @@ class RootSchemaGroupModel {
 
     init {
         controller.actionBarController.initAfterSetModel()
-        schemaGroup.controller.mainSchemaBox.minHeightProperty().bind(controller.rootStackPane.heightProperty())
+        loadControllerContent()
     }
 
     fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
@@ -96,6 +100,11 @@ class RootSchemaGroupModel {
         } else {
             schemaGroup
         }
+    }
+
+    private fun loadControllerContent() {
+        controller.insidePane.content = schemaGroup.controller.getMainNode()
+        schemaGroup.controller.mainSchemaBox.minHeightProperty().bind(controller.rootStackPane.heightProperty())
     }
 
 }

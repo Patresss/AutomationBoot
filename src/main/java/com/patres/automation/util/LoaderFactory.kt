@@ -2,6 +2,7 @@ package com.patres.automation.util
 
 import com.patres.automation.Main
 import com.patres.automation.action.mouse.MouseAction
+import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.controller.model.*
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
@@ -62,17 +63,17 @@ object LoaderFactory {
         }
     }
 
-    fun createRootSchemaGroup(tabPane: TabPane?): Pair<Tab, RootSchemaGroupModel> {
-        val rootSchemaGroup = RootSchemaGroupModel().apply {
-            controller.insidePane.content = schemaGroup.controller.getMainNode()
-        }
+    fun createRootSchemaGroup(tabPane: TabPane?): TabContainer {
+        return loadRootSchemaGroup(tabPane, RootSchemaGroupModel())
+    }
 
+    fun loadRootSchemaGroup(tabPane: TabPane?, rootSchemaGroup: RootSchemaGroupModel): TabContainer {
         val newTab = Tab("New Tab", rootSchemaGroup.controller.rootStackPane)
         tabPane?.apply {
             tabs?.add(newTab)
             selectionModel?.select(newTab)
         }
-
-        return Pair(newTab, rootSchemaGroup)
+        return TabContainer(tab = newTab, rootSchema = rootSchemaGroup)
     }
+
 }
