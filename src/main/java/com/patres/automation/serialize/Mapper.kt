@@ -1,16 +1,12 @@
 package com.patres.automation.serialize
 
-import com.patres.automation.gui.controller.model.RootSchemaGroupController
-import com.patres.automation.serialize.model.RootSchemaGroupSerialized
+import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.model.SchemaGroupModel
 
-class Mapper {
+interface Mapper<ModelType, SerializedType> {
 
-    companion object {
+    fun modelToSerialize(model: ModelType): SerializedType
 
-        fun modelToSerialize(rootSchemaGroupController: RootSchemaGroupController) {
-//            val rootSchemaGroupSerialized = RootSchemaGroupSerialized()
+    fun serializedToModel(serializedModel: SerializedType, root: RootSchemaGroupModel, parent: SchemaGroupModel): ModelType
 
-        }
-
-    }
 }

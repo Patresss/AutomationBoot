@@ -1,11 +1,11 @@
 package com.patres.automation.action.delay
 
+import com.patres.automation.action.mouse.TextFieldActionModel
 import com.patres.automation.excpetion.DelayFormatException
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.GlobalKeyListener
 import com.patres.automation.menuItem.MenuItem
-import com.patres.automation.model.ActionNodeModel
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.util.LoaderFactory
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory
 class DelayAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : ActionNodeModel<TextFieldActionController>(root, parent) {
+) : TextFieldActionModel(root, parent) {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(DelayAction::class.java)
@@ -57,11 +57,6 @@ class DelayAction(
 
     }
 
-    fun getActionValue() = controller.value
-
-    fun setActionValue(actionValue: String) {
-        controller.value = actionValue
-    }
 
     override fun getMainNode(): Node = controller.getMainNode()
 

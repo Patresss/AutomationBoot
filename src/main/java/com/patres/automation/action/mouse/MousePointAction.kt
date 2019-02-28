@@ -38,13 +38,13 @@ abstract class MousePointAction(
     }
 
     private fun loadPoint() {
-        val pointString = controller.valueTextField.text ?: ""
+        val pointString = getActionValue()
         this.point = Point.stringToPoint(pointString)
     }
 
     override fun checkValidations() {
         if (!pointValidation.isConditionFulfilled) {
-            throw PointFormatException(controller.valueTextField.text)
+            throw PointFormatException(getActionValue())
         }
     }
 

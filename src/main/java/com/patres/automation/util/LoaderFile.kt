@@ -6,7 +6,7 @@ import java.io.File
 
 object LoaderFile {
 
-    const val extension = ".abJson"
+    const val extension = ".ab"
     private val extFilter = FileChooser.ExtensionFilter("Automation boot (*$extension)", "*$extension")
 
     fun chooseFileToLoad(): File? {

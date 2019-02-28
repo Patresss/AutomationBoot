@@ -6,19 +6,19 @@ import com.patres.automation.serialize.model.SchemaGroupSerialized
 
 object SchemaGroupMapper {
 
-    fun modelToSerialize(schemaGroupModel: SchemaGroupModel): SchemaGroupSerialized {
+    fun modelToSerialize(model: SchemaGroupModel): SchemaGroupSerialized {
         return SchemaGroupSerialized(
-                actionList = schemaGroupModel.actionBlocks.map { AutomationActionMapper.modelToSerialize(it) },
-                groupName = schemaGroupModel.getGroupName(),
-                numberOfIterations = schemaGroupModel.getNumberOfIteration().toString()
+                actionList = model.actionBlocks.map { AutomationActionMapper.modelToSerialize(it) },
+                groupName = model.getGroupName(),
+                numberOfIterations = model.getNumberOfIteration().toString()
         )
     }
 
-    fun serializedToModel(serialized: SchemaGroupSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel?): SchemaGroupModel {
+    fun serializedToModel(serializedModel: SchemaGroupSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel?): SchemaGroupModel {
         return SchemaGroupModel(root, parent).apply {
-            setGroupName(serialized.groupName)
-            setNumberOfIterations(serialized.numberOfIterations)
-            val models = serialized.actionList.map { AutomationActionMapper.serializedToModel(it, root, this) }
+            setGroupName(serializedModel.groupName)
+            setNumberOfIterations(serializedModel.numberOfIterations)
+            val models = serializedModel.actionList.map { AutomationActionMapper.serializedToModel(it, root, this) }
             models.forEach {
                 addActionBlocks(it)
             }

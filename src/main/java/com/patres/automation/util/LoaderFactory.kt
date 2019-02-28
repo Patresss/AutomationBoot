@@ -2,6 +2,7 @@ package com.patres.automation.util
 
 import com.patres.automation.Main
 import com.patres.automation.action.mouse.MouseAction
+import com.patres.automation.action.mouse.MousePointAction
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.controller.model.*
 import com.patres.automation.model.RootSchemaGroupModel
@@ -13,16 +14,6 @@ import javafx.scene.control.TabPane
 
 object LoaderFactory {
 
-    fun createLabelActionController(model: MouseAction<LabelActionController>): LabelActionController {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/LabelAction.fxml")
-        loader.resources = Main.bundle
-        loader.load<LabelActionController>()
-        return loader.getController<LabelActionController>().also {
-            it.model = model
-        }
-    }
-
     fun createTextFieldActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/TextFieldAction.fxml")
@@ -33,7 +24,7 @@ object LoaderFactory {
         }
     }
 
-    fun createMousePointActionController(model: ActionNodeModel<MousePointActionController>): MousePointActionController {
+    fun createMousePointActionController(model: MousePointAction): MousePointActionController {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/MousePointAction.fxml")
         loader.resources = Main.bundle
