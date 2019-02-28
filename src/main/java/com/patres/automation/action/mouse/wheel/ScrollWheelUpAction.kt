@@ -3,7 +3,6 @@ package com.patres.automation.action.mouse.wheel
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.util.getInteger
 
 class ScrollWheelUpAction(
         root: RootSchemaGroupModel,
