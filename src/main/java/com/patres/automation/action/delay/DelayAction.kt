@@ -1,7 +1,6 @@
 package com.patres.automation.action.delay
 
 import com.patres.automation.action.mouse.TextFieldActionModel
-import com.patres.automation.excpetion.DelayFormatException
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.GlobalKeyListener
@@ -9,7 +8,8 @@ import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.util.LoaderFactory
-import com.patres.automation.validation.DelayValidation
+import com.patres.automation.util.getInteger
+import com.patres.automation.validation.IntegerValidation
 import javafx.scene.Node
 import org.slf4j.LoggerFactory
 
@@ -25,7 +25,7 @@ class DelayAction(
 
     override val controller: TextFieldActionController = LoaderFactory.createTextFieldActionController(this)
 
-    private var validation = DelayValidation(controller.validLabel, controller.valueTextField)
+    private var validation = IntegerValidation(controller.validLabel, controller.valueTextField)
 
     init {
         controller.actionLabel.text = MenuItem.DELAY.actionName
@@ -34,7 +34,7 @@ class DelayAction(
 
     override fun runAction() {
         try {
-            val delay = getDelay()
+            val delay = getActionValue().getInteger()
             var currentDelay = 0
             while (currentDelay <= delay && !GlobalKeyListener.isStop()) {
                 currentDelay += DELAY_STEP
@@ -47,15 +47,7 @@ class DelayAction(
         }
     }
 
-    private fun getDelay(): Int {
-        val text = getActionValue()
-        try {
-            return Integer.parseInt(text)
-        } catch (e: Exception) {
-            throw DelayFormatException(text)
-        }
 
-    }
 
 
     override fun getMainNode(): Node = controller.getMainNode()

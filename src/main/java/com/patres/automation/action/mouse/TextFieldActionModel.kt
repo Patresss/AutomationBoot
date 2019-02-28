@@ -4,6 +4,7 @@ import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.model.ActionNodeModel
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
+import javafx.scene.Node
 
 abstract class TextFieldActionModel(
         root: RootSchemaGroupModel,
@@ -15,5 +16,9 @@ abstract class TextFieldActionModel(
     fun setActionValue(actionValue: String) {
         controller.value = actionValue
     }
+
+    override fun getMainNode(): Node = controller.getMainNode()
+
+    override fun getMainInsideNode(): Node = controller.getMainInsideNode()
 
 }

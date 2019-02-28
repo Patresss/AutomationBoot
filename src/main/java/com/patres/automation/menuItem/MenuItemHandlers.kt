@@ -14,6 +14,8 @@ import com.patres.automation.action.mouse.press.PressRightMouseAction
 import com.patres.automation.action.mouse.release.ReleaseLeftMouseAction
 import com.patres.automation.action.mouse.release.ReleaseMiddleMouseAction
 import com.patres.automation.action.mouse.release.ReleaseRightMouseAction
+import com.patres.automation.action.mouse.wheel.ScrollWheelDownAction
+import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
 import com.patres.automation.model.RootSchemaGroupModel
 
 object MenuItemHandlers {
@@ -56,6 +58,10 @@ object MenuItemHandlers {
     val addMoveMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(MoveMouseAction(it, it.getSelectedShemaGroupModel())) }
 
     val addDelay: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(DelayAction(it, it.getSelectedShemaGroupModel())) }
+
+    val addScrollWheelUp: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelUpAction(it, it.getSelectedShemaGroupModel())) }
+
+    val addScrollWheelDown: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelDownAction(it, it.getSelectedShemaGroupModel())) }
 
 
 }
