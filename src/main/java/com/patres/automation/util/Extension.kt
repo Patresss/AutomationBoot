@@ -1,5 +1,6 @@
 package com.patres.automation.util
 
+import com.patres.automation.excpetion.IntegerFormatException
 import com.sun.javafx.util.Utils
 import javafx.collections.ObservableList
 import javafx.scene.Node
@@ -88,4 +89,12 @@ fun getObjectFromField(clazz: KClass<out Any>, instance: Any, nameOfField: Strin
     val field = clazz.java.getDeclaredField(nameOfField)
     field.isAccessible = true
     return field.get(instance)
+}
+
+ fun String.getInteger(): Int {
+    try {
+        return Integer.parseInt(this)
+    } catch (e: Exception) {
+        throw IntegerFormatException(this)
+    }
 }

@@ -1,8 +1,8 @@
 package com.patres.automation.excpetion;
 
-public class DelayFormatException extends ApplicationException {
+public class IntegerFormatException extends ApplicationException {
 
-    public DelayFormatException(String delay) {
+    public IntegerFormatException(String delay) {
         super(String.format("Please enter the delay \"%s\" as an integer", delay));
     }
 

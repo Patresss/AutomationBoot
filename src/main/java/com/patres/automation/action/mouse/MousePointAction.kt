@@ -12,7 +12,7 @@ import javafx.scene.Node
 abstract class MousePointAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : MouseAction<MousePointActionController>(root, parent) {
+) : MouseAction(root, parent) {
 
     companion object {
         private const val DELAY = 150L
@@ -48,9 +48,7 @@ abstract class MousePointAction(
         }
     }
 
-    override fun getMainNode(): Node = controller.getMainNode()
 
-    override fun getMainInsideNode(): Node = controller.getMainInsideNode()
 
 
 }
