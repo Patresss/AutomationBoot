@@ -1,6 +1,7 @@
 package com.patres.automation.gui.controller.model
 
 import com.jfoenix.controls.JFXTextField
+import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.layout.BorderPane
@@ -26,8 +27,16 @@ class SchemaGroupController : AutomationController() {
     @FXML
     lateinit var iterationsTextField: JFXTextField
 
+    @FXML
+    override fun initialize() {
+        super.initialize()
+        groupNameTextField.onMouseClicked = EventHandler { selectAction() }
+    }
+
     fun getMainNode(): Node = mainSchemaBox
 
     fun getMainInsideNode(): Pane = innerBox
+
+    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(groupNameTextField, iterationsTextField)
 
 }

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.PointerController
 import javafx.fxml.FXML
+import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.stage.Stage
 import javafx.stage.StageStyle
@@ -12,6 +13,8 @@ class MousePointActionController : TextFieldActionController() {
 
     @FXML
     lateinit var pointButton: JFXButton
+
+    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(pointButton)
 
     @FXML
     override fun initialize() {

@@ -18,4 +18,6 @@ open class LabelActionController : AutomationController() {
 
     fun getMainInsideNode(): Pane = mainPane
 
+    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(mainPane)
+
 }
