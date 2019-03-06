@@ -25,8 +25,8 @@
         </rowConstraints>
          <children>
             <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-            <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <JFXTextField fx:id="valueTextField" GridPane.columnIndex="2" />
+            <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
              <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" GridPane.rowSpan="2" StackPane.alignment="CENTER_LEFT">
                  <children>
                      <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">

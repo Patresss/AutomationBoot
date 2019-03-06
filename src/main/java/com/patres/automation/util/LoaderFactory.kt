@@ -14,14 +14,23 @@ import javafx.scene.control.TabPane
 
 object LoaderFactory {
 
-    fun createTextFieldActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
+
+    private fun createTextActionController(model: ActionNodeModel<TextFieldActionController>, fxmlName: String): TextFieldActionController {
         val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/TextFieldAction.fxml")
+        loader.location = javaClass.getResource("/fxml/$fxmlName")
         loader.resources = Main.bundle
         loader.load<TextFieldActionController>()
         return loader.getController<TextFieldActionController>().also {
             it.model = model
         }
+    }
+
+    fun createTextAreaActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
+        return  createTextActionController(model, "AreaFieldAction.fxml")
+    }
+
+    fun createTextFieldActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
+        return  createTextActionController(model, "TextFieldAction.fxml")
     }
 
     fun createMousePointActionController(model: MousePointAction): MousePointActionController {

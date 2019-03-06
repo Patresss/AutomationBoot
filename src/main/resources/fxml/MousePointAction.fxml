@@ -27,7 +27,7 @@
          <children>
             <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
             <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <JFXTextField fx:id="valueTextField" GridPane.columnIndex="2" />
+            <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
             <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="3" GridPane.rowSpan="2">
                <graphic>
                   <FontAwesomeIconView glyphName="CROSSHAIRS" styleClass="sub-icon" />

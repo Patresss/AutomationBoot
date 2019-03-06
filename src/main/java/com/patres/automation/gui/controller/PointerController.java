@@ -96,7 +96,7 @@ public class PointerController {
             int y = (int) (relesedEvent.getScreenY() - stage.getY());
 
             Point point = new Point(x, y);
-            pointPane.getValueTextField().setText(point.toString());
+            pointPane.getValueText().setText(point.toString());
             stage.close();
             Main.Companion.getMainStage().setIconified(false);
         });

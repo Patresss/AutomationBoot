@@ -3,10 +3,11 @@ package com.patres.automation.validation
 import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
+import javafx.scene.control.TextInputControl
 
 abstract class AbstractValidation(
         private var validationLabel: Label,
-        protected var validationTextField: TextField
+        protected var validationTextField: TextInputControl
 ) {
 
     companion object {

@@ -22,7 +22,7 @@ abstract class MousePointAction(
 
     var point: Point? = null
 
-    private var pointValidation = PointValidation(controller.validLabel, controller.valueTextField)
+    private var pointValidation = PointValidation(controller.validLabel, controller.valueText)
 
     init {
         pointValidation.activateControlListener()
@@ -47,8 +47,5 @@ abstract class MousePointAction(
             throw PointFormatException(getActionValue())
         }
     }
-
-
-
 
 }

@@ -21,7 +21,7 @@ abstract class ScrollWheelAction(
 
     override val controller: TextFieldActionController = LoaderFactory.createTextFieldActionController(this)
 
-    private var validation = IntegerValidation(controller.validLabel, controller.valueTextField)
+    private var validation = IntegerValidation(controller.validLabel, controller.valueText)
 
     init {
         validation.activateControlListener()

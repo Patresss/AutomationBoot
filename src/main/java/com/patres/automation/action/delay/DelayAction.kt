@@ -25,7 +25,7 @@ class DelayAction(
 
     override val controller: TextFieldActionController = LoaderFactory.createTextFieldActionController(this)
 
-    private var validation = IntegerValidation(controller.validLabel, controller.valueTextField)
+    private var validation = IntegerValidation(controller.validLabel, controller.valueText)
 
     init {
         controller.actionLabel.text = MenuItem.DELAY.actionName
