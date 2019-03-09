@@ -28,7 +28,7 @@ class TypeTextAction(
 
     private fun pressKey(keyCode: List<Int>) {
         keyCode.forEach { robot.keyPress(it) }
-        keyCode.forEach { robot.keyRelease(it) }
+        keyCode.reversed().forEach { robot.keyRelease(it) }
     }
 
 }
