@@ -24,7 +24,6 @@ abstract class AutomationController {
     }
 
     fun afterInit() {
-//        model.getMainNode().isPickOnBounds = true
     }
 
 

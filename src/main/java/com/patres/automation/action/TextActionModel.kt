@@ -1,4 +1,4 @@
-package com.patres.automation.action.mouse
+package com.patres.automation.action
 
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.model.ActionNodeModel
@@ -6,7 +6,7 @@ import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import javafx.scene.Node
 
-abstract class TextFieldActionModel(
+abstract class TextActionModel(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
 ) : ActionNodeModel<TextFieldActionController>(root, parent) {

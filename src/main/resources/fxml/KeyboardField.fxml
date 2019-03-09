@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root prefHeight="70.0" type="ScrollPane" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <HBox prefHeight="60.0" spacing="10.0">
+         <children>
+            <StackPane>
+               <children>
+                  <JFXButton fx:id="addButton" alignment="CENTER" styleClass="sub-action-button">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="KEYBOARD_ALT" styleClass="sub-icon">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></FontAwesomeIconView>
+                     </graphic>
+                     <StackPane.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </StackPane.margin>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </StackPane>
+            <StackPane>
+               <children>
+                  <HBox fx:id="keyboardButtonHBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="5.0" StackPane.alignment="CENTER_LEFT" />
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+   </content>
+</fx:root>

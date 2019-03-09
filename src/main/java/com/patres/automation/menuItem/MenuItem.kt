@@ -2,7 +2,7 @@ package com.patres.automation.menuItem
 
 import com.patres.automation.Main
 import com.patres.automation.action.delay.DelayAction
-import com.patres.automation.action.mouse.TextFieldActionModel
+import com.patres.automation.action.TextFieldActionModel
 import com.patres.automation.action.mouse.click.LeftMouseClickAction
 import com.patres.automation.action.mouse.click.MiddleMouseClickAction
 import com.patres.automation.action.mouse.click.RightMouseClickAction
@@ -69,7 +69,9 @@ enum class MenuItem(
     SCROLL_WHEEL_DOWN(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.down", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelDown, classValue = ScrollWheelDownAction::class.java),
 
     PASTE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste", KEYBOARD, menuItemHandler = MenuItemHandlers.addPasteText, classValue = PasteTextAction::class.java),
-    TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type", KEYBOARD, menuItemHandler = MenuItemHandlers.addTypeText, classValue = TypeTextAction::class.java);
+    TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type", KEYBOARD, menuItemHandler = MenuItemHandlers.addTypeText, classValue = TypeTextAction::class.java),
+
+    PRESS_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.press", KEYBOARD, menuItemHandler = MenuItemHandlers.addPressKeyboardButton);
 
     val actionName = if (bundleName.isBlank()) "" else Main.bundle.getString(bundleName) ?: ""
     val label: Label

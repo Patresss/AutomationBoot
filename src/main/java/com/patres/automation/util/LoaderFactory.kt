@@ -1,7 +1,7 @@
 package com.patres.automation.util
 
 import com.patres.automation.Main
-import com.patres.automation.action.mouse.MouseAction
+import com.patres.automation.action.keyboard.KeyboardButtonAction
 import com.patres.automation.action.mouse.MousePointAction
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.controller.model.*
@@ -31,6 +31,16 @@ object LoaderFactory {
 
     fun createTextFieldActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
         return  createTextActionController(model, "TextFieldAction.fxml")
+    }
+
+    fun createKeyboardFieldActionController(model: KeyboardButtonAction): KeyboardButtonActionController {
+        val loader = FXMLLoader()
+        loader.location = javaClass.getResource("/fxml/KeyboardFieldAction.fxml")
+        loader.resources = Main.bundle
+        loader.load<KeyboardButtonActionController>()
+        return loader.getController<KeyboardButtonActionController>().also {
+            it.model = model
+        }
     }
 
     fun createMousePointActionController(model: MousePointAction): MousePointActionController {

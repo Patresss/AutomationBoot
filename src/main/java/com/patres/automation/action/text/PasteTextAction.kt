@@ -1,6 +1,6 @@
 package com.patres.automation.action.text
 
-import com.patres.automation.action.mouse.TextFieldActionModel
+import com.patres.automation.action.TextFieldActionModel
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel

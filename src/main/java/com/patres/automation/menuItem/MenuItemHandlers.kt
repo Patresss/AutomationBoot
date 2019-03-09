@@ -1,6 +1,7 @@
 package com.patres.automation.menuItem
 
 import com.patres.automation.action.delay.DelayAction
+import com.patres.automation.action.keyboard.PressKeyboardButtonAction
 import com.patres.automation.action.mouse.click.LeftMouseClickAction
 import com.patres.automation.action.mouse.click.MiddleMouseClickAction
 import com.patres.automation.action.mouse.click.RightMouseClickAction
@@ -68,5 +69,7 @@ object MenuItemHandlers {
     val addPasteText: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PasteTextAction(it, it.getSelectedShemaGroupModel())) }
 
     val addTypeText: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(TypeTextAction(it, it.getSelectedShemaGroupModel())) }
+
+    val addPressKeyboardButton: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressKeyboardButtonAction(it, it.getSelectedShemaGroupModel())) }
 
 }

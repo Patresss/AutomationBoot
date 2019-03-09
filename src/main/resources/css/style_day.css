@@ -29,7 +29,7 @@
     -color-primary-dark: #0288D1;
     -color-primary-ligth: #B3E5FC;
 
-   -color-primary-text: #01547a;  /*1, 84, 122*/
+    -color-primary-text: #01547a;  /*1, 84, 122*/
     -color-primary-text-transparent: rgba(1, 84, 122, 0.9);
 
     -color-background: #FFFFFF;
@@ -247,12 +247,7 @@ root {
     -fx-expanded: false;
 }
 
-.jfx-popup,
-.jfx-popup .jfx-popup-container,
-.jfx-popup .jfx-list-view{
-   -fx-pref-width: 295px;
 
-}
 
 .list-cell:disabled .label {
     -fx-opacity: 1.0;
@@ -356,15 +351,7 @@ root {
 }
 
 
-/*******************************************************************************
- * Hamburger                                                                   *
- ******************************************************************************/
-.jfx-hamburger StackPane {
-    -fx-pref-width: 30px;
-    -fx-pref-height: 4px;
-    -fx-background-color: -color-background;
-    -fx-background-radius: 5px;
-}
+
 
 .tree-table-view .tree-table-cell {
     -fx-padding: 0 0 0 16;
@@ -593,6 +580,18 @@ root {
     -jfx-button-type: RAISED;
 }
 
+.sub-small-action-button {
+    -fx-background-color: #F1F1F1;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 10px;
+    -fx-pref-width: 10px;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+    -jfx-button-type: RAISED;
+}
+
 
 
 /* ================================================================================*\
@@ -639,3 +638,27 @@ root {
     -fx-background-color:  -color-primary-bright-2;
 }
 
+/* ================================================================================*\
+ * Keyboard buttond
+\* ================================================================================*/
+
+.keyboard-button {
+    -fx-background-color: -color-primary-bright-9;
+    -fx-text-fill: -color-primary-dark-9;
+    -fx-border-width: 5;
+    -fx-border-color: linear-gradient(to top, -color-primary-bright-5, -color-primary-bright-6, -color-primary-bright-6, -color-primary-bright-5);
+    -fx-font-size: 9pt;
+}
+
+.keyboard-close-button {
+
+}
+
+/*******************************************************************************
+ * action-bar,                                                                   *
+ ******************************************************************************/
+.jfx-popup .action-bar,
+.jfx-popup .jfx-popup-container .action-bar,
+.jfx-popup .jfx-list-view .action-bar{
+    -fx-pref-width: 295px;
+}

@@ -78,6 +78,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
                 }
             }
         }
+        listView.styleClass.add("action-bar")
         val popup = JFXPopup(listView)
         listViews.add(listView)
         button.setOnMouseClicked { popup.show(button, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 35.0, 0.0) }

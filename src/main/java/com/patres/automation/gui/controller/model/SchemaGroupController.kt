@@ -4,10 +4,10 @@ import com.jfoenix.controls.JFXTextField
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
-import javafx.scene.layout.BorderPane
-import javafx.scene.layout.Pane
+import javafx.scene.layout.*
 import javafx.scene.layout.StackPane
-import javafx.scene.layout.VBox
+
+
 
 
 class SchemaGroupController : AutomationController() {
