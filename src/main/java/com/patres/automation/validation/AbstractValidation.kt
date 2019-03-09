@@ -14,7 +14,7 @@ abstract class AbstractValidation(
         const val ERROR_STYLE = "error"
     }
 
-    abstract val isConditionFulfilled: Boolean
+    abstract fun isConditionFulfilled(): Boolean
 
     private fun setError(isError: Boolean) {
         validationLabel.isVisible = isError
@@ -31,7 +31,7 @@ abstract class AbstractValidation(
 
     private fun activateLabelValidate() {
         val isEmpty = validationTextField.text == ""
-        setError(!isConditionFulfilled && !isEmpty)
+        setError(!isConditionFulfilled() && !isEmpty)
     }
 
     fun activateControlListener() {

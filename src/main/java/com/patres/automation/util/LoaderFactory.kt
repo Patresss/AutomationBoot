@@ -53,6 +53,16 @@ object LoaderFactory {
         }
     }
 
+    fun createBrowseFileActionController(model: BrowseFileAction): BrowseFileActionController {
+        val loader = FXMLLoader()
+        loader.location = javaClass.getResource("/fxml/BrowsFIleAction.fxml")
+        loader.resources = Main.bundle
+        loader.load<BrowseFileActionController>()
+        return loader.getController<BrowseFileActionController>().also {
+            it.model = model
+        }
+    }
+
     fun createSchemaGroupController(model: SchemaGroupModel): SchemaGroupController {
         val loader = FXMLLoader()
         loader.location = javaClass.getResource("/fxml/SchemaGroup.fxml")
