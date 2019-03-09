@@ -2,6 +2,7 @@ package com.patres.automation.action.text
 
 import com.patres.automation.action.TextFieldActionModel
 import com.patres.automation.gui.controller.model.TextFieldActionController
+import com.patres.automation.keyboard.GlobalKeyListener
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
@@ -21,9 +22,16 @@ class TypeTextAction(
     }
 
     override fun runAction() {
-        getActionValue().toCharArray()
-                .map { KeyLoader.getKey(it) }
-                .forEach { pressKey(it) }
+        run loop@{
+            getActionValue().toCharArray()
+                    .map { KeyLoader.getKey(it) }
+                    .forEach {
+                        if (GlobalKeyListener.isStop()) {
+                            return@loop
+                        }
+                        pressKey(it)
+                    }
+        }
     }
 
     private fun pressKey(keyCode: List<Int>) {

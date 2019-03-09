@@ -5,6 +5,7 @@ import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
+import com.patres.automation.keyboard.GlobalKeyListener
 import com.patres.automation.util.LoaderFactory
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.HexConverter
@@ -71,6 +72,7 @@ class RootSchemaGroupModel {
 
     fun runAutomation() {
         try {
+            GlobalKeyListener.setStop(false)
             schemaGroup.checkValidation()
             Main.mainStage.isIconified = true
             schemaGroup.runAction()

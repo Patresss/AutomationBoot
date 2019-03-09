@@ -119,15 +119,15 @@ object KeyLoader {
             '\'' -> listOf(KeyEvent.VK_QUOTE)
             '"' -> listOf(KeyEvent.VK_QUOTEDBL)
             ',' -> listOf(KeyEvent.VK_COMMA)
-            '<' -> listOf(KeyEvent.VK_LESS)
+            '<' -> listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_COMMA)
             '.' -> listOf(KeyEvent.VK_PERIOD)
-            '>' -> listOf(KeyEvent.VK_GREATER)
+            '>' -> listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_PERIOD)
             '/' -> listOf(KeyEvent.VK_SLASH)
             '?' -> listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_SLASH)
             ' ' -> listOf(KeyEvent.VK_SPACE)
             else -> {
                 logger.warn("Cannot type character $character")
-                emptyList()
+                listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_SLASH)
             }
         }
     }
