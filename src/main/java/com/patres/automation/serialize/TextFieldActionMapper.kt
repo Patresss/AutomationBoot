@@ -18,8 +18,11 @@ import com.patres.automation.action.mouse.release.ReleaseRightMouseAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelDownAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
 import com.patres.automation.action.text.paste.PasteTextAction
-import com.patres.automation.action.text.TypeTextAction
+import com.patres.automation.action.text.type.TypeTextAction
 import com.patres.automation.action.text.paste.PasteTextFromFieldAction
+import com.patres.automation.action.text.paste.PasteTextFromFileAction
+import com.patres.automation.action.text.type.TypeTextFromFieldAction
+import com.patres.automation.action.text.type.TypeTextFromFileAction
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.gui.controller.model.TextActionController
 import com.patres.automation.menuItem.MenuItem
@@ -53,7 +56,9 @@ object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>,
             MenuItem.SCROLL_WHEEL_DOWN.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ScrollWheelDownAction(root, parent) },
 
             MenuItem.PASTE_TEXT.name to PasteTextFromFieldAction.createAction,
-            MenuItem.TYPE_TEXT.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> TypeTextAction(root, parent) }
+            MenuItem.PASTE_TEXT_FROM_FILE.name to PasteTextFromFileAction.createAction,
+            MenuItem.TYPE_TEXT.name to TypeTextFromFileAction.createAction,
+            MenuItem.TYPE_TEXT_FROM_FILE.name to TypeTextFromFileAction.createAction
     )
 
     private val actionClassMap = mapOf(
@@ -78,8 +83,10 @@ object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>,
             ScrollWheelUpAction::class.java to MenuItem.SCROLL_WHEEL_UP.name,
             ScrollWheelDownAction::class.java to MenuItem.SCROLL_WHEEL_DOWN.name,
 
-            PasteTextAction::class.java to MenuItem.PASTE_TEXT.name,
-            TypeTextAction::class.java to MenuItem.TYPE_TEXT.name
+            PasteTextFromFieldAction::class.java to MenuItem.PASTE_TEXT.name,
+            PasteTextFromFileAction::class.java to MenuItem.PASTE_TEXT_FROM_FILE.name,
+            TypeTextFromFieldAction::class.java to MenuItem.TYPE_TEXT.name,
+            TypeTextFromFileAction::class.java to MenuItem.TYPE_TEXT_FROM_FILE.name
     )
 
     override fun modelToSerialize(model: TextActionModel<out TextActionController>): TextActionSerialized {

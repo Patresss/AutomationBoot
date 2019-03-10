@@ -4,12 +4,11 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
-import com.patres.automation.util.KeyboardKey
+import com.patres.automation.keyboard.KeyboardKey
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
-import javafx.scene.control.ScrollPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.StackPane
 import javafx.util.Callback

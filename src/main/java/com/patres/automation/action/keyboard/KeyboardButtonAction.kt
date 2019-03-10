@@ -4,7 +4,7 @@ import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.model.ActionNodeModel
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.util.KeyboardKey
+import com.patres.automation.keyboard.KeyboardKey
 
 
 abstract class KeyboardButtonAction(

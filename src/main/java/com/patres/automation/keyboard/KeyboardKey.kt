@@ -1,4 +1,4 @@
-package com.patres.automation.util
+package com.patres.automation.keyboard
 
 import java.awt.event.KeyEvent
 

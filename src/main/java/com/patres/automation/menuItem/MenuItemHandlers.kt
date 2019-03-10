@@ -17,9 +17,7 @@ import com.patres.automation.action.mouse.release.ReleaseMiddleMouseAction
 import com.patres.automation.action.mouse.release.ReleaseRightMouseAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelDownAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
-import com.patres.automation.action.text.paste.PasteTextAction
-import com.patres.automation.action.text.TypeTextAction
-import com.patres.automation.action.text.paste.PasteTextFromFieldAction
+import com.patres.automation.action.text.type.TypeTextAction
 import com.patres.automation.model.RootSchemaGroupModel
 
 object MenuItemHandlers {
@@ -66,8 +64,6 @@ object MenuItemHandlers {
     val addScrollWheelUp: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelUpAction(it, it.getSelectedSchemaGroupModel())) }
 
     val addScrollWheelDown: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelDownAction(it, it.getSelectedSchemaGroupModel())) }
-
-    val addTypeText: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(TypeTextAction(it, it.getSelectedSchemaGroupModel())) }
 
     val addPressKeyboardButton: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressKeyboardButtonAction(it, it.getSelectedSchemaGroupModel())) }
 

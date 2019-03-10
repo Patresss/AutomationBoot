@@ -1,6 +1,6 @@
 package com.patres.automation.serialize.model
 
-import com.patres.automation.util.KeyboardKey
+import com.patres.automation.keyboard.KeyboardKey
 import kotlinx.serialization.Serializable
 
 

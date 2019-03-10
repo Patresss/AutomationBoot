@@ -1,7 +1,7 @@
 package com.patres.automation.gui.custom
 
 import com.jfoenix.controls.JFXButton
-import com.patres.automation.util.KeyboardKey
+import com.patres.automation.keyboard.KeyboardKey
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.geometry.Insets

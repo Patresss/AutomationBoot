@@ -1,28 +1,23 @@
-package com.patres.automation.action.text
+package com.patres.automation.action.text.type
 
 import com.patres.automation.action.TextActionModel
-import com.patres.automation.gui.controller.model.TextAreaActionController
+import com.patres.automation.gui.controller.model.TextActionController
 import com.patres.automation.keyboard.GlobalKeyListener
-import com.patres.automation.menuItem.MenuItem
+import com.patres.automation.keyboard.KeyLoader
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.util.KeyLoader
 
 
-class TypeTextAction(
+abstract class TypeTextAction<ControllerType : TextActionController>(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : TextActionModel<TextAreaActionController>(root, parent) {
+) : TextActionModel<ControllerType>(root, parent) {
 
-    override val controller: TextAreaActionController = TextAreaActionController(this)
-
-    init {
-        controller.actionLabel.text = MenuItem.TYPE_TEXT.actionName
-    }
+    abstract fun getText(): String
 
     override fun runAction() {
         run loop@{
-            getActionValue().toCharArray()
+            getText().toCharArray()
                     .map { KeyLoader.getKey(it) }
                     .forEach {
                         if (GlobalKeyListener.isStop) {
