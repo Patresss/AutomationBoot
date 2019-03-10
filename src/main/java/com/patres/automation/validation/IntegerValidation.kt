@@ -1,5 +1,6 @@
 package com.patres.automation.validation
 
+import com.patres.automation.Main
 import com.patres.automation.excpetion.IntegerFormatException
 import com.patres.automation.gui.controller.model.TextActionController
 import com.patres.automation.util.setIntegerFilter
@@ -7,7 +8,7 @@ import com.patres.automation.util.setIntegerFilter
 class IntegerValidation(controller: TextActionController) : AbstractValidation(controller) {
 
     companion object {
-        private const val invalidMessage = "Only integer"
+        private val invalidMessage = Main.bundle.getString("error.mustBeNumber")
     }
 
     init {

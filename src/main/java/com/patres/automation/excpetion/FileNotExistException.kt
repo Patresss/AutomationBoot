@@ -1,3 +1,6 @@
 package com.patres.automation.excpetion
 
-class FileNotExistException(file: String) : ApplicationException("File $file does not exist")
+import com.patres.automation.Main
+import java.text.MessageFormat
+
+class FileNotExistException(file: String) : ApplicationException(MessageFormat.format(Main.bundle.getString("error.fileDoesntExist.parameter"), file))

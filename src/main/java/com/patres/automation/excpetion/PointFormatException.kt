@@ -1,3 +1,6 @@
 package com.patres.automation.excpetion
 
-class PointFormatException(point: String) : ApplicationException("Please enter the point \"$point\" in (x;y) format")
+import com.patres.automation.Main
+import java.text.MessageFormat
+
+class PointFormatException(point: String) : ApplicationException(MessageFormat.format(Main.bundle.getString("error.mustBePoint.parameter"), point))

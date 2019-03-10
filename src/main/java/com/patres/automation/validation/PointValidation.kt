@@ -1,12 +1,13 @@
 package com.patres.automation.validation
 
+import com.patres.automation.Main
 import com.patres.automation.excpetion.PointFormatException
 import com.patres.automation.gui.controller.model.TextActionController
 
 class PointValidation(controller: TextActionController) : AbstractValidation(controller) {
 
     companion object {
-        private const val invalidMessage = "Point format: (x;y) "
+        private val invalidMessage = Main.bundle.getString("error.mustBePoint")
         private const val pattern = "\\((\\d+);(\\d+)\\)" // (12;34)
     }
 
