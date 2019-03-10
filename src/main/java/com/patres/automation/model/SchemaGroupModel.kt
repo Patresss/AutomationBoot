@@ -4,7 +4,6 @@ import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.keyboard.GlobalKeyListener
 import com.patres.automation.util.swap
-import javafx.scene.Node
 import java.util.*
 
 class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : AutomationModel<SchemaGroupController>(root, parent) {
@@ -13,10 +12,10 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
 
     val actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
 
-    var schemaGroups = emptyList<SchemaGroupModel>()
+    private val schemaGroups
         get() = actionBlocks.filterIsInstance<SchemaGroupModel>()
 
-    var allChildrenActionBlocks = emptyList<AutomationModel<out AutomationController>>()
+    val allChildrenActionBlocks: List<AutomationModel<out AutomationController>>
         get() = actionBlocks + schemaGroups.flatMap { it.allChildrenActionBlocks }
 
     init {
@@ -91,7 +90,7 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     override fun runAction() {
         for (i in 0 until getNumberOfIteration()) {
             for (action in actionBlocks) {
-                if (!GlobalKeyListener.isStop()) {
+                if (!GlobalKeyListener.isStop) {
                     action.runAction()
                 } else {
                     return
@@ -106,13 +105,8 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
         controller.groupNameTextField.text = text
     }
 
-    fun getNumberOfIterations() = controller.iterationsTextField.text
-
     fun setNumberOfIterations(text: String) {
         controller.iterationsTextField.text = text
     }
-
-
-
 
 }

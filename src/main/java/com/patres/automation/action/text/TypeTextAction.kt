@@ -25,7 +25,7 @@ class TypeTextAction(
             getActionValue().toCharArray()
                     .map { KeyLoader.getKey(it) }
                     .forEach {
-                        if (GlobalKeyListener.isStop()) {
+                        if (GlobalKeyListener.isStop) {
                             return@loop
                         }
                         pressKey(it)

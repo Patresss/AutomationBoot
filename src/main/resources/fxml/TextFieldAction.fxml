@@ -10,35 +10,29 @@
 <?import javafx.scene.layout.StackPane?>
 
 <fx:root type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane hgap="10.0">
+    <GridPane hgap="10.0">
         <columnConstraints>
-            <ColumnConstraints />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="150.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="60.0" />
+            <ColumnConstraints/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="150.0" prefWidth="150.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="60.0"/>
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES"/>
         </rowConstraints>
-         <children>
-            <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-            <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
-             <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" GridPane.rowSpan="2" StackPane.alignment="CENTER_LEFT">
-                 <children>
-                     <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
-                         <opaqueInsets>
-                             <Insets />
-                         </opaqueInsets>
-                     </JFXButton>
-                 </children>
-                 <StackPane.margin>
-                     <Insets left="-10.0" />
-                 </StackPane.margin>
-             </StackPane>
-         </children>
-      </GridPane>
-   </children>
+        <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+        <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP"/>
+        <JFXTextField fx:id="valueText" GridPane.columnIndex="2"/>
+        <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" GridPane.rowSpan="2" StackPane.alignment="CENTER_LEFT">
+            <StackPane.margin>
+                <Insets left="-10.0"/>
+            </StackPane.margin>
+            <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+            </JFXButton>
+        </StackPane>
+    </GridPane>
 </fx:root>

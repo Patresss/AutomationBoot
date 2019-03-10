@@ -34,42 +34,42 @@ object MenuItemHandlers {
 
     val addSchemeGroup: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.addSchemaGroup() }
 
-    val addLeftClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(LeftMouseClickAction(it, it.getSelectedShemaGroupModel())) }
+    val addLeftClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(LeftMouseClickAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addMiddleClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(MiddleMouseClickAction(it, it.getSelectedShemaGroupModel())) }
+    val addMiddleClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(MiddleMouseClickAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addRightClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(RightMouseClickAction(it, it.getSelectedShemaGroupModel())) }
+    val addRightClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(RightMouseClickAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addDoubleLeftClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(LeftDoubleMouseClickAction(it, it.getSelectedShemaGroupModel())) }
+    val addDoubleLeftClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(LeftDoubleMouseClickAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addDoubleMiddleClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(MiddleDoubleMouseClickAction(it, it.getSelectedShemaGroupModel())) }
+    val addDoubleMiddleClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(MiddleDoubleMouseClickAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addDoubleRightClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(RightDoubleMouseClickAction(it, it.getSelectedShemaGroupModel())) }
+    val addDoubleRightClickMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(RightDoubleMouseClickAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addReleaseLeftMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ReleaseLeftMouseAction(it, it.getSelectedShemaGroupModel())) }
+    val addReleaseLeftMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ReleaseLeftMouseAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addReleaseMiddlesMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ReleaseMiddleMouseAction(it, it.getSelectedShemaGroupModel())) }
+    val addReleaseMiddlesMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ReleaseMiddleMouseAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addReleaseRightoMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ReleaseRightMouseAction(it, it.getSelectedShemaGroupModel())) }
+    val addReleaseRightoMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ReleaseRightMouseAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addPressLeftMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressLeftMouseAction(it, it.getSelectedShemaGroupModel())) }
+    val addPressLeftMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressLeftMouseAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addPressMiddleMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressMiddleMouseAction(it, it.getSelectedShemaGroupModel())) }
+    val addPressMiddleMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressMiddleMouseAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addPressRightMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressRightMouseAction(it, it.getSelectedShemaGroupModel())) }
+    val addPressRightMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressRightMouseAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addMoveMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(MoveMouseAction(it, it.getSelectedShemaGroupModel())) }
+    val addMoveMouse: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(MoveMouseAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addDelay: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(DelayAction(it, it.getSelectedShemaGroupModel())) }
+    val addDelay: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(DelayAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addScrollWheelUp: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelUpAction(it, it.getSelectedShemaGroupModel())) }
+    val addScrollWheelUp: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelUpAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addScrollWheelDown: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelDownAction(it, it.getSelectedShemaGroupModel())) }
+    val addScrollWheelDown: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(ScrollWheelDownAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addPasteText: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PasteTextAction(it, it.getSelectedShemaGroupModel())) }
+    val addPasteText: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PasteTextAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addTypeText: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(TypeTextAction(it, it.getSelectedShemaGroupModel())) }
+    val addTypeText: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(TypeTextAction(it, it.getSelectedSchemaGroupModel())) }
 
-    val addPressKeyboardButton: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressKeyboardButtonAction(it, it.getSelectedShemaGroupModel())) }
+    val addPressKeyboardButton: (_: RootSchemaGroupModel) -> Unit = { it.addNodeAction(PressKeyboardButtonAction(it, it.getSelectedSchemaGroupModel())) }
 
 }

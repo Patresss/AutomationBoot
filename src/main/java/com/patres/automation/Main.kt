@@ -35,7 +35,7 @@ class Main : Application() {
             launch(Main::class.java)
         }
 
-        fun getStylesheet() = Main::class.java.getResource("/css/style_day.css").toExternalForm()
+        fun getStylesheet(): String = Main::class.java.getResource("/css/style_day.css").toExternalForm()
 
     }
 

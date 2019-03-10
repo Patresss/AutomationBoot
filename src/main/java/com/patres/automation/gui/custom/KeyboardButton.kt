@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane
 
 class KeyboardButton(
         val key: KeyboardKey,
-        val keyboardField: KeyboardField
+        private val keyboardField: KeyboardField
 ) : GridPane() {
 
     companion object {

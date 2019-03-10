@@ -6,6 +6,7 @@ import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.GlobalKeyListener
+import com.sun.glass.ui.Robot
 import org.slf4j.LoggerFactory
 
 class RootSchemaGroupModel {
@@ -16,7 +17,7 @@ class RootSchemaGroupModel {
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
 
-    var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
+    var robot: Robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
     var schemaGroup = SchemaGroupModel(this, null)
         set(value) {
@@ -30,10 +31,10 @@ class RootSchemaGroupModel {
             controller.actionBarController.updateDisabledButtons()
         }
 
-    var allChildrenActionBlocks = emptyList<AutomationModel<out AutomationController>>()
+    private val allChildrenActionBlocks
         get() = schemaGroup.allChildrenActionBlocks
 
-    var allChildrenActionBlocksRoot = emptyList<AutomationModel<out AutomationController>>()
+    private val allChildrenActionBlocksRoot
         get() = allChildrenActionBlocks + schemaGroup
 
     init {
@@ -41,9 +42,7 @@ class RootSchemaGroupModel {
         loadControllerContent()
     }
 
-    fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
-        schemaGroup.addActionBlocks(actionBlock)
-    }
+
 
     fun unselectAllButton() {
         allChildrenActionBlocksRoot.forEach { it.unselectSelectActionButton() }
@@ -68,7 +67,7 @@ class RootSchemaGroupModel {
 
     fun runAutomation() {
         try {
-            GlobalKeyListener.setStop(false)
+            GlobalKeyListener.isStop = false
             schemaGroup.checkValidation()
             Main.mainStage.isIconified = true
             schemaGroup.runAction()
@@ -84,6 +83,20 @@ class RootSchemaGroupModel {
         }
     }
 
+
+    fun getSelectedSchemaGroupModel(): SchemaGroupModel {
+        val selectedModelVal = selectedModel
+        return if (selectedModelVal != null && selectedModelVal is SchemaGroupModel) {
+            selectedModelVal
+        } else {
+            schemaGroup
+        }
+    }
+
+    private fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
+        schemaGroup.addActionBlocks(actionBlock)
+    }
+
     private fun addNewActionModel(actionModel: AutomationModel<out AutomationController>) {
         val selectedModelVal = selectedModel
         when (selectedModelVal) {
@@ -92,15 +105,6 @@ class RootSchemaGroupModel {
             is ActionNodeModel -> selectedModelVal.addActionBlockUnder(actionModel)
         }
         actionModel.controller.selectAction()
-    }
-
-    fun getSelectedShemaGroupModel(): SchemaGroupModel {
-        val selectedModelVal = selectedModel
-        return if (selectedModelVal != null && selectedModelVal is SchemaGroupModel) {
-            selectedModelVal
-        } else {
-            schemaGroup
-        }
     }
 
     private fun loadControllerContent() {

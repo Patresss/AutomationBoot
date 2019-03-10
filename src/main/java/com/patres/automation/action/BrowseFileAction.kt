@@ -4,7 +4,6 @@ import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.validation.FileValidation
-import javafx.scene.Node
 
 abstract class BrowseFileAction(
         root: RootSchemaGroupModel,

@@ -2,7 +2,6 @@ package com.patres.automation.model
 
 import com.patres.automation.gui.controller.model.AutomationController
 import com.sun.glass.ui.Robot
-import javafx.scene.Node
 
 abstract class AutomationModel<ControllerType : AutomationController>(
         val root: RootSchemaGroupModel,
@@ -22,11 +21,11 @@ abstract class AutomationModel<ControllerType : AutomationController>(
     open fun checkValidations() {
     }
 
-    fun isLast(): Boolean = parent?.actionBlocks?.last() == this
+    private fun isLast(): Boolean = parent?.actionBlocks?.last() == this
 
-    fun isFirst(): Boolean = parent?.actionBlocks?.first() == this
+    private fun isFirst(): Boolean = parent?.actionBlocks?.first() == this
 
-    fun swap(actionBlockToSwap: AutomationModel<out AutomationController>) {
+    private fun swap(actionBlockToSwap: AutomationModel<out AutomationController>) {
         parent?.swap(this, actionBlockToSwap)
     }
 

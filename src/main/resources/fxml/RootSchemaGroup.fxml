@@ -12,16 +12,14 @@
    </center>
    <left>
       <AnchorPane>
-         <children>
-            <VBox fx:id="actionBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="1.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" spacing="10.0" styleClass="root-schema-group-box-buttons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </VBox>
-         </children>
          <BorderPane.margin>
-            <Insets right="10.0" />
+            <Insets right="10.0"/>
          </BorderPane.margin>
+         <VBox fx:id="actionBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="1.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" spacing="10.0" styleClass="root-schema-group-box-buttons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+               <Insets bottom="10.0" top="10.0"/>
+            </padding>
+         </VBox>
       </AnchorPane>
    </left>
  </fx:root>

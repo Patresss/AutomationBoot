@@ -5,7 +5,6 @@ import com.sun.javafx.util.Utils
 import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.Parent
-import javafx.scene.control.TextField
 import javafx.scene.control.TextInputControl
 import kotlin.reflect.KClass
 

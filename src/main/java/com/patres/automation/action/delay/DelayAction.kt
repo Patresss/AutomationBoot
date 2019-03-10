@@ -10,7 +10,6 @@ import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.util.getInteger
 import com.patres.automation.validation.AbstractValidation
 import com.patres.automation.validation.IntegerValidation
-import javafx.scene.Node
 import org.slf4j.LoggerFactory
 
 class DelayAction(
@@ -37,7 +36,7 @@ class DelayAction(
         try {
             val delay = getActionValue().getInteger()
             var currentDelay = 0
-            while (currentDelay <= delay && !GlobalKeyListener.isStop()) {
+            while (currentDelay <= delay && !GlobalKeyListener.isStop) {
                 currentDelay += DELAY_STEP
                 Thread.sleep(DELAY_STEP.toLong())
             }

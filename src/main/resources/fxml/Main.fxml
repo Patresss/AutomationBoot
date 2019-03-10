@@ -19,26 +19,26 @@
       <top>
          <MenuBar BorderPane.alignment="CENTER">
            <menus>
-             <Menu mnemonicParsing="false" text="%menu.file">
-               <items>
-                 <MenuItem mnemonicParsing="false" onAction="#createNewRootSchema" text="%menu.new" />
-                     <MenuItem mnemonicParsing="false" onAction="#openRootSchema" text="%menu.open" />
-                     <MenuItem mnemonicParsing="false" onAction="#saveExistingRootSchema" text="%menu.save" />
-                     <MenuItem mnemonicParsing="false" onAction="#saveAsRootSchema" text="%menu.saveAs" />
-               </items>
-             </Menu>
-             <Menu mnemonicParsing="false" text="Edit">
-               <items>
-                 <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-             </Menu>
-             <Menu mnemonicParsing="false" text="Help">
-               <items>
-                 <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-             </Menu>
-           </menus>
-         </MenuBar>
+           <Menu mnemonicParsing="false" text="%menu.file">
+             <items>
+               <MenuItem mnemonicParsing="false" onAction="#createNewRootSchema" text="%menu.new" />
+                   <MenuItem mnemonicParsing="false" onAction="#openRootSchema" text="%menu.open" />
+                   <MenuItem mnemonicParsing="false" onAction="#saveExistingRootSchema" text="%menu.save" />
+                   <MenuItem mnemonicParsing="false" onAction="#saveAsRootSchema" text="%menu.saveAs" />
+             </items>
+           </Menu>
+           <Menu mnemonicParsing="false" text="Edit">
+             <items>
+               <MenuItem mnemonicParsing="false" text="Delete" />
+             </items>
+           </Menu>
+           <Menu mnemonicParsing="false" text="Help">
+             <items>
+               <MenuItem mnemonicParsing="false" text="About" />
+             </items>
+           </Menu>
+         </menus>
+     </MenuBar>
       </top>
    </BorderPane>
 </StackPane>

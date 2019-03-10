@@ -8,13 +8,12 @@ import java.io.File
 
 class TabContainer(
         val tab: Tab,
-        file: File? = null,
         val rootSchema: RootSchemaGroupModel
 ) {
 
     companion object {
+        const val MAX_NUMBER_OF_CHARACTERS = 24
         val DEFAULT_NAME = Main.bundle.getString("rootSchema.defaultFileName") ?: "New file"
-        val MAX_NUMBER_OF_CHARACTERS = 24
     }
 
     var file: File? = null

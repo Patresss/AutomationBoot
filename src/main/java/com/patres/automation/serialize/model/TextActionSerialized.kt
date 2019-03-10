@@ -7,5 +7,4 @@ import kotlinx.serialization.Serializable
 open class TextActionSerialized(
         val actionNodeValue: String = "",
         val actionName: String
-) : AutomationActionSerialized() {
-}
+) : AutomationActionSerialized()
