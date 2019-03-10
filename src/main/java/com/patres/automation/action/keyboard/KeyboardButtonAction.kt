@@ -21,8 +21,4 @@ abstract class KeyboardButtonAction(
         keys.forEach { controller.keyboardField.addKeyboardButton(it) }
     }
 
-    override fun getMainNode(): Node = controller.getMainNode()
-
-    override fun getMainInsideNode(): Node = controller.getMainInsideNode()
-
 }

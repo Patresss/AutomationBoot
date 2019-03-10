@@ -1,6 +1,7 @@
 package com.patres.automation.model
 
 import com.patres.automation.gui.controller.model.AutomationController
+import com.sun.glass.ui.Robot
 import javafx.scene.Node
 
 abstract class AutomationModel<ControllerType : AutomationController>(
@@ -10,19 +11,13 @@ abstract class AutomationModel<ControllerType : AutomationController>(
 
     abstract val controller: ControllerType
 
-    val robot = root.robot
-
+    val robot: Robot = root.robot
 
     fun unselectSelectActionButton() {
         controller.unselectAction()
     }
 
-    abstract fun getMainNode(): Node
-
     abstract fun runAction()
-
-    abstract fun getMainInsideNode(): Node
-
 
     open fun checkValidations() {
     }

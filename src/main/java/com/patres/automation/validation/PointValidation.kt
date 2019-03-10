@@ -4,10 +4,9 @@ import com.patres.automation.gui.controller.model.TextActionController
 
 class PointValidation(controller: TextActionController) : AbstractValidation(controller) {
 
-
     companion object {
-        private val invalidMessage = "Point format: (x;y) "
-        private val pattern = "\\((\\d+);(\\d+)\\)" // (12;34)
+        private const val invalidMessage = "Point format: (x;y) "
+        private const val pattern = "\\((\\d+);(\\d+)\\)" // (12;34)
     }
 
     init {

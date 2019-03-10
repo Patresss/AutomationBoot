@@ -6,39 +6,14 @@ import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.control.TextField
+import javafx.scene.control.TextInputControl
 import kotlin.reflect.KClass
 
 
-fun TextField.setIntegerFilter() {
+fun TextInputControl.setIntegerFilter() {
     textProperty().addListener { _, _, newValue ->
         if (!newValue.matches(Regex("\\d*"))) {
             text = newValue.replace(Regex("[^\\d]"), "")
-        }
-    }
-}
-
-fun Parent.moveTo(node: Node, newPlace: Int) {
-    // Workaround for private members
-    val childrenFromField = getObjectFromField(Parent::class, this, "children") as ObservableList<Node>
-    val childSetFromField = getObjectFromField(Parent::class, this, "childSet") as Set<Node>
-    val childrenTriggerPermutationField = Parent::class.java.getDeclaredField("childrenTriggerPermutation")
-    childrenTriggerPermutationField.isAccessible = true
-
-
-    if (Utils.assertionEnabled()) {
-        if (!childSetFromField.contains(node)) {
-            throw java.lang.AssertionError(
-                    "specified node is not in the list of children")
-        }
-    }
-
-    if (childrenFromField[0] !== node) {
-        childrenTriggerPermutationField.setBoolean(this, true)
-        try {
-            childrenFromField.remove(node)
-            childrenFromField.add(newPlace, node)
-        } finally {
-            childrenTriggerPermutationField.setBoolean(this, false)
         }
     }
 }

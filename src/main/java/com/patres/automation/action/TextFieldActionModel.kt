@@ -20,8 +20,4 @@ abstract class TextFieldActionModel<ControllerType : TextActionController>(
         controller.value = actionValue
     }
 
-    override fun getMainNode(): Node = controller.getMainNode()
-
-    override fun getMainInsideNode(): Node = controller.getMainInsideNode()
-
 }

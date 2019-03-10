@@ -26,8 +26,6 @@ class SchemaGroupController(model: AutomationModel<out SchemaGroupController>) :
         groupNameTextField.onMouseClicked = EventHandler { selectAction() }
     }
 
-    fun getMainNode(): Node = this
-
     fun getMainInsideNode(): Pane = innerBox
 
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(groupNameTextField, iterationsTextField)

@@ -23,33 +23,27 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
         controller.afterInit()
     }
 
-    fun addNewSchemaGroup(name: String = "Group") {
-        val newSchemaGroup = SchemaGroupModel(root, this)
-        newSchemaGroup.controller.groupNameTextField.text = name
-        addActionBlocks(newSchemaGroup)
-    }
-
     fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
         actionBlocks.add(actionBlock)
         actionBlock.parent = this
-        controller.getMainInsideNode().children.add(actionBlock.getMainNode())
+        controller.getMainInsideNode().children.add(actionBlock.controller)
     }
 
     fun addActionBlockToList(actionBlock: AutomationModel<out AutomationController>, index: Int) {
         actionBlocks.add(index, actionBlock)
         actionBlock.parent = this
-        controller.getMainInsideNode().children.add(index, actionBlock.getMainNode())
+        controller.getMainInsideNode().children.add(index, actionBlock.controller)
     }
 
     fun leaveGroupToUp(actionBlock: AutomationModel<out AutomationController>) {
         actionBlock.parent?.removeNode(actionBlock)
-        val index = parent?.controller?.getMainInsideNode()?.children?.indexOf(getMainNode()) ?: 0
+        val index = parent?.controller?.getMainInsideNode()?.children?.indexOf(controller) ?: 0
         parent?.addActionBlockToList(actionBlock, index)
     }
 
     fun leaveGroupToDown(actionBlock: AutomationModel<out AutomationController>) {
         actionBlock.parent?.removeNode(actionBlock)
-        val index = (parent?.controller?.getMainInsideNode()?.children?.indexOf(getMainNode()) ?: 0) + 1
+        val index = (parent?.controller?.getMainInsideNode()?.children?.indexOf(controller) ?: 0) + 1
         parent?.addActionBlockToList(actionBlock, index)
     }
 
@@ -57,23 +51,23 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
         actionBlock.parent?.removeNode(actionBlock)
         actionBlocks.add(0, actionBlock)
         actionBlock.parent = this
-        controller.getMainInsideNode().children.add(0, actionBlock.getMainNode())
+        controller.getMainInsideNode().children.add(0, actionBlock.controller)
     }
 
     fun moveActionBlockToBottom(actionBlock: AutomationModel<out AutomationController>) {
         actionBlock.parent?.removeNode(actionBlock)
         actionBlocks.add(actionBlock)
         actionBlock.parent = this
-        controller.getMainInsideNode().children.add(actionBlock.getMainNode())
+        controller.getMainInsideNode().children.add(actionBlock.controller)
     }
 
     fun removeNode(actionBlock: AutomationModel<out AutomationController>) {
         actionBlocks.remove(actionBlock)
-        controller.getMainInsideNode().children.remove(actionBlock.getMainNode())
+        controller.getMainInsideNode().children.remove(actionBlock.controller)
     }
 
     fun swap(actionBlock: AutomationModel<out AutomationController>, actionBlockToSwap: AutomationModel<out AutomationController>) {
-        controller.getMainInsideNode().swap(actionBlock.getMainNode(), actionBlockToSwap.getMainNode())
+        controller.getMainInsideNode().swap(actionBlock.controller, actionBlockToSwap.controller)
         actionBlocks.swap(actionBlock, actionBlockToSwap)
     }
 
@@ -106,7 +100,7 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
         }
     }
 
-    fun getGroupName() = controller.groupNameTextField.text
+    fun getGroupName(): String = controller.groupNameTextField.text
 
     fun setGroupName(text: String) {
         controller.groupNameTextField.text = text
@@ -119,9 +113,6 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     }
 
 
-    override fun getMainNode(): Node = controller.getMainNode()
-
-    override fun getMainInsideNode(): Node = controller.getMainInsideNode()
 
 
 }

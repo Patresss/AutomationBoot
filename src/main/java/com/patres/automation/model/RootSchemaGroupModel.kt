@@ -104,7 +104,7 @@ class RootSchemaGroupModel {
     }
 
     private fun loadControllerContent() {
-        controller.insidePane.content = schemaGroup.controller.getMainNode()
+        controller.insidePane.content = schemaGroup.controller
         schemaGroup.controller.minHeightProperty().bind(controller.heightProperty())
     }
 

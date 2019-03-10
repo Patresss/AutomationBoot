@@ -1,15 +1,17 @@
 package com.patres.automation.validation
 
 import com.patres.automation.gui.controller.model.TextActionController
+import com.patres.automation.util.setIntegerFilter
 
 class IntegerValidation(controller: TextActionController) : AbstractValidation(controller) {
 
     companion object {
-        private val invalidMessage = "Only integer"
+        private const val invalidMessage = "Only integer"
     }
 
     init {
         validationLabel.text = invalidMessage
+        validationTextField.setIntegerFilter()
     }
 
     override fun isConditionFulfilled(): Boolean {
@@ -22,6 +24,5 @@ class IntegerValidation(controller: TextActionController) : AbstractValidation(c
         }
         return true
     }
-
 
 }
