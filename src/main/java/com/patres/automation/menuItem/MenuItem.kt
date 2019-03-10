@@ -54,16 +54,16 @@ enum class MenuItem(
     RELEASE_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseLeftMouse),
     RELEASE_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseMiddlesMouse),
     RELEASE_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseRightoMouse),
-    SCROLL_WHEEL_UP(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.up", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelUp),
-    SCROLL_WHEEL_DOWN(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.down", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelDown),
+    SCROLL_WHEEL_UP(FontAwesomeIcon.CARET_UP, "robot.action.scrollWheel.up", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelUp),
+    SCROLL_WHEEL_DOWN(FontAwesomeIcon.CARET_DOWN, "robot.action.scrollWheel.down", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelDown),
 
-    PASTE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste", KEYBOARD, menuItemHandler = PasteTextFromFieldAction.addAction),
-    PASTE_TEXT_FROM_FILE(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste.file", KEYBOARD, menuItemHandler = PasteTextFromFileAction.addAction),
+    PASTE_TEXT(FontAwesomeIcon.PASTE, "robot.action.keyboard.paste", KEYBOARD, menuItemHandler = PasteTextFromFieldAction.addAction),
+    PASTE_TEXT_FROM_FILE(FontAwesomeIcon.PASTE, "robot.action.keyboard.paste.file", KEYBOARD, menuItemHandler = PasteTextFromFileAction.addAction),
     TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type", KEYBOARD, menuItemHandler = TypeTextFromFieldAction.addAction),
     TYPE_TEXT_FROM_FILE(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type.file", KEYBOARD, menuItemHandler = TypeTextFromFileAction.addAction),
     PRESS_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.press", KEYBOARD, menuItemHandler = MenuItemHandlers.addPressKeyboardButton),
 
-    OPEN_FILE_OR_DIRECTORY(FontAwesomeIcon.TERMINAL, "robot.action.open.fileOrDirectory", SCRIPT, menuItemHandler = OpenFileOrDirectoryAction.addAction),
+    OPEN_FILE_OR_DIRECTORY(FontAwesomeIcon.FILE, "robot.action.open.fileOrDirectory", SCRIPT, menuItemHandler = OpenFileOrDirectoryAction.addAction),
     WINDOWS_SCRIPT_RUN(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.run", SCRIPT, menuItemHandler = WindowsRunScriptAction.addAction),
     WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.runAndWait", SCRIPT, menuItemHandler = WindowsRunAndWaitScriptAction.addAction);
 

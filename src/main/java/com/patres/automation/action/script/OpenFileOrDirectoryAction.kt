@@ -1,5 +1,6 @@
 package com.patres.automation.action.script
 
+import com.patres.automation.action.BrowseFileAction
 import com.patres.automation.action.TextActionModel
 import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.menuItem.MenuItem
@@ -16,15 +17,12 @@ import java.io.File
 class OpenFileOrDirectoryAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel = root.getSelectedSchemaGroupModel()
-) : TextActionModel<BrowseFileActionController>(root, parent) {
+) : BrowseFileAction(root, parent) {
 
     companion object {
         val createAction = { root: RootSchemaGroupModel, parent: SchemaGroupModel -> OpenFileOrDirectoryAction(root, parent) }
         val addAction = { root: RootSchemaGroupModel -> root.addNodeAction(OpenFileOrDirectoryAction(root)) }
     }
-
-
-    override val controller: BrowseFileActionController = BrowseFileActionController(this)
 
     override var validator: AbstractValidation? = FileOrDirectoryExistValidation(controller).also { it.activateControlListener() }
 

@@ -12,10 +12,4 @@ abstract class BrowseFileAction(
 
     override val controller: BrowseFileActionController = BrowseFileActionController(this)
 
-    private var validation = FileExistValidation(controller).also { it.activateControlListener() }
-
-    init {
-        validation.activateControlListener()
-    }
-
 }

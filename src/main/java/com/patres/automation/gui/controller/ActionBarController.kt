@@ -9,6 +9,8 @@ import com.patres.automation.font.FontAutomationIconView
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.menuItem.MenuItemGroup
+import de.jensd.fx.glyphs.GlyphIcon
+import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
@@ -75,6 +77,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
                     if (item != null) {
                         text = item.actionName
                     }
+                    graphic = getIcon(item?.graphic)
                 }
             }
         }
@@ -88,12 +91,18 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         return JFXButton().apply {
             styleClass.add("animated-option-button")
             val icon = action.graphic
-            when (icon) {
-                is FontAwesomeIcon -> graphic = FontAwesomeIconView(icon)
-                is FontAutomationIcon -> graphic = FontAutomationIconView(icon)
-            }
-            graphic.apply { styleClass.add("sub-icon") }
+            graphic = getIcon(icon)
         }
+    }
+
+    private fun getIcon(icon : GlyphIcons?): Node? {
+        val graphic: Node? = when (icon) {
+            is FontAwesomeIcon -> FontAwesomeIconView(icon)
+            is FontAutomationIcon -> FontAutomationIconView(icon)
+            else -> null
+        }
+        graphic?.styleClass?.add("sub-icon")
+        return graphic
     }
 
     fun updateDisabledButtons() {

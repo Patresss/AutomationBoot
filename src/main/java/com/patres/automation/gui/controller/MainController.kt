@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.Main
+import com.patres.automation.excpetion.ApplicationException
+import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.serialize.RootSchemaGroupMapper
 import com.patres.automation.serialize.model.RootSchemaGroupSerialized
@@ -14,13 +16,16 @@ import javafx.fxml.FXML
 import javafx.scene.control.TabPane
 import javafx.scene.layout.StackPane
 import kotlinx.serialization.json.Json
+import org.slf4j.LoggerFactory
 import java.io.File
+import java.lang.Exception
 import java.text.MessageFormat
 
 
 class MainController {
 
     companion object {
+        private val LOGGER = LoggerFactory.getLogger(MainController::class.java)
         val FILE_IS_SAVED: String = Main.bundle.getString("message.snackbar.fileIsSaved")
         const val MESSAGE_SNACKBAR_TIMEOUT: Long = 5000
     }
@@ -51,16 +56,22 @@ class MainController {
 
     @FXML
     fun openRootSchema() {
-        val fileToOpen = loaderFile.chooseFileToLoad()
-        if (fileToOpen != null) {
-            val serializedRootGroup = fileToOpen.readText()
-            val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
-            val rootGroup: RootSchemaGroupModel = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
+        try {
+            val fileToOpen = loaderFile.chooseFileToLoad()
+            if (fileToOpen != null) {
+                val serializedRootGroup = fileToOpen.readText()
+                val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
+                val rootGroup: RootSchemaGroupModel = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
 
-            val tabContainer = LoaderFactory.loadRootSchemaGroup(tabPane, rootGroup).apply {
-                file = fileToOpen
+                val tabContainer = LoaderFactory.loadRootSchemaGroup(tabPane, rootGroup).apply {
+                    file = fileToOpen
+                }
+                tabContainers.add(tabContainer)
             }
-            tabContainers.add(tabContainer)
+        } catch (e: Exception) {
+            LOGGER.error("Exception: {}", e)
+            val dialog = ExceptionHandlerDialog(e)
+            dialog.show()
         }
     }
 

@@ -1,6 +1,6 @@
 package com.patres.automation.action.script
 
-import com.patres.automation.action.TextActionModel
+import com.patres.automation.action.BrowseFileAction
 import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
@@ -12,7 +12,7 @@ import java.io.File
 abstract class WindowsScriptAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel = root.getSelectedSchemaGroupModel()
-) : TextActionModel<BrowseFileActionController>(root, parent) {
+) : BrowseFileAction(root, parent) {
 
     companion object {
         const val extension = ".bat"
