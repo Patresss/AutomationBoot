@@ -9,7 +9,6 @@ abstract class MouseClickAction(
         parent: SchemaGroupModel
 ) : MousePointAction(root, parent) {
 
-
     override fun runMouseAction() {
         robot.mousePress(buttonBit)
         robot.mouseRelease(buttonBit)

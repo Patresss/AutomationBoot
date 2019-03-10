@@ -2,6 +2,7 @@ package com.patres.automation.action.mouse.wheel
 
 import com.patres.automation.action.mouse.MouseAction
 import com.patres.automation.gui.controller.model.MousePointActionController
+import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.util.getInteger
@@ -18,7 +19,7 @@ abstract class ScrollWheelAction(
 
     override val buttonBit: Int = 0
 
-    override val controller: MousePointActionController = MousePointActionController(this)
+    final override val controller: TextFieldActionController = TextFieldActionController(this)
 
     private var validation = IntegerValidation(controller).also { it.activateControlListener() }
 
