@@ -62,7 +62,7 @@ class KeyboardField : StackPane() {
             }
         }
         val popup = JFXPopup(listView)
-        addButton.setOnMouseClicked { popup.show(addButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 0.0, 40.0) }
+        addButton.setOnMouseClicked { popup.show(addButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT, 0.0, 40.0) }
 
         listView.onMouseClicked = EventHandler { addKeyboardButton(listView.selectionModel.selectedItem) }
     }
