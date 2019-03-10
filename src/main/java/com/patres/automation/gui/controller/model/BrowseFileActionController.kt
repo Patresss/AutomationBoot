@@ -10,13 +10,15 @@ import javafx.stage.FileChooser
 
 class BrowseFileActionController(
         model: TextActionModel<out TextFieldActionController>,
-        fxmlFile: String = "BrowsFileAction.fxml"
+        fxmlFile: String = "BrowsFileAction.fxml",
+        extension: String? = null,
+        extensionType: String = ""
 ) : TextFieldActionController(model, fxmlFile) {
 
     @FXML
     lateinit var browseFileButton: JFXButton
 
-    private val loaderFile = LoaderFile()
+    private val loaderFile = LoaderFile(extension, extensionType)
 
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(browseFileButton)
 

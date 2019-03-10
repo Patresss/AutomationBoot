@@ -6,10 +6,10 @@ import com.patres.automation.excpetion.IntegerFormatException
 import com.patres.automation.gui.controller.model.TextActionController
 import java.io.File
 
-class FileValidation(controller: TextActionController) : AbstractValidation(controller) {
+class FileOrDirectoryExistValidation(controller: TextActionController) : AbstractValidation(controller) {
 
     companion object {
-        private val invalidMessage = Main.bundle.getString("error.fileDoesntExist")
+        private val invalidMessage = Main.bundle.getString("error.fileOrDirectoryDoesntExist")
     }
 
     init {
@@ -17,7 +17,7 @@ class FileValidation(controller: TextActionController) : AbstractValidation(cont
     }
 
     override fun isConditionFulfilled(): Boolean {
-        return File(validationTextField.text).exists() && !File(validationTextField.text).isDirectory
+        return File(validationTextField.text).exists()
     }
 
     override fun throwException() {

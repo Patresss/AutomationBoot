@@ -5,14 +5,16 @@ import javafx.stage.FileChooser
 import java.io.File
 
 class LoaderFile(
-        extension: String? = null
+        extension: String? = null,
+        extensionType: String = ""
 ) {
 
     companion object {
         const val AUTOMATION_BOOT_EXTENSION = ".ab"
+        const val AUTOMATION_BOOT_EXTENSION_TYPE = "Automation Boot"
     }
 
-    private val extFilter = if (extension != null ) FileChooser.ExtensionFilter("Automation boot (*$extension)", "*$extension") else null
+    private val extFilter = if (extension != null ) FileChooser.ExtensionFilter("$extensionType (*$extension)", "*$extension") else null
 
     fun chooseFileToLoad(pathTarget: String? = null): File? {
         val fileChooser = FileChooser()

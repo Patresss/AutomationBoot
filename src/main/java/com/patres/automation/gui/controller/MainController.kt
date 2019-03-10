@@ -35,7 +35,7 @@ class MainController {
 
     private val tabContainers = ArrayList<TabContainer>()
 
-    private val loaderFile = LoaderFile(LoaderFile.AUTOMATION_BOOT_EXTENSION)
+    private val loaderFile = LoaderFile(LoaderFile.AUTOMATION_BOOT_EXTENSION, LoaderFile.AUTOMATION_BOOT_EXTENSION_TYPE)
 
     fun initialize() {
         snackBar = JFXSnackbar(root)

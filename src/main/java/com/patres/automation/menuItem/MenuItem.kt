@@ -1,6 +1,10 @@
 package com.patres.automation.menuItem
 
 import com.patres.automation.Main
+import com.patres.automation.action.script.OpenFileOrDirectoryAction
+import com.patres.automation.action.script.WindowsRunAndWaitScriptAction
+import com.patres.automation.action.script.WindowsRunScriptAction
+import com.patres.automation.action.script.WindowsScriptAction
 import com.patres.automation.action.text.paste.PasteTextFromFieldAction
 import com.patres.automation.action.text.paste.PasteTextFromFileAction
 import com.patres.automation.action.text.type.TypeTextFromFieldAction
@@ -33,6 +37,7 @@ enum class MenuItem(
     MIDDLE_MOUSE_BUTTON(FontAutomationIcon.MIDDLE_MOUSE_BUTTON_SMALL, "roboto.action.mouse.middle", null),
     RIGHT_MOUSE_BUTTON(FontAutomationIcon.RIGHT_MOUSE_BUTTON_EDGE_ALT, "roboto.action.mouse.right", null),
     KEYBOARD(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard", null),
+    SCRIPT(FontAwesomeIcon.TERMINAL, "robot.action.scripts", null),
 
     CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addLeftClickMouse),
     CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addMiddleClickMouse),
@@ -56,8 +61,11 @@ enum class MenuItem(
     PASTE_TEXT_FROM_FILE(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste.file", KEYBOARD, menuItemHandler = PasteTextFromFileAction.addAction),
     TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type", KEYBOARD, menuItemHandler = TypeTextFromFieldAction.addAction),
     TYPE_TEXT_FROM_FILE(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type.file", KEYBOARD, menuItemHandler = TypeTextFromFileAction.addAction),
+    PRESS_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.press", KEYBOARD, menuItemHandler = MenuItemHandlers.addPressKeyboardButton),
 
-    PRESS_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.press", KEYBOARD, menuItemHandler = MenuItemHandlers.addPressKeyboardButton);
+    OPEN_FILE_OR_DIRECTORY(FontAwesomeIcon.TERMINAL, "robot.action.open.fileOrDirectory", SCRIPT, menuItemHandler = OpenFileOrDirectoryAction.addAction),
+    WINDOWS_SCRIPT_RUN(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.run", SCRIPT, menuItemHandler = WindowsRunScriptAction.addAction),
+    WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.runAndWait", SCRIPT, menuItemHandler = WindowsRunAndWaitScriptAction.addAction);
 
     val actionName = if (bundleName.isBlank()) "" else Main.bundle.getString(bundleName) ?: ""
     val label: Label

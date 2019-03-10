@@ -5,7 +5,7 @@ import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.validation.AbstractValidation
-import com.patres.automation.validation.FileValidation
+import com.patres.automation.validation.FileExistValidation
 import java.io.File
 
 
@@ -21,7 +21,7 @@ class TypeTextFromFileAction(
 
     override val controller: BrowseFileActionController = BrowseFileActionController(this)
 
-    override var validator: AbstractValidation? = FileValidation(controller).also { it.activateControlListener() }
+    override var validator: AbstractValidation? = FileExistValidation(controller).also { it.activateControlListener() }
 
     override fun getText() = File(controller.value).readText()
 

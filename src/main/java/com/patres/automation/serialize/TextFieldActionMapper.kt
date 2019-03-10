@@ -17,8 +17,10 @@ import com.patres.automation.action.mouse.release.ReleaseMiddleMouseAction
 import com.patres.automation.action.mouse.release.ReleaseRightMouseAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelDownAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
-import com.patres.automation.action.text.paste.PasteTextAction
-import com.patres.automation.action.text.type.TypeTextAction
+import com.patres.automation.action.script.OpenFileOrDirectoryAction
+import com.patres.automation.action.script.WindowsRunAndWaitScriptAction
+import com.patres.automation.action.script.WindowsRunScriptAction
+import com.patres.automation.action.script.WindowsScriptAction
 import com.patres.automation.action.text.paste.PasteTextFromFieldAction
 import com.patres.automation.action.text.paste.PasteTextFromFileAction
 import com.patres.automation.action.text.type.TypeTextFromFieldAction
@@ -58,7 +60,11 @@ object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>,
             MenuItem.PASTE_TEXT.name to PasteTextFromFieldAction.createAction,
             MenuItem.PASTE_TEXT_FROM_FILE.name to PasteTextFromFileAction.createAction,
             MenuItem.TYPE_TEXT.name to TypeTextFromFileAction.createAction,
-            MenuItem.TYPE_TEXT_FROM_FILE.name to TypeTextFromFileAction.createAction
+            MenuItem.TYPE_TEXT_FROM_FILE.name to TypeTextFromFileAction.createAction,
+
+            MenuItem.OPEN_FILE_OR_DIRECTORY.name to OpenFileOrDirectoryAction.createAction,
+            MenuItem.WINDOWS_SCRIPT_RUN.name to WindowsRunScriptAction.createAction,
+            MenuItem.WINDOWS_SCRIPT_RUN_AND_WAITE.name to WindowsRunAndWaitScriptAction.createAction
     )
 
     private val actionClassMap = mapOf(
@@ -86,7 +92,11 @@ object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>,
             PasteTextFromFieldAction::class.java to MenuItem.PASTE_TEXT.name,
             PasteTextFromFileAction::class.java to MenuItem.PASTE_TEXT_FROM_FILE.name,
             TypeTextFromFieldAction::class.java to MenuItem.TYPE_TEXT.name,
-            TypeTextFromFileAction::class.java to MenuItem.TYPE_TEXT_FROM_FILE.name
+            TypeTextFromFileAction::class.java to MenuItem.TYPE_TEXT_FROM_FILE.name,
+
+            OpenFileOrDirectoryAction::class.java to MenuItem.OPEN_FILE_OR_DIRECTORY.name,
+            WindowsRunScriptAction::class.java to MenuItem.WINDOWS_SCRIPT_RUN.name,
+            WindowsRunAndWaitScriptAction::class.java to MenuItem.WINDOWS_SCRIPT_RUN_AND_WAITE.name
     )
 
     override fun modelToSerialize(model: TextActionModel<out TextActionController>): TextActionSerialized {
