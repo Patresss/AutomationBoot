@@ -20,6 +20,15 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.lang.Exception
 import java.text.MessageFormat
+import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
+import javafx.animation.KeyFrame
+import javafx.animation.Interpolator
+import javafx.animation.KeyValue
+import javafx.animation.Timeline
+import javafx.scene.Scene
+import javafx.fxml.FXMLLoader
+import javafx.scene.Parent
+import javafx.util.Duration
 
 
 class MainController {
@@ -31,10 +40,13 @@ class MainController {
     }
 
     @FXML
-    var root: StackPane? = null
+    lateinit var root: StackPane
 
     @FXML
-    var tabPane: JFXTabPane? = null
+    lateinit var tabPane: JFXTabPane
+
+    @FXML
+    lateinit var centerStackPane: StackPane
 
     private lateinit var snackBar: JFXSnackbar
 
@@ -91,12 +103,26 @@ class MainController {
 
     @FXML
     fun saveAsRootSchema() {
-        getSelectedTabContainer()?.let { tabContainer ->
+        getSelectedTabContainer()?.let {
             val file = loaderFile.chooseFileToSave()
             if (file != null) {
                 saveRootSchema(file)
             }
         }
+    }
+
+    @FXML
+    fun openGlobalSettings() {
+        val globalSettings = GlobalSettingsController(this)
+        globalSettings.translateXProperty().set(Main.mainStage.scene.width)
+        centerStackPane.children.add(globalSettings)
+
+        val timeline = Timeline()
+        val kv = KeyValue(globalSettings.translateXProperty(), 0, Interpolator.EASE_IN)
+        val kf = KeyFrame(Duration.seconds(0.2), kv)
+        timeline.keyFrames.add(kf)
+        timeline.setOnFinished { centerStackPane.children.remove(tabPane) }
+        timeline.play()
     }
 
     private fun saveRootSchema(file: File) {

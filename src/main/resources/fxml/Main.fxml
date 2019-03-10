@@ -10,11 +10,15 @@
 <StackPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.automation.gui.controller.MainController">
    <BorderPane>
       <center>
-            <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-                <tabs>
+         <StackPane fx:id="centerStackPane" BorderPane.alignment="CENTER">
+            <children>
+                  <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+                      <tabs>
 
                 </tabs>
-            </JFXTabPane>
+                  </JFXTabPane>
+            </children>
+         </StackPane>
       </center>
       <top>
          <MenuBar BorderPane.alignment="CENTER">
@@ -27,9 +31,9 @@
                    <MenuItem mnemonicParsing="false" onAction="#saveAsRootSchema" text="%menu.saveAs" />
              </items>
            </Menu>
-           <Menu mnemonicParsing="false" text="Edit">
+           <Menu mnemonicParsing="false" text="%menu.settings">
              <items>
-               <MenuItem mnemonicParsing="false" text="Delete" />
+               <MenuItem mnemonicParsing="false" onAction="#openGlobalSettings" text="%menu.settings.globalSettings" />
              </items>
            </Menu>
            <Menu mnemonicParsing="false" text="Help">
