@@ -11,10 +11,11 @@ import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.HBox
+import javafx.scene.layout.StackPane
 import javafx.util.Callback
 
 
-class KeyboardField : ScrollPane() {
+class KeyboardField : StackPane() {
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/KeyboardField.fxml"))

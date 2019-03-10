@@ -41,4 +41,6 @@ abstract class AbstractValidation(
         validationTextField.textProperty().addListener { _, _, _ -> activateLabelValidate() }
     }
 
+    abstract fun throwException()
+
 }

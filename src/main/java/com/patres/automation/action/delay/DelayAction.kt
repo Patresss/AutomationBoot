@@ -1,6 +1,6 @@
 package com.patres.automation.action.delay
 
-import com.patres.automation.action.TextFieldActionModel
+import com.patres.automation.action.TextActionModel
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.GlobalKeyListener
@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory
 class DelayAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : TextFieldActionModel<TextFieldActionController>(root, parent) {
+) : TextActionModel<TextFieldActionController>(root, parent) {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(DelayAction::class.java)
@@ -29,7 +29,6 @@ class DelayAction(
 
     init {
         controller.actionLabel.text = MenuItem.DELAY.actionName
-        validator?.activateControlListener()
     }
 
     override fun runAction() {

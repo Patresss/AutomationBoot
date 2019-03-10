@@ -1,5 +1,6 @@
 package com.patres.automation.validation
 
+import com.patres.automation.excpetion.IntegerFormatException
 import com.patres.automation.gui.controller.model.TextActionController
 import com.patres.automation.util.setIntegerFilter
 
@@ -23,6 +24,10 @@ class IntegerValidation(controller: TextActionController) : AbstractValidation(c
             return false
         }
         return true
+    }
+
+    override fun throwException() {
+        throw IntegerFormatException(validationTextField.text)
     }
 
 }

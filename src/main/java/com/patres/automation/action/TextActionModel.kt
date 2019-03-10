@@ -6,7 +6,7 @@ import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.validation.AbstractValidation
 
-abstract class TextFieldActionModel<ControllerType : TextActionController>(
+abstract class TextActionModel<ControllerType : TextActionController>(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
 ) : ActionNodeModel<ControllerType>(root, parent) {
@@ -19,4 +19,11 @@ abstract class TextFieldActionModel<ControllerType : TextActionController>(
         controller.value = actionValue
     }
 
+    override fun checkValidations() {
+        validator?.let {
+            if (!it.isConditionFulfilled()) {
+                it.throwException()
+            }
+        }
+    }
 }

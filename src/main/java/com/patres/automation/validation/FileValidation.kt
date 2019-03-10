@@ -1,5 +1,7 @@
 package com.patres.automation.validation
 
+import com.patres.automation.excpetion.FileNotExistException
+import com.patres.automation.excpetion.IntegerFormatException
 import com.patres.automation.gui.controller.model.TextActionController
 import java.io.File
 
@@ -17,4 +19,7 @@ class FileValidation(controller: TextActionController) : AbstractValidation(cont
         return File(validationTextField.text).exists() && !File(validationTextField.text).isDirectory
     }
 
+    override fun throwException() {
+        throw FileNotExistException(validationTextField.text)
+    }
 }

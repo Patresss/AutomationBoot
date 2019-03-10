@@ -33,8 +33,9 @@ class MainController {
 
     private lateinit var snackBar: JFXSnackbar
 
-
     private val tabContainers = ArrayList<TabContainer>()
+
+    private val loaderFile = LoaderFile(LoaderFile.AUTOMATION_BOOT_EXTENSION)
 
     fun initialize() {
         snackBar = JFXSnackbar(root)
@@ -50,7 +51,7 @@ class MainController {
 
     @FXML
     fun openRootSchema() {
-        val fileToOpen = LoaderFile.chooseFileToLoad()
+        val fileToOpen = loaderFile.chooseFileToLoad()
         if (fileToOpen != null) {
             val serializedRootGroup = fileToOpen.readText()
             val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
@@ -69,7 +70,7 @@ class MainController {
         getSelectedTabContainer()?.let { tabContainer ->
             var file = tabContainer.file
             if (file == null) {
-                file = LoaderFile.chooseFileToSave()
+                file = loaderFile.chooseFileToSave()
             }
             if (file != null) {
                 saveRootSchema(file)
@@ -80,7 +81,7 @@ class MainController {
     @FXML
     fun saveAsRootSchema() {
         getSelectedTabContainer()?.let { tabContainer ->
-            val file = LoaderFile.chooseFileToSave()
+            val file = loaderFile.chooseFileToSave()
             if (file != null) {
                 saveRootSchema(file)
             }

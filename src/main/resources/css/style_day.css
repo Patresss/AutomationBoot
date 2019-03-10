@@ -570,9 +570,9 @@ root {
 /* Action Pane */
 .sub-action-button {
     -fx-background-color: #F1F1F1;
-    -fx-background-radius: 20px;
-    -fx-pref-height: 20px;
-    -fx-pref-width: 20px;
+    -fx-background-radius: 25px;
+    -fx-pref-height: 25px;
+    -fx-pref-width: 25px;
     -fx-min-width: -fx-pref-width;
     -fx-max-width: -fx-pref-width;
     -fx-min-height: -fx-pref-height;
@@ -661,4 +661,11 @@ root {
 .jfx-popup .jfx-popup-container .action-bar,
 .jfx-popup .jfx-list-view .action-bar{
     -fx-pref-width: 295px;
+}
+/*******************************************************************************
+ * action-node-pane                                                                *
+ ******************************************************************************/
+
+.action-node-pane {
+    -fx-min-width: 350px;
 }

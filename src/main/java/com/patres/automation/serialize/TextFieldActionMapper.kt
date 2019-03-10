@@ -1,6 +1,6 @@
 package com.patres.automation.serialize
 
-import com.patres.automation.action.TextFieldActionModel
+import com.patres.automation.action.TextActionModel
 import com.patres.automation.action.delay.DelayAction
 import com.patres.automation.action.mouse.click.LeftMouseClickAction
 import com.patres.automation.action.mouse.click.MiddleMouseClickAction
@@ -17,8 +17,9 @@ import com.patres.automation.action.mouse.release.ReleaseMiddleMouseAction
 import com.patres.automation.action.mouse.release.ReleaseRightMouseAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelDownAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
-import com.patres.automation.action.text.PasteTextAction
+import com.patres.automation.action.text.paste.PasteTextAction
 import com.patres.automation.action.text.TypeTextAction
+import com.patres.automation.action.text.paste.PasteTextFromFieldAction
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.gui.controller.model.TextActionController
 import com.patres.automation.menuItem.MenuItem
@@ -27,7 +28,7 @@ import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.serialize.model.TextActionSerialized
 
 
-object TextFieldActionMapper : Mapper<TextFieldActionModel<out TextActionController>, TextActionSerialized> {
+object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>, TextActionSerialized> {
 
     private val actionInstanceMap = mapOf(
             MenuItem.DELAY.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> DelayAction(root, parent) },
@@ -51,7 +52,7 @@ object TextFieldActionMapper : Mapper<TextFieldActionModel<out TextActionControl
             MenuItem.SCROLL_WHEEL_UP.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ScrollWheelUpAction(root, parent) },
             MenuItem.SCROLL_WHEEL_DOWN.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ScrollWheelDownAction(root, parent) },
 
-            MenuItem.PASTE_TEXT.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> PasteTextAction(root, parent) },
+            MenuItem.PASTE_TEXT.name to PasteTextFromFieldAction.createAction,
             MenuItem.TYPE_TEXT.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> TypeTextAction(root, parent) }
     )
 
@@ -81,13 +82,13 @@ object TextFieldActionMapper : Mapper<TextFieldActionModel<out TextActionControl
             TypeTextAction::class.java to MenuItem.TYPE_TEXT.name
     )
 
-    override fun modelToSerialize(model: TextFieldActionModel<out TextActionController>): TextActionSerialized {
+    override fun modelToSerialize(model: TextActionModel<out TextActionController>): TextActionSerialized {
         val actionName = actionClassMap[model.javaClass]
                 ?: throw ApplicationException("Cannot find action name ${model.javaClass} to serialize")
         return TextActionSerialized(model.getActionValue(), actionName)
     }
 
-    override fun serializedToModel(serializedModel: TextActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel): TextFieldActionModel<out TextActionController> {
+    override fun serializedToModel(serializedModel: TextActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel): TextActionModel<out TextActionController> {
         return actionInstanceMap[serializedModel.actionName]?.invoke(root, parent)?.apply { setActionValue(serializedModel.actionNodeValue) }
                 ?: throw ApplicationException("Cannot find model ${serializedModel.actionName} to serialize")
     }

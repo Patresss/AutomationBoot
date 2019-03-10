@@ -8,7 +8,7 @@ import com.patres.automation.validation.FileValidation
 abstract class BrowseFileAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : TextFieldActionModel<BrowseFileActionController>(root, parent) {
+) : TextActionModel<BrowseFileActionController>(root, parent) {
 
     override val controller: BrowseFileActionController = BrowseFileActionController(this)
 

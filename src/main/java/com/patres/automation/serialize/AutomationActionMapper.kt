@@ -1,6 +1,6 @@
 package com.patres.automation.serialize
 
-import com.patres.automation.action.TextFieldActionModel
+import com.patres.automation.action.TextActionModel
 import com.patres.automation.action.keyboard.KeyboardButtonAction
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.model.AutomationModel
@@ -16,7 +16,7 @@ object AutomationActionMapper : Mapper<AutomationModel<out AutomationController>
     override fun modelToSerialize(model: AutomationModel<out AutomationController>): AutomationActionSerialized {
         return when (model) {
             is SchemaGroupModel -> SchemaGroupMapper.modelToSerialize(model)
-            is TextFieldActionModel -> TextFieldActionMapper.modelToSerialize(model)
+            is TextActionModel -> TextFieldActionMapper.modelToSerialize(model)
             is KeyboardButtonAction -> KeyboardFieldActionMapper.modelToSerialize(model)
             else -> throw Exception("Cannot find actionModel for map")
         }

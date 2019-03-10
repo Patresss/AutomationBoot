@@ -1,6 +1,6 @@
 package com.patres.automation.action.text
 
-import com.patres.automation.action.TextFieldActionModel
+import com.patres.automation.action.TextActionModel
 import com.patres.automation.gui.controller.model.TextAreaActionController
 import com.patres.automation.keyboard.GlobalKeyListener
 import com.patres.automation.menuItem.MenuItem
@@ -12,7 +12,7 @@ import com.patres.automation.util.KeyLoader
 class TypeTextAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : TextFieldActionModel<TextAreaActionController>(root, parent) {
+) : TextActionModel<TextAreaActionController>(root, parent) {
 
     override val controller: TextAreaActionController = TextAreaActionController(this)
 

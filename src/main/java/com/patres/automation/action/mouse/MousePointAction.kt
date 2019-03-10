@@ -18,8 +18,7 @@ abstract class MousePointAction(
         private const val DELAY = 150L
     }
 
-
-    override val controller: MousePointActionController = MousePointActionController(this)
+    final override val controller: MousePointActionController = MousePointActionController(this)
 
     override var validator: AbstractValidation? = PointValidation(controller).also { it.activateControlListener() }
 
@@ -41,12 +40,6 @@ abstract class MousePointAction(
     private fun loadPoint() {
         val pointString = getActionValue()
         this.point = Point.stringToPoint(pointString)
-    }
-
-    override fun checkValidations() {
-        if (validator?.isConditionFulfilled() == false) {
-            throw PointFormatException(getActionValue())
-        }
     }
 
 }

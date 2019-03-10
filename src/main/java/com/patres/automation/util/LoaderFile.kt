@@ -4,21 +4,38 @@ import com.patres.automation.Main
 import javafx.stage.FileChooser
 import java.io.File
 
-object LoaderFile {
+class LoaderFile(
+        extension: String? = null
+) {
 
-    const val extension = ".ab"
-    private val extFilter = FileChooser.ExtensionFilter("Automation boot (*$extension)", "*$extension")
+    companion object {
+        const val AUTOMATION_BOOT_EXTENSION = ".ab"
+    }
 
-    fun chooseFileToLoad(): File? {
+    private val extFilter = if (extension != null ) FileChooser.ExtensionFilter("Automation boot (*$extension)", "*$extension") else null
+
+    fun chooseFileToLoad(pathTarget: String? = null): File? {
         val fileChooser = FileChooser()
-        fileChooser.extensionFilters.add(extFilter)
+        extFilter?.let { fileChooser.extensionFilters.add(it)  }
+        pathTarget?.let {
+            val file = File(it)
+            if (file.exists()) {
+                fileChooser.initialDirectory = file.parentFile
+            }
+        }
         fileChooser.title = Main.bundle.getString("action.chooseFile")
         return fileChooser.showOpenDialog(Main.mainStage)
     }
 
-    fun chooseFileToSave(): File? {
+    fun chooseFileToSave(pathTarget: String? = null): File? {
         val fileChooser = FileChooser()
-        fileChooser.extensionFilters.add(extFilter)
+        extFilter?.let { fileChooser.extensionFilters.add(it)  }
+        pathTarget?.let {
+            val file = File(it)
+            if (file.exists()) {
+                fileChooser.initialDirectory = file.parentFile
+            }
+        }
         return fileChooser.showSaveDialog(Main.mainStage)
     }
 

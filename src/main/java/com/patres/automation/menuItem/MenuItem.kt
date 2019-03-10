@@ -1,6 +1,8 @@
 package com.patres.automation.menuItem
 
 import com.patres.automation.Main
+import com.patres.automation.action.text.paste.PasteTextFromFieldAction
+import com.patres.automation.action.text.paste.PasteTextFromFileAction
 import com.patres.automation.font.FontAutomationIcon
 import com.patres.automation.model.RootSchemaGroupModel
 import de.jensd.fx.glyphs.GlyphIcons
@@ -48,7 +50,8 @@ enum class MenuItem(
     SCROLL_WHEEL_UP(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.up", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelUp),
     SCROLL_WHEEL_DOWN(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.down", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelDown),
 
-    PASTE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste", KEYBOARD, menuItemHandler = MenuItemHandlers.addPasteText),
+    PASTE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste", KEYBOARD, menuItemHandler = PasteTextFromFieldAction.addAction),
+    PASTE_TEXT_FROM_FILE(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste.file", KEYBOARD, menuItemHandler = PasteTextFromFileAction.addAction),
     TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type", KEYBOARD, menuItemHandler = MenuItemHandlers.addTypeText),
 
     PRESS_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.press", KEYBOARD, menuItemHandler = MenuItemHandlers.addPressKeyboardButton);

@@ -23,8 +23,9 @@ class TabContainer(
         }
 
     private fun setTabName(file: File?) {
-        var newName = file?.name?.removeSuffix(LoaderFile.extension) ?: DEFAULT_NAME
+        var newName = file?.name?.removeSuffix(LoaderFile.AUTOMATION_BOOT_EXTENSION) ?: DEFAULT_NAME
         newName = if (newName.length > MAX_NUMBER_OF_CHARACTERS) newName.substring(0, MAX_NUMBER_OF_CHARACTERS) + "…" else newName
         tab.text = newName
     }
+
 }
