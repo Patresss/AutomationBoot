@@ -8,15 +8,13 @@ import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 
 
 abstract class AutomationController(
         val model: AutomationModel<out AutomationController>,
         fxmlFile: String
-): StackPane() {
+) : StackPane() {
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))

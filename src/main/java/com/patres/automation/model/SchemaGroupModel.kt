@@ -1,9 +1,8 @@
 package com.patres.automation.model
 
-import com.patres.automation.keyboard.GlobalKeyListener
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.SchemaGroupController
-import com.patres.automation.util.LoaderFactory
+import com.patres.automation.keyboard.GlobalKeyListener
 import com.patres.automation.util.swap
 import javafx.scene.Node
 import java.util.*
@@ -79,7 +78,7 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     }
 
     fun checkValidation() {
-        actionBlocks.forEach { it.checkValidations()  }
+        actionBlocks.forEach { it.checkValidations() }
     }
 
     fun getNumberOfIteration(): Int {
@@ -120,11 +119,9 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     }
 
 
-
     override fun getMainNode(): Node = controller.getMainNode()
 
     override fun getMainInsideNode(): Node = controller.getMainInsideNode()
-
 
 
 }

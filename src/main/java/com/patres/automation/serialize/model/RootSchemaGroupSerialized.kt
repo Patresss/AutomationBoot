@@ -1,6 +1,6 @@
 package com.patres.automation.serialize.model
 
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class RootSchemaGroupSerialized(

@@ -19,8 +19,8 @@ fun TextField.setIntegerFilter() {
 
 fun Parent.moveTo(node: Node, newPlace: Int) {
     // Workaround for private members
-    val childrenFromField = getObjectFromField(Parent::class, this,"children" ) as ObservableList<Node>
-    val childSetFromField = getObjectFromField(Parent::class, this,"childSet" ) as Set<Node>
+    val childrenFromField = getObjectFromField(Parent::class, this, "children") as ObservableList<Node>
+    val childSetFromField = getObjectFromField(Parent::class, this, "childSet") as Set<Node>
     val childrenTriggerPermutationField = Parent::class.java.getDeclaredField("childrenTriggerPermutation")
     childrenTriggerPermutationField.isAccessible = true
 
@@ -45,8 +45,8 @@ fun Parent.moveTo(node: Node, newPlace: Int) {
 
 fun Parent.swap(node: Node, nodeToSwap: Node) {
     // Workaround for private members
-    val childrenFromField = getObjectFromField(Parent::class, this,"children" ) as ObservableList<Node>
-    val childSetFromField = getObjectFromField(Parent::class, this,"childSet" ) as Set<Node>
+    val childrenFromField = getObjectFromField(Parent::class, this, "children") as ObservableList<Node>
+    val childSetFromField = getObjectFromField(Parent::class, this, "childSet") as Set<Node>
     val childrenTriggerPermutationField = Parent::class.java.getDeclaredField("childrenTriggerPermutation")
     childrenTriggerPermutationField.isAccessible = true
 
@@ -91,7 +91,7 @@ fun getObjectFromField(clazz: KClass<out Any>, instance: Any, nameOfField: Strin
     return field.get(instance)
 }
 
- fun String.getInteger(): Int {
+fun String.getInteger(): Int {
     try {
         return Integer.parseInt(this)
     } catch (e: Exception) {

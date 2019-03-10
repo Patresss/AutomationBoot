@@ -25,7 +25,7 @@ class Main : Application() {
         const val sceneWidth = 475
         const val sceneHeight = 700
         var bundle = ResourceBundle.getBundle("language/Bundle", Locale("pl"))!!
-        val tittle: String = bundle.getString("application.name")?: "Application"
+        val tittle: String = bundle.getString("application.name") ?: "Application"
         var mainStage: Stage = Stage()
         var mainPane: StackPane = StackPane()
         lateinit var mainController: MainController

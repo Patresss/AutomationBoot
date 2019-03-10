@@ -5,8 +5,8 @@ import com.patres.automation.model.AutomationModel
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
-import javafx.scene.layout.*
-import javafx.scene.layout.StackPane
+import javafx.scene.layout.Pane
+import javafx.scene.layout.VBox
 
 
 class SchemaGroupController(model: AutomationModel<out SchemaGroupController>) : AutomationController(model, "SchemaGroup.fxml") {

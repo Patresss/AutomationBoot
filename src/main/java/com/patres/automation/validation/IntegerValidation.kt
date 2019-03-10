@@ -1,9 +1,6 @@
 package com.patres.automation.validation
 
 import com.patres.automation.gui.controller.model.TextActionController
-import javafx.scene.control.Label
-import javafx.scene.control.TextField
-import javafx.scene.control.TextInputControl
 
 class IntegerValidation(controller: TextActionController) : AbstractValidation(controller) {
 

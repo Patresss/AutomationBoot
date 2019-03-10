@@ -7,7 +7,6 @@ import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.validation.AbstractValidation
-import com.patres.automation.validation.IntegerValidation
 import com.patres.automation.validation.PointValidation
 
 abstract class MousePointAction(

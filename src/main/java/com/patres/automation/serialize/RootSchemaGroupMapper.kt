@@ -1,9 +1,7 @@
 package com.patres.automation.serialize
 
 import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.serialize.model.RootSchemaGroupSerialized
-import com.patres.automation.serialize.model.SchemaGroupSerialized
 
 object RootSchemaGroupMapper {
 

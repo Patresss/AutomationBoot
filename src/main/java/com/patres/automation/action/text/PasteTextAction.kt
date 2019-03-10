@@ -2,11 +2,9 @@ package com.patres.automation.action.text
 
 import com.patres.automation.action.TextFieldActionModel
 import com.patres.automation.gui.controller.model.TextAreaActionController
-import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.util.LoaderFactory
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 import java.awt.event.KeyEvent

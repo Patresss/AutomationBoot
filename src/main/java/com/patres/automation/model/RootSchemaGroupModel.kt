@@ -6,10 +6,6 @@ import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.GlobalKeyListener
-import com.patres.automation.util.LoaderFactory
-import kotlinx.serialization.*
-import kotlinx.serialization.internal.HexConverter
-import kotlinx.serialization.internal.StringDescriptor
 import org.slf4j.LoggerFactory
 
 class RootSchemaGroupModel {
@@ -98,7 +94,7 @@ class RootSchemaGroupModel {
         actionModel.controller.selectAction()
     }
 
-     fun getSelectedShemaGroupModel(): SchemaGroupModel {
+    fun getSelectedShemaGroupModel(): SchemaGroupModel {
         val selectedModelVal = selectedModel
         return if (selectedModelVal != null && selectedModelVal is SchemaGroupModel) {
             selectedModelVal

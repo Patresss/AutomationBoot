@@ -3,9 +3,7 @@ package com.patres.automation.gui.controller.model
 import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
 import com.patres.automation.action.mouse.MouseAction
-import com.patres.automation.action.mouse.MousePointAction
 import com.patres.automation.gui.controller.PointerController
-import com.patres.automation.model.AutomationModel
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.Scene

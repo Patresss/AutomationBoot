@@ -36,7 +36,7 @@ abstract class AutomationModel<ControllerType : AutomationController>(
     }
 
     fun addActionBlockUnder(actionBlock: AutomationModel<out AutomationController>) {
-        val index = parent?.actionBlocks?.indexOf(this)?: 0
+        val index = parent?.actionBlocks?.indexOf(this) ?: 0
         parent?.addActionBlockToList(actionBlock, index + 1)
     }
 

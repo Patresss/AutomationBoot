@@ -1,8 +1,6 @@
 package com.patres.automation.validation
 
 import com.patres.automation.gui.controller.model.TextActionController
-import javafx.scene.control.Label
-import javafx.scene.control.TextInputControl
 import java.io.File
 
 class FileValidation(controller: TextActionController) : AbstractValidation(controller) {

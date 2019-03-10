@@ -8,24 +8,24 @@ import java.io.File
 
 class TabContainer(
         val tab: Tab,
-         file: File? = null,
+        file: File? = null,
         val rootSchema: RootSchemaGroupModel
 ) {
 
     companion object {
-        val DEFAULT_NAME = Main.bundle.getString("rootSchema.defaultFileName")?: "New file"
+        val DEFAULT_NAME = Main.bundle.getString("rootSchema.defaultFileName") ?: "New file"
         val MAX_NUMBER_OF_CHARACTERS = 24
     }
 
     var file: File? = null
-    set(value) {
-        field = value
-        setTabName(value)
-    }
+        set(value) {
+            field = value
+            setTabName(value)
+        }
 
     private fun setTabName(file: File?) {
         var newName = file?.name?.removeSuffix(LoaderFile.extension) ?: DEFAULT_NAME
-        newName = if (newName.length > MAX_NUMBER_OF_CHARACTERS) newName.substring(0, MAX_NUMBER_OF_CHARACTERS)  + "…" else newName
+        newName = if (newName.length > MAX_NUMBER_OF_CHARACTERS) newName.substring(0, MAX_NUMBER_OF_CHARACTERS) + "…" else newName
         tab.text = newName
     }
 }

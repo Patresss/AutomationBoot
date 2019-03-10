@@ -1,15 +1,10 @@
 package com.patres.automation.action
 
 import com.patres.automation.gui.controller.model.BrowseFileActionController
-import com.patres.automation.gui.controller.model.TextFieldActionController
-import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.util.LoaderFactory
 import com.patres.automation.validation.FileValidation
-import com.patres.automation.validation.IntegerValidation
 import javafx.scene.Node
-import org.slf4j.LoggerFactory
 
 abstract class BrowseFileAction(
         root: RootSchemaGroupModel,

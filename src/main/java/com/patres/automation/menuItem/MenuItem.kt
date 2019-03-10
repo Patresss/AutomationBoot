@@ -1,25 +1,6 @@
 package com.patres.automation.menuItem
 
 import com.patres.automation.Main
-import com.patres.automation.action.delay.DelayAction
-import com.patres.automation.action.TextFieldActionModel
-import com.patres.automation.action.mouse.click.LeftMouseClickAction
-import com.patres.automation.action.mouse.click.MiddleMouseClickAction
-import com.patres.automation.action.mouse.click.RightMouseClickAction
-import com.patres.automation.action.mouse.doubleClick.LeftDoubleMouseClickAction
-import com.patres.automation.action.mouse.doubleClick.MiddleDoubleMouseClickAction
-import com.patres.automation.action.mouse.doubleClick.RightDoubleMouseClickAction
-import com.patres.automation.action.mouse.move.MoveMouseAction
-import com.patres.automation.action.mouse.press.PressLeftMouseAction
-import com.patres.automation.action.mouse.press.PressMiddleMouseAction
-import com.patres.automation.action.mouse.press.PressRightMouseAction
-import com.patres.automation.action.mouse.release.ReleaseLeftMouseAction
-import com.patres.automation.action.mouse.release.ReleaseMiddleMouseAction
-import com.patres.automation.action.mouse.release.ReleaseRightMouseAction
-import com.patres.automation.action.mouse.wheel.ScrollWheelDownAction
-import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
-import com.patres.automation.action.text.PasteTextAction
-import com.patres.automation.action.text.TypeTextAction
 import com.patres.automation.font.FontAutomationIcon
 import com.patres.automation.model.RootSchemaGroupModel
 import de.jensd.fx.glyphs.GlyphIcons

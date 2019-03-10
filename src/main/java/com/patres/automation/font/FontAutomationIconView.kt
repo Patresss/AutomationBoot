@@ -11,6 +11,7 @@ class FontAutomationIconView(
     companion object {
         private const val TTF_PATH = "/font/FontAutomation.ttf"
         const val DEFAULT_SIZE = 22.0
+
         init {
             Font.loadFont(FontAutomationIconView::class.java.getResource(TTF_PATH).openStream(), DEFAULT_SIZE)
         }

@@ -1,7 +1,6 @@
 package com.patres.automation.gui.controller.model
 
 import com.patres.automation.model.AutomationModel
-import com.patres.automation.validation.AbstractValidation
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Label
