@@ -1,94 +1,18 @@
 package com.patres.automation.util
 
-import com.patres.automation.Main
-import com.patres.automation.action.keyboard.KeyboardButtonAction
-import com.patres.automation.action.mouse.MousePointAction
 import com.patres.automation.gui.controller.TabContainer
-import com.patres.automation.gui.controller.model.*
 import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.model.ActionNodeModel
-import javafx.fxml.FXMLLoader
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 
 object LoaderFactory {
-
-
-    private fun createTextActionController(model: ActionNodeModel<TextFieldActionController>, fxmlName: String): TextFieldActionController {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/$fxmlName")
-        loader.resources = Main.bundle
-        loader.load<TextFieldActionController>()
-        return loader.getController<TextFieldActionController>().also {
-            it.model = model
-        }
-    }
-
-    fun createTextAreaActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
-        return  createTextActionController(model, "AreaFieldAction.fxml")
-    }
-
-    fun createTextFieldActionController(model: ActionNodeModel<TextFieldActionController>): TextFieldActionController {
-        return  createTextActionController(model, "TextFieldAction.fxml")
-    }
-
-    fun createKeyboardFieldActionController(model: KeyboardButtonAction): KeyboardButtonActionController {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/KeyboardFieldAction.fxml")
-        loader.resources = Main.bundle
-        loader.load<KeyboardButtonActionController>()
-        return loader.getController<KeyboardButtonActionController>().also {
-            it.model = model
-        }
-    }
-
-    fun createMousePointActionController(model: MousePointAction): MousePointActionController {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/MousePointAction.fxml")
-        loader.resources = Main.bundle
-        loader.load<MousePointActionController>()
-        return loader.getController<MousePointActionController>().also {
-            it.model = model
-        }
-    }
-
-    fun createBrowseFileActionController(model: BrowseFileAction): BrowseFileActionController {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/BrowsFIleAction.fxml")
-        loader.resources = Main.bundle
-        loader.load<BrowseFileActionController>()
-        return loader.getController<BrowseFileActionController>().also {
-            it.model = model
-        }
-    }
-
-    fun createSchemaGroupController(model: SchemaGroupModel): SchemaGroupController {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/SchemaGroup.fxml")
-        loader.resources = Main.bundle
-        loader.load<SchemaGroupController>()
-        return loader.getController<SchemaGroupController>().also {
-            it.model = model
-        }
-    }
-
-    fun createRootSchemaGroupController(model: RootSchemaGroupModel): RootSchemaGroupController {
-        val loader = FXMLLoader()
-        loader.location = javaClass.getResource("/fxml/RootSchemaGroup.fxml")
-        loader.resources = Main.bundle
-        loader.load<RootSchemaGroupController>()
-        return loader.getController<RootSchemaGroupController>().also {
-            it.model = model
-        }
-    }
 
     fun createRootSchemaGroup(tabPane: TabPane?): TabContainer {
         return loadRootSchemaGroup(tabPane, RootSchemaGroupModel())
     }
 
     fun loadRootSchemaGroup(tabPane: TabPane?, rootSchemaGroup: RootSchemaGroupModel): TabContainer {
-        val newTab = Tab("New Tab", rootSchemaGroup.controller.rootStackPane)
+        val newTab = Tab("New Tab", rootSchemaGroup.controller)
         tabPane?.apply {
             tabs?.add(newTab)
             selectionModel?.select(newTab)

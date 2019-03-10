@@ -18,7 +18,7 @@ class RootSchemaGroupModel {
         private val LOGGER = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
     }
 
-    val controller: RootSchemaGroupController = LoaderFactory.createRootSchemaGroupController(this)
+    val controller: RootSchemaGroupController = RootSchemaGroupController(this)
 
     var robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
@@ -109,7 +109,7 @@ class RootSchemaGroupModel {
 
     private fun loadControllerContent() {
         controller.insidePane.content = schemaGroup.controller.getMainNode()
-        schemaGroup.controller.mainSchemaBox.minHeightProperty().bind(controller.rootStackPane.heightProperty())
+        schemaGroup.controller.minHeightProperty().bind(controller.heightProperty())
     }
 
 }

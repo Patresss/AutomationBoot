@@ -1,24 +1,8 @@
 package com.patres.automation.gui.controller.model
 
-import javafx.fxml.FXML
-import javafx.scene.Node
-import javafx.scene.control.Label
-import javafx.scene.control.TextInputControl
+import com.patres.automation.action.TextFieldActionModel
 
-open class TextFieldActionController : LabelActionController() {
-
-    @FXML
-    lateinit var valueText: TextInputControl
-
-    @FXML
-    lateinit var validLabel: Label
-
-    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(valueText)
-
-    var value: String
-        get() = valueText.text
-        set(value) {
-            valueText.text = value
-        }
-
-}
+open class TextFieldActionController(
+        model: TextFieldActionModel<out TextFieldActionController>,
+        fxmlFile: String = "TextFieldAction.fxml"
+) : TextActionController(model, fxmlFile)

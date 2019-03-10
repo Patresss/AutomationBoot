@@ -4,14 +4,13 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane fx:id="mainPane" minHeight="40.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.automation.gui.controller.model.TextFieldActionController">
-   <center>
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
       <GridPane hgap="10.0">
         <columnConstraints>
             <ColumnConstraints />
@@ -41,5 +40,5 @@
              </StackPane>
          </children>
       </GridPane>
-   </center>
-</BorderPane>
+   </children>
+</fx:root>

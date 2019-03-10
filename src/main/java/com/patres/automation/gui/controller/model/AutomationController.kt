@@ -1,22 +1,36 @@
 package com.patres.automation.gui.controller.model
 
 import com.jfoenix.controls.JFXButton
+import com.patres.automation.Main
+import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.model.AutomationModel
 import javafx.event.EventHandler
 import javafx.fxml.FXML
+import javafx.fxml.FXMLLoader
 import javafx.scene.Node
+import javafx.scene.layout.GridPane
+import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 
 
-abstract class AutomationController {
+abstract class AutomationController(
+        val model: AutomationModel<out AutomationController>,
+        fxmlFile: String
+): StackPane() {
+
+    init {
+        val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))
+        fxmlLoader.setRoot(this)
+        fxmlLoader.setController(this)
+        fxmlLoader.resources = Main.bundle
+        fxmlLoader.load<KeyboardButton>()
+    }
 
     @FXML
     lateinit var selectActionButton: JFXButton
 
     @FXML
     lateinit var selectStackPane: StackPane
-
-    lateinit var model: AutomationModel<out AutomationController>
 
     @FXML
     open fun initialize() {

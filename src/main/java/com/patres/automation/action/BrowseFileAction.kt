@@ -1,5 +1,6 @@
 package com.patres.automation.action
 
+import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
@@ -13,11 +14,11 @@ import org.slf4j.LoggerFactory
 abstract class BrowseFileAction(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : TextFieldActionModel(root, parent) {
+) : TextFieldActionModel<BrowseFileActionController>(root, parent) {
 
-    override val controller: TextFieldActionController = LoaderFactory.createBrowseFileActionController(this)
+    override val controller: BrowseFileActionController = BrowseFileActionController(this)
 
-    private var validation = FileValidation(controller.validLabel, controller.valueText)
+    private var validation = FileValidation(controller).also { it.activateControlListener() }
 
     init {
         validation.activateControlListener()

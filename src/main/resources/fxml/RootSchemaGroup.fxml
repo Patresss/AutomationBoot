@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.automation.gui.controller.model.RootSchemaGroupController">
+<fx:root fx:id="rootStackPane" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <ScrollPane fx:id="insidePane" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
@@ -24,4 +24,4 @@
          </BorderPane.margin>
       </AnchorPane>
    </left>
- </BorderPane>
+ </fx:root>

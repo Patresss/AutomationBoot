@@ -1,15 +1,18 @@
 package com.patres.automation.action
 
-import com.patres.automation.gui.controller.model.TextFieldActionController
+import com.patres.automation.gui.controller.model.TextActionController
 import com.patres.automation.model.ActionNodeModel
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
+import com.patres.automation.validation.AbstractValidation
 import javafx.scene.Node
 
-abstract class TextFieldActionModel(
+abstract class TextFieldActionModel<ControllerType : TextActionController>(
         root: RootSchemaGroupModel,
         parent: SchemaGroupModel
-) : ActionNodeModel<TextFieldActionController>(root, parent) {
+) : ActionNodeModel<ControllerType>(root, parent) {
+
+    open var validator: AbstractValidation? = null
 
     fun getActionValue() = controller.value
 

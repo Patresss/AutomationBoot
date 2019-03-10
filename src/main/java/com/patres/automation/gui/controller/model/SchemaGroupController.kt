@@ -1,6 +1,7 @@
 package com.patres.automation.gui.controller.model
 
 import com.jfoenix.controls.JFXTextField
+import com.patres.automation.model.AutomationModel
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
@@ -8,15 +9,7 @@ import javafx.scene.layout.*
 import javafx.scene.layout.StackPane
 
 
-
-
-class SchemaGroupController : AutomationController() {
-
-    @FXML
-    lateinit var mainSchemaBox: BorderPane
-
-    @FXML
-    lateinit var outsideBox: StackPane
+class SchemaGroupController(model: AutomationModel<out SchemaGroupController>) : AutomationController(model, "SchemaGroup.fxml") {
 
     @FXML
     lateinit var innerBox: VBox
@@ -33,7 +26,7 @@ class SchemaGroupController : AutomationController() {
         groupNameTextField.onMouseClicked = EventHandler { selectAction() }
     }
 
-    fun getMainNode(): Node = mainSchemaBox
+    fun getMainNode(): Node = this
 
     fun getMainInsideNode(): Pane = innerBox
 

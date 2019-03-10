@@ -3,11 +3,12 @@ package com.patres.automation.action.mouse
 import com.patres.automation.Point
 import com.patres.automation.excpetion.PointFormatException
 import com.patres.automation.gui.controller.model.MousePointActionController
+import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.util.LoaderFactory
+import com.patres.automation.validation.AbstractValidation
+import com.patres.automation.validation.IntegerValidation
 import com.patres.automation.validation.PointValidation
-import javafx.scene.Node
 
 abstract class MousePointAction(
         root: RootSchemaGroupModel,
@@ -18,14 +19,15 @@ abstract class MousePointAction(
         private const val DELAY = 150L
     }
 
-    override val controller: MousePointActionController = LoaderFactory.createMousePointActionController(this)
+
+    override val controller: MousePointActionController = MousePointActionController(this)
+
+    override var validator: AbstractValidation? = PointValidation(controller).also { it.activateControlListener() }
 
     var point: Point? = null
 
-    private var pointValidation = PointValidation(controller.validLabel, controller.valueText)
-
     init {
-        pointValidation.activateControlListener()
+        controller.actionLabel.text = MenuItem.DELAY.actionName
     }
 
     override fun runAction() {
@@ -43,7 +45,7 @@ abstract class MousePointAction(
     }
 
     override fun checkValidations() {
-        if (!pointValidation.isConditionFulfilled) {
+        if (validator?.isConditionFulfilled() == false) {
             throw PointFormatException(getActionValue())
         }
     }

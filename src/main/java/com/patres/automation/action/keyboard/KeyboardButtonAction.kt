@@ -14,7 +14,7 @@ abstract class KeyboardButtonAction(
         parent: SchemaGroupModel
 ) : ActionNodeModel<KeyboardButtonActionController>(root, parent) {
 
-    override val controller: KeyboardButtonActionController = LoaderFactory.createKeyboardFieldActionController(this)
+    override val controller: KeyboardButtonActionController = KeyboardButtonActionController(this)
 
     fun getActionValue() = controller.keyboardField.keys
 

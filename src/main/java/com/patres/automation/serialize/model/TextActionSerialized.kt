@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-open class TextFieldActionSerialized(
+open class TextActionSerialized(
         val actionNodeValue: String = "",
         val actionName: String
 ) : AutomationActionSerialized() {

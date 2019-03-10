@@ -1,13 +1,11 @@
 package com.patres.automation.validation
 
+import com.patres.automation.gui.controller.model.TextActionController
 import javafx.scene.control.Label
 import javafx.scene.control.TextInputControl
 import java.io.File
 
-class FileValidation(
-        validationLabel: Label,
-        validationField: TextInputControl
-) : AbstractValidation(validationLabel, validationField) {
+class FileValidation(controller: TextActionController) : AbstractValidation(controller) {
 
     companion object {
         private const val invalidMessage = "File does not exist"

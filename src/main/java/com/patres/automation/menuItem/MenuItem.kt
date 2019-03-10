@@ -31,8 +31,7 @@ enum class MenuItem(
         bundleName: String = "",
         val parent: MenuItem?,
         val shouldBeDisabled: (rootSchemaGroupModel: RootSchemaGroupModel) -> Boolean = { false },
-        val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = {},
-        val classValue: Class<out TextFieldActionModel>? = null
+        val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = {}
 ) {
 
     RUN(FontAwesomeIcon.PLAY, "robot.action.runAutomation", null, menuItemHandler = MenuItemHandlers.runAutomation),
@@ -42,34 +41,34 @@ enum class MenuItem(
 
     ADD_GROUP(FontAwesomeIcon.OBJECT_GROUP, "robot.action.addGroup", null, menuItemHandler = MenuItemHandlers.addSchemeGroup),
 
-    DELAY(FontAwesomeIcon.HOURGLASS, "robot.action.delay", null, menuItemHandler = MenuItemHandlers.addDelay, classValue = DelayAction::class.java),
-    MOVE_MOUSE(FontAutomationIcon.MOVE_MOUSE, "robot.action.moveMouse", null, menuItemHandler = MenuItemHandlers.addMoveMouse, classValue = MoveMouseAction::class.java),
+    DELAY(FontAwesomeIcon.HOURGLASS, "robot.action.delay", null, menuItemHandler = MenuItemHandlers.addDelay),
+    MOVE_MOUSE(FontAutomationIcon.MOVE_MOUSE, "robot.action.moveMouse", null, menuItemHandler = MenuItemHandlers.addMoveMouse),
 
     LEFT_MOUSE_BUTTON(FontAutomationIcon.LEFT_MOUSE_BUTTON_EDGE_ALT, "roboto.action.mouse.left", null),
     MIDDLE_MOUSE_BUTTON(FontAutomationIcon.MIDDLE_MOUSE_BUTTON_SMALL, "roboto.action.mouse.middle", null),
     RIGHT_MOUSE_BUTTON(FontAutomationIcon.RIGHT_MOUSE_BUTTON_EDGE_ALT, "roboto.action.mouse.right", null),
     KEYBOARD(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard", null),
 
-    CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addLeftClickMouse, classValue = LeftMouseClickAction::class.java),
-    CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addMiddleClickMouse, classValue = MiddleMouseClickAction::class.java),
-    CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addRightClickMouse, classValue = RightMouseClickAction::class.java),
+    CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addLeftClickMouse),
+    CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addMiddleClickMouse),
+    CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.mouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addRightClickMouse),
 
-    DOUBLE_CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.doubleMouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addDoubleLeftClickMouse, classValue = LeftDoubleMouseClickAction::class.java),
-    DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.doubleMouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addDoubleMiddleClickMouse, classValue = MiddleDoubleMouseClickAction::class.java),
-    DOUBLE_CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.doubleMouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addDoubleRightClickMouse, classValue = RightDoubleMouseClickAction::class.java),
+    DOUBLE_CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.doubleMouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addDoubleLeftClickMouse),
+    DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.doubleMouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addDoubleMiddleClickMouse),
+    DOUBLE_CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.doubleMouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addDoubleRightClickMouse),
 
-    PRESS_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.pressMouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addPressLeftMouse, classValue = PressLeftMouseAction::class.java),
-    PRESS_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.pressMouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addPressMiddleMouse, classValue = PressMiddleMouseAction::class.java),
-    PRESS_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.pressMouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addPressRightMouse, classValue = PressRightMouseAction::class.java),
+    PRESS_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.pressMouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addPressLeftMouse),
+    PRESS_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.pressMouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addPressMiddleMouse),
+    PRESS_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.pressMouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addPressRightMouse),
 
-    RELEASE_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseLeftMouse, classValue = ReleaseLeftMouseAction::class.java),
-    RELEASE_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseMiddlesMouse, classValue = ReleaseMiddleMouseAction::class.java),
-    RELEASE_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseRightoMouse, classValue = ReleaseRightMouseAction::class.java),
-    SCROLL_WHEEL_UP(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.up", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelUp, classValue = ScrollWheelUpAction::class.java),
-    SCROLL_WHEEL_DOWN(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.down", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelDown, classValue = ScrollWheelDownAction::class.java),
+    RELEASE_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.left", LEFT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseLeftMouse),
+    RELEASE_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.middle", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseMiddlesMouse),
+    RELEASE_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, "robot.action.releaseMouseClick.right", RIGHT_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addReleaseRightoMouse),
+    SCROLL_WHEEL_UP(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.up", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelUp),
+    SCROLL_WHEEL_DOWN(FontAwesomeIcon.MOUSE_POINTER, "robot.action.scrollWheel.down", MIDDLE_MOUSE_BUTTON, menuItemHandler = MenuItemHandlers.addScrollWheelDown),
 
-    PASTE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste", KEYBOARD, menuItemHandler = MenuItemHandlers.addPasteText, classValue = PasteTextAction::class.java),
-    TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type", KEYBOARD, menuItemHandler = MenuItemHandlers.addTypeText, classValue = TypeTextAction::class.java),
+    PASTE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.paste", KEYBOARD, menuItemHandler = MenuItemHandlers.addPasteText),
+    TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.type", KEYBOARD, menuItemHandler = MenuItemHandlers.addTypeText),
 
     PRESS_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, "robot.action.keyboard.press", KEYBOARD, menuItemHandler = MenuItemHandlers.addPressKeyboardButton);
 

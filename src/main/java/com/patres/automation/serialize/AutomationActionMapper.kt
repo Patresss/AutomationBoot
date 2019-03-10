@@ -6,10 +6,10 @@ import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.model.AutomationModel
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.serialize.model.TextFieldActionSerialized
 import com.patres.automation.serialize.model.AutomationActionSerialized
 import com.patres.automation.serialize.model.KeyboardFieldActionSerialized
 import com.patres.automation.serialize.model.SchemaGroupSerialized
+import com.patres.automation.serialize.model.TextActionSerialized
 
 object AutomationActionMapper : Mapper<AutomationModel<out AutomationController>, AutomationActionSerialized> {
 
@@ -25,7 +25,7 @@ object AutomationActionMapper : Mapper<AutomationModel<out AutomationController>
     override fun serializedToModel(serializedModel: AutomationActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel): AutomationModel<out AutomationController> {
         return when (serializedModel) {
             is SchemaGroupSerialized -> SchemaGroupMapper.serializedToModel(serializedModel, root, parent)
-            is TextFieldActionSerialized -> TextFieldActionMapper.serializedToModel(serializedModel, root, parent)
+            is TextActionSerialized -> TextFieldActionMapper.serializedToModel(serializedModel, root, parent)
             is KeyboardFieldActionSerialized -> KeyboardFieldActionMapper.serializedToModel(serializedModel, root, parent)
             else -> throw Exception("Cannot find actionModel for map")
         }

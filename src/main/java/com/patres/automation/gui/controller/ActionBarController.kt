@@ -9,6 +9,7 @@ import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.menuItem.MenuItemGroup
 import com.patres.automation.font.FontAutomationIcon
 import com.patres.automation.font.FontAutomationIconView
+import com.patres.automation.model.RootSchemaGroupModel
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections

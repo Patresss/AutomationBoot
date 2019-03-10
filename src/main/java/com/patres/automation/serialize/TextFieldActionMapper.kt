@@ -1,7 +1,7 @@
 package com.patres.automation.serialize
 
-import com.patres.automation.action.delay.DelayAction
 import com.patres.automation.action.TextFieldActionModel
+import com.patres.automation.action.delay.DelayAction
 import com.patres.automation.action.mouse.click.LeftMouseClickAction
 import com.patres.automation.action.mouse.click.MiddleMouseClickAction
 import com.patres.automation.action.mouse.click.RightMouseClickAction
@@ -20,13 +20,14 @@ import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
 import com.patres.automation.action.text.PasteTextAction
 import com.patres.automation.action.text.TypeTextAction
 import com.patres.automation.excpetion.ApplicationException
+import com.patres.automation.gui.controller.model.TextActionController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.serialize.model.TextFieldActionSerialized
+import com.patres.automation.serialize.model.TextActionSerialized
 
 
-object TextFieldActionMapper : Mapper<TextFieldActionModel, TextFieldActionSerialized> {
+object TextFieldActionMapper : Mapper<TextFieldActionModel<out TextActionController>, TextActionSerialized> {
 
     private val actionInstanceMap = mapOf(
             MenuItem.DELAY.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> DelayAction(root, parent) },
@@ -80,13 +81,13 @@ object TextFieldActionMapper : Mapper<TextFieldActionModel, TextFieldActionSeria
             TypeTextAction::class.java to MenuItem.TYPE_TEXT.name
     )
 
-    override fun modelToSerialize(model: TextFieldActionModel): TextFieldActionSerialized {
+    override fun modelToSerialize(model: TextFieldActionModel<out TextActionController>): TextActionSerialized {
         val actionName = actionClassMap[model.javaClass]
                 ?: throw ApplicationException("Cannot find action name ${model.javaClass} to serialize")
-        return TextFieldActionSerialized(model.getActionValue(), actionName)
+        return TextActionSerialized(model.getActionValue(), actionName)
     }
 
-    override fun serializedToModel(serializedModel: TextFieldActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel): TextFieldActionModel {
+    override fun serializedToModel(serializedModel: TextActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel): TextFieldActionModel<out TextActionController> {
         return actionInstanceMap[serializedModel.actionName]?.invoke(root, parent)?.apply { setActionValue(serializedModel.actionNodeValue) }
                 ?: throw ApplicationException("Cannot find model ${serializedModel.actionName} to serialize")
     }

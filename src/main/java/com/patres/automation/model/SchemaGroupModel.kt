@@ -10,7 +10,7 @@ import java.util.*
 
 class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : AutomationModel<SchemaGroupController>(root, parent) {
 
-    override val controller: SchemaGroupController = LoaderFactory.createSchemaGroupController(this)
+    override val controller: SchemaGroupController = SchemaGroupController(this)
 
     val actionBlocks = ArrayList<AutomationModel<out AutomationController>>()
 
