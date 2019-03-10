@@ -71,7 +71,7 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     }
 
     fun checkValidation() {
-        actionBlocks.forEach { it.checkValidations() }
+        allChildrenActionBlocks.forEach { it.checkValidations() }
     }
 
     fun getNumberOfIteration(): Int {

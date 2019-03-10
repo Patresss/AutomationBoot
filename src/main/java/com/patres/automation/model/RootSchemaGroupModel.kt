@@ -42,8 +42,6 @@ class RootSchemaGroupModel {
         loadControllerContent()
     }
 
-
-
     fun unselectAllButton() {
         allChildrenActionBlocksRoot.forEach { it.unselectSelectActionButton() }
     }
