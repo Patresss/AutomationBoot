@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GlobalSettings(
-        var stopKeys: List<KeyboardKey> = emptyList()
+        var stopKeys: List<KeyboardKey> = listOf(KeyboardKey.ESCAPE)
 )
