@@ -3,6 +3,7 @@ package com.patres.automation
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.keyboard.GlobalKeyListener
+import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
@@ -25,6 +26,8 @@ class Main : Application() {
         const val sceneWidth = 475
         const val sceneHeight = 700
         var bundle = ResourceBundle.getBundle("language/Bundle", Locale("pl"))!!
+        var globalSettings = GlobalSettingsLoader.load()
+
         val tittle: String = bundle.getString("application.name") ?: "Application"
         var mainStage: Stage = Stage()
         var mainPane: StackPane = StackPane()

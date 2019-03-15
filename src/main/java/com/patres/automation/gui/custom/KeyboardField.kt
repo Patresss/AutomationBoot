@@ -36,6 +36,15 @@ class KeyboardField : StackPane() {
         createPopup()
     }
 
+    fun setKeyboardButtons(keyList: List<KeyboardKey>) {
+        keyboardButtonHBox.children.clear()
+        keys.clear()
+        keyList.distinct().forEach {
+            keys.add(it)
+            keyboardButtonHBox.children.add(KeyboardButton(it, this))
+        }
+    }
+
     fun addKeyboardButton(key: KeyboardKey) {
         if (!keys.contains(key)) {
             keys.add(key)

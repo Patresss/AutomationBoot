@@ -54,9 +54,11 @@ class MainController {
 
     private val loaderFile = LoaderFile(LoaderFile.AUTOMATION_BOOT_EXTENSION, LoaderFile.AUTOMATION_BOOT_EXTENSION_TYPE)
 
+    private val globalSettings = GlobalSettingsController(this)
+
     fun initialize() {
         snackBar = JFXSnackbar(root)
-        tabPane?.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS
+        tabPane.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS
         createNewRootSchema()
     }
 
@@ -113,16 +115,17 @@ class MainController {
 
     @FXML
     fun openGlobalSettings() {
-        val globalSettings = GlobalSettingsController(this)
-        globalSettings.translateXProperty().set(Main.mainStage.scene.width)
-        centerStackPane.children.add(globalSettings)
+        if (!centerStackPane.children.contains(globalSettings)) {
+            globalSettings.translateXProperty().set(Main.mainStage.scene.width)
+            centerStackPane.children.add(globalSettings)
 
-        val timeline = Timeline()
-        val kv = KeyValue(globalSettings.translateXProperty(), 0, Interpolator.EASE_IN)
-        val kf = KeyFrame(Duration.seconds(0.2), kv)
-        timeline.keyFrames.add(kf)
-        timeline.setOnFinished { centerStackPane.children.remove(tabPane) }
-        timeline.play()
+            val timeline = Timeline()
+            val kv = KeyValue(globalSettings.translateXProperty(), 0, Interpolator.EASE_IN)
+            val kf = KeyFrame(Duration.seconds(0.1), kv)
+            timeline.keyFrames.add(kf)
+            timeline.setOnFinished { centerStackPane.children.remove(tabPane) }
+            timeline.play()
+        }
     }
 
     private fun saveRootSchema(file: File) {
@@ -135,7 +138,7 @@ class MainController {
         }
     }
 
-    private fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane?.selectionModel?.selectedItem }
+    private fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }
 
     private fun setMessageToSnackBar(message: String) {
         snackBar.fireEvent(

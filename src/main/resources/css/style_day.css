@@ -93,14 +93,17 @@ root {
 \* ================================================================================*/
 .label {
     -fx-text-fill: -color-primary-text;
+    -fx-font-weight: bold;
 }
 
 .label.error{
     -fx-text-fill: -color-root-error;
+    -fx-font-weight: bold;
 }
 
 .text {
     -fx-text-fill: -color-primary-text;
+    -fx-font-weight: bold;
 }
 
 .label-title {
@@ -662,10 +665,48 @@ root {
 .jfx-popup .jfx-list-view .action-bar{
     -fx-pref-width: 295px;
 }
+
 /*******************************************************************************
  * action-node-pane                                                                *
  ******************************************************************************/
-
 .action-node-pane {
     -fx-min-width: 350px;
+}
+
+/*******************************************************************************
+ * Settings                                                   *
+ ******************************************************************************/
+.settings-pane {
+    -fx-padding: 15px;
+    -fx-background-color: -color-primary-bright-10;
+    -fx-border-insets: 20 20 20 20;
+    -fx-border-radius: 5;
+    -fx-border-color: -color-primary-dark-4;
+}
+
+.back-button {
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-primary-text;
+    -fx-background-color: #F1F1F1;
+    -fx-background-radius: 50px;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 100px;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+    -jfx-button-type: RAISED;
+}
+
+.title-bar {
+    -fx-background-color:  -color-primary-dark;
+    -fx-padding: 15px;
+
+}
+
+.title-bar .label {
+    -fx-text-fill:  -color-primary-bright-10;
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+
 }

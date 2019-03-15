@@ -65,7 +65,7 @@ class RootSchemaGroupModel {
 
     fun runAutomation() {
         try {
-            GlobalKeyListener.isStop = false
+            GlobalKeyListener.reset()
             schemaGroup.checkValidation()
             Main.mainStage.isIconified = true
             schemaGroup.runAction()

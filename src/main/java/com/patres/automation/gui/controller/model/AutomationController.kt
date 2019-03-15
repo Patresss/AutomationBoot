@@ -8,11 +8,13 @@ import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
+import javafx.scene.control.Button
+import javafx.scene.layout.GridPane
 import javafx.scene.layout.StackPane
 
 
 abstract class AutomationController(
-        val model: AutomationModel<out AutomationController>,
+        val model: AutomationModel<out AutomationController>? = null,
         fxmlFile: String
 ) : StackPane() {
 
@@ -31,8 +33,15 @@ abstract class AutomationController(
     lateinit var selectStackPane: StackPane
 
     @FXML
+    lateinit var gridPane: GridPane
+
+    @FXML
     open fun initialize() {
-        getNodesToSelect().forEach { it.onMouseClicked = EventHandler { selectAction() } }
+        if(model == null) {
+            gridPane.children.remove(selectStackPane)
+        } else {
+            getNodesToSelect().forEach { it.onMouseClicked = EventHandler { selectAction() } }
+        }
     }
 
     fun afterInit() {
@@ -40,9 +49,9 @@ abstract class AutomationController(
 
 
     fun selectAction() {
-        model.root.unselectAllButton()
+        model?.root?.unselectAllButton()
         selectActionButton.styleClass.add("select-action-button-selected")
-        model.root.selectedModel = model
+        model?.root?.selectedModel = model
 
     }
 

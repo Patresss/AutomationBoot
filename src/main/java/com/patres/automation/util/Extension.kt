@@ -1,5 +1,6 @@
 package com.patres.automation.util
 
+import com.patres.automation.Main
 import com.patres.automation.excpetion.IntegerFormatException
 import com.sun.javafx.util.Utils
 import javafx.collections.ObservableList
@@ -72,3 +73,5 @@ fun String.getInteger(): Int {
         throw IntegerFormatException(this)
     }
 }
+
+fun fromBundle(key: String): String = Main.bundle.getString(key)

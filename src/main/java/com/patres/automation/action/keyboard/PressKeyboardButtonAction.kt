@@ -16,12 +16,12 @@ class PressKeyboardButtonAction(
 
     override fun runAction() {
         controller.keyboardField.keys
-                .flatMap { it.keyValues }
+                .map { it.keyValue }
                 .forEach { robot.keyPress(it) }
 
         controller.keyboardField.keys
                 .reversed()
-                .flatMap { it.keyValues }
+                .map { it.keyValue }
                 .forEach { robot.keyRelease(it) }
     }
 

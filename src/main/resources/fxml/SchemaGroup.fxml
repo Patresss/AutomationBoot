@@ -11,7 +11,7 @@
 
 
 <fx:root fx:id="outsideBox" minHeight="100.0" styleClass="outside-schema-box" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="grid-outside-schema-box" vgap="10.0" StackPane.alignment="TOP_LEFT">
+    <GridPane fx:id="gridPane" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="grid-outside-schema-box" vgap="10.0" StackPane.alignment="TOP_LEFT">
       <columnConstraints>
           <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0"/>
           <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0"/>
