@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <StackPane fx:id="rootStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="settings-pane">
+      
+               <VBox fx:id="mainVBox" prefHeight="200.0" prefWidth="100.0">
+            <children>
+               <AnchorPane>
+                  <children>
+                     <JFXButton layoutX="15.0" layoutY="11.0" onAction="#closeGlobalSettings" styleClass="back-button" text="%button.back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <graphic>
+                           <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" size="35" styleClass="sub-icon" />
+                        </graphic>
+                     </JFXButton>
+                     <JFXButton layoutX="25.0" layoutY="21.0" onAction="#saveGlobalSettings" styleClass="back-button" text="%menu.save" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <graphic>
+                           <FontAwesomeIconView glyphName="SAVE" size="35" styleClass="sub-icon" />
+                        </graphic>
+                     </JFXButton>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+               </AnchorPane>
+            </children>
+         </VBox>
+      </StackPane>
+   </center>
+   <top>
+      <StackPane styleClass="title-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="%menu.settings.localSettings" />
+         </children>
+      </StackPane>
+   </top>
+</fx:root>

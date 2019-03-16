@@ -65,7 +65,9 @@ enum class MenuItem(
 
     OPEN_FILE_OR_DIRECTORY(FontAwesomeIcon.FILE, "robot.action.open.fileOrDirectory", SCRIPT, menuItemHandler = OpenFileOrDirectoryAction.addAction),
     WINDOWS_SCRIPT_RUN(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.run", SCRIPT, menuItemHandler = WindowsRunScriptAction.addAction),
-    WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.runAndWait", SCRIPT, menuItemHandler = WindowsRunAndWaitScriptAction.addAction);
+    WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.runAndWait", SCRIPT, menuItemHandler = WindowsRunAndWaitScriptAction.addAction),
+
+    SETTINGS(FontAwesomeIcon.GEAR, "menu.settings.localSettings", null, menuItemHandler = { root: RootSchemaGroupModel -> root.openLocalSettings() } );
 
     val actionName = if (bundleName.isBlank()) "" else Main.bundle.getString(bundleName) ?: ""
     val label: Label

@@ -2,11 +2,18 @@ package com.patres.automation.model
 
 import com.patres.automation.Main
 import com.patres.automation.excpetion.ApplicationException
+import com.patres.automation.gui.controller.LocalSettingsController
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.GlobalKeyListener
+import com.patres.automation.settings.LocalSettings
 import com.sun.glass.ui.Robot
+import javafx.animation.Interpolator
+import javafx.animation.KeyFrame
+import javafx.animation.KeyValue
+import javafx.animation.Timeline
+import javafx.util.Duration
 import org.slf4j.LoggerFactory
 
 class RootSchemaGroupModel {
@@ -16,6 +23,8 @@ class RootSchemaGroupModel {
     }
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
+
+    val localSettings: LocalSettings = LocalSettings()
 
     var robot: Robot = com.sun.glass.ui.Application.GetApplication().createRobot()
 
@@ -90,6 +99,23 @@ class RootSchemaGroupModel {
             schemaGroup
         }
     }
+
+    fun openLocalSettings() {
+        val localSettingsController = LocalSettingsController(controller, localSettings)
+        // TODO refactor animation
+//        if (!centerStackPane.children.contains(globalSettings)) {
+            localSettingsController.translateXProperty().set(Main.mainStage.scene.width)
+            controller.children.add(localSettingsController)
+
+            val timeline = Timeline()
+            val kv = KeyValue(localSettingsController.translateXProperty(), 0, Interpolator.EASE_IN)
+            val kf = KeyFrame(Duration.seconds(0.1), kv)
+            timeline.keyFrames.add(kf)
+            timeline.setOnFinished { controller.children.remove(controller.rootBorderPane) }
+            timeline.play()
+//        }
+    }
+
 
     private fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
         schemaGroup.addActionBlocks(actionBlock)

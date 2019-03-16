@@ -10,6 +10,7 @@ enum class MenuItemGroup(
     OTHER(listOf(MenuItem.ADD_GROUP, MenuItem.DELAY)),
     MOUSE(listOf(MenuItem.MOVE_MOUSE, MenuItem.LEFT_MOUSE_BUTTON, MenuItem.MIDDLE_MOUSE_BUTTON, MenuItem.RIGHT_MOUSE_BUTTON)),
     KEYBOARD(listOf(MenuItem.KEYBOARD)),
-    SCRIPT(listOf(MenuItem.SCRIPT))
+    SCRIPT(listOf(MenuItem.SCRIPT)),
+    SETTINGS(listOf(MenuItem.SETTINGS))
 
 }

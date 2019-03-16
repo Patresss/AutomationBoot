@@ -8,10 +8,11 @@ import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.BorderPane
+import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 
 
-open class RootSchemaGroupController(val model: RootSchemaGroupModel) : BorderPane() {
+open class RootSchemaGroupController(val model: RootSchemaGroupModel) : StackPane() {
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/RootSchemaGroup.fxml"))
@@ -20,6 +21,9 @@ open class RootSchemaGroupController(val model: RootSchemaGroupModel) : BorderPa
         fxmlLoader.resources = Main.bundle
         fxmlLoader.load<KeyboardButton>()
     }
+
+    @FXML
+    lateinit var rootBorderPane: BorderPane
 
     @FXML
     lateinit var insidePane: ScrollPane

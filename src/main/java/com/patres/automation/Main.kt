@@ -24,7 +24,7 @@ class Main : Application() {
     companion object {
         val logger = LoggerFactory.getLogger(Main::class.java)!!
         const val sceneWidth = 475
-        const val sceneHeight = 700
+        const val sceneHeight = 715
         var bundle = ResourceBundle.getBundle("language/Bundle", Locale("pl"))!!
         var globalSettings = GlobalSettingsLoader.load()
 
