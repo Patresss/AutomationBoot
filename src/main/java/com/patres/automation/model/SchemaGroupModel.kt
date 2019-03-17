@@ -2,7 +2,7 @@ package com.patres.automation.model
 
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.SchemaGroupController
-import com.patres.automation.keyboard.GlobalKeyListener
+import com.patres.automation.keyboard.listener.GlobalKeyListener
 import com.patres.automation.util.swap
 import java.util.*
 
@@ -90,7 +90,7 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     override fun runAction() {
         for (i in 0 until getNumberOfIteration()) {
             for (action in actionBlocks) {
-                if (!GlobalKeyListener.isStop) {
+                if (!root.rootSchemaKeyListener.isStop) {
                     action.runAction()
                 } else {
                     return

@@ -37,7 +37,7 @@ class LocalSettingsController(
 
         mainVBox.children.add(stopKeysSetting)
 
-        loadGlobalSettings()
+        loadLocalSettings()
     }
 
 
@@ -47,7 +47,7 @@ class LocalSettingsController(
     }
 
     @FXML
-    fun closeGlobalSettings() {
+    fun closeLocalSettings() {
         val rootBorderPane = rootSchemaGroupController.rootBorderPane
         rootBorderPane.translateXProperty().set(-Main.mainStage.scene.width)
 
@@ -62,14 +62,12 @@ class LocalSettingsController(
     }
 
     @FXML
-    fun saveGlobalSettings() {
-        Main.globalSettings.stopKeys = stopKeysSetting.keyboardField.keys
-        GlobalSettingsLoader.save(Main.globalSettings)
+    fun saveLocalSettings() {
+        settings.stopKeys = stopKeysSetting.keyboardField.keys
     }
 
-    fun loadGlobalSettings() {
-        Main.globalSettings
-        stopKeysSetting.keyboardField.setKeyboardButtons(Main.globalSettings.stopKeys)
+    private fun loadLocalSettings() {
+        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
     }
 
 }

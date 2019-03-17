@@ -2,7 +2,7 @@ package com.patres.automation.action.text.type
 
 import com.patres.automation.action.TextActionModel
 import com.patres.automation.gui.controller.model.TextActionController
-import com.patres.automation.keyboard.GlobalKeyListener
+import com.patres.automation.keyboard.listener.GlobalKeyListener
 import com.patres.automation.keyboard.KeyLoader
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
@@ -20,7 +20,7 @@ abstract class TypeTextAction<ControllerType : TextActionController>(
             getText().toCharArray()
                     .map { KeyLoader.getKey(it) }
                     .forEach {
-                        if (GlobalKeyListener.isStop) {
+                        if (root.rootSchemaKeyListener.isStop) {
                             return@loop
                         }
                         pressKey(it)

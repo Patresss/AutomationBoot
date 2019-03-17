@@ -17,12 +17,12 @@
             <children>
                <AnchorPane>
                   <children>
-                     <JFXButton layoutX="15.0" layoutY="11.0" onAction="#closeGlobalSettings" styleClass="back-button" text="%button.back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <JFXButton layoutX="15.0" layoutY="11.0" onAction="#closeLocalSettings" styleClass="back-button" text="%button.back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <graphic>
                            <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" size="35" styleClass="sub-icon" />
                         </graphic>
                      </JFXButton>
-                     <JFXButton layoutX="25.0" layoutY="21.0" onAction="#saveGlobalSettings" styleClass="back-button" text="%menu.save" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <JFXButton layoutX="25.0" layoutY="21.0" onAction="#saveLocalSettings" styleClass="back-button" text="%menu.save" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <graphic>
                            <FontAwesomeIconView glyphName="SAVE" size="35" styleClass="sub-icon" />
                         </graphic>

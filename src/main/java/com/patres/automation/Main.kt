@@ -2,7 +2,7 @@ package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
-import com.patres.automation.keyboard.GlobalKeyListener
+import com.patres.automation.keyboard.listener.GlobalKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.application.Application
 import javafx.application.Platform
@@ -50,7 +50,6 @@ class Main : Application() {
             mainStage.scene = createScene(loadMainPane())
             mainStage.minWidth = sceneWidth.toDouble()
             mainStage.minHeight = sceneHeight.toDouble()
-            GlobalKeyListener.activeListener()
             showStage()
 
             if (!SystemTray.isSupported()) {
