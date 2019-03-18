@@ -18,7 +18,7 @@ import javafx.util.Duration
 class GlobalSettingsController(private val mainController: MainController) : BorderPane() {
 
 
-    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKey"))
+    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
 
     @FXML
     lateinit var mainVBox: VBox

@@ -6,16 +6,17 @@ import com.patres.automation.gui.controller.LocalSettingsController
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
-import com.patres.automation.keyboard.listener.GlobalKeyListener
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
 import com.patres.automation.settings.LocalSettings
-import com.sun.glass.ui.Robot
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
+import javafx.application.Platform
+import javafx.concurrent.Task
 import javafx.util.Duration
 import org.slf4j.LoggerFactory
+import java.awt.Robot
 
 class RootSchemaGroupModel(
         val localSettings: LocalSettings = LocalSettings()
@@ -28,7 +29,7 @@ class RootSchemaGroupModel(
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
 
 
-    var robot: Robot = com.sun.glass.ui.Application.GetApplication().createRobot()
+    var robot = Robot()
 
     val rootSchemaKeyListener = RootSchemaKeyListener(this)
 
@@ -76,21 +77,35 @@ class RootSchemaGroupModel(
         addNewActionModel(schemaGroupModel)
     }
 
-    fun runAutomation() {
-        try {
-            rootSchemaKeyListener.reset()
-            schemaGroup.checkValidation()
-            Main.mainStage.isIconified = true
-            schemaGroup.runAction()
-            Thread.sleep(200)
-        } catch (e: ApplicationException) {
-            LOGGER.error("ApplicationException: {}", e.message)
-            val dialog = ExceptionHandlerDialog(e)
-            dialog.show()
-        } catch (e: Exception) {
-            LOGGER.error("Exception: {}", e)
-        } finally {
-            Main.mainStage.isIconified = false
+    fun runAutomation(hideApplication: Boolean = true) {
+        val runTask = createRunTask(hideApplication)
+        Thread(runTask).start()
+    }
+
+    private fun createRunTask(hideApplication: Boolean = false): Task<Void> {
+        return object : Task<Void>() {
+            override fun call(): Void? {
+                try {
+                    rootSchemaKeyListener.reset()
+                    schemaGroup.checkValidation()
+                    if (hideApplication) {
+                        Platform.runLater { Main.mainStage.isIconified = true }
+                    }
+                    schemaGroup.runAction()
+                    Thread.sleep(200)
+                } catch (e: ApplicationException) {
+                    LOGGER.error("ApplicationException: {}", e.message)
+                    val dialog = ExceptionHandlerDialog(e)
+                    dialog.show()
+                } catch (e: Exception) {
+                    LOGGER.error("Exception: {}", e)
+                } finally {
+                    if (hideApplication) {
+                        Platform.runLater { Main.mainStage.isIconified = false }
+                    }
+                }
+                return null
+            }
         }
     }
 

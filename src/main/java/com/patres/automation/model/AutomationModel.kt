@@ -1,7 +1,7 @@
 package com.patres.automation.model
 
 import com.patres.automation.gui.controller.model.AutomationController
-import com.sun.glass.ui.Robot
+import java.awt.Robot
 
 abstract class AutomationModel<ControllerType : AutomationController>(
         val root: RootSchemaGroupModel,

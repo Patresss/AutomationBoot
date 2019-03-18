@@ -4,7 +4,7 @@ package com.patres.automation.action.mouse.doubleClick
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
-import com.sun.glass.ui.Robot
+import java.awt.event.InputEvent
 
 class LeftDoubleMouseClickAction(
         root: RootSchemaGroupModel,
@@ -15,6 +15,6 @@ class LeftDoubleMouseClickAction(
         controller.actionLabel.text = MenuItem.DOUBLE_CLICK_LEFT_MOUSE_BUTTON.actionName
     }
 
-    override val buttonBit: Int = Robot.MOUSE_LEFT_BTN
+    override val buttonBit: Int = InputEvent.BUTTON1_DOWN_MASK
 
 }

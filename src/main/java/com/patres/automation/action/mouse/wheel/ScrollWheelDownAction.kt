@@ -18,5 +18,4 @@ class ScrollWheelDownAction(
         robot.mouseWheel(1)
     }
 
-
 }

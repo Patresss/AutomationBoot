@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LocalSettings(
-        var stopKeys: List<KeyboardKey> = emptyList()
+        var stopKeys: List<KeyboardKey> = emptyList(),
+        var runKeysSetting: List<KeyboardKey> = emptyList()
 ) {
 
     fun loadStopKeys(): List<KeyboardKey> {

@@ -22,8 +22,9 @@ class LocalSettingsController(
         private val settings: LocalSettings
 ) : BorderPane() {
 
+    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
 
-    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKey"))
+    private val runKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.runKeys"))
 
     @FXML
     lateinit var mainVBox: VBox
@@ -34,12 +35,8 @@ class LocalSettingsController(
         fxmlLoader.setController(this)
         fxmlLoader.resources = Main.bundle
         fxmlLoader.load<LocalSettingsController>()
-
-        mainVBox.children.add(stopKeysSetting)
-
         loadLocalSettings()
     }
-
 
     @FXML
     fun initialize() {
@@ -64,10 +61,15 @@ class LocalSettingsController(
     @FXML
     fun saveLocalSettings() {
         settings.stopKeys = stopKeysSetting.keyboardField.keys
+        settings.runKeysSetting = runKeysSetting.keyboardField.keys
     }
 
     private fun loadLocalSettings() {
+        mainVBox.children.add(stopKeysSetting)
+        mainVBox.children.add(runKeysSetting)
+
         stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
+        runKeysSetting.keyboardField.setKeyboardButtons(settings.runKeysSetting)
     }
 
 }
