@@ -59,7 +59,7 @@ object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>,
 
             MenuItem.PASTE_TEXT.name to PasteTextFromFieldAction.createAction,
             MenuItem.PASTE_TEXT_FROM_FILE.name to PasteTextFromFileAction.createAction,
-            MenuItem.TYPE_TEXT.name to TypeTextFromFileAction.createAction,
+            MenuItem.TYPE_TEXT.name to TypeTextFromFieldAction.createAction,
             MenuItem.TYPE_TEXT_FROM_FILE.name to TypeTextFromFileAction.createAction,
 
             MenuItem.OPEN_FILE_OR_DIRECTORY.name to OpenFileOrDirectoryAction.createAction,
