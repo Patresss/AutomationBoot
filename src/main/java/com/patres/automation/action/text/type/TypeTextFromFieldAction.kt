@@ -12,7 +12,7 @@ class TypeTextFromFieldAction(
 ) : TypeTextAction<TextAreaActionController>(root, parent) {
 
     companion object {
-        val createAction= { root: RootSchemaGroupModel, parent: SchemaGroupModel -> TypeTextFromFieldAction(root, parent) }
+        val createAction = { root: RootSchemaGroupModel, parent: SchemaGroupModel -> TypeTextFromFieldAction(root, parent) }
         val addAction = { root: RootSchemaGroupModel -> root.addNodeAction(TypeTextFromFieldAction(root)) }
     }
 

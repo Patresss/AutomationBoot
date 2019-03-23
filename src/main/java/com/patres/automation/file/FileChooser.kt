@@ -1,24 +1,19 @@
-package com.patres.automation.util
+package com.patres.automation.file
 
 import com.patres.automation.Main
 import javafx.stage.FileChooser
 import java.io.File
 
-class LoaderFile(
+class FileChooser(
         extension: String? = null,
         extensionType: String = ""
 ) {
 
-    companion object {
-        const val AUTOMATION_BOOT_EXTENSION = ".ab"
-        const val AUTOMATION_BOOT_EXTENSION_TYPE = "Automation Boot"
-    }
-
-    private val extFilter = if (extension != null ) FileChooser.ExtensionFilter("$extensionType (*$extension)", "*$extension") else null
+    private val extFilter = if (extension != null) FileChooser.ExtensionFilter("$extensionType (*.$extension)", "*.$extension") else null
 
     fun chooseFileToLoad(pathTarget: String? = null): File? {
         val fileChooser = FileChooser()
-        extFilter?.let { fileChooser.extensionFilters.add(it)  }
+        extFilter?.let { fileChooser.extensionFilters.add(it) }
         pathTarget?.let {
             val file = File(it)
             if (file.exists()) {
@@ -31,7 +26,7 @@ class LoaderFile(
 
     fun chooseFileToSave(pathTarget: String? = null): File? {
         val fileChooser = FileChooser()
-        extFilter?.let { fileChooser.extensionFilters.add(it)  }
+        extFilter?.let { fileChooser.extensionFilters.add(it) }
         pathTarget?.let {
             val file = File(it)
             if (file.exists()) {

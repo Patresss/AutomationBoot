@@ -9,7 +9,6 @@ import com.patres.automation.font.FontAutomationIconView
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.menuItem.MenuItemGroup
-import de.jensd.fx.glyphs.GlyphIcon
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -95,7 +94,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         }
     }
 
-    private fun getIcon(icon : GlyphIcons?): Node? {
+    private fun getIcon(icon: GlyphIcons?): Node? {
         val graphic: Node? = when (icon) {
             is FontAwesomeIcon -> FontAwesomeIconView(icon)
             is FontAutomationIcon -> FontAutomationIconView(icon)
@@ -115,7 +114,10 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     private fun updateActions() {
         val model = rootSchemaGroupController.model
         nodeActionMap.forEach { (button, action) ->
-            button.onMouseClicked = EventHandler { action.menuItemHandler(model) }
+            button.onMouseClicked = EventHandler {
+                action.menuItemHandler(model)
+                model.changeDetect()
+            }
         }
         listViews.forEach { listView ->
             listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.menuItemHandler(model) }

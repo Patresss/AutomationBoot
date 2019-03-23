@@ -6,7 +6,6 @@ import com.patres.automation.gui.controller.model.MousePointActionController
 import javafx.animation.FadeTransition
 import javafx.animation.ScaleTransition
 import javafx.event.EventHandler
-import javafx.geometry.Rectangle2D
 import javafx.scene.Cursor
 import javafx.scene.Scene
 import javafx.scene.input.MouseEvent

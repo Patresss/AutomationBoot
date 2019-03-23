@@ -3,7 +3,6 @@ package com.patres.automation.action.delay
 import com.patres.automation.action.TextActionModel
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
-import com.patres.automation.keyboard.listener.GlobalKeyListener
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel

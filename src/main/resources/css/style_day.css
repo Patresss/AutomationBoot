@@ -22,6 +22,13 @@
     -color-primary-dark-9: #000d14;
     -color-primary-dark-10: #000000;
 
+    -color-complementary-bright-8: #f5dbcc;
+    -color-complementary-bright-7: #f1c9b3;
+    -color-complementary-bright-6: #ecb799;
+    -color-complementary-bright-4: #fd975f;
+    -color-complementary: #d14b02;
+
+
     -color-primary-dark: #0288D1;
     -color-primary-ligth: #B3E5FC;
 
@@ -320,6 +327,14 @@ root {
 /*******************************************************************************
  * Tab                                                                        *
  ******************************************************************************/
+.tab {
+    -fx-opacity: 0.6;
+}
+
+.tab:selected {
+    -fx-opacity: 1.0;
+}
+
 .tab-content-area {
     -fx-background-color: -color-background;
 }
@@ -329,11 +344,15 @@ root {
 }
 
 .tab .tab-label {
-    -fx-text-fill: -color-primary-ligth;
+    -fx-text-fill: -color-background;
 }
 
 .tab:selected .tab-label {
     -fx-text-fill: -color-background;
+}
+
+.tab .glyph-icon {
+    -fx-fill: -color-background;
 }
 
 .jfx-tab-pane .headers-region {
@@ -346,9 +365,9 @@ root {
 
 .jfx-tab-pane .tab-selected-line {
     -fx-stroke: -color-primary-ligth;
-    -fx-background-color: -color-accent;
+    -fx-background-color: -color-background;
+    -fx-pref-height: 4;
 }
-
 
 
 

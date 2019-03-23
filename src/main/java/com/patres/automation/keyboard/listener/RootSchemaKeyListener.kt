@@ -1,12 +1,10 @@
 package com.patres.automation.keyboard.listener
 
-import com.patres.automation.Main
 import com.patres.automation.keyboard.KeyAdapter
 import com.patres.automation.model.RootSchemaGroupModel
 import javafx.application.Platform
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
-import kotlin.concurrent.thread
 
 class RootSchemaKeyListener(
         private val rootSchemaGroupModel: RootSchemaGroupModel

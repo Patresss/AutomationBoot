@@ -8,7 +8,6 @@ import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
-import javafx.scene.control.Button
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.StackPane
 
@@ -37,7 +36,7 @@ abstract class AutomationController(
 
     @FXML
     open fun initialize() {
-        if(model == null) {
+        if (model == null) {
             gridPane.children.remove(selectStackPane)
         } else {
             getNodesToSelect().forEach { it.onMouseClicked = EventHandler { selectAction() } }

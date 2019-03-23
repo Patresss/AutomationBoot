@@ -2,6 +2,7 @@ package com.patres.automation.model
 
 import com.patres.automation.Main
 import com.patres.automation.excpetion.ApplicationException
+import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.LocalSettingsController
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
@@ -17,9 +18,13 @@ import javafx.concurrent.Task
 import javafx.util.Duration
 import org.slf4j.LoggerFactory
 import java.awt.Robot
+import java.io.File
 
 class RootSchemaGroupModel(
-        val localSettings: LocalSettings = LocalSettings()
+        val localSettings: LocalSettings = LocalSettings(),
+        var tmpFile: File = TmpFileLoader.createNewTmpFile(),
+        var file: File? = null,
+        var saved: Boolean = true
 ) {
 
     companion object {
@@ -27,7 +32,6 @@ class RootSchemaGroupModel(
     }
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
-
 
     var robot = Robot()
 
@@ -133,7 +137,6 @@ class RootSchemaGroupModel(
         timeline.play()
     }
 
-
     private fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
         schemaGroup.addActionBlocks(actionBlock)
     }
@@ -151,6 +154,26 @@ class RootSchemaGroupModel(
     private fun loadControllerContent() {
         controller.insidePane.content = schemaGroup.controller
         schemaGroup.controller.minHeightProperty().bind(controller.heightProperty())
+    }
+
+    fun saveTmpFile() {
+        TmpFileLoader.saveTmpFile(this)
+    }
+
+
+    fun changeDetect() {
+        saved = false
+        saveTmpFile()
+        Main.mainController.changeDetect(this)
+    }
+
+    fun getFilePathToSettings(): String {
+        val constFile = file
+        return if (saved && constFile != null) {
+            constFile.absolutePath
+        } else {
+            tmpFile.absolutePath
+        }
     }
 
 }

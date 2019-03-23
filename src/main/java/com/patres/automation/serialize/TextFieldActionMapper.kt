@@ -20,7 +20,6 @@ import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
 import com.patres.automation.action.script.OpenFileOrDirectoryAction
 import com.patres.automation.action.script.WindowsRunAndWaitScriptAction
 import com.patres.automation.action.script.WindowsRunScriptAction
-import com.patres.automation.action.script.WindowsScriptAction
 import com.patres.automation.action.text.paste.PasteTextFromFieldAction
 import com.patres.automation.action.text.paste.PasteTextFromFileAction
 import com.patres.automation.action.text.type.TypeTextFromFieldAction

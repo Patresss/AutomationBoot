@@ -17,7 +17,6 @@ import com.patres.automation.action.mouse.release.ReleaseMiddleMouseAction
 import com.patres.automation.action.mouse.release.ReleaseRightMouseAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelDownAction
 import com.patres.automation.action.mouse.wheel.ScrollWheelUpAction
-import com.patres.automation.action.text.type.TypeTextAction
 import com.patres.automation.model.RootSchemaGroupModel
 
 object MenuItemHandlers {

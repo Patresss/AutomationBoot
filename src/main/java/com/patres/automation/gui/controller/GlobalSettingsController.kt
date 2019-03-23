@@ -35,12 +35,6 @@ class GlobalSettingsController(private val mainController: MainController) : Bor
         loadGlobalSettings()
     }
 
-
-    @FXML
-    fun initialize() {
-
-    }
-
     @FXML
     fun closeGlobalSettings() {
         val tabPane = mainController.tabPane

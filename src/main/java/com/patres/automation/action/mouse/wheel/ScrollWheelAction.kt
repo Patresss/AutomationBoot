@@ -1,7 +1,6 @@
 package com.patres.automation.action.mouse.wheel
 
 import com.patres.automation.action.mouse.MouseAction
-import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel

@@ -1,7 +1,6 @@
 package com.patres.automation.action.mouse
 
 import com.patres.automation.Point
-import com.patres.automation.excpetion.PointFormatException
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel

@@ -15,7 +15,7 @@ abstract class PasteTextAction<ControllerType : TextActionController>(
 ) : TextActionModel<ControllerType>(root, parent) {
 
     override fun runAction() {
-        val stringSelection = StringSelection( getText() )
+        val stringSelection = StringSelection(getText())
         val clipboard = Toolkit.getDefaultToolkit().systemClipboard
         clipboard.setContents(stringSelection, stringSelection)
         paste()

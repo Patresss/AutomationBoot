@@ -3,7 +3,6 @@ package com.patres.automation.gui.controller
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
-import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LocalSettings
 import com.patres.automation.util.fromBundle
 import javafx.animation.Interpolator

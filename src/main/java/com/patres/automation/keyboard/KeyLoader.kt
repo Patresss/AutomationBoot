@@ -115,7 +115,7 @@ object KeyLoader {
             '}' -> listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_CLOSE_BRACKET)
             '|' -> listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_BACK_SLASH)
             ';' -> listOf(KeyEvent.VK_SEMICOLON)
-            ':' -> listOf(KeyEvent.VK_SHIFT,  KeyEvent.VK_SEMICOLON)
+            ':' -> listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_SEMICOLON)
             '\'' -> listOf(KeyEvent.VK_QUOTE)
             '"' -> listOf(KeyEvent.VK_SHIFT, KeyEvent.VK_QUOTE)
             ',' -> listOf(KeyEvent.VK_COMMA)

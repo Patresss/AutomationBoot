@@ -4,31 +4,26 @@ import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.Main
-import com.patres.automation.excpetion.ApplicationException
+import com.patres.automation.file.FileChooser
+import com.patres.automation.file.FileConstants.AUTOMATION_BOOT_EXTENSION
+import com.patres.automation.file.FileConstants.AUTOMATION_BOOT_EXTENSION_TYPE
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.serialize.RootSchemaGroupMapper
-import com.patres.automation.serialize.model.RootSchemaGroupSerialized
-import com.patres.automation.util.LoaderFactory
-import com.patres.automation.util.LoaderFile
+import com.patres.automation.util.RootSchemaLoader
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+import javafx.animation.Interpolator
+import javafx.animation.KeyFrame
+import javafx.animation.KeyValue
+import javafx.animation.Timeline
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.TabPane
 import javafx.scene.layout.StackPane
-import kotlinx.serialization.json.Json
+import javafx.util.Duration
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.lang.Exception
 import java.text.MessageFormat
-import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
-import javafx.animation.KeyFrame
-import javafx.animation.Interpolator
-import javafx.animation.KeyValue
-import javafx.animation.Timeline
-import javafx.scene.Scene
-import javafx.fxml.FXMLLoader
-import javafx.scene.Parent
-import javafx.util.Duration
 
 
 class MainController {
@@ -50,21 +45,33 @@ class MainController {
 
     private lateinit var snackBar: JFXSnackbar
 
-    private val tabContainers = ArrayList<TabContainer>()
+    val tabContainers = ArrayList<TabContainer>()
 
-    private val loaderFile = LoaderFile(LoaderFile.AUTOMATION_BOOT_EXTENSION, LoaderFile.AUTOMATION_BOOT_EXTENSION_TYPE)
+    private val loaderFile = FileChooser(AUTOMATION_BOOT_EXTENSION, AUTOMATION_BOOT_EXTENSION_TYPE)
 
-    private val globalSettings = GlobalSettingsController(this)
+    private val globalSettingsController = GlobalSettingsController(this)
 
     fun initialize() {
         snackBar = JFXSnackbar(root)
         tabPane.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS
-        createNewRootSchema()
+
+        val previousOpenModels = getPreviousOpenModels()
+        if (previousOpenModels.isEmpty()) {
+            createNewRootSchema()
+        } else {
+            previousOpenModels.forEach { loadModelFromFile(it) }
+        }
+    }
+
+    private fun getPreviousOpenModels(): List<File> {
+        return Main.globalSettings.previousPathFiles
+                .map { File(it) }
+                .filter { it.exists() }
     }
 
     @FXML
     fun createNewRootSchema() {
-        val tabContainer = LoaderFactory.createRootSchemaGroup(tabPane)
+        val tabContainer = RootSchemaLoader.createNewRootSchema(tabPane)
         tabContainers.add(tabContainer)
     }
 
@@ -73,14 +80,7 @@ class MainController {
         try {
             val fileToOpen = loaderFile.chooseFileToLoad()
             if (fileToOpen != null) {
-                val serializedRootGroup = fileToOpen.readText()
-                val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
-                val rootGroup: RootSchemaGroupModel = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
-
-                val tabContainer = LoaderFactory.loadRootSchemaGroup(tabPane, rootGroup).apply {
-                    file = fileToOpen
-                }
-                tabContainers.add(tabContainer)
+                loadModelFromFile(fileToOpen)
             }
         } catch (e: Exception) {
             LOGGER.error("Exception: {}", e)
@@ -89,11 +89,15 @@ class MainController {
         }
     }
 
+    private fun loadModelFromFile(fileToLoad: File) {
+        val tabContainer = RootSchemaLoader.openNewRootSchema(tabPane, fileToLoad)
+        tabContainers.add(tabContainer)
+    }
 
     @FXML
     fun saveExistingRootSchema() {
         getSelectedTabContainer()?.let { tabContainer ->
-            var file = tabContainer.file
+            var file = tabContainer.rootSchema.file
             if (file == null) {
                 file = loaderFile.chooseFileToSave()
             }
@@ -113,14 +117,21 @@ class MainController {
         }
     }
 
+    private fun saveRootSchema(file: File) {
+        getSelectedTabContainer()?.let { tabContainer ->
+            RootSchemaLoader.saveRootSchema(tabContainer, file)
+            setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, file.name))
+        }
+    }
+
     @FXML
     fun openGlobalSettings() {
-        if (!centerStackPane.children.contains(globalSettings)) {
-            globalSettings.translateXProperty().set(Main.mainStage.scene.width)
-            centerStackPane.children.add(globalSettings)
+        if (!centerStackPane.children.contains(globalSettingsController)) {
+            globalSettingsController.translateXProperty().set(Main.mainStage.scene.width)
+            centerStackPane.children.add(globalSettingsController)
 
             val timeline = Timeline()
-            val kv = KeyValue(globalSettings.translateXProperty(), 0, Interpolator.EASE_IN)
+            val kv = KeyValue(globalSettingsController.translateXProperty(), 0, Interpolator.EASE_IN)
             val kf = KeyFrame(Duration.seconds(0.1), kv)
             timeline.keyFrames.add(kf)
             timeline.setOnFinished { centerStackPane.children.remove(tabPane) }
@@ -128,17 +139,12 @@ class MainController {
         }
     }
 
-    private fun saveRootSchema(file: File) {
-        getSelectedTabContainer()?.let { tabContainer ->
-            val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(tabContainer.rootSchema)
-            val serializedRootGroup = Json.stringify(RootSchemaGroupSerialized.serializer(), rootSchemaGroupSerialized)
-            file.writeText(serializedRootGroup)
-            tabContainer.file = file
-            setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, file.name))
-        }
-    }
-
     private fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }
+
+    fun changeDetect(rootSchemaGroupModel: RootSchemaGroupModel) {
+        val tabContainer = tabContainers.find { it.rootSchema == rootSchemaGroupModel }
+        tabContainer?.tab?.graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
+    }
 
     private fun setMessageToSnackBar(message: String) {
         snackBar.fireEvent(

@@ -8,12 +8,16 @@ object GlobalSettingsLoader {
     private const val path = "Settings.txt"
 
     fun load(): GlobalSettings {
-        val file = File(path)
-        if (file.exists()) {
-            val serializedGlobalSettings = file.readText()
-            return Json.parse(GlobalSettings.serializer(), serializedGlobalSettings)
+        try {
+            val file = File(path)
+            if (file.exists()) {
+                val serializedGlobalSettings = file.readText()
+                return Json.parse(GlobalSettings.serializer(), serializedGlobalSettings)
+            }
+            return GlobalSettings()
+        } catch (e: Exception) {
+            return GlobalSettings()
         }
-        return GlobalSettings()
     }
 
     fun save(globalSettings: GlobalSettings) {

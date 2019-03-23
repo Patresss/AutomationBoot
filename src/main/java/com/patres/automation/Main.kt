@@ -2,18 +2,20 @@ package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
-import com.patres.automation.keyboard.listener.GlobalKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.application.Application
 import javafx.application.Platform
+import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
+import javafx.stage.WindowEvent
 import org.slf4j.LoggerFactory
 import java.awt.*
+import java.io.File
 import java.io.IOException
 import java.util.*
 import javax.imageio.ImageIO
@@ -31,6 +33,7 @@ class Main : Application() {
         val tittle: String = bundle.getString("application.name") ?: "Application"
         var mainStage: Stage = Stage()
         var mainPane: StackPane = StackPane()
+        var tmpDirector: File = File("tmp")
         lateinit var mainController: MainController
 
         @JvmStatic
@@ -50,6 +53,7 @@ class Main : Application() {
             mainStage.scene = createScene(loadMainPane())
             mainStage.minWidth = sceneWidth.toDouble()
             mainStage.minHeight = sceneHeight.toDouble()
+            mainStage.onCloseRequest = EventHandler<WindowEvent> { onCloseRequest() }
             showStage()
 
             if (!SystemTray.isSupported()) {
@@ -119,6 +123,15 @@ class Main : Application() {
 
     private fun setStyle(scene: Scene) {
         scene.stylesheets.add(getStylesheet())
+    }
+
+    private fun onCloseRequest() {
+        mainController.tabContainers.map { it.rootSchema }.forEach { it.saveTmpFile() }
+        globalSettings.previousPathFiles = mainController.tabContainers.map { it.rootSchema.getFilePathToSettings() }
+        GlobalSettingsLoader.save(globalSettings)
+
+        Platform.exit()
+        System.exit(0)
     }
 
 }

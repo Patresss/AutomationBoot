@@ -6,7 +6,7 @@ import org.jnativehook.keyboard.SwingKeyAdapter
 object KeyAdapter : SwingKeyAdapter() {
 
     fun getKeyEvent(nativeEvent: NativeKeyEvent): Int {
-        return getJavaKeyEvent(nativeEvent)?.keyCode?: 0
+        return getJavaKeyEvent(nativeEvent)?.keyCode ?: 0
     }
 
 }

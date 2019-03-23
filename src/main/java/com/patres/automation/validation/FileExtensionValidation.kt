@@ -2,8 +2,6 @@ package com.patres.automation.validation
 
 import com.patres.automation.Main
 import com.patres.automation.excpetion.FileHasWrongExtensiontException
-import com.patres.automation.excpetion.FileNotExistException
-import com.patres.automation.excpetion.IntegerFormatException
 import com.patres.automation.gui.controller.model.TextActionController
 import java.io.File
 

@@ -4,7 +4,6 @@ import com.patres.automation.Main
 import com.patres.automation.action.script.OpenFileOrDirectoryAction
 import com.patres.automation.action.script.WindowsRunAndWaitScriptAction
 import com.patres.automation.action.script.WindowsRunScriptAction
-import com.patres.automation.action.script.WindowsScriptAction
 import com.patres.automation.action.text.paste.PasteTextFromFieldAction
 import com.patres.automation.action.text.paste.PasteTextFromFileAction
 import com.patres.automation.action.text.type.TypeTextFromFieldAction
@@ -67,7 +66,7 @@ enum class MenuItem(
     WINDOWS_SCRIPT_RUN(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.run", SCRIPT, menuItemHandler = WindowsRunScriptAction.addAction),
     WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, "robot.action.script.windows.runAndWait", SCRIPT, menuItemHandler = WindowsRunAndWaitScriptAction.addAction),
 
-    SETTINGS(FontAwesomeIcon.GEAR, "menu.settings.localSettings", null, menuItemHandler = { root: RootSchemaGroupModel -> root.openLocalSettings() } );
+    SETTINGS(FontAwesomeIcon.GEAR, "menu.settings.localSettings", null, menuItemHandler = { root: RootSchemaGroupModel -> root.openLocalSettings() });
 
     val actionName = if (bundleName.isBlank()) "" else Main.bundle.getString(bundleName) ?: ""
     val label: Label

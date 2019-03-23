@@ -2,7 +2,6 @@ package com.patres.automation.model
 
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.SchemaGroupController
-import com.patres.automation.keyboard.listener.GlobalKeyListener
 import com.patres.automation.util.swap
 import java.util.*
 

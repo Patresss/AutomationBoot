@@ -6,5 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RootSchemaGroupSerialized(
         val schemaGroupSerialized: SchemaGroupSerialized,
-        val localSettings: LocalSettings
+        val localSettings: LocalSettings,
+        val tmpFile: String,
+        val file: String?,
+        val dirty: Boolean
 )

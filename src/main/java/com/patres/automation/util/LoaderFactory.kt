@@ -7,11 +7,8 @@ import javafx.scene.control.TabPane
 
 object LoaderFactory {
 
-    fun createRootSchemaGroup(tabPane: TabPane?): TabContainer {
-        return loadRootSchemaGroup(tabPane, RootSchemaGroupModel())
-    }
-
     fun loadRootSchemaGroup(tabPane: TabPane?, rootSchemaGroup: RootSchemaGroupModel): TabContainer {
+        val fileName = rootSchemaGroup.file?.name ?: rootSchemaGroup.tmpFile
         val newTab = Tab("New Tab", rootSchemaGroup.controller)
         tabPane?.apply {
             tabs?.add(newTab)

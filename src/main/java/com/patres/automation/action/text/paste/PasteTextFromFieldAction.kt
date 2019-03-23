@@ -12,7 +12,7 @@ class PasteTextFromFieldAction(
 ) : PasteTextAction<TextAreaActionController>(root, parent) {
 
     companion object {
-        val createAction= { root: RootSchemaGroupModel, parent: SchemaGroupModel -> PasteTextFromFieldAction(root, parent) }
+        val createAction = { root: RootSchemaGroupModel, parent: SchemaGroupModel -> PasteTextFromFieldAction(root, parent) }
         val addAction = { root: RootSchemaGroupModel -> root.addNodeAction(PasteTextFromFieldAction(root)) }
     }
 
