@@ -34,7 +34,7 @@ class Main : Application() {
         var mainStage: Stage = Stage()
         var mainPane: StackPane = StackPane()
         var tmpDirector: File = File("tmp")
-        lateinit var mainController: MainController
+         var mainController: MainController? = null
 
         @JvmStatic
         fun main(args: Array<String>) {
@@ -126,9 +126,11 @@ class Main : Application() {
     }
 
     private fun onCloseRequest() {
-        mainController.tabContainers.map { it.rootSchema }.forEach { it.saveTmpFile() }
-        globalSettings.previousPathFiles = mainController.tabContainers.map { it.rootSchema.getFilePathToSettings() }
-        GlobalSettingsLoader.save(globalSettings)
+        mainController?.let { controller ->
+            controller.tabContainers.map { it.rootSchema }.forEach { it.saveTmpFile() }
+            globalSettings.previousPathFiles = controller.tabContainers.map { it.rootSchema.getFilePathToSettings() }
+            GlobalSettingsLoader.save(globalSettings)
+        }
 
         Platform.exit()
         System.exit(0)

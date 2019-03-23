@@ -120,7 +120,10 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
             }
         }
         listViews.forEach { listView ->
-            listView.onMouseClicked = EventHandler { listView.selectionModel.selectedItem.menuItemHandler(model) }
+            listView.onMouseClicked = EventHandler {
+                listView.selectionModel.selectedItem.menuItemHandler(model)
+                model.changeDetect()
+            }
         }
     }
 

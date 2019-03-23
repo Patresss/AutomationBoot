@@ -164,7 +164,7 @@ class RootSchemaGroupModel(
     fun changeDetect() {
         saved = false
         saveTmpFile()
-        Main.mainController.changeDetect(this)
+        Main.mainController?.changeDetect(this)
     }
 
     fun getFilePathToSettings(): String {

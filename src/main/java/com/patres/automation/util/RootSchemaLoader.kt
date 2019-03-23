@@ -62,7 +62,7 @@ object RootSchemaLoader {
             tabs?.add(newTab)
             selectionModel?.select(newTab)
         }
-        newTab.onCloseRequest = EventHandler<Event> { Main.mainController.tabContainers.remove(tabContainer) }
+        newTab.onCloseRequest = EventHandler<Event> { Main.mainController?.tabContainers?.remove(tabContainer) }
         return tabContainer
     }
 

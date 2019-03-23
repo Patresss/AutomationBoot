@@ -29,7 +29,7 @@ class KeyboardField : StackPane() {
     @FXML
     lateinit var keyboardButtonHBox: HBox
 
-    val keys = ArrayList<KeyboardKey>()
+    val keys = FXCollections.observableList(ArrayList<KeyboardKey>());
 
     @FXML
     fun initialize() {

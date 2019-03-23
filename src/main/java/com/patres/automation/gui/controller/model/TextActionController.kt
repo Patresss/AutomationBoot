@@ -19,6 +19,10 @@ open class TextActionController(
 
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(valueText)
 
+    init {
+        valueText.textProperty().addListener { _, _, _ -> model.root.changeDetect() }
+    }
+
     var value: String
         get() = valueText.text
         set(value) {
