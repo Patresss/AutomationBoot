@@ -7,9 +7,10 @@ import javafx.scene.control.Label
 import javafx.scene.control.TextInputControl
 
 open class TextActionController(
-        model: AutomationModel<out TextActionController>,
-        fxmlFile: String
-) : LabelActionController(model, fxmlFile) {
+        model: AutomationModel<out TextActionController>? = null,
+        fxmlFile: String,
+        labelText: String = ""
+) : LabelActionController(model, fxmlFile, labelText) {
 
     @FXML
     lateinit var valueText: TextInputControl
@@ -20,7 +21,7 @@ open class TextActionController(
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(valueText)
 
     init {
-        valueText.textProperty().addListener { _, _, _ -> model.root.changeDetect() }
+        valueText.textProperty().addListener { _, _, _ -> model?.root?.changeDetect() }
     }
 
     var value: String

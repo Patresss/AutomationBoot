@@ -601,12 +601,16 @@ root {
     -fx-background-color: -color-primary-text;
 }
 
+.select-action-button:disabled {
+    -fx-opacity: 1.0;
+}
+
 .select-action-button-unselected {
     -fx-background-color: #F1F1F1;
 }
 
 .select-button-pane {
-    -fx-padding: 15 5 15 5;
+    -fx-padding: 15 0 15 5;
     -fx-background-color: -color-background;
 }
 
@@ -757,4 +761,16 @@ root {
     -fx-font-size: 16pt;
     -fx-font-weight: bold;
 
+}
+
+/*******************************************************************************
+ * Check box                                        *
+ ******************************************************************************/
+.check-box .box {
+    -fx-border-color: -color-primary-dark;
+}
+
+.check-box {
+    -fx-text-fill: -color-primary-text;
+    -jfx-checked-color: -color-primary;
 }

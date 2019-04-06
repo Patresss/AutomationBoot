@@ -37,7 +37,8 @@ abstract class AutomationController(
     @FXML
     open fun initialize() {
         if (model == null) {
-            gridPane.children.remove(selectStackPane)
+            selectActionButton.styleClass.add("select-action-button-selected")
+            selectStackPane.isDisable = true
         } else {
             getNodesToSelect().forEach { it.onMouseClicked = EventHandler { selectAction() } }
         }
