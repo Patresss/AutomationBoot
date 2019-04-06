@@ -53,7 +53,6 @@ class Main : Application() {
             mainStage.scene = createScene(loadMainPane())
             mainStage.minWidth = sceneWidth.toDouble()
             mainStage.minHeight = sceneHeight.toDouble()
-            mainStage.onCloseRequest = EventHandler<WindowEvent> { onCloseRequest() }
             showStage()
 
             if (!SystemTray.isSupported()) {
@@ -123,17 +122,6 @@ class Main : Application() {
 
     private fun setStyle(scene: Scene) {
         scene.stylesheets.add(getStylesheet())
-    }
-
-    private fun onCloseRequest() {
-        mainController?.let { controller ->
-            controller.tabContainers.map { it.rootSchema }.forEach { it.saveTmpFile() }
-            globalSettings.previousPathFiles = controller.tabContainers.map { it.rootSchema.getFilePathToSettings() }
-            GlobalSettingsLoader.save(globalSettings)
-        }
-
-        Platform.exit()
-        System.exit(0)
     }
 
 }

@@ -9,5 +9,5 @@ data class RootSchemaGroupSerialized(
         val localSettings: LocalSettings,
         val tmpFile: String,
         val file: String?,
-        val dirty: Boolean
+        val saved: Boolean
 )

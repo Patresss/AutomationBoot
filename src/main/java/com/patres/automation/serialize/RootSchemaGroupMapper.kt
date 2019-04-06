@@ -12,14 +12,14 @@ object RootSchemaGroupMapper {
                 localSettings = model.localSettings,
                 tmpFile = model.tmpFile.absolutePath,
                 file = model.file?.absolutePath,
-                dirty = model.saved
+                saved = model.saved
         )
     }
 
     fun serializedToModel(serializedModel: RootSchemaGroupSerialized): RootSchemaGroupModel {
         return RootSchemaGroupModel(
                 localSettings = serializedModel.localSettings,
-                saved = serializedModel.dirty
+                saved = serializedModel.saved
         ).apply {
             schemaGroup = SchemaGroupMapper.serializedToModel(serializedModel.schemaGroupSerialized, this, null)
             if (File(serializedModel.tmpFile).exists()) {

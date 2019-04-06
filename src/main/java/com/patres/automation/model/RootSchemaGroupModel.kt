@@ -8,6 +8,7 @@ import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
+import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LocalSettings
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
@@ -30,6 +31,8 @@ class RootSchemaGroupModel(
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
     }
+
+    var loaded: Boolean = false
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
 
@@ -156,15 +159,20 @@ class RootSchemaGroupModel(
         schemaGroup.controller.minHeightProperty().bind(controller.heightProperty())
     }
 
-    fun saveTmpFile() {
+    private fun saveTmpFile() {
         TmpFileLoader.saveTmpFile(this)
     }
 
-
     fun changeDetect() {
-        saved = false
-        saveTmpFile()
-        Main.mainController?.changeDetect(this)
+        if (loaded) {
+            if (saved) {
+                saved = false
+                GlobalSettingsLoader.save()
+            }
+            saved = false
+            saveTmpFile()
+            Main.mainController?.changeDetect(this)
+        }
     }
 
     fun getFilePathToSettings(): String {
@@ -175,5 +183,7 @@ class RootSchemaGroupModel(
             tmpFile.absolutePath
         }
     }
+
+    fun getName() = file?.nameWithoutExtension ?: tmpFile.nameWithoutExtension
 
 }

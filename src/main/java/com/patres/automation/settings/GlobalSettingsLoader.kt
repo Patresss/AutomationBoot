@@ -1,5 +1,6 @@
 package com.patres.automation.settings
 
+import com.patres.automation.Main
 import kotlinx.serialization.json.Json
 import java.io.File
 
@@ -20,7 +21,12 @@ object GlobalSettingsLoader {
         }
     }
 
-    fun save(globalSettings: GlobalSettings) {
+    fun save(globalSettings: GlobalSettings = Main.globalSettings) {
+        val filesToSave = Main.mainController?.tabContainers?.map { it.rootSchema.getFilePathToSettings() }
+        filesToSave?.let {files ->
+            globalSettings.previousPathFiles = files
+        }
+
         val serializedRootGroup = Json.stringify(GlobalSettings.serializer(), globalSettings)
         val file = File(path)
         file.writeText(serializedRootGroup)

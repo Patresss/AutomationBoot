@@ -126,11 +126,44 @@ root {
  * Button
 \* ================================================================================*/
 .button {
-    -fx-background-radius: 0.0;
-    -fx-background-color: -color-accent;
+    -fx-background-radius: 0;
+    -fx-background-color: -color-primary;
     -fx-font-size: 11.0pt;
-    -fx-text-fill: -color-background;
+    -fx-text-fill: -color-primary-bright-10;
     -fx-cursor: hand;
+}
+
+.button-primary {
+    -fx-background-radius: 50.0;
+    -fx-background-color: -color-primary;
+    -fx-font-size: 11.0pt;
+    -fx-text-fill: -color-primary-bright-10;
+    -fx-cursor: hand;
+
+    -fx-pref-height: 30px;
+    -fx-pref-width: 100px;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+    -jfx-button-type: RAISED;
+}
+
+.button-secondary {
+    -fx-text-fill:  -color-primary-dark-1;
+    -fx-background-color: -color-primary-bright-9;
+
+    -fx-background-radius: 50.0;
+    -fx-font-size: 11.0pt;
+    -fx-cursor: hand;
+
+    -fx-pref-height: 30px;
+    -fx-pref-width: 100px;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+    -jfx-button-type: RAISED;
 }
 
 

@@ -4,11 +4,9 @@ import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.Main
-import com.patres.automation.file.FileChooser
-import com.patres.automation.file.FileConstants.AUTOMATION_BOOT_EXTENSION
-import com.patres.automation.file.FileConstants.AUTOMATION_BOOT_EXTENSION_TYPE
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.util.RootSchemaLoader
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -16,6 +14,8 @@ import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
+import javafx.collections.FXCollections
+import javafx.collections.ListChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.TabPane
@@ -45,9 +45,7 @@ class MainController {
 
     private lateinit var snackBar: JFXSnackbar
 
-    val tabContainers = ArrayList<TabContainer>()
-
-    private val loaderFile = FileChooser(AUTOMATION_BOOT_EXTENSION, AUTOMATION_BOOT_EXTENSION_TYPE)
+    val tabContainers = FXCollections.observableList(ArrayList<TabContainer>())
 
     private val globalSettingsController = GlobalSettingsController(this)
 
@@ -60,6 +58,14 @@ class MainController {
             createNewRootSchema()
         } else {
             previousOpenModels.forEach { loadModelFromFile(it) }
+        }
+
+        listenTabContainers()
+    }
+
+    private fun listenTabContainers() {
+        tabContainers.addListener { _: ListChangeListener.Change<out TabContainer>? ->
+            GlobalSettingsLoader.save(Main.globalSettings)
         }
     }
 
@@ -78,9 +84,9 @@ class MainController {
     @FXML
     fun openRootSchema() {
         try {
-            val fileToOpen = loaderFile.chooseFileToLoad()
-            if (fileToOpen != null) {
-                loadModelFromFile(fileToOpen)
+            val tabContainer = RootSchemaLoader.openRootSchema(tabPane)
+            if (tabContainer != null) {
+                tabContainers.add(tabContainer)
             }
         } catch (e: Exception) {
             LOGGER.error("Exception: {}", e)
@@ -90,19 +96,20 @@ class MainController {
     }
 
     private fun loadModelFromFile(fileToLoad: File) {
-        val tabContainer = RootSchemaLoader.openNewRootSchema(tabPane, fileToLoad)
-        tabContainers.add(tabContainer)
+        try {
+            val tabContainer = RootSchemaLoader.openRootSchema(tabPane, fileToLoad)
+            tabContainers.add(tabContainer)
+        } catch (e: Exception) {
+            LOGGER.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message)
+        }
     }
 
     @FXML
     fun saveExistingRootSchema() {
-        getSelectedTabContainer()?.let { tabContainer ->
-            var file = tabContainer.rootSchema.file
-            if (file == null) {
-                file = loaderFile.chooseFileToSave()
-            }
-            if (file != null) {
-                saveRootSchema(file)
+        getSelectedTabContainer()?.let {
+            val saved = RootSchemaLoader.saveExistingRootSchema(it)
+            if (saved) {
+                setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, it.rootSchema.file?.name))
             }
         }
     }
@@ -110,17 +117,10 @@ class MainController {
     @FXML
     fun saveAsRootSchema() {
         getSelectedTabContainer()?.let {
-            val file = loaderFile.chooseFileToSave()
-            if (file != null) {
-                saveRootSchema(file)
+            val saved = RootSchemaLoader.saveAsRootSchema(it)
+            if (saved) {
+                setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, it.rootSchema.file?.name))
             }
-        }
-    }
-
-    private fun saveRootSchema(file: File) {
-        getSelectedTabContainer()?.let { tabContainer ->
-            RootSchemaLoader.saveRootSchema(tabContainer, file)
-            setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, file.name))
         }
     }
 
@@ -152,6 +152,11 @@ class MainController {
                         MESSAGE_SNACKBAR_TIMEOUT,
                         false,
                         EventHandler { snackBar.close() }))
+    }
+
+    fun removeTab(tabContainer: TabContainer) {
+        tabContainers.remove(tabContainer)
+        tabPane.tabs.remove(tabContainer.tab)
     }
 
 }
