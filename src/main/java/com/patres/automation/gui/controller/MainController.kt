@@ -159,4 +159,9 @@ class MainController {
         tabPane.tabs.remove(tabContainer.tab)
     }
 
+    fun findActionByName(actionName: String):RootSchemaGroupModel? {
+        return tabContainers
+                .map { it.rootSchema }
+                .find { it.localSettings.enableRest && it.localSettings.endpointName == actionName}
+    }
 }

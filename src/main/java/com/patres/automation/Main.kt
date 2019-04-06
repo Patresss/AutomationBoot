@@ -5,14 +5,12 @@ import com.patres.automation.gui.controller.MainController
 import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.application.Application
 import javafx.application.Platform
-import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
-import javafx.stage.WindowEvent
 import org.slf4j.LoggerFactory
 import java.awt.*
 import java.io.File
@@ -34,15 +32,14 @@ class Main : Application() {
         var mainStage: Stage = Stage()
         var mainPane: StackPane = StackPane()
         var tmpDirector: File = File("tmp")
-         var mainController: MainController? = null
+        var mainController: MainController? = null
 
         @JvmStatic
         fun main(args: Array<String>) {
+            ServerBoot.run()
             launch(Main::class.java)
         }
-
         fun getStylesheet(): String = Main::class.java.getResource("/css/style_day.css").toExternalForm()
-
     }
 
     override fun start(primaryStage: Stage) {
@@ -65,6 +62,7 @@ class Main : Application() {
         } catch (e: IOException) {
             logger.error("Error in start method - I/O Exception", e)
         }
+
     }
 
     private fun createTryIcon() {
