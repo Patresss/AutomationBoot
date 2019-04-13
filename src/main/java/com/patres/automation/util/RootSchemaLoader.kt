@@ -2,7 +2,6 @@ package com.patres.automation.util
 
 import com.jfoenix.controls.JFXDialog
 import com.patres.automation.Main
-import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.FileChooser
 import com.patres.automation.file.FileConstants
 import com.patres.automation.gui.controller.TabContainer
@@ -26,7 +25,9 @@ object RootSchemaLoader {
     private val loaderFile = FileChooser(FileConstants.AUTOMATION_BOOT_EXTENSION, FileConstants.AUTOMATION_BOOT_EXTENSION_TYPE)
 
     fun createNewRootSchema(tabPane: TabPane): TabContainer {
-        return createTabContainer(tabPane, RootSchemaGroupModel())
+        return createTabContainer(tabPane, RootSchemaGroupModel()).apply {
+            rootSchema.saveTmpFile()
+        }
     }
 
     fun openRootSchema(tabPane: TabPane): TabContainer? {

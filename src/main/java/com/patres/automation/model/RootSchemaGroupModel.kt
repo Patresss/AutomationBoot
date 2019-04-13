@@ -159,7 +159,7 @@ class RootSchemaGroupModel(
         schemaGroup.controller.minHeightProperty().bind(controller.heightProperty())
     }
 
-    private fun saveTmpFile() {
+    fun saveTmpFile() {
         TmpFileLoader.saveTmpFile(this)
     }
 
