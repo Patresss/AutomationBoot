@@ -6,7 +6,7 @@ import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.validation.AbstractValidation
-import com.patres.automation.validation.PointValidation
+import com.patres.automation.validation.PointVectorValidation
 
 abstract class MousePointAction(
         root: RootSchemaGroupModel,
@@ -19,7 +19,7 @@ abstract class MousePointAction(
 
     final override val controller: MousePointActionController = MousePointActionController(this)
 
-    override var validator: AbstractValidation? = PointValidation(controller).also { it.activateControlListener() }
+    override var validator: AbstractValidation? = PointVectorValidation(controller).also { it.activateControlListener() }
 
     var point: Point? = null
 
@@ -30,7 +30,7 @@ abstract class MousePointAction(
     override fun runAction() {
         loadPoint()
         point?.let {
-            robot.mouseMove(it.x, it.y)
+            robot.mouseMove(it.xPositionPointVector, it.yPositionPointVector)
         }
         runMouseAction()
         Thread.sleep(DELAY)

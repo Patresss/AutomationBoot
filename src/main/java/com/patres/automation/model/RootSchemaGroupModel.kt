@@ -101,9 +101,11 @@ class RootSchemaGroupModel(
                     schemaGroup.runAction()
                     Thread.sleep(200)
                 } catch (e: ApplicationException) {
-                    LOGGER.error("ApplicationException: {}", e.message)
-                    val dialog = ExceptionHandlerDialog(e)
-                    dialog.show()
+                    LOGGER.error("ApplicationException: {}", e)
+                    Platform.runLater{
+                        val dialog = ExceptionHandlerDialog(e)
+                        dialog.show()
+                    }
                 } catch (e: Exception) {
                     LOGGER.error("Exception: {}", e)
                 } finally {
