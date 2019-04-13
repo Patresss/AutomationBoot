@@ -703,6 +703,9 @@ root {
     -fx-border-width: 5;
     -fx-border-color: linear-gradient(to top, -color-primary-bright-5, -color-primary-bright-6, -color-primary-bright-6, -color-primary-bright-5);
     -fx-font-size: 9pt;
+
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
 }
 
 .keyboard-close-button {
