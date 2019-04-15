@@ -777,3 +777,40 @@ root {
     -fx-text-fill: -color-primary-text;
     -jfx-checked-color: -color-primary;
 }
+
+/*******************************************************************************
+ * Tooltip pointer                        *
+ ******************************************************************************/
+.tooltip-pointer-pane{
+    -fx-background-color:  -color-primary-bright-10;
+    -fx-opacity: 0.9;
+    -fx-padding: 40;
+}
+
+.tooltip-pointer-button {
+    -fx-background-color: -color-primary-bright-10;
+    -fx-background-radius: 50px;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+    -jfx-button-type: RAISED;
+    -fx-font-size: 30pt;
+}
+
+.tooltip-pointer-icon {
+    -fx-fill: -color-primary-dark-6;
+}
+
+.tooltip-pointer-label-header {
+    -fx-text-fill: -color-primary-dark-6;
+    -fx-font-weight: bold;
+    -fx-font-size: 16pt;
+}
+
+.tooltip-pointer-label {
+    -fx-text-fill: -color-primary-dark-6;
+    -fx-font-size: 12pt;
+}

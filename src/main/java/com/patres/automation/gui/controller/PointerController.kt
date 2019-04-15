@@ -1,18 +1,24 @@
 package com.patres.automation.gui.controller
 
+import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
 import com.patres.automation.Point
 import com.patres.automation.Point.Companion.VECTOR_CHAR
 import com.patres.automation.Point.Companion.transformPoint
 import com.patres.automation.gui.controller.model.MousePointActionController
+import com.patres.automation.util.fromBundle
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.animation.FadeTransition
 import javafx.animation.ScaleTransition
 import javafx.event.EventHandler
 import javafx.scene.Cursor
 import javafx.scene.Scene
+import javafx.scene.control.Label
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.Pane
+import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Line
@@ -25,6 +31,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     companion object {
         private const val CIRCLE_OPACITY = 0.6
         private const val RADIUS = 12.0
+        private val QUESTION_ICON = FontAwesomeIconView(FontAwesomeIcon.QUESTION)
+        private const val QUESTION_ICON_PADDING = 50.0
     }
 
     lateinit var scene: Scene
@@ -38,6 +46,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
 
     init {
         setScene()
+        loadToolTipButton()
         setStyle()
         addMouseListener()
     }
@@ -58,7 +67,43 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
 
     private fun loadCirclePoint() {
         circlePoint = Circle(12.0)
-        pane.children.add(circlePoint)
+        pane.apply {
+            children.add(circlePoint)
+            styleClass.add("tooltip-pointer")
+        }
+    }
+
+    private fun loadToolTipButton() {
+        val button = JFXButton(null, QUESTION_ICON)
+        val stackPane = VBox().apply {
+            translateX = QUESTION_ICON_PADDING
+            translateY = QUESTION_ICON_PADDING
+            isVisible = false
+            styleClass.add("tooltip-pointer-pane")
+            hoverProperty().addListener { _, _, newValue ->
+                isVisible = newValue
+                button.isVisible = !newValue
+            }
+        }
+
+         button.apply {
+            translateX = QUESTION_ICON_PADDING
+            translateY = QUESTION_ICON_PADDING
+            styleClass.add("tooltip-pointer-button")
+            graphic.styleClass.add("tooltip-pointer-icon")
+            hoverProperty().addListener { _, _, newValue ->
+                stackPane.isVisible = newValue
+            }
+        }
+
+        val header = Label(fromBundle("pointer.tooltiop.header")).apply { styleClass.add("tooltip-pointer-label-header") }
+        stackPane.children.add(header)
+        stackPane.children.add(Label(fromBundle("pointer.tooltiop.point")).apply { styleClass.add("tooltip-pointer-label") })
+        stackPane.children.add(Label(fromBundle("pointer.tooltiop.vector")).apply { styleClass.add("tooltip-pointer-label") })
+        stackPane.children.add(Label(fromBundle("pointer.tooltiop.image")).apply { styleClass.add("tooltip-pointer-label") })
+
+        pane.children.add(button)
+        pane.children.add(stackPane)
     }
 
     private fun addMouseListener() {

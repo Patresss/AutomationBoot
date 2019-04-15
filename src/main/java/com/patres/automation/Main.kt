@@ -36,7 +36,7 @@ class Main : Application() {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            ServerBoot.run()
+//            ServerBoot.run()
             launch(Main::class.java)
         }
         fun getStylesheet(): String = Main::class.java.getResource("/css/style_day.css").toExternalForm()
