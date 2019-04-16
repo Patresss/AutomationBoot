@@ -814,3 +814,7 @@ root {
     -fx-text-fill: -color-primary-dark-6;
     -fx-font-size: 12pt;
 }
+
+.tooltip-pointer-tooltip {
+    -fx-padding: 0;
+}

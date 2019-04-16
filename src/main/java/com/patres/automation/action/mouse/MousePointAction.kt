@@ -41,4 +41,6 @@ abstract class MousePointAction(
         this.point = Point.stringToPoint(pointString)
     }
 
+
+
 }

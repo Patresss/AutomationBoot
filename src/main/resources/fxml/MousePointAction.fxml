@@ -5,6 +5,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -24,7 +25,16 @@
         </rowConstraints>
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
         <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
+      <StackPane GridPane.columnIndex="2">
+         <children>
+              <JFXTextField fx:id="valueText" />
+            <Label fx:id="labelImage">
+               <graphic>
+                  <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+         </children>
+      </StackPane>
         <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="3" GridPane.rowSpan="2">
             <graphic>
                 <FontAwesomeIconView glyphName="CROSSHAIRS" styleClass="sub-icon" />

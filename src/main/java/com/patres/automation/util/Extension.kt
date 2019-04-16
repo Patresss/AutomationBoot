@@ -8,6 +8,11 @@ import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.control.TextInputControl
 import kotlin.reflect.KClass
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
+import java.lang.reflect.AccessibleObject.setAccessible
+import javafx.scene.control.Tooltip
+import javafx.util.Duration
 
 
 fun TextInputControl.setIntegerFilter() {
@@ -75,3 +80,21 @@ fun String.getInteger(): Int {
 }
 
 fun fromBundle(key: String): String = Main.bundle.getString(key)
+
+fun Tooltip.startTiming(time: Double) {
+    try {
+        val fieldBehavior = this.javaClass.getDeclaredField("BEHAVIOR")
+        fieldBehavior.isAccessible = true
+        val objBehavior = fieldBehavior.get(this)
+
+        val fieldTimer = objBehavior.javaClass.getDeclaredField("activationTimer")
+        fieldTimer.isAccessible = true
+        val objTimer = fieldTimer.get(objBehavior) as Timeline
+
+        objTimer.keyFrames.clear()
+        objTimer.keyFrames.add(KeyFrame(Duration(time)))
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
+}

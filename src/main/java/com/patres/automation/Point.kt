@@ -14,10 +14,10 @@ class Point(
         return String.format("(%d;%d)", x, y)
     }
 
-    val xTransform: Int
+    private val xTransform: Int
         get() = MouseInfo.getPointerInfo().location.x + x
 
-    val yTransform: Int
+    private val yTransform: Int
         get() = MouseInfo.getPointerInfo().location.y + y
 
     val xPositionPointVector: Int
