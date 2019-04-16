@@ -2,9 +2,9 @@ package com.patres.automation.gui.controller.pointer
 
 import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
-import com.patres.automation.Point
-import com.patres.automation.Point.Companion.VECTOR_CHAR
-import com.patres.automation.Point.Companion.transformPoint
+import com.patres.automation.point.Point
+import com.patres.automation.point.Point.Companion.VECTOR_CHAR
+import com.patres.automation.point.Point.Companion.transformPoint
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.util.fromBundle
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
@@ -16,7 +16,6 @@ import javafx.event.EventHandler
 import javafx.scene.Cursor
 import javafx.scene.Scene
 import javafx.scene.control.Label
-import javafx.scene.image.Image
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.Pane

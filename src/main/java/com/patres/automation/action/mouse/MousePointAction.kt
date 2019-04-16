@@ -1,10 +1,11 @@
 package com.patres.automation.action.mouse
 
-import com.patres.automation.Point
+import com.patres.automation.point.Point
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
+import com.patres.automation.point.ImageToPointConverter
 import com.patres.automation.validation.AbstractValidation
 import com.patres.automation.validation.PointVectorValidation
 
@@ -37,8 +38,14 @@ abstract class MousePointAction(
     }
 
     private fun loadPoint() {
-        val pointString = getActionValue()
-        this.point = Point.stringToPoint(pointString)
+        val image = controller.image
+        point = if (image != null) {
+            val pointInTheMiddle = ImageToPointConverter(image).calculatePointInTheMiddle()
+            pointInTheMiddle
+        } else {
+            val pointString = getActionValue()
+            Point.stringToPoint(pointString)
+        }
     }
 
 

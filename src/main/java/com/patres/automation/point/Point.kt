@@ -1,4 +1,4 @@
-package com.patres.automation
+package com.patres.automation.point
 
 
 import com.patres.automation.excpetion.PointVectorFormatException
