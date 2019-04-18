@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
 
-class ImageToPointConverter(val image: Image) {
+class ImageToPointConverter(private val image: Image) {
 
     companion object {
         var robot = Robot()

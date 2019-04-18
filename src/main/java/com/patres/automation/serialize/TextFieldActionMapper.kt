@@ -36,23 +36,7 @@ object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>,
 
     private val actionInstanceMap = mapOf(
             MenuItem.DELAY.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> DelayAction(root, parent) },
-            MenuItem.MOVE_MOUSE.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> MoveMouseAction(root, parent) },
 
-            MenuItem.CLICK_LEFT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> LeftMouseClickAction(root, parent) },
-            MenuItem.CLICK_MIDDLE_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> MiddleMouseClickAction(root, parent) },
-            MenuItem.CLICK_RIGHT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> RightMouseClickAction(root, parent) },
-
-            MenuItem.DOUBLE_CLICK_LEFT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> LeftDoubleMouseClickAction(root, parent) },
-            MenuItem.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> MiddleDoubleMouseClickAction(root, parent) },
-            MenuItem.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> RightDoubleMouseClickAction(root, parent) },
-
-            MenuItem.PRESS_LEFT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> PressLeftMouseAction(root, parent) },
-            MenuItem.PRESS_MIDDLE_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> PressMiddleMouseAction(root, parent) },
-            MenuItem.PRESS_RIGHT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> PressRightMouseAction(root, parent) },
-
-            MenuItem.RELEASE_LEFT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ReleaseLeftMouseAction(root, parent) },
-            MenuItem.RELEASE_MIDDLE_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ReleaseMiddleMouseAction(root, parent) },
-            MenuItem.RELEASE_RIGHT_MOUSE_BUTTON.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ReleaseRightMouseAction(root, parent) },
             MenuItem.SCROLL_WHEEL_UP.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ScrollWheelUpAction(root, parent) },
             MenuItem.SCROLL_WHEEL_DOWN.name to { root: RootSchemaGroupModel, parent: SchemaGroupModel -> ScrollWheelDownAction(root, parent) },
 
@@ -68,23 +52,7 @@ object TextFieldActionMapper : Mapper<TextActionModel<out TextActionController>,
 
     private val actionClassMap = mapOf(
             DelayAction::class.java to MenuItem.DELAY.name,
-            MoveMouseAction::class.java to MenuItem.MOVE_MOUSE.name,
 
-            LeftMouseClickAction::class.java to MenuItem.CLICK_LEFT_MOUSE_BUTTON.name,
-            MiddleMouseClickAction::class.java to MenuItem.CLICK_MIDDLE_MOUSE_BUTTON.name,
-            RightMouseClickAction::class.java to MenuItem.CLICK_RIGHT_MOUSE_BUTTON.name,
-
-            LeftDoubleMouseClickAction::class.java to MenuItem.DOUBLE_CLICK_LEFT_MOUSE_BUTTON.name,
-            MiddleDoubleMouseClickAction::class.java to MenuItem.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON.name,
-            RightDoubleMouseClickAction::class.java to MenuItem.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON.name,
-
-            PressLeftMouseAction::class.java to MenuItem.PRESS_LEFT_MOUSE_BUTTON.name,
-            PressMiddleMouseAction::class.java to MenuItem.PRESS_MIDDLE_MOUSE_BUTTON.name,
-            PressRightMouseAction::class.java to MenuItem.PRESS_RIGHT_MOUSE_BUTTON.name,
-
-            ReleaseLeftMouseAction::class.java to MenuItem.RELEASE_LEFT_MOUSE_BUTTON.name,
-            ReleaseMiddleMouseAction::class.java to MenuItem.RELEASE_MIDDLE_MOUSE_BUTTON.name,
-            ReleaseRightMouseAction::class.java to MenuItem.RELEASE_RIGHT_MOUSE_BUTTON.name,
             ScrollWheelUpAction::class.java to MenuItem.SCROLL_WHEEL_UP.name,
             ScrollWheelDownAction::class.java to MenuItem.SCROLL_WHEEL_DOWN.name,
 

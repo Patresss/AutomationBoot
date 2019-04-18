@@ -8,6 +8,7 @@ import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.point.ImageToPointConverter
 import com.patres.automation.validation.AbstractValidation
 import com.patres.automation.validation.PointVectorValidation
+import java.io.InputStream
 
 abstract class MousePointAction(
         root: RootSchemaGroupModel,
@@ -24,8 +25,8 @@ abstract class MousePointAction(
 
     var point: Point? = null
 
-    init {
-        controller.actionLabel.text = MenuItem.DELAY.actionName
+    fun setImageInputStream(image: InputStream) {
+        controller.setImage(image)
     }
 
     override fun runAction() {

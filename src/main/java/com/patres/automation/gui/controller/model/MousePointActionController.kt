@@ -5,6 +5,7 @@ import com.patres.automation.Main
 import com.patres.automation.action.mouse.MouseAction
 import com.patres.automation.gui.controller.pointer.PointerController
 import com.patres.automation.util.startTiming
+import javafx.embed.swing.SwingFXUtils
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.Scene
@@ -14,7 +15,16 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import jdk.nashorn.tools.ShellFunctions.input
+import java.io.ByteArrayInputStream
+import java.io.File
+import javax.imageio.ImageIO
+import java.io.FileOutputStream
+
+
+
 
 class MousePointActionController(
         model: MouseAction,
@@ -36,6 +46,7 @@ class MousePointActionController(
     }
 
     var image: Image? = null
+    var imageByteArrayOutputStream: ByteArrayOutputStream? = null
 
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(pointButton)
 
@@ -49,13 +60,36 @@ class MousePointActionController(
     }
 
     fun setImage(imageInputStream: InputStream) {
-        image = Image(imageInputStream)
-        imageView.image = image
-        labelImage.isVisible = true
-        valueText.isVisible = false
-        tooltip.graphic = ImageView(image)
-        labelImage.tooltip = tooltip
+        setByteArrayOutputStream(imageInputStream)
+        imageByteArrayOutputStream?.let {
+            val inputStream =  ByteArrayInputStream(calculateImageBytesArray())
+            image = Image(inputStream)
+            imageView.image = image
+            labelImage.isVisible = true
+            valueText.isVisible = false
+            tooltip.graphic = ImageView(image)
+
+            val outStream = FileOutputStream(File("P:\\Programowanie\\Projekty\\Mouse and keyboard automat\\tmp\\atett.bmp"))
+            outStream.write(calculateImageBytesArray())
+            labelImage.tooltip = tooltip
+
+        }
     }
+
+    private fun setByteArrayOutputStream(inputStream: InputStream) {
+        imageByteArrayOutputStream = ByteArrayOutputStream()
+        imageByteArrayOutputStream?.let { imageByteArrayOutputStream ->
+            val buffer = ByteArray(1024)
+            var len: Int = inputStream.read(buffer)
+            while (len > -1) {
+                imageByteArrayOutputStream.write(buffer, 0, len)
+                len = inputStream.read(buffer)
+            }
+            imageByteArrayOutputStream.flush()
+        }
+    }
+
+    fun calculateImageBytesArray() = imageByteArrayOutputStream?.toByteArray()
 
     fun setText(text: String) {
         valueText.text = text

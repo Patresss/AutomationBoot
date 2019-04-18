@@ -28,7 +28,7 @@ class FileChooser(
 
     fun chooseFileToSave(): File? {
         val fileChooser = getFileChooser()
-        return fileChooser.showOpenDialog(Main.mainStage)
+        return fileChooser.showSaveDialog(Main.mainStage)
                 ?.apply { saveLastOpenDirectory(this) }
     }
 

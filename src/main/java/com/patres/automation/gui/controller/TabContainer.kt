@@ -7,15 +7,4 @@ import java.io.File
 class TabContainer(
         val tab: Tab,
         val rootSchema: RootSchemaGroupModel
-) {
-
-
-    fun updateName() {
-        setTabName(rootSchema.file)
-    }
-
-    private fun setTabName(file: File?) {
-
-    }
-
-}
+)
