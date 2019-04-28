@@ -2,7 +2,6 @@ package com.patres.automation.action.mouse
 
 import com.patres.automation.point.Point
 import com.patres.automation.gui.controller.model.MousePointActionController
-import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.point.ImageToPointConverter
@@ -23,32 +22,30 @@ abstract class MousePointAction(
 
     override var validator: AbstractValidation? = PointVectorValidation(controller).also { it.activateControlListener() }
 
-    var point: Point? = null
-
     fun setImageInputStream(image: InputStream) {
         controller.setImage(image)
     }
 
     override fun runAction() {
-        loadPoint()
+       val point =  loadPoint()
         point?.let {
             robot.mouseMove(it.xPositionPointVector, it.yPositionPointVector)
+            runMouseAction()
+            Thread.sleep(DELAY)
         }
-        runMouseAction()
-        Thread.sleep(DELAY)
     }
 
-    private fun loadPoint() {
+    private fun loadPoint(): Point? {
         val image = controller.image
-        point = if (image != null) {
-            val pointInTheMiddle = ImageToPointConverter(image).calculatePointInTheMiddle()
-            pointInTheMiddle
+        return if (image != null) {
+            val threshold = controller.thresholdSlider.value / 100.0
+            controller.calculateImageBytesArray()?.let {
+                ImageToPointConverter(image).calculatePointByTemplateMatch(it, threshold)
+            }
         } else {
             val pointString = getActionValue()
             Point.stringToPoint(pointString)
         }
     }
-
-
 
 }

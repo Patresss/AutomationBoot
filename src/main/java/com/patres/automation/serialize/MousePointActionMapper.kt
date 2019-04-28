@@ -69,13 +69,14 @@ object MousePointActionMapper : Mapper<MousePointAction, MousePointActionSeriali
     override fun modelToSerialize(model: MousePointAction): MousePointActionSerialized {
         val actionName = actionClassMap[model.javaClass]
                 ?: throw ApplicationException("Cannot find action name ${model.javaClass} to serialize")
-        return MousePointActionSerialized(model.getActionValue(), bytesArrayToBase64(model.controller.calculateImageBytesArray()), actionName)
+        return MousePointActionSerialized(model.getActionValue(), bytesArrayToBase64(model.controller.calculateImageBytesArray()), model.controller.thresholdSlider.value, actionName)
     }
 
     override fun serializedToModel(serializedModel: MousePointActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupModel): MousePointAction {
         return actionInstanceMap[serializedModel.actionName]?.invoke(root, parent)?.apply {
             setActionValue(serializedModel.actionNodeValue)
             serializedModel.image?.let { setImageInputStream(base64ToInputStream(it)) }
+            controller.thresholdSlider.value = serializedModel.threshold?: 90.0
         }
                 ?: throw ApplicationException("Cannot find model ${serializedModel.actionName} to serialize")
     }

@@ -530,16 +530,29 @@ root {
     -fx-fill: -color-primary-text;
 }
 
-.settings-slider {
-    -jfx-default-thumb: -color-primary-text;
+.jfx-slider > .track {
+    -fx-background-color: -color-primary-bright-7;
 }
 
-.settings-slider > .thumb {
-    -fx-background-color: -color-primary;
+/* Styling the slider thumb */
+.jfx-slider > .thumb {
+    -fx-background-color: -color-primary-dark;
 }
 
-.settings-slider .track {
-    -fx-background-color: -color-primary-ligth;
+/* Styling the filled track */
+.jfx-slider > .colored-track {
+    -fx-background-color: -color-primary-dark;
+}
+
+/* Styling the animated thumb */
+.jfx-slider > .animated-thumb {
+    -fx-background-color: -color-primary-dark;
+}
+
+/* Styling the slider value text inside animated thumb */
+.jfx-slider .slider-value {
+    -fx-fill: white;
+    -fx-stroke: white;
 }
 
 .settings-slider .animated-thumb {

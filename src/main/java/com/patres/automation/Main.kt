@@ -11,6 +11,7 @@ import javafx.scene.image.Image
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
+import org.opencv.core.Core
 import org.slf4j.LoggerFactory
 import java.awt.*
 import java.io.File
@@ -38,6 +39,7 @@ class Main : Application() {
 
         @JvmStatic
         fun main(args: Array<String>) {
+            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 //            ServerBoot.run()
             launch(Main::class.java)
         }

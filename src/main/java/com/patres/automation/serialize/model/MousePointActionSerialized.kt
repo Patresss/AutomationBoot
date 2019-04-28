@@ -8,5 +8,6 @@ import kotlinx.serialization.Serializable
 open class MousePointActionSerialized(
         @Optional val actionNodeValue: String = "",
         @Optional val image: String? = null,
+        @Optional val threshold: Double? = null,
         val actionName: String
 ) : AutomationActionSerialized()

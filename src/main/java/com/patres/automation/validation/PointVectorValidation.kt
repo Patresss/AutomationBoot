@@ -2,9 +2,10 @@ package com.patres.automation.validation
 
 import com.patres.automation.Main
 import com.patres.automation.excpetion.PointVectorFormatException
+import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.gui.controller.model.TextActionController
 
-class PointVectorValidation(controller: TextActionController) : AbstractValidation(controller) {
+class PointVectorValidation(val controller: MousePointActionController) : AbstractValidation(controller) {
 
     companion object {
         private val invalidMessage = Main.bundle.getString("error.mustBePointOrVector")
@@ -17,7 +18,7 @@ class PointVectorValidation(controller: TextActionController) : AbstractValidati
     }
 
     override fun isConditionFulfilled(): Boolean {
-        return validationTextField.text.matches(pointPattern.toRegex()) || validationTextField.text.matches(vectorPattern.toRegex())
+        return !controller.valueText.isVisible || (validationTextField.text.matches(pointPattern.toRegex()) || validationTextField.text.matches(vectorPattern.toRegex()))
     }
 
     override fun throwException() {

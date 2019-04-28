@@ -37,6 +37,8 @@ dependencies {
     compile "io.ktor:ktor-server-netty:$ktor_version"
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    compile group: 'org.openpnp', name: 'opencv', version: '3.2.0-0'
 }
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
@@ -27,7 +28,7 @@
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
         <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
         <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
-      <HBox fx:id="imageBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <HBox fx:id="imageBox" alignment="CENTER" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
             <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
             <JFXButton fx:id="zoomButton" styleClass="transparent-button">
@@ -55,5 +56,6 @@
                 </opaqueInsets>
             </JFXButton>
         </StackPane>
+      <JFXSlider fx:id="thresholdSlider" value="90.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
     </GridPane>
 </fx:root>
