@@ -568,6 +568,9 @@ root {
     -fx-background-color: -color-primary-dark;
 }
 
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
 
 
 /* GROUp */
@@ -625,6 +628,18 @@ root {
 /* Action Pane */
 .sub-action-button {
     -fx-background-color: #F1F1F1;
+    -fx-background-radius: 25px;
+    -fx-pref-height: 25px;
+    -fx-pref-width: 25px;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+    -jfx-button-type: RAISED;
+}
+
+.transparent-button {
+    -fx-background-color: transparent;
     -fx-background-radius: 25px;
     -fx-pref-height: 25px;
     -fx-pref-width: 25px;
@@ -817,4 +832,9 @@ root {
 
 .tooltip-pointer-tooltip {
     -fx-padding: 0;
+}
+
+
+.pane-with-primary-background {
+    -fx-background-color: -color-primary;
 }

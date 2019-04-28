@@ -3,16 +3,15 @@ package com.patres.automation.util
 import com.patres.automation.Main
 import com.patres.automation.excpetion.IntegerFormatException
 import com.sun.javafx.util.Utils
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
 import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.control.TextInputControl
-import kotlin.reflect.KClass
-import javafx.animation.KeyFrame
-import javafx.animation.Timeline
-import java.lang.reflect.AccessibleObject.setAccessible
 import javafx.scene.control.Tooltip
 import javafx.util.Duration
+import kotlin.reflect.KClass
 
 
 fun TextInputControl.setIntegerFilter() {
@@ -96,5 +95,16 @@ fun Tooltip.startTiming(time: Double) {
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+
+fun Tooltip.getHideTimer(): Timeline {
+    val fieldBehavior = this.javaClass.getDeclaredField("BEHAVIOR")
+    fieldBehavior.isAccessible = true
+    val objBehavior = fieldBehavior.get(this)
+
+    val fieldTimer = objBehavior.javaClass.getDeclaredField("hideTimer")
+    fieldTimer.isAccessible = true
+    return fieldTimer.get(objBehavior) as Timeline
 
 }

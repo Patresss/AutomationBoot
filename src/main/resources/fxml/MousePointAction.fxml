@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -25,16 +26,17 @@
         </rowConstraints>
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
         <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <StackPane GridPane.columnIndex="2">
+        <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
+      <HBox fx:id="imageBox" alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
-              <JFXTextField fx:id="valueText" />
-            <Label fx:id="labelImage">
+            <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
+            <JFXButton fx:id="zoomButton" styleClass="transparent-button">
                <graphic>
-                  <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
+                  <FontAwesomeIconView glyphName="SEARCH_PLUS" styleClass="sub-icon" text="" />
                </graphic>
-            </Label>
+            </JFXButton>
          </children>
-      </StackPane>
+      </HBox>
         <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="3" GridPane.rowSpan="2">
             <graphic>
                 <FontAwesomeIconView glyphName="CROSSHAIRS" styleClass="sub-icon" />

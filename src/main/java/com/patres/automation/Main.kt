@@ -25,6 +25,8 @@ class Main : Application() {
         val logger = LoggerFactory.getLogger(Main::class.java)!!
         const val sceneWidth = 475
         const val sceneHeight = 715
+        const val sceneBarHeight = 35.0 + 4.0
+        const val sceneBarWeight = 4.0 + 4.0
         var bundle = ResourceBundle.getBundle("language/Bundle", Locale("pl"))!!
         var globalSettings = GlobalSettingsLoader.load()
 
@@ -40,6 +42,11 @@ class Main : Application() {
             launch(Main::class.java)
         }
         fun getStylesheet(): String = Main::class.java.getResource("/css/style_day.css").toExternalForm()
+
+
+        fun setStyle(scene: Scene) {
+            scene.stylesheets.add(getStylesheet())
+        }
     }
 
     override fun start(primaryStage: Stage) {
@@ -118,8 +125,5 @@ class Main : Application() {
         return scene
     }
 
-    private fun setStyle(scene: Scene) {
-        scene.stylesheets.add(getStylesheet())
-    }
 
 }

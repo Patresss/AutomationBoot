@@ -42,8 +42,6 @@ class ImageToPointConverter(private val image: Image) {
 
                 for (xImage in 0 until widthImage) {
                     for (yImage in 0 until heightImage) {
-                        println("$xImage, $yImage")
-
                         val colorFromScreenShot = pixelReader.getColor(xScreenShot + xImage, yScreenShot + yImage)
                         val colorFromImage = imagePixelReader.getColor(xImage, yImage)
 

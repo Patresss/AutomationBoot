@@ -1,30 +1,28 @@
 package com.patres.automation.gui.controller.model
 
 import com.jfoenix.controls.JFXButton
+import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.Main
 import com.patres.automation.action.mouse.MouseAction
 import com.patres.automation.gui.controller.pointer.PointerController
-import com.patres.automation.util.startTiming
-import javafx.embed.swing.SwingFXUtils
+import com.patres.automation.util.MonitorSize
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.Scene
-import javafx.scene.control.Label
-import javafx.scene.control.Tooltip
+import javafx.scene.control.Button
+import javafx.scene.control.ScrollPane
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.layout.HBox
+import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
-import jdk.nashorn.tools.ShellFunctions.input
-import java.io.ByteArrayInputStream
-import java.io.File
-import javax.imageio.ImageIO
-import java.io.FileOutputStream
-
-
-
+import java.lang.Math.min
+import javafx.stage.Screen.getPrimary
+import javafx.scene.transform.Scale
 
 class MousePointActionController(
         model: MouseAction,
@@ -38,15 +36,14 @@ class MousePointActionController(
     lateinit var imageView: ImageView
 
     @FXML
-    lateinit var labelImage: Label
+    lateinit var zoomButton: JFXButton
 
-    private val tooltip = Tooltip().apply {
-        styleClass.add("tooltip-pointer-tooltip")
-        startTiming(0.0)
-    }
+    @FXML
+    lateinit var imageBox: HBox
 
     var image: Image? = null
-    var imageByteArrayOutputStream: ByteArrayOutputStream? = null
+
+    private var imageByteArrayOutputStream: ByteArrayOutputStream? = null
 
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(pointButton)
 
@@ -54,27 +51,45 @@ class MousePointActionController(
     override fun initialize() {
         super.initialize()
         setHandler()
-        labelImage.isVisible = false
         imageView.fitWidthProperty().bind(valueText.widthProperty())
         imageView.fitHeightProperty().bind(valueText.heightProperty())
+        imageBox.isVisible = false
     }
 
     fun setImage(imageInputStream: InputStream) {
         setByteArrayOutputStream(imageInputStream)
+        imageBox.isVisible = true
+        valueText.isVisible = false
+
         imageByteArrayOutputStream?.let {
-            val inputStream =  ByteArrayInputStream(calculateImageBytesArray())
+            val inputStream = ByteArrayInputStream(calculateImageBytesArray())
             image = Image(inputStream)
             imageView.image = image
-            labelImage.isVisible = true
-            valueText.isVisible = false
-            tooltip.graphic = ImageView(image)
-
-            val outStream = FileOutputStream(File("P:\\Programowanie\\Projekty\\Mouse and keyboard automat\\tmp\\atett.bmp"))
-            outStream.write(calculateImageBytesArray())
-            labelImage.tooltip = tooltip
-
+            zoomButton.setOnAction { createNewWindowForImage() }
         }
+        model?.root?.changeDetect()
     }
+
+    private fun createNewWindowForImage() {
+        val root = StackPane()
+        val scrollPane = ScrollPane().apply { styleClass.add("pane-with-primary-background") }
+        scrollPane.content = ImageView(image)
+        root.children.add(scrollPane)
+
+        val stage = Stage()
+        val decorator = JFXDecorator(stage, root, false, true, true)
+
+        val width = min((image?.width ?: 500.0)  + Main.sceneBarWeight, MonitorSize.width)
+        val height = min((image?.height ?: 500.0) + Main.sceneBarHeight + 8.0 , MonitorSize.height) // add 8.0 because of scroll
+        val scene = Scene(decorator, width, height)
+
+        Main.setStyle(scene)
+        stage.title = Main.tittle
+        stage.scene = scene
+
+        stage.show()
+    }
+
 
     private fun setByteArrayOutputStream(inputStream: InputStream) {
         imageByteArrayOutputStream = ByteArrayOutputStream()
@@ -93,8 +108,12 @@ class MousePointActionController(
 
     fun setText(text: String) {
         valueText.text = text
-        imageView.isVisible = false
+
+        image = null
+        imageByteArrayOutputStream = null
+        imageBox.isVisible = false
         valueText.isVisible = true
+        model?.root?.changeDetect()
     }
 
     private fun setHandler() {
