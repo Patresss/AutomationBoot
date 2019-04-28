@@ -12,6 +12,7 @@ import java.awt.Robot
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
+import kotlin.system.measureTimeMillis
 
 
 class ImageToPointConverter(private val image: Image) {
@@ -26,29 +27,39 @@ class ImageToPointConverter(private val image: Image) {
     private val heightImage = image.height.toInt()
     private val imagePixelReader = image.pixelReader!!
 
-    fun calculatePointByTemplateMatch(templateByteArray: ByteArray, thresholdMatch: Double = 0.9): Point? {
-        val screenShoot = calculateByteArrayFromAllMonitors()
-        val image = Imgcodecs.imdecode(MatOfByte(*screenShoot), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED)
-        val template = Imgcodecs.imdecode(MatOfByte(*templateByteArray), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED)
-
-        val resultCols = image.cols() - template.cols() + 1
-        val resultRows = image.rows() - template.rows() + 1
-        val result = Mat(resultRows, resultCols, CvType.CV_32FC1)
-
-        Imgproc.matchTemplate(image, template, result, MATCH_METHOD)
-
-        val mmr = Core.minMaxLoc(result)
-
-        if (mmr.maxVal < thresholdMatch) {
-            logger.warn("Cannot find point. Value: ${mmr.maxVal} has to be greater than thresholdMatch: $thresholdMatch")
-            return null
+    fun calculatePointByTemplateMatchAndLogTime(templateByteArray: ByteArray, thresholdMatch: Double = 0.9): Point? {
+        var point: Point? = null
+        val measureTimeMillis = measureTimeMillis {
+            point = calculatePointByTemplateMatch(templateByteArray, thresholdMatch)
         }
-        val startPoint = mmr.maxLoc
-        val endPoint = Point(startPoint.x + template.cols(), startPoint.y + template.rows())
+        logger.info("Duration of match template: $measureTimeMillis")
+        return point
+    }
 
-        val xInTheMiddle = doubleArrayOf(startPoint.x, endPoint.x).average().toInt()
-        val yInTheMiddle = doubleArrayOf(startPoint.y, endPoint.y).average().toInt()
-        return Point(xInTheMiddle, yInTheMiddle)
+    private fun calculatePointByTemplateMatch(templateByteArray: ByteArray, thresholdMatch: Double = 0.9): Point? {
+            val screenShoot = calculateByteArrayFromAllMonitors()
+            val image = Imgcodecs.imdecode(MatOfByte(*screenShoot), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED)
+            val template = Imgcodecs.imdecode(MatOfByte(*templateByteArray), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED)
+
+            val resultCols = image.cols() - template.cols() + 1
+            val resultRows = image.rows() - template.rows() + 1
+            val result = Mat(resultRows, resultCols, CvType.CV_32FC1)
+
+            Imgproc.matchTemplate(image, template, result, MATCH_METHOD)
+
+            val mmr = Core.minMaxLoc(result)
+
+            if (mmr.maxVal < thresholdMatch) {
+                logger.warn("Cannot find point. Value: ${mmr.maxVal} has to be greater than thresholdMatch: $thresholdMatch")
+                return null
+            }
+            val startPoint = mmr.maxLoc
+            val endPoint = Point(startPoint.x + template.cols(), startPoint.y + template.rows())
+
+            val xInTheMiddle = doubleArrayOf(startPoint.x, endPoint.x).average().toInt()
+            val yInTheMiddle = doubleArrayOf(startPoint.y, endPoint.y).average().toInt()
+
+            return Point(xInTheMiddle, yInTheMiddle)
     }
 
     fun calculatePointInTheMiddle(): Point? {

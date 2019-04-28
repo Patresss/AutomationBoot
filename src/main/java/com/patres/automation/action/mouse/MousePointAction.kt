@@ -40,7 +40,7 @@ abstract class MousePointAction(
         return if (image != null) {
             val threshold = controller.thresholdSlider.value / 100.0
             controller.calculateImageBytesArray()?.let {
-                ImageToPointConverter(image).calculatePointByTemplateMatch(it, threshold)
+                ImageToPointConverter(image).calculatePointByTemplateMatchAndLogTime(it, threshold)
             }
         } else {
             val pointString = getActionValue()
