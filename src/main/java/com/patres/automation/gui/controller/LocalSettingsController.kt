@@ -65,8 +65,8 @@ class LocalSettingsController(
 
     @FXML
     fun saveLocalSettings() {
-        settings.stopKeys = stopKeysSetting.keyboardField.keys
         settings.runKeysSetting = runKeysSetting.keyboardField.keys
+        settings.stopKeys = stopKeysSetting.keyboardField.keys
         settings.enableRest = enableRestCheckBox.isSelected
         settings.endpointName = endpointNameTextField.value
     }
@@ -77,10 +77,10 @@ class LocalSettingsController(
         mainVBox.children.add(enableRestCheckBox)
         mainVBox.children.add(endpointNameTextField)
 
-        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
         runKeysSetting.keyboardField.setKeyboardButtons(settings.runKeysSetting)
+        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
         enableRestCheckBox.isSelected = settings.enableRest
-        endpointNameTextField.value = settings.endpointName
+        endpointNameTextField.value = rootSchemaGroupController.model.getEndpointName()
 
         endpointNameTextField.isVisible = settings.enableRest
     }

@@ -188,4 +188,6 @@ class RootSchemaGroupModel(
 
     fun getName() = file?.nameWithoutExtension ?: tmpFile.nameWithoutExtension
 
+    fun getEndpointName() = if (localSettings.endpointName.isNotBlank() ) localSettings.endpointName else getName().replace("\\s".toRegex(), "")
+
 }
