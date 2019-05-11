@@ -61,7 +61,7 @@ class MousePointActionController(
         }
     }
 
-    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(pointButton)
+    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(pointButton, imageBox, imageView, zoomButton, thresholdSlider)
 
     @FXML
     override fun initialize() {

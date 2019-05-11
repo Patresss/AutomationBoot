@@ -17,7 +17,7 @@ object AutomationActionMapper : Mapper<AutomationModel<out AutomationController>
             is MousePointAction -> MousePointActionMapper.modelToSerialize(model)
             is TextActionModel -> TextFieldActionMapper.modelToSerialize(model)
             is KeyboardButtonAction -> KeyboardFieldActionMapper.modelToSerialize(model)
-            else -> throw Exception("Cannot find actionModel for map")
+            else -> throw Exception("Cannot find actionModel for map: $model")
         }
     }
 
@@ -27,7 +27,7 @@ object AutomationActionMapper : Mapper<AutomationModel<out AutomationController>
             is MousePointActionSerialized -> MousePointActionMapper.serializedToModel(serializedModel, root, parent)
             is TextActionSerialized -> TextFieldActionMapper.serializedToModel(serializedModel, root, parent)
             is KeyboardFieldActionSerialized -> KeyboardFieldActionMapper.serializedToModel(serializedModel, root, parent)
-            else -> throw Exception("Cannot find actionModel for map")
+            else -> throw Exception("Cannot find actionModel for map: $serializedModel")
         }
     }
 

@@ -50,6 +50,12 @@ root {
     -fx-font-family: "Roboto-Regular";
 }
 
+
+.jfx-text-field, .jfx-text-area {
+    -jfx-unfocus-color: -color-primary-dark;
+    -jfx-focus-color: -color-primary;
+}
+
 /* ================================================================================*\
  * SQL Table View
 \* ================================================================================*/
