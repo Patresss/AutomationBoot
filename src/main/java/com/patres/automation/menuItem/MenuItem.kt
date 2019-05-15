@@ -23,6 +23,7 @@ enum class MenuItem(
 ) {
 
     RUN(FontAwesomeIcon.PLAY, "robot.action.runAutomation", null, menuItemHandler = MenuItemHandlers.runAutomation),
+    STOP(FontAwesomeIcon.STOP, "robot.action.stop", null, menuItemHandler = MenuItemHandlers.stopAutomation),
     MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, "robot.action.moveToUp", null, MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToUp),
     MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, "robot.action.moveToDown", null, MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToDown),
     REMOVE(FontAwesomeIcon.REMOVE, "robot.action.remove", null, MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.remove),

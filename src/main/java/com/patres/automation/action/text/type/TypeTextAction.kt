@@ -23,7 +23,7 @@ abstract class TypeTextAction<ControllerType : TextActionController>(
         run loop@{
             getText().toCharArray()
                     .forEach {
-                        if (root.rootSchemaKeyListener.isStop) {
+                        if (!root.automationRunningProperty.get()) {
                             return@loop
                         }
                         pressKey(it)

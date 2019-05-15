@@ -3,9 +3,9 @@ package com.patres.automation.model
 import com.patres.automation.Main
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.TmpFileLoader
-import com.patres.automation.gui.controller.settings.LocalSettingsController
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
+import com.patres.automation.gui.controller.settings.LocalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
@@ -15,6 +15,7 @@ import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
 import javafx.application.Platform
+import javafx.beans.property.SimpleBooleanProperty
 import javafx.concurrent.Task
 import javafx.util.Duration
 import org.slf4j.LoggerFactory
@@ -31,6 +32,8 @@ class RootSchemaGroupModel(
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
     }
+
+    var automationRunningProperty = SimpleBooleanProperty(false)
 
     var loaded: Boolean = false
 
@@ -89,9 +92,14 @@ class RootSchemaGroupModel(
         Thread(runTask).start()
     }
 
+    fun stopAutomation() {
+        automationRunningProperty.set(false)
+    }
+
     private fun createRunTask(hideApplication: Boolean = false): Task<Void> {
         return object : Task<Void>() {
             override fun call(): Void? {
+                automationRunningProperty.set(true)
                 try {
                     rootSchemaKeyListener.reset()
                     schemaGroup.checkValidation()
@@ -102,7 +110,7 @@ class RootSchemaGroupModel(
                     Thread.sleep(200)
                 } catch (e: ApplicationException) {
                     LOGGER.error("ApplicationException: {}", e)
-                    Platform.runLater{
+                    Platform.runLater {
                         val dialog = ExceptionHandlerDialog(e)
                         dialog.show()
                     }
@@ -112,6 +120,7 @@ class RootSchemaGroupModel(
                     if (hideApplication) {
                         Platform.runLater { Main.mainStage.isIconified = false }
                     }
+                    automationRunningProperty.set(false)
                 }
                 return null
             }
@@ -159,6 +168,16 @@ class RootSchemaGroupModel(
     private fun loadControllerContent() {
         controller.insidePane.content = schemaGroup.controller
         schemaGroup.controller.minHeightProperty().bind(controller.heightProperty())
+
+        automationRunningProperty.addListener { _, _, newValue ->
+            Platform.runLater {
+                if (newValue) {
+                    controller.actionBarController.setStopIcon()
+                } else {
+                    controller.actionBarController.setRunIcon()
+                }
+            }
+        }
     }
 
     fun saveTmpFile() {
@@ -188,6 +207,6 @@ class RootSchemaGroupModel(
 
     fun getName() = file?.nameWithoutExtension ?: tmpFile.nameWithoutExtension
 
-    fun getEndpointName() = if (localSettings.endpointName.isNotBlank() ) localSettings.endpointName else getName().replace("\\s".toRegex(), "")
+    fun getEndpointName() = if (localSettings.endpointName.isNotBlank()) localSettings.endpointName else getName().replace("\\s".toRegex(), "")
 
 }

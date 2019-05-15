@@ -34,7 +34,7 @@ class DelayAction(
         try {
             val delay = getActionValue().getInteger()
             var currentDelay = 0
-            while (currentDelay <= delay && !root.rootSchemaKeyListener.isStop) {
+            while (currentDelay <= delay && root.automationRunningProperty.get()) {
                 currentDelay += DELAY_STEP
                 Thread.sleep(DELAY_STEP.toLong())
             }

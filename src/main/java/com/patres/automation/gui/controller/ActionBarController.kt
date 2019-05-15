@@ -28,8 +28,12 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     private val nodeActionMap = HashMap<Node, MenuItem>()
     private val listViews = ArrayList<ListView<MenuItem>>()
 
+    private var runButton: Node? = null
+    private var stopButton: Node? = null
+
     init {
         addActions()
+        setRunIcon()
     }
 
     fun initAfterSetModel() {
@@ -56,10 +60,17 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     private fun createGroup(action: MenuItem) {
         val button = createButton(action)
         val nestedAction = MenuItem.findAllWithAction(action)
-        if (!nestedAction.isEmpty()) {
+        if (nestedAction.isNotEmpty()) {
             createPopup(nestedAction, button)
         } else {
             nodeActionMap[button] = action
+
+            when (action) {
+                MenuItem.RUN -> runButton = button
+                MenuItem.STOP -> stopButton = button
+                else -> {
+                }
+            }
         }
         button.tooltip = Tooltip(action.actionName)
         actionBox.children.add(button)
@@ -118,6 +129,10 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
                 action.menuItemHandler(model)
                 model.changeDetect()
             }
+
+            button.hoverProperty().bean
+            action.shouldBeDisabled
+
         }
         listViews.forEach { listView ->
             listView.onMouseClicked = EventHandler {
@@ -127,4 +142,18 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         }
     }
 
+    fun setStopIcon() {
+        actionBox.children.remove(runButton)
+        if (!actionBox.children.contains(stopButton)) {
+            actionBox.children.add(0, stopButton)
+        }
+    }
+
+
+    fun setRunIcon() {
+        actionBox.children.remove(stopButton)
+        if (!actionBox.children.contains(runButton)) {
+            actionBox.children.add(0, runButton)
+        }
+    }
 }

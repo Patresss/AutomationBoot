@@ -14,8 +14,6 @@ class RootSchemaKeyListener(
         activeListener()
     }
 
-    var isStop = false
-
     private val pressedKeys = ArrayList<Int>()
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
@@ -28,7 +26,7 @@ class RootSchemaKeyListener(
 
         val stopKeys = rootSchemaGroupModel.localSettings.loadStopKeys().map { it.keyValue }
         if (pressedKeys.containsAll(stopKeys)) {
-            isStop = true
+            rootSchemaGroupModel.stopAutomation()
         }
     }
 
@@ -55,7 +53,6 @@ class RootSchemaKeyListener(
     }
 
     fun reset() {
-        isStop = false
         pressedKeys.clear()
     }
 

@@ -89,7 +89,7 @@ class SchemaGroupModel(root: RootSchemaGroupModel, parent: SchemaGroupModel?) : 
     override fun runAction() {
         for (i in 0 until getNumberOfIteration()) {
             for (action in actionBlocks) {
-                if (!root.rootSchemaKeyListener.isStop) {
+                if (root.automationRunningProperty.get()) {
                     action.runAction()
                 } else {
                     return
