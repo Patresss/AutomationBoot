@@ -4,10 +4,12 @@ import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.Main
+import com.patres.automation.gui.controller.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.util.RootSchemaLoader
+import com.patres.automation.util.fromBundle
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.animation.Interpolator
@@ -30,7 +32,7 @@ class MainController {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(MainController::class.java)
-        val FILE_IS_SAVED: String = Main.bundle.getString("message.snackbar.fileIsSaved")
+        val FILE_IS_SAVED: String = fromBundle("message.snackbar.fileIsSaved")
         const val MESSAGE_SNACKBAR_TIMEOUT: Long = 5000
     }
 
@@ -127,6 +129,7 @@ class MainController {
     @FXML
     fun openGlobalSettings() {
         if (!centerStackPane.children.contains(globalSettingsController)) {
+            globalSettingsController.reloadSettingsValue()
             globalSettingsController.translateXProperty().set(Main.mainStage.scene.width)
             centerStackPane.children.add(globalSettingsController)
 

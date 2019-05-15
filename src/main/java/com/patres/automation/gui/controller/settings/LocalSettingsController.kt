@@ -1,4 +1,4 @@
-package com.patres.automation.gui.controller
+package com.patres.automation.gui.controller.settings
 
 import com.jfoenix.controls.JFXCheckBox
 import com.patres.automation.Main
@@ -11,45 +11,29 @@ import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
-import javafx.fxml.FXML
-import javafx.fxml.FXMLLoader
-import javafx.scene.layout.BorderPane
-import javafx.scene.layout.VBox
+import javafx.collections.ListChangeListener
 import javafx.util.Duration
 
 
 class LocalSettingsController(
         private val rootSchemaGroupController: RootSchemaGroupController,
         private val settings: LocalSettings
-) : BorderPane() {
+) : SettingsController(fromBundle("menu.settings.localSettings")) {
 
-    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
     private val runKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.runKeys"))
+    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
     private val enableRestCheckBox = JFXCheckBox(fromBundle("settings.enableRest"))
     private val endpointNameTextField = TextFieldActionController(labelText = fromBundle("settings.endpointName"))
 
-    @FXML
-    lateinit var mainVBox: VBox
-
     init {
-        val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/LocalSettings.fxml"))
-        fxmlLoader.setRoot(this)
-        fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.bundle
-        fxmlLoader.load<LocalSettingsController>()
         loadLocalSettings()
-    }
-
-    @FXML
-    fun initialize() {
-        enableRestCheckBox.selectedProperty().addListener {
-            _, _, newValue ->
+        initChangeDetectors()
+        enableRestCheckBox.selectedProperty().addListener { _, _, newValue ->
             endpointNameTextField.isVisible = newValue
         }
     }
 
-    @FXML
-    fun closeLocalSettings() {
+    override fun backToPreviousWindow() {
         val rootBorderPane = rootSchemaGroupController.rootBorderPane
         rootBorderPane.translateXProperty().set(-Main.mainStage.scene.width)
 
@@ -63,17 +47,26 @@ class LocalSettingsController(
         timeline.play()
     }
 
-    @FXML
-    fun saveLocalSettings() {
+    override fun saveSettings() {
         settings.runKeysSetting = runKeysSetting.keyboardField.keys
         settings.stopKeys = stopKeysSetting.keyboardField.keys
         settings.enableRest = enableRestCheckBox.isSelected
         settings.endpointName = endpointNameTextField.value
+        saveButton.isDisable = true
+        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
 
+    override fun initChangeDetectors() {
+        runKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+        stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+        enableRestCheckBox.selectedProperty().addListener { _, _, _ -> changeDetect() }
+        endpointNameTextField.valueText.textProperty().addListener { _, _, _ -> changeDetect() }
+    }
+
+
     private fun loadLocalSettings() {
-        mainVBox.children.add(stopKeysSetting)
         mainVBox.children.add(runKeysSetting)
+        mainVBox.children.add(stopKeysSetting)
         mainVBox.children.add(enableRestCheckBox)
         mainVBox.children.add(endpointNameTextField)
 
@@ -84,5 +77,6 @@ class LocalSettingsController(
 
         endpointNameTextField.isVisible = settings.enableRest
     }
+
 
 }

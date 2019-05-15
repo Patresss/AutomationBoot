@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
 import com.patres.automation.keyboard.KeyboardKey
 import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -29,7 +30,7 @@ class KeyboardField : StackPane() {
     @FXML
     lateinit var keyboardButtonHBox: HBox
 
-    val keys = FXCollections.observableList(ArrayList<KeyboardKey>());
+    val keys: ObservableList<KeyboardKey> = FXCollections.observableList(ArrayList<KeyboardKey>())
 
     @FXML
     fun initialize() {
