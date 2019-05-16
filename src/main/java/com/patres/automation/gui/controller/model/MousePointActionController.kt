@@ -93,7 +93,12 @@ class MousePointActionController(
     private fun setupVisible(isText: Boolean) {
         imageBox.isVisible = !isText
         thresholdSlider.isVisible = !isText
+
         valueText.isVisible = isText
+
+        if(!isText) {
+            validLabel.isVisible = true
+        }
     }
 
     private fun createNewWindowForImage() {
