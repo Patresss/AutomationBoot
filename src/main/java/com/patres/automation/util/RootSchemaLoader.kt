@@ -119,14 +119,14 @@ object RootSchemaLoader {
         return tabContainer
     }
 
-    private fun createOnCloseRequest(tabContainer: TabContainer): EventHandler<Event> {
+    fun createOnCloseRequest(tabContainer: TabContainer): EventHandler<Event> {
         return EventHandler {
             if (!tabContainer.rootSchema.saved) {
                 val saveDialogPane = SaveDialog(tabContainer)
                 val jfxDialog = JFXDialog(Main.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
                 saveDialogPane.dialogKeeper = jfxDialog
                 jfxDialog.show()
-                it.consume()
+                it?.consume()
             } else {
                 Main.mainController?.removeTab(tabContainer)
             }

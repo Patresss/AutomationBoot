@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -25,20 +26,43 @@
            <menus>
            <Menu mnemonicParsing="false" text="%menu.file">
              <items>
-               <MenuItem mnemonicParsing="false" onAction="#createNewRootSchema" text="%menu.new" />
-                   <MenuItem mnemonicParsing="false" onAction="#openRootSchema" text="%menu.open" />
-                   <MenuItem mnemonicParsing="false" onAction="#saveExistingRootSchema" text="%menu.save" />
-                   <MenuItem mnemonicParsing="false" onAction="#saveAsRootSchema" text="%menu.saveAs" />
+               <MenuItem mnemonicParsing="false" onAction="#createNewRootSchema" text="%menu.new">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator></MenuItem>
+                   <MenuItem mnemonicParsing="false" onAction="#openRootSchema" text="%menu.open">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator></MenuItem>
+                   <MenuItem mnemonicParsing="false" onAction="#saveExistingRootSchema" text="%menu.save">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator></MenuItem>
+                   <MenuItem mnemonicParsing="false" onAction="#saveAsRootSchema" text="%menu.saveAs">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator></MenuItem>
+                     <MenuItem mnemonicParsing="false" onAction="#closeCurrentTab" text="%menu.closeTab">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                     </MenuItem>
              </items>
            </Menu>
            <Menu mnemonicParsing="false" text="%menu.settings">
              <items>
-               <MenuItem mnemonicParsing="false" onAction="#openGlobalSettings" text="%menu.settings.globalSettings" />
+               <MenuItem mnemonicParsing="false" onAction="#openGlobalSettings" text="%menu.settings.globalSettings">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator></MenuItem>
              </items>
            </Menu>
            <Menu mnemonicParsing="false" text="Help">
              <items>
-               <MenuItem mnemonicParsing="false" text="About" />
+               <MenuItem mnemonicParsing="false" text="About">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator></MenuItem>
              </items>
            </Menu>
          </menus>

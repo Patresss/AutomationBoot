@@ -18,6 +18,7 @@ import javafx.animation.KeyValue
 import javafx.animation.Timeline
 import javafx.collections.FXCollections
 import javafx.collections.ListChangeListener
+import javafx.collections.ObservableList
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.TabPane
@@ -47,7 +48,7 @@ class MainController {
 
     private lateinit var snackBar: JFXSnackbar
 
-    val tabContainers = FXCollections.observableList(ArrayList<TabContainer>())
+    val tabContainers: ObservableList<TabContainer> = FXCollections.observableList(ArrayList<TabContainer>())
 
     private val globalSettingsController = GlobalSettingsController(this)
 
@@ -139,6 +140,13 @@ class MainController {
             timeline.keyFrames.add(kf)
             timeline.setOnFinished { centerStackPane.children.remove(tabPane) }
             timeline.play()
+        }
+    }
+
+    @FXML
+    fun closeCurrentTab() {
+        getSelectedTabContainer()?.let {
+            RootSchemaLoader.createOnCloseRequest(it).handle(null)
         }
     }
 
