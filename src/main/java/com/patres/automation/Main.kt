@@ -39,7 +39,7 @@ class Main : Application() {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+            nu.pattern.OpenCV.loadShared(); //add this
 //            ServerBoot.run()
             launch(Main::class.java)
         }
