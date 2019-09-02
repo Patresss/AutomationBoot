@@ -1,7 +1,9 @@
 package com.patres.automation.settings
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.patres.automation.Main
-import kotlinx.serialization.json.Json
+import com.patres.automation.serialize.AutomationMapper
 import java.io.File
 
 object GlobalSettingsLoader {
@@ -13,7 +15,7 @@ object GlobalSettingsLoader {
             val file = File(path)
             if (file.exists()) {
                 val serializedGlobalSettings = file.readText()
-                return Json.parse(GlobalSettings.serializer(), serializedGlobalSettings)
+                return AutomationMapper.toObject(serializedGlobalSettings)
             }
             return GlobalSettings()
         } catch (e: Exception) {
@@ -23,11 +25,11 @@ object GlobalSettingsLoader {
 
     fun save(globalSettings: GlobalSettings = Main.globalSettings) {
         val filesToSave = Main.mainController?.tabContainers?.map { it.rootSchema.getFilePathToSettings() }
-        filesToSave?.let {files ->
+        filesToSave?.let { files ->
             globalSettings.previousPathFiles = files
         }
 
-        val serializedRootGroup = Json.stringify(GlobalSettings.serializer(), globalSettings)
+        val serializedRootGroup = AutomationMapper.toJson(globalSettings)
         val file = File(path)
         file.writeText(serializedRootGroup)
     }

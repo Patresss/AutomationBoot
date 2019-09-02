@@ -4,9 +4,8 @@ import com.patres.automation.Main
 import com.patres.automation.file.FileConstants.DEFAULT_TMP_FILENAME
 import com.patres.automation.file.FileConstants.TMP_EXTENSION
 import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.serialize.AutomationMapper
 import com.patres.automation.serialize.RootSchemaGroupMapper
-import com.patres.automation.serialize.model.RootSchemaGroupSerialized
-import kotlinx.serialization.json.Json
 import java.io.File
 
 object TmpFileLoader {
@@ -23,7 +22,8 @@ object TmpFileLoader {
             rootSchemaGroupModel.tmpFile = findValidFile()
         }
         val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
-        val serializedRootGroup = Json.stringify(RootSchemaGroupSerialized.serializer(), rootSchemaGroupSerialized)
+
+        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
         rootSchemaGroupModel.tmpFile.writeText(serializedRootGroup)
     }
 

@@ -7,6 +7,7 @@ import com.patres.automation.file.FileConstants
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.dialog.SaveDialog
 import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.serialize.AutomationMapper
 import com.patres.automation.serialize.RootSchemaGroupMapper
 import com.patres.automation.serialize.model.RootSchemaGroupSerialized
 import com.patres.automation.settings.GlobalSettingsLoader
@@ -16,7 +17,6 @@ import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
-import kotlinx.serialization.json.Json
 import java.io.File
 
 object RootSchemaLoader {
@@ -34,7 +34,7 @@ object RootSchemaLoader {
         val fileToOpen = loaderFile.chooseFileToLoad()
         if (fileToOpen != null) {
             val serializedRootGroup = fileToOpen.readText()
-            val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
+            val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
             val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
 
             if (fileToOpen.extension == FileConstants.TMP_EXTENSION) {
@@ -47,9 +47,10 @@ object RootSchemaLoader {
         return null
     }
 
+    // TODO refactor duplicate ^
     fun openRootSchema(tabPane: TabPane, fileToOpen: File): TabContainer {
         val serializedRootGroup = fileToOpen.readText()
-        val rootGroupSerialized: RootSchemaGroupSerialized = Json.parse(RootSchemaGroupSerialized.serializer(), serializedRootGroup)
+        val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
         val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
 
         if (fileToOpen.extension == FileConstants.TMP_EXTENSION) {
@@ -86,7 +87,7 @@ object RootSchemaLoader {
             saved = true
         }
         val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchema)
-        val serializedRootGroup = Json.stringify(RootSchemaGroupSerialized.serializer(), rootSchemaGroupSerialized)
+        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
         file.writeText(serializedRootGroup)
         rootSchema.file = file
         tabContainer.tab.apply {

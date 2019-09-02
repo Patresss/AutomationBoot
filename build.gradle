@@ -3,13 +3,11 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
-apply plugin: 'kotlinx-serialization'
 
 sourceCompatibility = 1.8
 
 repositories {
     maven { url  "https://dl.bintray.com/jerady/maven" }
-    maven { url "https://kotlin.bintray.com/kotlinx" }
     mavenCentral()
 }
 
@@ -39,6 +37,8 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
     compile group: 'org.openpnp', name: 'opencv', version: '3.2.0-0'
+
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0.pr2"
 }
 
 
@@ -51,8 +51,8 @@ jar {
     }
 }
 buildscript {
-    ext.kotlin_version = '1.3.41'
-    ext.ktor_version = '1.1.3'
+    ext.kotlin_version = '1.3.50'
+    ext.ktor_version = '1.2.3'
 
     repositories {
         jcenter()
@@ -60,7 +60,6 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 compileKotlin {

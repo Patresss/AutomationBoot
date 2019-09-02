@@ -26,7 +26,7 @@
             <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
         </rowConstraints>
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
-        <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
         <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
       <HBox fx:id="imageBox" alignment="CENTER" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
