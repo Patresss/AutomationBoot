@@ -7,8 +7,10 @@ import com.jfoenix.controls.JFXPopup
 import com.patres.automation.font.FontAutomationIcon
 import com.patres.automation.font.FontAutomationIconView
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
+import com.patres.automation.gui.custom.IconButton
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.menuItem.MenuItemGroup
+import com.patres.automation.util.getIcon
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -58,7 +60,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     }
 
     private fun createGroup(action: MenuItem) {
-        val button = createButton(action)
+        val button = IconButton(action.graphic)
         val nestedAction = MenuItem.findAllWithAction(action)
         if (nestedAction.isNotEmpty()) {
             createPopup(nestedAction, button)
@@ -87,7 +89,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
                     if (item != null) {
                         text = item.actionName
                     }
-                    graphic = getIcon(item?.graphic)
+                    graphic = item?.graphic?.getIcon()
                 }
             }
         }
@@ -95,24 +97,6 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         val popup = JFXPopup(listView)
         listViews.add(listView)
         button.setOnMouseClicked { popup.show(button, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 35.0, 0.0) }
-    }
-
-    private fun createButton(action: MenuItem): JFXButton {
-        return JFXButton().apply {
-            styleClass.add("animated-option-button")
-            val icon = action.graphic
-            graphic = getIcon(icon)
-        }
-    }
-
-    private fun getIcon(icon: GlyphIcons?): Node? {
-        val graphic: Node? = when (icon) {
-            is FontAwesomeIcon -> FontAwesomeIconView(icon)
-            is FontAutomationIcon -> FontAutomationIconView(icon)
-            else -> null
-        }
-        graphic?.styleClass?.add("sub-icon")
-        return graphic
     }
 
     fun updateDisabledButtons() {

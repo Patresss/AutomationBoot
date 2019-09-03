@@ -15,7 +15,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import javafx.scene.control.Label
 
 enum class MenuItem(
-        val graphic: GlyphIcons?,
+        val graphic: GlyphIcons,
         bundleName: String = "",
         val parent: MenuItem?,
         val shouldBeDisabled: (rootSchemaGroupModel: RootSchemaGroupModel) -> Boolean = { false },

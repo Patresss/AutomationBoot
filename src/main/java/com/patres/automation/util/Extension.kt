@@ -2,7 +2,12 @@ package com.patres.automation.util
 
 import com.patres.automation.Main
 import com.patres.automation.excpetion.IntegerFormatException
+import com.patres.automation.font.FontAutomationIcon
+import com.patres.automation.font.FontAutomationIconView
 import com.sun.javafx.util.Utils
+import de.jensd.fx.glyphs.GlyphIcons
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.collections.ObservableList
@@ -106,5 +111,14 @@ fun Tooltip.getHideTimer(): Timeline {
     val fieldTimer = objBehavior.javaClass.getDeclaredField("hideTimer")
     fieldTimer.isAccessible = true
     return fieldTimer.get(objBehavior) as Timeline
+}
 
+fun GlyphIcons.getIcon(): Node? {
+    val graphic: Node? = when (this) {
+        is FontAwesomeIcon -> FontAwesomeIconView(this)
+        is FontAutomationIcon -> FontAutomationIconView(this)
+        else -> null
+    }
+    graphic?.styleClass?.add("sub-icon")
+    return graphic
 }
