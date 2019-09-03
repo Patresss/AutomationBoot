@@ -97,7 +97,7 @@ class MousePointActionController(
         valueText.isVisible = isText
 
         if(!isText) {
-            validLabel.isVisible = true
+            validLabel.isVisible = false
         }
     }
 

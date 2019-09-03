@@ -15,7 +15,7 @@ class FileOrDirectoryExistValidation(controller: TextActionController) : Abstrac
         validationLabel.text = invalidMessage
     }
 
-    override fun isConditionFulfilled(): Boolean {
+    override fun isValid(): Boolean {
         return File(validationTextField.text).exists()
     }
 

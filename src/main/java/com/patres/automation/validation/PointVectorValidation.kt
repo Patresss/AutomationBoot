@@ -17,7 +17,7 @@ class PointVectorValidation(val controller: MousePointActionController) : Abstra
         validationLabel.text = invalidMessage
     }
 
-    override fun isConditionFulfilled(): Boolean {
+    override fun isValid(): Boolean {
         return !controller.valueText.isVisible || (validationTextField.text.matches(pointPattern.toRegex()) || validationTextField.text.matches(vectorPattern.toRegex()))
     }
 

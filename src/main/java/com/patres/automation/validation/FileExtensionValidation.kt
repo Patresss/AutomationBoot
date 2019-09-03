@@ -18,7 +18,7 @@ class FileExtensionValidation(
         validationLabel.text = invalidMessage
     }
 
-    override fun isConditionFulfilled(): Boolean {
+    override fun isValid(): Boolean {
         return File(validationTextField.text).exists() && File(validationTextField.text).isFile && File(validationTextField.text).name.endsWith(extension)
     }
 

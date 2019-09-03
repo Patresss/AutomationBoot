@@ -16,7 +16,7 @@ class IntegerValidation(controller: TextActionController) : AbstractValidation(c
         validationTextField.setIntegerFilter()
     }
 
-    override fun isConditionFulfilled(): Boolean {
+    override fun isValid(): Boolean {
         try {
             Integer.parseInt(validationTextField.text)
         } catch (e: NumberFormatException) {

@@ -5,9 +5,7 @@ import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.control.TextInputControl
 
-abstract class AbstractValidation(
-        controller: TextActionController
-) {
+abstract class AbstractValidation(controller: TextActionController) {
 
     companion object {
         const val ERROR_STYLE = "error"
@@ -16,11 +14,10 @@ abstract class AbstractValidation(
     protected var validationLabel: Label = controller.validLabel
     protected var validationTextField: TextInputControl = controller.valueText
 
-    abstract fun isConditionFulfilled(): Boolean
+    abstract fun isValid(): Boolean
 
     private fun setError(isError: Boolean) {
         validationLabel.isVisible = isError
-        setStyle(validationLabel, isError)
         setStyle(validationTextField, isError)
     }
 
@@ -32,13 +29,13 @@ abstract class AbstractValidation(
     }
 
     private fun activateLabelValidate() {
-        val isEmpty = validationTextField.text == ""
-        setError(!isConditionFulfilled() && !isEmpty)
+        setError(!isValid() && validationTextField.text.isNotEmpty())
     }
 
     fun activateControlListener() {
         activateLabelValidate()
         validationTextField.textProperty().addListener { _, _, _ -> activateLabelValidate() }
+        validationTextField.visibleProperty().addListener { _, _, _ -> activateLabelValidate() }
     }
 
     abstract fun throwException()

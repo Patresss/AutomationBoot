@@ -21,7 +21,7 @@ abstract class TextActionModel<ControllerType : TextActionController>(
 
     override fun checkValidations() {
         validator?.let {
-            if (!it.isConditionFulfilled()) {
+            if (!it.isValid()) {
                 it.throwException()
             }
         }
