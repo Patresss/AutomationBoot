@@ -243,6 +243,51 @@ root {
     -fx-background-insets: 0;
 }
 
+
+.scroll-bar:horizontal,
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+.scroll-bar:vertical {
+    -fx-pref-width: 10;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-width: -fx-pref-width;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 10;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+}
+
+.scroll-bar, .scroll-bar:pressed, .scroll-bar:focused {
+    -fx-font-size: 10;
+}
+
+.increment-button ,.decrement-button {
+    -fx-background-color:  transparent;
+    -fx-border-color:transparent;
+}
+
+.scroll-bar:horizontal .track ,
+.scroll-bar:vertical .track{
+    -fx-background-color: -color-primary-bright-9;
+    -fx-border-color: -color-primary-bright-10;
+    -fx-background-radius: 2em;
+
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:  -color-primary-bright-5;
+    -fx-border-color: -color-primary-bright-10;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: -color-primary-dark;
+}
+
 /* ================================================================================*\
  * List View
 \* ================================================================================*/
