@@ -56,18 +56,21 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     private var rectangle: javafx.scene.shape.Rectangle? = null
     private var mode: PointerMode? = null
 
-    private val monitorsWidth = Screen.getScreens().map { it.visualBounds.maxX }.max()?: 10000.0
-    private val monitorsHeight = Screen.getScreens().map { it.visualBounds.maxY }.max()?: 10000.0
-
     init {
         setScene()
+        setStage()
         loadToolTipButton()
         setStyle()
         addMouseListener()
     }
 
     private fun setScene() {
+        val monitorsWidth = Screen.getScreens().map { it.bounds.maxX }.max() ?: 10000.0
+        val monitorsHeight = Screen.getScreens().map { it.bounds.maxY }.max() ?: 10000.0
         this.scene = Scene(pane, monitorsWidth, monitorsHeight)
+    }
+
+    private fun setStage() {
         stage.x = 0.0
         stage.y = 0.0
     }
