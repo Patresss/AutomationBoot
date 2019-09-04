@@ -11,7 +11,7 @@ import javafx.util.Duration
 class IconButton(glyphIcons: GlyphIcons) : JFXButton() {
 
     companion object {
-        val expandToMaxProperty = SimpleDoubleProperty(1.13)
+        val expandToMaxProperty = SimpleDoubleProperty(1.1)
     }
 
     init {
@@ -21,7 +21,7 @@ class IconButton(glyphIcons: GlyphIcons) : JFXButton() {
     }
 
     private fun initZoomIcon() {
-        val scaleTransition = ScaleTransition(Duration.millis(110.0), this).apply {
+        val scaleTransition = ScaleTransition(Duration.millis(80.0), this).apply {
             cycleCount = 1
             interpolator = Interpolator.EASE_BOTH
         }

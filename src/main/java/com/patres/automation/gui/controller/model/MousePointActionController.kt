@@ -158,7 +158,6 @@ class MousePointActionController(
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.title = "Set point"
         stage.scene = loadPointScene(stage)
-        stage.isMaximized = true
         stage.show()
     }
 

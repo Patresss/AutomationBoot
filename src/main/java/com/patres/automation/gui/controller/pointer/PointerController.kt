@@ -2,10 +2,10 @@ package com.patres.automation.gui.controller.pointer
 
 import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
+import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.point.Point
 import com.patres.automation.point.Point.Companion.VECTOR_CHAR
 import com.patres.automation.point.Point.Companion.transformPoint
-import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.util.fromBundle
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -56,6 +56,9 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     private var rectangle: javafx.scene.shape.Rectangle? = null
     private var mode: PointerMode? = null
 
+    private val monitorsWidth = Screen.getScreens().map { it.visualBounds.maxX }.max()?: 10000.0
+    private val monitorsHeight = Screen.getScreens().map { it.visualBounds.maxY }.max()?: 10000.0
+
     init {
         setScene()
         loadToolTipButton()
@@ -64,10 +67,9 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     }
 
     private fun setScene() {
-        val primaryScreenBounds = Screen.getPrimary().visualBounds
-        val width = primaryScreenBounds.width
-        val height = primaryScreenBounds.height
-        this.scene = Scene(pane, width, height)
+        this.scene = Scene(pane, monitorsWidth, monitorsHeight)
+        stage.x = 0.0
+        stage.y = 0.0
     }
 
     private fun setStyle() {
@@ -145,8 +147,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
                 fadeStart.toValue = CIRCLE_OPACITY
                 fadeStart.play()
 
-                circlePoint.centerX = pressedEvent.screenX - stage.x
-                circlePoint.centerY = pressedEvent.screenY - stage.y
+                circlePoint.centerX = pressedEvent.screenX
+                circlePoint.centerY = pressedEvent.screenY
             }
         }
 
@@ -154,8 +156,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
 
     private fun loadDraggedHandler(draggedEvent: MouseEvent) {
         if (mode != null) {
-            circlePoint.centerX = draggedEvent.screenX - stage.x
-            circlePoint.centerY = draggedEvent.screenY - stage.y
+            circlePoint.centerX = draggedEvent.screenX
+            circlePoint.centerY = draggedEvent.screenY
             line?.endX = circlePoint.centerX
             line?.endY = circlePoint.centerY
 
@@ -204,8 +206,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     private fun loadScaleTransitionForPoint(releasedEvent: MouseEvent): ScaleTransition {
         val scaleEnd = loadScaleTransition()
         scaleEnd.setOnFinished {
-            val x = (releasedEvent.screenX - stage.x).toInt()
-            val y = (releasedEvent.screenY - stage.y).toInt()
+            val x = releasedEvent.screenX.toInt()
+            val y = releasedEvent.screenY.toInt()
             pointPane.setText(Point(x, y).toString())
             closeController()
         }
@@ -241,8 +243,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     }
 
     private fun calculateTwoPoints(releasedEvent: MouseEvent): Pair<Point, Point>? {
-        val x = (releasedEvent.screenX - stage.x).toInt()
-        val y = (releasedEvent.screenY - stage.y).toInt()
+        val x = releasedEvent.screenX.toInt()
+        val y = releasedEvent.screenY.toInt()
 
         if (firstMousePoint == null) {
             firstMousePoint = Point(x, y)
