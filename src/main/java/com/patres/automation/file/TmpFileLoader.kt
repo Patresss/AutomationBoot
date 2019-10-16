@@ -17,14 +17,14 @@ object TmpFileLoader {
     }
 
     fun saveTmpFile(rootSchemaGroupModel: RootSchemaGroupModel) {
-        if (!rootSchemaGroupModel.tmpFile.exists()) {
-            Main.tmpDirector.mkdir()
-            rootSchemaGroupModel.tmpFile = findValidFile()
-        }
-        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
-
-        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
-        rootSchemaGroupModel.tmpFile.writeText(serializedRootGroup)
+//        if (!rootSchemaGroupModel.tmpFile.exists()) {
+//            Main.tmpDirector.mkdir()
+//            rootSchemaGroupModel.tmpFile = findValidFile()
+//        }
+//        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
+//
+//        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
+//        rootSchemaGroupModel.tmpFile.writeText(serializedRootGroup)
     }
 
     private fun findValidFile(): File {

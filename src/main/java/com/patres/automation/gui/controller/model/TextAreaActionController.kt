@@ -1,8 +1,21 @@
 package com.patres.automation.gui.controller.model
 
-import com.patres.automation.model.AutomationModel
+import com.patres.automation.action.AbstractAction
+import com.patres.automation.action.text.PasteTextFromFieldAction
+import com.patres.automation.action.text.TypeTextFromFieldAction
+import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.type.ActionBootTextArea
 
-open class TextAreaActionController(
-        model: AutomationModel<out TextActionController>,
-        fxmlFile: String = "AreaFieldAction.fxml"
-) : TextActionController(model, fxmlFile)
+class TextAreaActionController(
+        root: RootSchemaGroupModel,
+        parent: SchemaGroupController,
+        action: ActionBootTextArea
+) : TextActionController<ActionBootTextArea>("AreaFieldAction.fxml", root, parent, action) {
+
+    override fun toModel(): AbstractAction {
+        return when (action) {
+            ActionBootTextArea.PASTE_TEXT -> PasteTextFromFieldAction(value)
+            ActionBootTextArea.TYPE_TEXT -> TypeTextFromFieldAction(value)
+        }
+    }
+}

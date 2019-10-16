@@ -1,6 +1,7 @@
 package com.patres.automation.util
 
 import com.jfoenix.controls.JFXDialog
+import com.patres.automation.FileType
 import com.patres.automation.Main
 import com.patres.automation.file.FileChooser
 import com.patres.automation.file.FileConstants
@@ -22,7 +23,7 @@ import java.io.File
 object RootSchemaLoader {
 
     private const val MAX_NUMBER_OF_CHARACTERS = 24
-    private val loaderFile = FileChooser(FileConstants.AUTOMATION_BOOT_EXTENSION, FileConstants.AUTOMATION_BOOT_EXTENSION_TYPE)
+    private val loaderFile = FileChooser(FileType.AUTOMATION_BOOT)
 
     fun createNewRootSchema(tabPane: TabPane): TabContainer {
         return createTabContainer(tabPane, RootSchemaGroupModel()).apply {

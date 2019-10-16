@@ -20,17 +20,17 @@ class LocalSettingsController(
         private val settings: LocalSettings
 ) : SettingsController(fromBundle("menu.settings.localSettings")) {
 
-    private val runKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.runKeys"))
-    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
-    private val enableRestCheckBox = JFXCheckBox(fromBundle("settings.enableRest"))
-    private val endpointNameTextField = TextFieldActionController(labelText = fromBundle("settings.endpointName"))
+//    private val runKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.runKeys"))
+//    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
+//    private val enableRestCheckBox = JFXCheckBox(fromBundle("settings.enableRest"))
+//    private val endpointNameTextField = TextFieldActionController(labelText = fromBundle("settings.endpointName"))
 
     init {
         loadLocalSettings()
         initChangeDetectors()
-        enableRestCheckBox.selectedProperty().addListener { _, _, newValue ->
-            endpointNameTextField.isVisible = newValue
-        }
+//        enableRestCheckBox.selectedProperty().addListener { _, _, newValue ->
+//            endpointNameTextField.isVisible = newValue
+//        }
     }
 
     override fun backToPreviousWindow() {
@@ -48,34 +48,34 @@ class LocalSettingsController(
     }
 
     override fun saveSettings() {
-        settings.runKeysSetting = runKeysSetting.keyboardField.keys
-        settings.stopKeys = stopKeysSetting.keyboardField.keys
-        settings.enableRest = enableRestCheckBox.isSelected
-        settings.endpointName = endpointNameTextField.value
-        saveButton.isDisable = true
-        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
+//        settings.runKeysSetting = runKeysSetting.keyboardField.keys
+//        settings.stopKeys = stopKeysSetting.keyboardField.keys
+//        settings.enableRest = enableRestCheckBox.isSelected
+//        settings.endpointName = endpointNameTextField.value
+//        saveButton.isDisable = true
+//        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
 
     override fun initChangeDetectors() {
-        runKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
-        stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
-        enableRestCheckBox.selectedProperty().addListener { _, _, _ -> changeDetect() }
-        endpointNameTextField.valueText.textProperty().addListener { _, _, _ -> changeDetect() }
+//        runKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+//        stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+//        enableRestCheckBox.selectedProperty().addListener { _, _, _ -> changeDetect() }
+//        endpointNameTextField.valueText.textProperty().addListener { _, _, _ -> changeDetect() }
     }
 
 
     private fun loadLocalSettings() {
-        mainVBox.children.add(runKeysSetting)
-        mainVBox.children.add(stopKeysSetting)
-        mainVBox.children.add(enableRestCheckBox)
-        mainVBox.children.add(endpointNameTextField)
-
-        runKeysSetting.keyboardField.setKeyboardButtons(settings.runKeysSetting)
-        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
-        enableRestCheckBox.isSelected = settings.enableRest
-        endpointNameTextField.value = rootSchemaGroupController.model.getEndpointName()
-
-        endpointNameTextField.isVisible = settings.enableRest
+//        mainVBox.children.add(runKeysSetting)
+//        mainVBox.children.add(stopKeysSetting)
+//        mainVBox.children.add(enableRestCheckBox)
+//        mainVBox.children.add(endpointNameTextField)
+//
+//        runKeysSetting.keyboardField.setKeyboardButtons(settings.runKeysSetting)
+//        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
+//        enableRestCheckBox.isSelected = settings.enableRest
+//        endpointNameTextField.value = rootSchemaGroupController.model.getEndpointName()
+//
+//        endpointNameTextField.isVisible = settings.enableRest
     }
 
 

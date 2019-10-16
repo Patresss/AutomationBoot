@@ -16,7 +16,7 @@ class SaveSettingsDialog(private val settingsController: SettingsController) : S
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/dialog/SaveDialog.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.bundle
+        fxmlLoader.resources = Main.getBundle()
         fxmlLoader.load<KeyboardButton>()
     }
 

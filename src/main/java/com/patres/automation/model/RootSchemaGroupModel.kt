@@ -5,6 +5,7 @@ import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
+import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.gui.controller.settings.LocalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
@@ -43,23 +44,23 @@ class RootSchemaGroupModel(
 
     val rootSchemaKeyListener = RootSchemaKeyListener(this)
 
-    var schemaGroup = SchemaGroupModel(this, null)
+    var schemaGroup: SchemaGroupModel? = null
+
+    var schemaGroupController = SchemaGroupController(root = this, parent = null)
         set(value) {
             field = value
             loadControllerContent()
         }
 
-    var selectedModel: AutomationModel<out AutomationController>? = null
+
+    var selectedModel: AutomationController<*> = schemaGroupController
         set(value) {
             field = value
             controller.actionBarController.updateDisabledButtons()
         }
 
-    private val allChildrenActionBlocks
-        get() = schemaGroup.allChildrenActionBlocks
-
     private val allChildrenActionBlocksRoot
-        get() = allChildrenActionBlocks + schemaGroup
+        get() = schemaGroupController.allChildrenActionBlocks + schemaGroupController
 
     init {
         controller.actionBarController.initAfterSetModel()
@@ -71,42 +72,41 @@ class RootSchemaGroupModel(
     }
 
     fun removeSelectedModel() {
-        val futureSelectedNode = selectedModel?.findNodeOnTheTop()
-        selectedModel?.let {
-            it.parent?.removeNode(it)
-            futureSelectedNode?.controller?.selectAction()
-        }
-    }
-
-    fun addNodeAction(textActionModel: ActionNodeModel<out AutomationController>) {
-        addNewActionModel(textActionModel)
-    }
-
-    fun addSchemaGroup() {
-        val schemaGroupModel = SchemaGroupModel(this, schemaGroup)
-        addNewActionModel(schemaGroupModel)
+        val futureSelectedNode = selectedModel.findNodeOnTheTop()
+        selectedModel.parent?.removeNode(selectedModel)
+        futureSelectedNode?.selectAction()
     }
 
     fun runAutomation(hideApplication: Boolean = true) {
-        val runTask = createRunTask(hideApplication)
-        Thread(runTask).start()
+        try {
+            val schemaGroupModel = schemaGroupController.toModel()
+            val runTask = createRunTask(schemaGroupModel, hideApplication)
+            Thread(runTask).start()
+        } catch (e: ApplicationException) { // TODO global catch
+            LOGGER.error("ApplicationException: {}", e)
+            Platform.runLater {
+                val dialog = ExceptionHandlerDialog(e)
+                dialog.show()
+            }
+        } catch (e: Exception) {
+            LOGGER.error("Exception: {}", e)
+        }
     }
 
     fun stopAutomation() {
         automationRunningProperty.set(false)
     }
 
-    private fun createRunTask(hideApplication: Boolean = false): Task<Void> {
+    private fun createRunTask(schemaGroupModel: SchemaGroupModel, hideApplication: Boolean = false): Task<Void> {
         return object : Task<Void>() {
             override fun call(): Void? {
                 automationRunningProperty.set(true)
                 try {
                     rootSchemaKeyListener.reset()
-                    schemaGroup.checkValidation()
                     if (hideApplication) {
                         Platform.runLater { Main.mainStage.isIconified = true }
                     }
-                    schemaGroup.runAction()
+                    schemaGroupModel.runAction()
                     Thread.sleep(200)
                 } catch (e: ApplicationException) {
                     LOGGER.error("ApplicationException: {}", e)
@@ -128,12 +128,12 @@ class RootSchemaGroupModel(
     }
 
 
-    fun getSelectedSchemaGroupModel(): SchemaGroupModel {
+    fun getSelectedSchemaGroupModel(): SchemaGroupController {
         val selectedModelVal = selectedModel
-        return if (selectedModelVal != null && selectedModelVal is SchemaGroupModel) {
+        return if (selectedModelVal is SchemaGroupController) {
             selectedModelVal
         } else {
-            schemaGroup
+            selectedModelVal.parent ?: schemaGroupController
         }
     }
 
@@ -151,23 +151,22 @@ class RootSchemaGroupModel(
         timeline.play()
     }
 
-    private fun addActionBlocks(actionBlock: AutomationModel<out AutomationController>) {
-        schemaGroup.addActionBlocks(actionBlock)
-    }
+//    fun addActionBlocks(actionBlock: AutomationController) {
+//        schemaGroupController.addActionBlocks(actionBlock)
+//    }
 
-    private fun addNewActionModel(actionModel: AutomationModel<out AutomationController>) {
+    fun addActionBlocks(actionController: AutomationController<*>) {
         val selectedModelVal = selectedModel
         when (selectedModelVal) {
-            null -> addActionBlocks(actionModel)
-            is SchemaGroupModel -> selectedModelVal.moveActionBlockToBottom(actionModel)
-            is ActionNodeModel -> selectedModelVal.addActionBlockUnder(actionModel)
+            is SchemaGroupController -> selectedModelVal.addActionBlockToBottom(actionController)
+            else -> selectedModelVal.addActionBlockUnder(actionController)
         }
-        actionModel.controller.selectAction()
+        actionController.selectAction()
     }
 
     private fun loadControllerContent() {
-        controller.insidePane.content = schemaGroup.controller
-        schemaGroup.controller.minHeightProperty().bind(controller.heightProperty())
+        controller.insidePane.content = schemaGroupController
+        schemaGroupController.minHeightProperty().bind(controller.heightProperty())
 
         automationRunningProperty.addListener { _, _, newValue ->
             Platform.runLater {

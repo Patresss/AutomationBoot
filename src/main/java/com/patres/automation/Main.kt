@@ -5,19 +5,25 @@ import com.patres.automation.gui.controller.MainController
 import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.application.Application
 import javafx.application.Platform
+import javafx.beans.binding.Bindings
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
-import org.opencv.core.Core
 import org.slf4j.LoggerFactory
 import java.awt.*
 import java.io.File
 import java.io.IOException
 import java.util.*
 import javax.imageio.ImageIO
+import javafx.beans.binding.StringBinding
+import java.text.MessageFormat
+import java.util.ResourceBundle
+import javafx.beans.property.SimpleObjectProperty
+import java.util.concurrent.Callable
+import kotlin.math.log
 
 
 class Main : Application() {
@@ -28,10 +34,8 @@ class Main : Application() {
         const val sceneHeight = 715
         const val sceneBarHeight = 35.0 + 4.0
         const val sceneBarWeight = 4.0 + 4.0
-        var bundle = ResourceBundle.getBundle("language/Bundle", Locale("pl"))!!
+        var localeProperty = SimpleObjectProperty(Locale("pl"))
         var globalSettings = GlobalSettingsLoader.load()
-
-        val tittle: String = bundle.getString("application.name") ?: "Application"
         var mainStage: Stage = Stage()
         var mainPane: StackPane = StackPane()
         var tmpDirector: File = File("tmp")
@@ -43,18 +47,31 @@ class Main : Application() {
 //            ServerBoot.run()
             launch(Main::class.java)
         }
-        fun getStylesheet(): String = Main::class.java.getResource("/css/style_day.css").toExternalForm()
 
+        fun getStylesheet(): String = Main::class.java.getResource("/css/style_day.css").toExternalForm()
 
         fun setStyle(scene: Scene) {
             scene.stylesheets.add(getStylesheet())
         }
+
+
+        // TODO refactor to other class
+        fun createStringBinding(key: String, vararg args: Any): StringBinding {
+            logger.debug("Get string property for key: $key")
+            return Bindings.createStringBinding(Callable { getLanguageString(key, args) }, localeProperty)
+        }
+
+
+        fun getLanguageString(key: String, vararg args: Any) =  MessageFormat.format(getBundle().getString(key), *args)
+
+         fun getBundle() = ResourceBundle.getBundle("language/Bundle", localeProperty.get())
+
     }
 
     override fun start(primaryStage: Stage) {
         try {
             mainStage = primaryStage
-            mainStage.title = tittle
+            mainStage.titleProperty().bind(createStringBinding("application.name"))
             mainStage.icons.add(Image("/image/icon.png"))
             mainStage.scene = createScene(loadMainPane())
             mainStage.minWidth = sceneWidth.toDouble()
@@ -84,8 +101,8 @@ class Main : Application() {
 
         val tray = SystemTray.getSystemTray()
 
-        val openItem = MenuItem(bundle.getString("button.open"))
-        val exitItem = MenuItem(bundle.getString("button.exit"))
+        val openItem = MenuItem(createStringBinding("button.open").get())
+        val exitItem = MenuItem(createStringBinding("button.exit").get())
 
         openItem.addActionListener { Platform.runLater { this.showStage() } }
         exitItem.addActionListener {
@@ -113,7 +130,7 @@ class Main : Application() {
     private fun loadMainPane(): Pane {
         val loader = FXMLLoader()
         loader.location = Main::class.java.getResource("/fxml/Main.fxml")
-        loader.resources = bundle
+        loader.resources = getBundle()
 
         mainPane = loader.load<StackPane>()
         mainController = loader.getController<MainController>()

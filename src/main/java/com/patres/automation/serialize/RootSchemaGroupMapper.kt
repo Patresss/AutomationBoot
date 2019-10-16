@@ -8,7 +8,7 @@ object RootSchemaGroupMapper {
 
     fun modelToSerialize(model: RootSchemaGroupModel): RootSchemaGroupSerialized {
         return RootSchemaGroupSerialized(
-                schemaGroupSerialized = SchemaGroupMapper.modelToSerialize(model.schemaGroup),
+                schemaGroupSerialized = SchemaGroupMapper.modelToSerialize(model.schemaGroup!!),
                 localSettings = model.localSettings,
                 tmpFile = model.tmpFile.absolutePath,
                 file = model.file?.absolutePath,

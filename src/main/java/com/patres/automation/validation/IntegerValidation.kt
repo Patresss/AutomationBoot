@@ -1,24 +1,12 @@
 package com.patres.automation.validation
 
-import com.patres.automation.Main
 import com.patres.automation.excpetion.IntegerFormatException
-import com.patres.automation.gui.controller.model.TextActionController
-import com.patres.automation.util.setIntegerFilter
 
-class IntegerValidation(controller: TextActionController) : AbstractValidation(controller) {
+class IntegerValidation : Validationable() {
 
-    companion object {
-        private val invalidMessage = Main.bundle.getString("error.mustBeNumber")
-    }
-
-    init {
-        validationLabel.text = invalidMessage
-        validationTextField.setIntegerFilter()
-    }
-
-    override fun isValid(): Boolean {
+    override fun isValid(value: String): Boolean {
         try {
-            Integer.parseInt(validationTextField.text)
+            Integer.parseInt(value)
         } catch (e: NumberFormatException) {
             return false
         } catch (e: NullPointerException) {
@@ -27,8 +15,10 @@ class IntegerValidation(controller: TextActionController) : AbstractValidation(c
         return true
     }
 
-    override fun throwException() {
-        throw IntegerFormatException(validationTextField.text)
+    override fun throwException(value: String) {
+        throw IntegerFormatException(value)
     }
+
+    override fun getErrorMessageProperty() = "error.mustBeNumber"
 
 }

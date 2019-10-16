@@ -20,7 +20,7 @@ class SaveDialog(
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/dialog/SaveDialog.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.bundle
+        fxmlLoader.resources = Main.getBundle()
         fxmlLoader.load<KeyboardButton>()
     }
 

@@ -1,19 +1,22 @@
 package com.patres.automation.gui.controller.model
 
-import com.patres.automation.model.AutomationModel
+import com.patres.automation.type.ActionBootable
+import com.patres.automation.Main
+import com.patres.automation.model.RootSchemaGroupModel
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.layout.Pane
 
-open class LabelActionController(
-        model: AutomationModel<out LabelActionController>? = null,
-        fxmlFile: String = "LabelAction.fxml",
-        private val labelText: String = ""
-) : AutomationController(model, fxmlFile) {
+abstract class LabelActionController<ActionBootType: ActionBootable>(
+        fxmlFile: String,
+        root: RootSchemaGroupModel,
+        parent: SchemaGroupController,
+        action: ActionBootType
+) : AutomationController<ActionBootType>(fxmlFile, root, parent, action) {
 
     init {
-        actionLabel.text = labelText
+        actionLabel.textProperty().bind(Main.createStringBinding(action.bundleName()))
     }
 
     @FXML

@@ -1,25 +1,20 @@
 package com.patres.automation.action.keyboard
 
-import com.patres.automation.menuItem.MenuItem
-import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.model.SchemaGroupModel
+import com.patres.automation.type.ActionBootKeyboard
+import com.patres.automation.action.AbstractAction
+import com.patres.automation.gui.custom.KeyboardField
 
 
 class PressKeyboardButtonAction(
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupModel
-) : KeyboardButtonAction(root, parent) {
-
-    init {
-        controller.actionLabel.text = MenuItem.PRESS_KEYBOARD_BUTTON.actionName
-    }
+        private val keyboardField: KeyboardField
+) : AbstractAction(ActionBootKeyboard.PRESS_KEYBOARD_BUTTON) {
 
     override fun runAction() {
-        controller.keyboardField.keys
+        keyboardField.keys
                 .map { it.keyValue }
                 .forEach { robot.keyPress(it) }
 
-        controller.keyboardField.keys
+        keyboardField.keys
                 .reversed()
                 .map { it.keyValue }
                 .forEach { robot.keyRelease(it) }

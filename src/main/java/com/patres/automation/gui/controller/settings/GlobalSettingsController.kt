@@ -15,7 +15,7 @@ import javafx.util.Duration
 
 class GlobalSettingsController(private val mainController: MainController) : SettingsController(fromBundle("menu.settings.globalSettings")) {
 
-    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
+//    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
 
     init {
         initChangeDetectors()
@@ -38,23 +38,23 @@ class GlobalSettingsController(private val mainController: MainController) : Set
 
 
     override fun saveSettings() {
-        Main.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
-        GlobalSettingsLoader.save(Main.globalSettings)
-        saveButton.isDisable = true
-        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
+//        Main.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
+//        GlobalSettingsLoader.save(Main.globalSettings)
+//        saveButton.isDisable = true
+//        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
 
     override fun initChangeDetectors() {
-        stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+//        stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
     }
 
     fun loadGlobalSettings() {
-        mainVBox.children.add(stopKeysSetting)
+//        mainVBox.children.add(stopKeysSetting)
         reloadSettingsValue()
     }
 
     fun reloadSettingsValue() {
-        stopKeysSetting.keyboardField.setKeyboardButtons(Main.globalSettings.stopKeys)
+//        stopKeysSetting.keyboardField.setKeyboardButtons(Main.globalSettings.stopKeys)
         saveButton.isDisable = true
     }
 

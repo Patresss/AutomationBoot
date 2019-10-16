@@ -19,7 +19,7 @@ class ExceptionHandlerDialog(private val exception: Exception) {
                 val loader = FXMLLoader()
                 loader.location = javaClass.getResource("/fxml/dialog/ExceptionHandlerDialog.fxml")
                 loader.setController(DialogController(this, exception))
-                loader.resources = Main.bundle
+                loader.resources = Main.getBundle()
                 content = loader.load<Region>()
             } catch (e: IOException) {
                 LOGGER.error("I/O Exception", e)

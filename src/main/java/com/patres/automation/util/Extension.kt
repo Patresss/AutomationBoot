@@ -83,7 +83,7 @@ fun String.getInteger(): Int {
     }
 }
 
-fun fromBundle(key: String): String = Main.bundle.getString(key)
+fun fromBundle(key: String): String = Main.getLanguageString(key)
 
 fun Tooltip.startTiming(time: Double) {
     try {

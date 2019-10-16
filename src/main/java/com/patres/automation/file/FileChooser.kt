@@ -1,16 +1,16 @@
 package com.patres.automation.file
 
+import com.patres.automation.FileType
 import com.patres.automation.Main
 import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.stage.FileChooser
 import java.io.File
 
 class FileChooser(
-        extension: String? = null,
-        extensionType: String = ""
+        fileType: FileType?
 ) {
 
-    private val extFilter = if (extension != null) FileChooser.ExtensionFilter("$extensionType (*.$extension)", "*.$extension") else null
+    private val extFilter = if (fileType != null) FileChooser.ExtensionFilter("${fileType.type} (*.${fileType.extension})", "*.${fileType.extension}") else null
 
     fun chooseFileToLoad(pathTarget: String? = null): File? {
         val fileChooser = getFileChooser()
@@ -20,7 +20,7 @@ class FileChooser(
                 fileChooser.initialDirectory = file.parentFile
             }
         }
-        fileChooser.title = Main.bundle.getString("action.chooseFile")
+        fileChooser.titleProperty().bind(Main.createStringBinding("action.chooseFile"))
 
         return fileChooser.showOpenDialog(Main.mainStage)
                 ?.apply { saveLastOpenDirectory(this) }
@@ -42,9 +42,8 @@ class FileChooser(
 
     private fun getFileChooser(): FileChooser {
         return FileChooser().apply {
-            Main.globalSettings.lastLoadedPath
-                    ?.let { path -> initialDirectory = File(path) }
-            extFilter?.let { extensionFilters.add(it) }
+            Main.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
+            extFilter.let { extensionFilters.add(it) }
         }
     }
 

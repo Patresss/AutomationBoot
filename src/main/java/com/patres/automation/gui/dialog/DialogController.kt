@@ -8,10 +8,6 @@ import javafx.scene.control.Label
 
 class DialogController(private val exceptionHandlerDialog: ExceptionHandlerDialog, private val exception: Exception) {
 
-    companion object {
-        val error: String = Main.bundle.getString("error")
-    }
-
     @FXML
     private lateinit var errorLabel: Label
 
@@ -19,6 +15,7 @@ class DialogController(private val exceptionHandlerDialog: ExceptionHandlerDialo
     private val okButton: Button? = null
 
     fun initialize() {
+        val error: String = Main.getLanguageString("error")
         errorLabel.text = "$error: ${exception.message}"
     }
 

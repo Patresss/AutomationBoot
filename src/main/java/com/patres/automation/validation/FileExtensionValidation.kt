@@ -1,29 +1,21 @@
 package com.patres.automation.validation
 
-import com.patres.automation.Main
+import com.patres.automation.FileType
 import com.patres.automation.excpetion.FileHasWrongExtensiontException
-import com.patres.automation.gui.controller.model.TextActionController
 import java.io.File
 
-class FileExtensionValidation(
-        controller: TextActionController,
-        private val extension: String
-) : AbstractValidation(controller) {
+class FileExtensionValidation(fileType: FileType) : Validationable() {
 
-    companion object {
-        private val invalidMessage = Main.bundle.getString("error.fileHasWrongExtension")
+    private val extension = fileType.extension
+
+    override fun isValid(value: String): Boolean {
+        return File(value).exists() && File(value).isFile && File(value).name.endsWith(extension)
     }
 
-    init {
-        validationLabel.text = invalidMessage
+    override fun throwException(value: String) {
+        throw FileHasWrongExtensiontException(value, extension)
     }
 
-    override fun isValid(): Boolean {
-        return File(validationTextField.text).exists() && File(validationTextField.text).isFile && File(validationTextField.text).name.endsWith(extension)
-    }
-
-    override fun throwException() {
-        throw FileHasWrongExtensiontException(validationTextField.text, extension)
-    }
+    override fun getErrorMessageProperty() = "error.fileHasWrongExtension"
 
 }

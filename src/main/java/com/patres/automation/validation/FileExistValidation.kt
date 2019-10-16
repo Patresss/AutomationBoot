@@ -1,25 +1,18 @@
 package com.patres.automation.validation
 
-import com.patres.automation.Main
 import com.patres.automation.excpetion.FileNotExistException
-import com.patres.automation.gui.controller.model.TextActionController
 import java.io.File
 
-class FileExistValidation(controller: TextActionController) : AbstractValidation(controller) {
+class FileExistValidation : Validationable() {
 
-    companion object {
-        private val invalidMessage = Main.bundle.getString("error.fileDoesntExist")
+    override fun isValid(value: String): Boolean {
+        return File(value).exists() && !File(value).isDirectory
     }
 
-    init {
-        validationLabel.text = invalidMessage
+    override fun throwException(value: String) {
+        throw FileNotExistException(value)
     }
 
-    override fun isValid(): Boolean {
-        return File(validationTextField.text).exists() && !File(validationTextField.text).isDirectory
-    }
+    override fun getErrorMessageProperty() = "error.fileDoesntExist"
 
-    override fun throwException() {
-        throw FileNotExistException(validationTextField.text)
-    }
 }

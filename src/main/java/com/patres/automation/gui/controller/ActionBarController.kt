@@ -4,12 +4,14 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
+import com.patres.automation.Main
 import com.patres.automation.font.FontAutomationIcon
 import com.patres.automation.font.FontAutomationIconView
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.IconButton
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.menuItem.MenuItemGroup
+import com.patres.automation.util.fromBundle
 import com.patres.automation.util.getIcon
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
@@ -74,7 +76,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
                 }
             }
         }
-        button.tooltip = Tooltip(action.actionName)
+        button.tooltip = Tooltip(fromBundle(action.bundleName))
         actionBox.children.add(button)
     }
 
@@ -87,7 +89,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
                 override fun updateItem(item: MenuItem?, empty: Boolean) {
                     super.updateItem(item, empty)
                     if (item != null) {
-                        text = item.actionName
+                        text = Main.getLanguageString(item.bundleName) // TODO dynamicly change language
                     }
                     graphic = item?.graphic?.getIcon()
                 }

@@ -1,42 +1,34 @@
 package com.patres.automation.action.script
 
-import com.patres.automation.action.BrowseFileAction
-import com.patres.automation.gui.controller.model.BrowseFileActionController
-import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.model.SchemaGroupModel
-import com.patres.automation.validation.AbstractValidation
-import com.patres.automation.validation.FileExtensionValidation
+import com.patres.automation.action.AbstractAction
+import com.patres.automation.type.ActionBootBrowser
 import java.io.File
 
+class WindowsRunAndWaitScriptAction(path: String) : WindowsScriptAction(path, true, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE)
+class WindowsRunScriptAction(path: String) : WindowsScriptAction(path, false, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE)
 
 abstract class WindowsScriptAction(
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupModel = root.getSelectedSchemaGroupModel()
-) : BrowseFileAction(root, parent) {
-
-    companion object {
-        const val extension = ".bat"
-        const val extensionType = "Script"
-    }
-
-    final override val controller: BrowseFileActionController = BrowseFileActionController(this, extension = extension, extensionType = extensionType)
-
-    override var validator: AbstractValidation? = FileExtensionValidation(controller, extension).also { it.activateControlListener() }
+        val path: String,
+        val wait: Boolean,
+        actionBoot: ActionBootBrowser
+) : AbstractAction(actionBoot) {
 
     override fun runAction() {
-        val file = File(getActionValue())
+        val file = File(path)
 
         val processBuilder = ProcessBuilder().apply {
             command(file.absolutePath)
 //            directory(file.parentFile)
         }
 
-        if (shouldWait()) {
+        if (wait) {
             val process = processBuilder.start()
             process.waitFor()
         }
     }
 
-    abstract fun shouldWait(): Boolean
+    override fun validate() {
+        actionBoot.validation()?.check(path)
+    }
 
 }

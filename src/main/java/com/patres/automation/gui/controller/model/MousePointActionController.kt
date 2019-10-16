@@ -4,8 +4,15 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDecorator
 import com.jfoenix.controls.JFXSlider
 import com.patres.automation.Main
-import com.patres.automation.action.mouse.MouseAction
+import com.patres.automation.action.AbstractAction
+import com.patres.automation.action.mouse.*
+import com.patres.automation.action.mouse.point.ImagePointDetector
+import com.patres.automation.action.mouse.point.PointDetector
+import com.patres.automation.action.mouse.point.SpecificPointDetector
 import com.patres.automation.gui.controller.pointer.PointerController
+import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.point.Point
+import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.util.MonitorSize
 import com.patres.automation.util.fromBundle
 import com.patres.automation.util.startTiming
@@ -28,9 +35,10 @@ import java.lang.Math.min
 import kotlin.math.roundToInt
 
 class MousePointActionController(
-        model: MouseAction,
-        fxmlFile: String = "MousePointAction.fxml"
-) : TextFieldActionController(model, fxmlFile) {
+        root: RootSchemaGroupModel,
+        parent: SchemaGroupController,
+        action: ActionBootMousePoint
+) : TextActionController<ActionBootMousePoint>("MousePointAction.fxml", root, parent, action) {
 
     @FXML
     lateinit var pointButton: JFXButton
@@ -67,15 +75,48 @@ class MousePointActionController(
     override fun initialize() {
         super.initialize()
         setHandler()
-        imageView.fitHeightProperty().bind (valueText.heightProperty() )
+        imageView.fitHeightProperty().bind(valueText.heightProperty())
         valueText.widthProperty().addListener { _, _, newValue -> imageView.fitWidth = newValue.toDouble() - zoomButton.width }
 
         setupVisible(true)
 
         thresholdSlider.tooltip = Tooltip(fromBundle("menu.percentMatch")).apply { startTiming(500.0) }
-        thresholdSlider.valueChangingProperty().addListener { _, _, _ -> (model?.root?.changeDetect()) }
+        thresholdSlider.valueChangingProperty().addListener { _, _, _ -> (root?.changeDetect()) }
 
         thresholdSlider.labelFormatter = percentConverter
+    }
+
+    override fun toModel(): AbstractAction {
+        action.validation?.check(value)
+        val calculatedImageBytesArray = calculateImageBytesArray()
+        val pointDetector = calculatePointDetector(calculatedImageBytesArray)
+        return when (action) {
+            ActionBootMousePoint.MOVE_MOUSE -> MoveMouseAction(pointDetector)
+
+            ActionBootMousePoint.CLICK_LEFT_MOUSE_BUTTON -> LeftMouseClickAction(pointDetector)
+            ActionBootMousePoint.CLICK_MIDDLE_MOUSE_BUTTON -> MiddleMouseClickAction(pointDetector)
+            ActionBootMousePoint.CLICK_RIGHT_MOUSE_BUTTON -> RightMouseClickAction(pointDetector)
+
+            ActionBootMousePoint.DOUBLE_CLICK_LEFT_MOUSE_BUTTON -> LeftDoubleMouseClickAction(pointDetector)
+            ActionBootMousePoint.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON -> MiddleDoubleMouseClickAction(pointDetector)
+            ActionBootMousePoint.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON -> RightDoubleMouseClickAction(pointDetector)
+
+            ActionBootMousePoint.PRESS_LEFT_MOUSE_BUTTON -> PressLeftMouseAction(pointDetector)
+            ActionBootMousePoint.PRESS_MIDDLE_MOUSE_BUTTON -> PressMiddleMouseAction(pointDetector)
+            ActionBootMousePoint.PRESS_RIGHT_MOUSE_BUTTON -> PressRightMouseAction(pointDetector)
+
+            ActionBootMousePoint.RELEASE_LEFT_MOUSE_BUTTON -> ReleaseLeftMouseAction(pointDetector)
+            ActionBootMousePoint.RELEASE_MIDDLE_MOUSE_BUTTON -> ReleaseMiddleMouseAction(pointDetector)
+            ActionBootMousePoint.RELEASE_RIGHT_MOUSE_BUTTON -> ReleaseRightMouseAction(pointDetector)
+        }
+    }
+
+    private fun calculatePointDetector(calculatedImageBytesArray: ByteArray?): PointDetector {
+        return if (calculatedImageBytesArray != null) {
+            ImagePointDetector(calculatedImageBytesArray, thresholdSlider.value)
+        } else {
+            SpecificPointDetector(Point.stringToPoint(value))
+        }
     }
 
     fun setImage(imageInputStream: InputStream) {
@@ -87,7 +128,11 @@ class MousePointActionController(
             imageView.image = image
             zoomButton.setOnAction { createNewWindowForImage() }
         }
-        model?.root?.changeDetect()
+        root?.changeDetect()
+    }
+
+    override fun shouldCheckValidation(): Boolean {
+        return value.isNotEmpty() && valueText.isVisible
     }
 
     private fun setupVisible(isText: Boolean) {
@@ -96,7 +141,7 @@ class MousePointActionController(
 
         valueText.isVisible = isText
 
-        if(!isText) {
+        if (!isText) {
             validLabel.isVisible = false
         }
     }
@@ -111,11 +156,12 @@ class MousePointActionController(
         val decorator = JFXDecorator(stage, root, false, true, true)
 
         val width = min((image?.width ?: 500.0) + Main.sceneBarWeight, MonitorSize.width)
-        val height = min((image?.height ?: 500.0) + Main.sceneBarHeight + 8.0, MonitorSize.height) // add 8.0 because of scroll
+        val height = min((image?.height
+                ?: 500.0) + Main.sceneBarHeight + 8.0, MonitorSize.height) // add 8.0 because of scroll
         val scene = Scene(decorator, width, height)
 
         Main.setStyle(scene)
-        stage.title = Main.tittle
+        stage.titleProperty().bind(Main.createStringBinding("application.name"))
         stage.scene = scene
 
         stage.show()
@@ -143,7 +189,7 @@ class MousePointActionController(
         image = null
         imageByteArrayOutputStream = null
         setupVisible(true)
-        model?.root?.changeDetect()
+        root?.changeDetect()
     }
 
     private fun setHandler() {

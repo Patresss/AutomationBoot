@@ -18,7 +18,7 @@ open class RootSchemaGroupController(val model: RootSchemaGroupModel) : StackPan
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/RootSchemaGroup.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.bundle
+        fxmlLoader.resources = Main.getBundle()
         fxmlLoader.load<KeyboardButton>()
     }
 
