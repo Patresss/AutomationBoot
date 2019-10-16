@@ -1,13 +1,7 @@
 package com.patres.automation.type
 
 import com.patres.automation.ActionBootControllerType
-import com.patres.automation.FileType
-import com.patres.automation.action.AbstractAction
-import com.patres.automation.action.script.OpenFileOrDirectoryAction
-import com.patres.automation.action.script.WindowsRunAndWaitScriptAction
-import com.patres.automation.action.script.WindowsRunScriptAction
-import com.patres.automation.action.text.PasteTextFromFileAction
-import com.patres.automation.action.text.TypeTextFromFileAction
+import com.patres.automation.file.FileType
 import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.validation.FileExistValidation

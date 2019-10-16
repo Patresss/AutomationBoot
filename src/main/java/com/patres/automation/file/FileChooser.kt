@@ -1,6 +1,5 @@
 package com.patres.automation.file
 
-import com.patres.automation.FileType
 import com.patres.automation.Main
 import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.stage.FileChooser

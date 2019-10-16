@@ -1,4 +1,4 @@
-package com.patres.automation
+package com.patres.automation.file
 
 enum class FileType(
         val type: String,

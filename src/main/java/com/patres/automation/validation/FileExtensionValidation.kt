@@ -1,6 +1,6 @@
 package com.patres.automation.validation
 
-import com.patres.automation.FileType
+import com.patres.automation.file.FileType
 import com.patres.automation.excpetion.FileHasWrongExtensiontException
 import java.io.File
 

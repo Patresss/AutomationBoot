@@ -1,7 +1,7 @@
 package com.patres.automation.util
 
 import com.jfoenix.controls.JFXDialog
-import com.patres.automation.FileType
+import com.patres.automation.file.FileType
 import com.patres.automation.Main
 import com.patres.automation.file.FileChooser
 import com.patres.automation.file.FileConstants
