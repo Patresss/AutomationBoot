@@ -1,8 +1,8 @@
 package com.patres.automation.action.keyboard
 
-import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.custom.KeyboardField
+import com.patres.automation.type.ActionBootKeyboard
 
 
 class PressKeyboardButtonAction(

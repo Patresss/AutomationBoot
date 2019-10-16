@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory
 import java.io.File
 
 
-class TypeTextFromFieldAction(private val text: String) : PasteTextAction(ActionBootTextArea.TYPE_TEXT) {
+class TypeTextFromFieldAction(private val text: String, automationRunningProperty: BooleanProperty) : TypeTextAction(automationRunningProperty, ActionBootTextArea.TYPE_TEXT) {
     override fun getText() = text
 }
 
-class TypeTextFromFileAction(private val path: String) : PasteTextAction(ActionBootBrowser.TYPE_TEXT_FROM_FILE) {
+class TypeTextFromFileAction(private val path: String, automationRunningProperty: BooleanProperty) : TypeTextAction(automationRunningProperty, ActionBootBrowser.TYPE_TEXT_FROM_FILE) {
     override fun getText() = File(path).readText()
 }
 

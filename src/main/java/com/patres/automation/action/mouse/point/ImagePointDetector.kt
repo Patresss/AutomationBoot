@@ -6,7 +6,7 @@ import com.patres.automation.point.Point
 class ImagePointDetector(
         private val templateByteArray: ByteArray,
         private val threshold: Double
-) : PointDetector() {
+) : PointDetector {
 
     override fun calculatePoint() = loadPoint()
 

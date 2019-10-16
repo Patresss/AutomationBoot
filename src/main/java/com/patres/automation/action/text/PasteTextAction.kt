@@ -10,25 +10,17 @@ import java.awt.event.KeyEvent
 import java.io.File
 
 
-class PasteTextFromFieldAction(private val text: String) : PasteTextAction(ActionBootTextArea.PASTE_TEXT) {
-    override fun getText() = text
-
-    override fun validate() {
-        actionBoot.validation()?.check(text)
-    }
-
+class PasteTextFromFieldAction(text: String) : PasteTextAction(ActionBootTextArea.PASTE_TEXT, text) {
+    override fun getText() = value
 }
 
-class PasteTextFromFileAction(private val path: String) : PasteTextAction(ActionBootBrowser.PASTE_TEXT_FROM_FILE) {
-    override fun getText() = File(path).readText()
-
-    override fun validate() {
-        actionBoot.validation()?.check(path)
-    }
+class PasteTextFromFileAction(path: String) : PasteTextAction(ActionBootBrowser.PASTE_TEXT_FROM_FILE, path) {
+    override fun getText() = File(value).readText()
 }
 
 abstract class PasteTextAction(
-        actionBoot: ActionBootable
+        actionBoot: ActionBootable,
+        val value: String
 ) : AbstractAction(actionBoot) {
 
     override fun runAction() {
@@ -46,5 +38,9 @@ abstract class PasteTextAction(
     }
 
     abstract fun getText(): String
+
+    override fun validate() {
+        actionBoot.validation()?.check(value)
+    }
 
 }

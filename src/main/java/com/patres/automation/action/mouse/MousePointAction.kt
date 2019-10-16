@@ -2,7 +2,6 @@ package com.patres.automation.action.mouse
 
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.mouse.point.PointDetector
-import com.patres.automation.point.Point
 import com.patres.automation.type.ActionBootMousePoint
 
 abstract class MousePointAction(

@@ -20,17 +20,16 @@ enum class ActionBootBrowser(
         val bundleName: String,
         val validation: Validationable? = null,
         val controllerType: ActionBootControllerType,
-        val createModel: (String) -> AbstractAction,
         val fileType: FileType? = null
 ) : ActionBootable {
 
-    PASTE_TEXT_FROM_FILE("robot.action.keyboard.paste.file", FileExistValidation(), ActionBootControllerType.BROWSE_FILE, { value: String -> PasteTextFromFileAction(value) }),
-    TYPE_TEXT_FROM_FILE("robot.action.keyboard.type.file", FileExistValidation(), ActionBootControllerType.BROWSE_FILE, { value: String -> TypeTextFromFileAction(value) }),
+    PASTE_TEXT_FROM_FILE("robot.action.keyboard.paste.file", FileExistValidation(), ActionBootControllerType.BROWSE_FILE),
+    TYPE_TEXT_FROM_FILE("robot.action.keyboard.type.file", FileExistValidation(), ActionBootControllerType.BROWSE_FILE),
 
-    OPEN_FILE_OR_DIRECTORY("robot.action.open.fileOrDirectory", FileOrDirectoryExistValidation(), ActionBootControllerType.BROWSE_FILE, { value: String -> OpenFileOrDirectoryAction(value) }),
+    OPEN_FILE_OR_DIRECTORY("robot.action.open.fileOrDirectory", FileOrDirectoryExistValidation(), ActionBootControllerType.BROWSE_FILE),
 
-    WINDOWS_SCRIPT_RUN("robot.action.script.windows.run", FileExtensionValidation(FileType.BAT), ActionBootControllerType.BROWSE_FILE_BAT, { value: String -> WindowsRunScriptAction(value) }),
-    WINDOWS_SCRIPT_RUN_AND_WAITE("robot.action.script.windows.runAndWait", FileExtensionValidation(FileType.BAT), ActionBootControllerType.BROWSE_FILE_BAT, { value: String -> WindowsRunAndWaitScriptAction(value) });
+    WINDOWS_SCRIPT_RUN("robot.action.script.windows.run", FileExtensionValidation(FileType.BAT), ActionBootControllerType.BROWSE_FILE_BAT),
+    WINDOWS_SCRIPT_RUN_AND_WAITE("robot.action.script.windows.runAndWait", FileExtensionValidation(FileType.BAT), ActionBootControllerType.BROWSE_FILE_BAT);
 
     override fun validation(): Validationable? {
         return this.validation
@@ -44,11 +43,6 @@ enum class ActionBootBrowser(
         return this.controllerType
     }
 
-
-    fun createModel(): (String) -> AbstractAction {
-        return this.createModel
-    }
-
-    override fun createController() = { root: RootSchemaGroupModel -> BrowseFileActionController(root, root.getSelectedSchemaGroupModel()!!, this) }
+    override fun createController() = { root: RootSchemaGroupModel -> BrowseFileActionController(root, root.getSelectedSchemaGroupModel(), this) }
 
 }

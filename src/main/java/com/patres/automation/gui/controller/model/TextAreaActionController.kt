@@ -15,7 +15,7 @@ class TextAreaActionController(
     override fun toModel(): AbstractAction {
         return when (action) {
             ActionBootTextArea.PASTE_TEXT -> PasteTextFromFieldAction(value)
-            ActionBootTextArea.TYPE_TEXT -> TypeTextFromFieldAction(value)
+            ActionBootTextArea.TYPE_TEXT -> TypeTextFromFieldAction(value, root.automationRunningProperty)
         }
     }
 }
