@@ -37,6 +37,6 @@ enum class ActionBootBrowser(
         return this.controllerType
     }
 
-    override fun createController() = { root: RootSchemaGroupModel -> BrowseFileActionController(root, root.getSelectedSchemaGroupModel(), this) }
+    override fun createController() = { root: RootSchemaGroupModel -> BrowseFileActionController(root, root.controller.getSelectedSchemaGroupModel(), this) }
 
 }

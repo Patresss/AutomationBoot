@@ -2,8 +2,8 @@ package com.patres.automation.util
 
 import com.patres.automation.Main
 import com.patres.automation.excpetion.IntegerFormatException
-import com.patres.automation.font.FontAutomationIcon
-import com.patres.automation.font.FontAutomationIconView
+import com.patres.automation.gui.font.FontAutomationIcon
+import com.patres.automation.gui.font.FontAutomationIconView
 import com.sun.javafx.util.Utils
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon

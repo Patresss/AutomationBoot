@@ -6,6 +6,7 @@ enum class FileType(
 ) {
 
     BAT("Script", "bat"),
-    AUTOMATION_BOOT("Automation Boot", "aJson")
+    AUTOMATION_BOOT("Automation Boot", "ab"),
+    TEMP_AUTOMATION_BOOT("Temporary Automation Boot", "tmpAb")
 
 }

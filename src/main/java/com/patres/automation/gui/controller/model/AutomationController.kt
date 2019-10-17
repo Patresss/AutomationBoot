@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.custom.KeyboardButton
+import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.swap
@@ -19,7 +20,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         fxmlFile: String,
         val root: RootSchemaGroupModel,
         var parent: SchemaGroupController? = null,
-        open val action: ActionBootType
+        val action: ActionBootType
 ) : StackPane() {
 
     init {
@@ -45,9 +46,9 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     }
 
     fun selectAction() {
-        root.unselectAllButton()
+        root.controller.unselectAllButton()
         selectActionButton.styleClass.add("select-action-button-selected")
-        root.selectedModel = this
+        root.controller.selectedModel = this
     }
 
     open fun getNodesToSelect(): List<Node> = listOf(selectStackPane)
@@ -72,7 +73,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     fun downActionBlock() {
         val bottomNode = findNodeOnTheBottomFromGroup()
         when {
-            bottomNode == null && root.schemaGroupController != parent -> parent?.leaveGroupToDown(this)
+            bottomNode == null && root.controller.schemaGroupController != parent -> parent?.leaveGroupToDown(this)
             bottomNode is SchemaGroupController -> bottomNode.moveActionBlockToTop(this)
             bottomNode is AutomationController<*> -> swap(bottomNode)
         }
@@ -81,7 +82,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     fun upActionBlock() {
         val topNode = findNodeOnTheTopFromGroup()
         when {
-            topNode == null && root.schemaGroupController != parent -> parent?.leaveGroupToUp(this)
+            topNode == null && root.controller.schemaGroupController != parent -> parent?.leaveGroupToUp(this)
             topNode is SchemaGroupController -> topNode.moveActionBlockToBottom(this)
             topNode is AutomationController<*> -> swap(topNode)
         }
@@ -116,5 +117,6 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     }
 
     abstract fun toModel(): AbstractAction
+    abstract fun toSerialized(): AutomationActionSerialized
 
 }

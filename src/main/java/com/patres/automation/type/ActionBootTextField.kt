@@ -34,7 +34,7 @@ enum class ActionBootTextField(
     }
 
     override fun createController(): (RootSchemaGroupModel) -> AutomationController<*> {
-        return { root: RootSchemaGroupModel -> TextFieldActionController(root, root.getSelectedSchemaGroupModel(), this) }
+        return { root: RootSchemaGroupModel -> TextFieldActionController(root, root.controller.getSelectedSchemaGroupModel(), this) }
     }
 
 }

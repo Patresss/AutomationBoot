@@ -1,14 +1,16 @@
 package com.patres.automation.file
 
 import com.patres.automation.Main
-import com.patres.automation.file.FileConstants.DEFAULT_TMP_FILENAME
-import com.patres.automation.file.FileConstants.TMP_EXTENSION
+import com.patres.automation.mapper.AutomationMapper
+import com.patres.automation.mapper.RootSchemaGroupMapper
 import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.serialize.AutomationMapper
-import com.patres.automation.serialize.RootSchemaGroupMapper
+import com.patres.automation.util.fromBundle
 import java.io.File
 
 object TmpFileLoader {
+
+    private val extension = FileType.TEMP_AUTOMATION_BOOT.extension
+    private val filename = fromBundle("rootSchema.defaultFileName")
 
     fun createNewTmpFile(): File {
         return findValidFile().apply {
@@ -17,23 +19,23 @@ object TmpFileLoader {
     }
 
     fun saveTmpFile(rootSchemaGroupModel: RootSchemaGroupModel) {
-//        if (!rootSchemaGroupModel.tmpFile.exists()) {
-//            Main.tmpDirector.mkdir()
-//            rootSchemaGroupModel.tmpFile = findValidFile()
-//        }
-//        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
-//
-//        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
-//        rootSchemaGroupModel.tmpFile.writeText(serializedRootGroup)
+        if (!rootSchemaGroupModel.tmpFile.exists()) {
+            Main.tmpDirector.mkdir()
+            rootSchemaGroupModel.tmpFile = findValidFile()
+        }
+        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
+
+        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
+        rootSchemaGroupModel.tmpFile.writeText(serializedRootGroup)
     }
 
     private fun findValidFile(): File {
         var currentNumber = 1
-        var newFileName = "$DEFAULT_TMP_FILENAME ${currentNumber++}.$TMP_EXTENSION"
+        var newFileName = "$filename ${currentNumber++}.$extension"
         var newFile = File(Main.tmpDirector, newFileName)
 
         while (newFile.exists()) {
-            newFileName = "$DEFAULT_TMP_FILENAME ${currentNumber++}.$TMP_EXTENSION"
+            newFileName = "$filename ${currentNumber++}.$extension"
             newFile = File(Main.tmpDirector, newFileName)
         }
 

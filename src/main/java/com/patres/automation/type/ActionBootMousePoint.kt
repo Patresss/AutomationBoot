@@ -11,7 +11,7 @@ import com.patres.automation.validation.Validationable
 enum class ActionBootMousePoint(
         val bundleName: String,
         private val controllerType: ActionBootControllerType,
-        val validation: Validationable = PointVectorValidation()
+        val validation: Validationable? = PointVectorValidation()
 ) : ActionBootable {
 
     MOVE_MOUSE("robot.action.moveMouse", ActionBootControllerType.MOUSE_POINT),
@@ -46,7 +46,7 @@ enum class ActionBootMousePoint(
     }
 
     override fun createController(): (RootSchemaGroupModel) -> AutomationController<*> {
-        return { root: RootSchemaGroupModel -> MousePointActionController(root, root.getSelectedSchemaGroupModel(), this) }
+        return { root: RootSchemaGroupModel -> MousePointActionController(root, root.controller.getSelectedSchemaGroupModel(), this) } // TODO refactro defoult value of parent
     }
 
 }

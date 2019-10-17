@@ -2,6 +2,8 @@ package com.patres.automation.gui.controller.model
 
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.custom.KeyboardField
+import com.patres.automation.mapper.KeyboardFieldActionMapper
+import com.patres.automation.mapper.model.KeyboardFieldActionSerialized
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootKeyboard
 import javafx.beans.InvalidationListener
@@ -10,7 +12,7 @@ import javafx.scene.Node
 
 class KeyboardButtonActionController(
         root: RootSchemaGroupModel,
-        parent: SchemaGroupController,
+        parent: SchemaGroupController?,
         action: ActionBootKeyboard
 ) : LabelActionController<ActionBootKeyboard>("KeyboardFieldAction.fxml", root, parent, action) {
 
@@ -29,7 +31,11 @@ class KeyboardButtonActionController(
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(keyboardField)
 
     override fun toModel(): AbstractAction {
-        return action.createModel().invoke(keyboardField)
+        return KeyboardFieldActionMapper.controllerToModel(this)
+    }
+
+    override fun toSerialized(): KeyboardFieldActionSerialized {
+        return KeyboardFieldActionMapper.controllerToSerialized(this)
     }
 
 }

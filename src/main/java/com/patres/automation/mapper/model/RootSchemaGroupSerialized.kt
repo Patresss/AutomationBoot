@@ -1,4 +1,4 @@
-package com.patres.automation.serialize.model
+package com.patres.automation.mapper.model
 
 import com.patres.automation.settings.LocalSettings
 

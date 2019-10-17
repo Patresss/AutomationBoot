@@ -11,7 +11,7 @@ import javafx.scene.control.TextInputControl
 abstract class TextActionController<ActionBootType : ActionBootable>(
         fxmlFile: String,
         root: RootSchemaGroupModel,
-        parent: SchemaGroupController,
+        parent: SchemaGroupController?,
         action: ActionBootType
 ) : LabelActionController<ActionBootType>(fxmlFile, root, parent, action) {
 

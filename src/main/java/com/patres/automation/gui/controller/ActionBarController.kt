@@ -5,17 +5,13 @@ import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
 import com.patres.automation.Main
-import com.patres.automation.font.FontAutomationIcon
-import com.patres.automation.font.FontAutomationIconView
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.IconButton
+import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.menuItem.MenuItem
 import com.patres.automation.menuItem.MenuItemGroup
 import com.patres.automation.util.fromBundle
 import com.patres.automation.util.getIcon
-import de.jensd.fx.glyphs.GlyphIcons
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
 import javafx.scene.Node
@@ -102,9 +98,8 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     }
 
     fun updateDisabledButtons() {
-        val model = rootSchemaGroupController.model
         nodeActionMap.forEach { (button, action) ->
-            button.isDisable = action.shouldBeDisabled(model)
+            button.isDisable = action.shouldBeDisabled(rootSchemaGroupController)
         }
     }
 
@@ -135,11 +130,11 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         }
     }
 
-
     fun setRunIcon() {
         actionBox.children.remove(stopButton)
         if (!actionBox.children.contains(runButton)) {
             actionBox.children.add(0, runButton)
         }
     }
+
 }

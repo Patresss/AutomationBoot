@@ -1,4 +1,4 @@
-package com.patres.automation.font
+package com.patres.automation.gui.font
 
 import de.jensd.fx.glyphs.GlyphIcon
 import javafx.scene.text.Font

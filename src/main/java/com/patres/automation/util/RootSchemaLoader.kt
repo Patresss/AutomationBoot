@@ -4,13 +4,12 @@ import com.jfoenix.controls.JFXDialog
 import com.patres.automation.file.FileType
 import com.patres.automation.Main
 import com.patres.automation.file.FileChooser
-import com.patres.automation.file.FileConstants
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.dialog.SaveDialog
 import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.serialize.AutomationMapper
-import com.patres.automation.serialize.RootSchemaGroupMapper
-import com.patres.automation.serialize.model.RootSchemaGroupSerialized
+import com.patres.automation.mapper.AutomationMapper
+import com.patres.automation.mapper.RootSchemaGroupMapper
+import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import com.patres.automation.settings.GlobalSettingsLoader
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -38,7 +37,7 @@ object RootSchemaLoader {
             val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
             val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
 
-            if (fileToOpen.extension == FileConstants.TMP_EXTENSION) {
+            if (fileToOpen.extension == FileType.TEMP_AUTOMATION_BOOT.extension) {
                 rootGroup.tmpFile = fileToOpen
             } else {
                 rootGroup.file = fileToOpen
@@ -54,7 +53,7 @@ object RootSchemaLoader {
         val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
         val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
 
-        if (fileToOpen.extension == FileConstants.TMP_EXTENSION) {
+        if (fileToOpen.extension == FileType.TEMP_AUTOMATION_BOOT.extension) {
             rootGroup.tmpFile = fileToOpen
         } else {
             rootGroup.file = fileToOpen

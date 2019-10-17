@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane
 abstract class LabelActionController<ActionBootType: ActionBootable>(
         fxmlFile: String,
         root: RootSchemaGroupModel,
-        parent: SchemaGroupController,
+        parent: SchemaGroupController?,
         action: ActionBootType
 ) : AutomationController<ActionBootType>(fxmlFile, root, parent, action) {
 

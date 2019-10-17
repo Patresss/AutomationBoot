@@ -1,4 +1,4 @@
-package com.patres.automation.serialize
+package com.patres.automation.mapper
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -9,6 +9,6 @@ object AutomationMapper {
 
     inline fun <reified T> toObject(json: String): T = mapper.readValue(json)
 
-    fun toJson(model: Any) = mapper.writeValueAsString(model)
+    fun toJson(model: Any): String = mapper.writeValueAsString(model)
 
 }

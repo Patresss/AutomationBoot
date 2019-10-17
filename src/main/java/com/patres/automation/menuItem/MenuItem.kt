@@ -1,6 +1,7 @@
 package com.patres.automation.menuItem
 
-import com.patres.automation.font.FontAutomationIcon
+import com.patres.automation.gui.controller.model.RootSchemaGroupController
+import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.*
 import de.jensd.fx.glyphs.GlyphIcons
@@ -11,7 +12,7 @@ enum class MenuItem(
         val actionBoot: ActionBootable? = null,
         val parent: MenuItem? = null,
         val bundleName: String = actionBoot?.bundleName() ?: "",
-        val shouldBeDisabled: (rootSchemaGroupModel: RootSchemaGroupModel) -> Boolean = { false },
+        val shouldBeDisabled: (controller: RootSchemaGroupController) -> Boolean = { false },
         val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = actionBoot?.addController() ?: {}
 ) {
 
@@ -60,7 +61,7 @@ enum class MenuItem(
     WINDOWS_SCRIPT_RUN(FontAwesomeIcon.TERMINAL, ActionBootBrowser.WINDOWS_SCRIPT_RUN, SCRIPT),
     WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE, SCRIPT),
 
-    SETTINGS(FontAwesomeIcon.GEAR, null, null, "menu.settings.localSettings", menuItemHandler = { root: RootSchemaGroupModel -> root.openLocalSettings() });
+    SETTINGS(FontAwesomeIcon.GEAR, null, null, "menu.settings.localSettings", menuItemHandler = { root: RootSchemaGroupModel -> root.controller.openLocalSettings() });
 
     companion object {
         fun findAllWithAction(action: MenuItem) = MenuItem.values().filter { it.parent == action }

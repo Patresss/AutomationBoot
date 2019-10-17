@@ -32,11 +32,7 @@ enum class ActionBootKeyboard(
     }
 
     override fun createController(): (RootSchemaGroupModel) -> AutomationController<*> {
-        return { root: RootSchemaGroupModel -> KeyboardButtonActionController(root, root.getSelectedSchemaGroupModel(), this) }
-    }
-
-    fun createModel(): (KeyboardField) -> AbstractAction {
-        return this.createModel
+        return { root: RootSchemaGroupModel -> KeyboardButtonActionController(root, root.controller.getSelectedSchemaGroupModel(), this) }
     }
 
 }

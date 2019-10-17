@@ -1,6 +1,8 @@
 package com.patres.automation.gui.controller.model
 
 import com.jfoenix.controls.JFXTextField
+import com.patres.automation.mapper.SchemaGroupMapper
+import com.patres.automation.mapper.model.SchemaGroupSerialized
 import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.model.SchemaGroupModel
 import com.patres.automation.type.ActionBootSchema
@@ -95,21 +97,12 @@ class SchemaGroupController(root: RootSchemaGroupModel,
         }
     }
 
-    fun getGroupName(): String = groupNameTextField.text
-
-    fun setGroupName(text: String) {
-        groupNameTextField.text = text
-    }
-
-    fun setNumberOfIterations(text: String) {
-        iterationsTextField.text = text
-    }
-
     override fun toModel(): SchemaGroupModel {
-        val actionBlockModels = actionBlocks.map { it.toModel() }
-        val iteration = getNumberOfIteration()
-        val automationRunningProperty = root.automationRunningProperty
-        return SchemaGroupModel(actionBlockModels, iteration, automationRunningProperty)
+        return SchemaGroupMapper.controllerToModel(this)
+    }
+
+    override fun toSerialized(): SchemaGroupSerialized {
+        return SchemaGroupMapper.controllerToSerialized(this)
     }
 
 }

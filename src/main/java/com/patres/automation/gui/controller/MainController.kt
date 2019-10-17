@@ -60,7 +60,7 @@ class MainController {
         if (previousOpenModels.isEmpty()) {
             createNewRootSchema()
         } else {
-//            previousOpenModels.forEach { loadModelFromFile(it) }
+            previousOpenModels.forEach { loadModelFromFile(it) }
         }
 
         listenTabContainers()

@@ -5,13 +5,10 @@ import com.jfoenix.controls.JFXDecorator
 import com.jfoenix.controls.JFXSlider
 import com.patres.automation.Main
 import com.patres.automation.action.AbstractAction
-import com.patres.automation.action.mouse.*
-import com.patres.automation.action.mouse.point.ImagePointDetector
-import com.patres.automation.action.mouse.point.PointDetector
-import com.patres.automation.action.mouse.point.SpecificPointDetector
 import com.patres.automation.gui.controller.pointer.PointerController
+import com.patres.automation.mapper.MousePointActionMapper
+import com.patres.automation.mapper.model.MousePointActionSerialized
 import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.point.Point
 import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.util.MonitorSize
 import com.patres.automation.util.fromBundle
@@ -36,7 +33,7 @@ import kotlin.math.roundToInt
 
 class MousePointActionController(
         root: RootSchemaGroupModel,
-        parent: SchemaGroupController,
+        parent: SchemaGroupController?,
         action: ActionBootMousePoint
 ) : TextActionController<ActionBootMousePoint>("MousePointAction.fxml", root, parent, action) {
 
@@ -88,35 +85,11 @@ class MousePointActionController(
 
     override fun toModel(): AbstractAction {
         action.validation?.check(value)
-        val calculatedImageBytesArray = calculateImageBytesArray()
-        val pointDetector = calculatePointDetector(calculatedImageBytesArray)
-        return when (action) {
-            ActionBootMousePoint.MOVE_MOUSE -> MoveMouseAction(pointDetector)
-
-            ActionBootMousePoint.CLICK_LEFT_MOUSE_BUTTON -> LeftMouseClickAction(pointDetector)
-            ActionBootMousePoint.CLICK_MIDDLE_MOUSE_BUTTON -> MiddleMouseClickAction(pointDetector)
-            ActionBootMousePoint.CLICK_RIGHT_MOUSE_BUTTON -> RightMouseClickAction(pointDetector)
-
-            ActionBootMousePoint.DOUBLE_CLICK_LEFT_MOUSE_BUTTON -> LeftDoubleMouseClickAction(pointDetector)
-            ActionBootMousePoint.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON -> MiddleDoubleMouseClickAction(pointDetector)
-            ActionBootMousePoint.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON -> RightDoubleMouseClickAction(pointDetector)
-
-            ActionBootMousePoint.PRESS_LEFT_MOUSE_BUTTON -> PressLeftMouseAction(pointDetector)
-            ActionBootMousePoint.PRESS_MIDDLE_MOUSE_BUTTON -> PressMiddleMouseAction(pointDetector)
-            ActionBootMousePoint.PRESS_RIGHT_MOUSE_BUTTON -> PressRightMouseAction(pointDetector)
-
-            ActionBootMousePoint.RELEASE_LEFT_MOUSE_BUTTON -> ReleaseLeftMouseAction(pointDetector)
-            ActionBootMousePoint.RELEASE_MIDDLE_MOUSE_BUTTON -> ReleaseMiddleMouseAction(pointDetector)
-            ActionBootMousePoint.RELEASE_RIGHT_MOUSE_BUTTON -> ReleaseRightMouseAction(pointDetector)
-        }
+        return MousePointActionMapper.controllerToModel(this)
     }
 
-    private fun calculatePointDetector(calculatedImageBytesArray: ByteArray?): PointDetector {
-        return if (calculatedImageBytesArray != null) {
-            ImagePointDetector(calculatedImageBytesArray, thresholdSlider.value)
-        } else {
-            SpecificPointDetector(Point.stringToPoint(value))
-        }
+    override fun toSerialized(): MousePointActionSerialized {
+        return MousePointActionMapper.controllerToSerialized(this)
     }
 
     fun setImage(imageInputStream: InputStream) {

@@ -27,7 +27,7 @@ enum class ActionBootSchema(
     }
 
     override fun createController(): (RootSchemaGroupModel) -> SchemaGroupController {
-        return { root: RootSchemaGroupModel -> SchemaGroupController(root, root.getSelectedSchemaGroupModel()!!) }
+        return { root: RootSchemaGroupModel -> SchemaGroupController(root, root.controller.getSelectedSchemaGroupModel()) }
     }
 
 

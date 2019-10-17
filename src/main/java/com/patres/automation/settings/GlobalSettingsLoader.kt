@@ -1,9 +1,7 @@
 package com.patres.automation.settings
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.patres.automation.Main
-import com.patres.automation.serialize.AutomationMapper
+import com.patres.automation.mapper.AutomationMapper
 import java.io.File
 
 object GlobalSettingsLoader {
