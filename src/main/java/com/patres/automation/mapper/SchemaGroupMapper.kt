@@ -1,8 +1,8 @@
 package com.patres.automation.mapper
 
+import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.mapper.model.SchemaGroupSerialized
-import com.patres.automation.action.SchemaGroupModel
 
 
 object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, SchemaGroupSerialized> {

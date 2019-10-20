@@ -38,7 +38,7 @@ class SaveDialog(
     @FXML
     fun save() {
         val saved = RootSchemaLoader.saveExistingRootSchema(tabContainer)
-        if(saved) {
+        if (saved) {
             Main.mainController?.removeTab(tabContainer)
             dialogKeeper?.close()
         }

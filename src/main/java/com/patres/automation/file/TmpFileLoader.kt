@@ -1,9 +1,9 @@
 package com.patres.automation.file
 
 import com.patres.automation.Main
+import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.RootSchemaGroupMapper
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.util.fromBundle
 import java.io.File
 

@@ -5,9 +5,9 @@ import javafx.stage.Screen
 object MonitorSize {
 
     val width: Double
-        get()  = Screen.getPrimary().visualBounds.width
+        get() = Screen.getPrimary().visualBounds.width
 
     val height: Double
-        get()  = Screen.getPrimary().visualBounds.height
+        get() = Screen.getPrimary().visualBounds.height
 
 }

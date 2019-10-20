@@ -34,7 +34,7 @@ abstract class SettingsController(val title: String) : BorderPane() {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/Settings.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources =  Main.getBundle()
+        fxmlLoader.resources = Main.getBundle()
         fxmlLoader.load<SettingsController>()
 
         saveButton.isDisable = true

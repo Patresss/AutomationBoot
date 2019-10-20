@@ -6,6 +6,8 @@ import com.patres.automation.settings.GlobalSettingsLoader
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.beans.binding.Bindings
+import javafx.beans.binding.StringBinding
+import javafx.beans.property.SimpleObjectProperty
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
@@ -16,14 +18,10 @@ import org.slf4j.LoggerFactory
 import java.awt.*
 import java.io.File
 import java.io.IOException
-import java.util.*
-import javax.imageio.ImageIO
-import javafx.beans.binding.StringBinding
 import java.text.MessageFormat
-import java.util.ResourceBundle
-import javafx.beans.property.SimpleObjectProperty
+import java.util.*
 import java.util.concurrent.Callable
-import kotlin.math.log
+import javax.imageio.ImageIO
 
 
 class Main : Application() {
@@ -43,7 +41,7 @@ class Main : Application() {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            nu.pattern.OpenCV.loadShared(); //add this
+            nu.pattern.OpenCV.loadShared() //add this
 //            ServerBoot.run()
             launch(Main::class.java)
         }
@@ -62,9 +60,9 @@ class Main : Application() {
         }
 
 
-        fun getLanguageString(key: String, vararg args: Any) =  MessageFormat.format(getBundle().getString(key), *args)
+        fun getLanguageString(key: String, vararg args: Any) = MessageFormat.format(getBundle().getString(key), *args)
 
-         fun getBundle() = ResourceBundle.getBundle("language/Bundle", localeProperty.get())
+        fun getBundle() = ResourceBundle.getBundle("language/Bundle", localeProperty.get())
 
     }
 

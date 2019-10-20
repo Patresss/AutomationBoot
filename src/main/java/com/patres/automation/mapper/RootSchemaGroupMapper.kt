@@ -1,7 +1,7 @@
 package com.patres.automation.mapper
 
-import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import java.io.File
 
 object RootSchemaGroupMapper {

@@ -1,17 +1,13 @@
 package com.patres.automation.gui.controller.settings
 
-import com.jfoenix.controls.JFXCheckBox
 import com.patres.automation.Main
-import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
-import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.settings.LocalSettings
 import com.patres.automation.util.fromBundle
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
-import javafx.collections.ListChangeListener
 import javafx.util.Duration
 
 

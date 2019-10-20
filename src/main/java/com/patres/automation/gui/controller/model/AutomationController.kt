@@ -3,9 +3,9 @@ package com.patres.automation.gui.controller.model
 import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
 import com.patres.automation.action.AbstractAction
+import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.mapper.model.AutomationActionSerialized
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.calculateTypedParent
 import com.patres.automation.util.swap
