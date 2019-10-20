@@ -1,7 +1,6 @@
 package com.patres.automation.point
 
 import org.opencv.core.*
-import org.opencv.core.Point
 import org.opencv.imgcodecs.Imgcodecs
 import org.opencv.imgproc.Imgproc
 import org.slf4j.LoggerFactory
