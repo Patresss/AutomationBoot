@@ -10,7 +10,10 @@ enum class ActionBootKeyboard(
         val validation: Validationable? = null
 ) : ActionBootable {
 
-    PRESS_KEYBOARD_BUTTON("robot.action.keyboard.press");
+    PRESS_KEYBOARD_BUTTON("robot.action.keyboard.press"),
+
+    RUN_KEYS_SETTINGS("settings.runKeys"),
+    STOP_KEYS_SETTINGS("settings.stopKeys");
 
     override fun validation(): Validationable? {
         return this.validation

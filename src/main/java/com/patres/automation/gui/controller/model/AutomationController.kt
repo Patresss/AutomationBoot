@@ -122,7 +122,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         }
     }
 
-    abstract fun toModel(): AbstractAction
+    abstract fun toModel(): AbstractAction?
     abstract fun toSerialized(): AutomationActionSerialized
 }
 

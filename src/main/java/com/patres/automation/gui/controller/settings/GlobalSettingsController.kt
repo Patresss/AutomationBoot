@@ -2,17 +2,21 @@ package com.patres.automation.gui.controller.settings
 
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.MainController
+import com.patres.automation.gui.controller.model.KeyboardButtonActionController
+import com.patres.automation.settings.GlobalSettingsLoader
+import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.util.fromBundle
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
+import javafx.collections.ListChangeListener
 import javafx.util.Duration
 
 
-class GlobalSettingsController(private val mainController: MainController) : SettingsController(fromBundle("menu.settings.globalSettings")) {
+class GlobalSettingsController(private val mainController: MainController) : SettingsController("menu.settings.globalSettings") {
 
-//    private val stopKeysSetting = KeyboardButtonActionController(labelText = fromBundle("settings.stopKeys"))
+    private val stopKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.STOP_KEYS_SETTINGS)
 
     init {
         initChangeDetectors()
@@ -35,23 +39,23 @@ class GlobalSettingsController(private val mainController: MainController) : Set
 
 
     override fun saveSettings() {
-//        Main.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
-//        GlobalSettingsLoader.save(Main.globalSettings)
-//        saveButton.isDisable = true
-//        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
+        Main.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
+        GlobalSettingsLoader.save(Main.globalSettings)
+        saveButton.isDisable = true
+        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
 
     override fun initChangeDetectors() {
-//        stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+        stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
     }
 
     fun loadGlobalSettings() {
-//        mainVBox.children.add(stopKeysSetting)
+        mainVBox.children.add(stopKeysSetting)
         reloadSettingsValue()
     }
 
     fun reloadSettingsValue() {
-//        stopKeysSetting.keyboardField.setKeyboardButtons(Main.globalSettings.stopKeys)
+        stopKeysSetting.keyboardField.setKeyboardButtons(Main.globalSettings.stopKeys)
         saveButton.isDisable = true
     }
 

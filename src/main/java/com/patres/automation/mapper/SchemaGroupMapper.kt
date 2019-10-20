@@ -8,7 +8,7 @@ import com.patres.automation.mapper.model.SchemaGroupSerialized
 object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, SchemaGroupSerialized> {
 
     override fun controllerToModel(controller: SchemaGroupController): SchemaGroupModel {
-        val actionBlockModels = controller.actionBlocks.map { it.toModel() }
+        val actionBlockModels = controller.actionBlocks.mapNotNull { it.toModel() }
         val iteration = controller.getNumberOfIteration()
         val automationRunningProperty = controller.root?.automationRunningProperty
         return SchemaGroupModel(actionBlockModels, iteration, automationRunningProperty)

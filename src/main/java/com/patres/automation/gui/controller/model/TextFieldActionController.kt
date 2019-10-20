@@ -10,7 +10,7 @@ class TextFieldActionController(
         fxmlFile: String = "TextFieldAction.fxml"
 ) : TextActionController<ActionBootTextField>(fxmlFile, action) {
 
-    override fun toModel(): AbstractAction {
+    override fun toModel(): AbstractAction? {
         action.validation()?.check(value)
         return TextFieldActionMapper.controllerToModel(this)
     }

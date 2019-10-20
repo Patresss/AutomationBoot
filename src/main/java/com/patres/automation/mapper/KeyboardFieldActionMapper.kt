@@ -8,9 +8,11 @@ import com.patres.automation.type.ActionBootKeyboard
 
 object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, PressKeyboardButtonAction, KeyboardFieldActionSerialized> {
 
-    override fun controllerToModel(controller: KeyboardButtonActionController): PressKeyboardButtonAction {
+    override fun controllerToModel(controller: KeyboardButtonActionController): PressKeyboardButtonAction? {
         return when (controller.action) {
             ActionBootKeyboard.PRESS_KEYBOARD_BUTTON -> PressKeyboardButtonAction(controller.keyboardField)
+            ActionBootKeyboard.STOP_KEYS_SETTINGS -> null
+            ActionBootKeyboard.RUN_KEYS_SETTINGS -> null
         }
     }
 

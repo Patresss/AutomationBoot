@@ -14,7 +14,7 @@ import javafx.scene.layout.BorderPane
 import javafx.scene.layout.VBox
 
 
-abstract class SettingsController(val title: String) : BorderPane() {
+abstract class SettingsController(val bundleName: String) : BorderPane() {
 
     @FXML
     lateinit var mainVBox: VBox
@@ -39,7 +39,7 @@ abstract class SettingsController(val title: String) : BorderPane() {
 
         saveButton.isDisable = true
         snackBar = JFXSnackbar(this)
-        titleLabel.text = title
+        titleLabel.textProperty().bind(Main.createStringBinding(bundleName))
     }
 
     @FXML

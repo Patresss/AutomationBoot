@@ -27,7 +27,7 @@ class KeyboardButtonActionController(
 
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(keyboardField)
 
-    override fun toModel(): AbstractAction {
+    override fun toModel(): AbstractAction? {
         return KeyboardFieldActionMapper.controllerToModel(this)
     }
 
