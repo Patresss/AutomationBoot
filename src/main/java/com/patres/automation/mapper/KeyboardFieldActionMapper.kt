@@ -22,8 +22,8 @@ object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, PressK
         }
     }
 
-    override fun serializedToController(serialized: KeyboardFieldActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupController?): KeyboardButtonActionController {
-        return KeyboardButtonActionController(root, parent, serialized.actionType).apply {
+    override fun serializedToController(serialized: KeyboardFieldActionSerialized): KeyboardButtonActionController {
+        return KeyboardButtonActionController(serialized.actionType).apply {
             serialized.keys.forEach { keyboardField.addKeyboardButton(it) }
         }
     }

@@ -13,9 +13,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
 
 
-class SchemaGroupController(root: RootSchemaGroupModel,
-                            parent: SchemaGroupController? = null
-) : AutomationController<ActionBootSchema>("SchemaGroup.fxml", root, parent, ActionBootSchema.ADD_GROUP) { // TODO do I need menuItem?
+class SchemaGroupController : AutomationController<ActionBootSchema>("SchemaGroup.fxml", ActionBootSchema.ADD_GROUP) { // TODO do I need menuItem?
 
     @FXML
     lateinit var innerBox: VBox
@@ -47,36 +45,32 @@ class SchemaGroupController(root: RootSchemaGroupModel,
         get() = actionBlocks + schemaGroups.flatMap { it.allChildrenActionBlocks }
 
     fun addActionBlockToList(actionController: AutomationController<*>, index: Int) {
-        actionController.parent = this
         getMainInsideNode().children.add(index, actionController)
     }
 
     fun leaveGroupToUp(actionController: AutomationController<*>) {
-        actionController.parent?.removeNode(actionController)
-        val index = parent?.getMainInsideNode()?.children?.indexOf(this) ?: 0
-        parent?.addActionBlockToList(actionController, index)
+        actionController.schemaGroupParent?.removeNode(actionController)
+        val index = schemaGroupParent?.getMainInsideNode()?.children?.indexOf(this) ?: 0
+        schemaGroupParent?.addActionBlockToList(actionController, index)
     }
 
     fun leaveGroupToDown(actionController: AutomationController<*>) {
-        actionController.parent?.removeNode(actionController)
-        val index = (parent?.getMainInsideNode()?.children?.indexOf(this) ?: 0) + 1
-        parent?.addActionBlockToList(actionController, index)
+        actionController.schemaGroupParent?.removeNode(actionController)
+        val index = (schemaGroupParent?.getMainInsideNode()?.children?.indexOf(this) ?: 0) + 1
+        schemaGroupParent?.addActionBlockToList(actionController, index)
     }
 
     fun moveActionBlockToTop(actionController: AutomationController<*>) {
-        actionController.parent?.removeNode(actionController)
-        actionController.parent = this
+        actionController.schemaGroupParent?.removeNode(actionController)
         getMainInsideNode().children.add(0, actionController)
     }
 
     fun moveActionBlockToBottom(actionController: AutomationController<*>) {
-        actionController.parent?.removeNode(actionController)
-        actionController.parent = this
+        actionController.schemaGroupParent?.removeNode(actionController)
         getMainInsideNode().children.add(actionController)
     }
 
     fun addActionBlockToBottom(actionController: AutomationController<*>) {
-        actionController.parent = this
         getMainInsideNode().children.add(actionController)
     }
 

@@ -2,8 +2,8 @@ package com.patres.automation.type
 
 import com.patres.automation.ActionBootControllerType
 import com.patres.automation.file.FileType
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.BrowseFileActionController
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.validation.FileExistValidation
 import com.patres.automation.validation.FileExtensionValidation
 import com.patres.automation.validation.FileOrDirectoryExistValidation
@@ -37,6 +37,6 @@ enum class ActionBootBrowser(
         return this.controllerType
     }
 
-    override fun createController() = { root: RootSchemaGroupModel -> BrowseFileActionController(root, root.controller.getSelectedSchemaGroupModel(), this) }
+    override fun createController(): () -> AutomationController<*> = { BrowseFileActionController(this) }
 
 }

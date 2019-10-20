@@ -7,10 +7,8 @@ import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootTextArea
 
 class TextAreaActionController(
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupController?,
         action: ActionBootTextArea
-) : TextActionController<ActionBootTextArea>("AreaFieldAction.fxml", root, parent, action) {
+) : TextActionController<ActionBootTextArea>("AreaFieldAction.fxml", action) {
 
     override fun toModel(): AbstractAction {
         return TextAreaActionMapper.controllerToModel(this)

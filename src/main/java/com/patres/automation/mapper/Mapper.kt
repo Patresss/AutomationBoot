@@ -13,6 +13,6 @@ interface Mapper<ControllerType : AutomationController<*>, ActionType : Abstract
 
     fun controllerToSerialized(controller: ControllerType): SerializedType
 
-    fun serializedToController(serialized: SerializedType, root: RootSchemaGroupModel, parent: SchemaGroupController?): ControllerType
+    fun serializedToController(serialized: SerializedType): ControllerType
 
 }

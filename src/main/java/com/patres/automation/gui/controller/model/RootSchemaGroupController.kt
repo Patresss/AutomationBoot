@@ -45,7 +45,7 @@ open class RootSchemaGroupController(
     private val allChildrenActionBlocksRoot
         get() = schemaGroupController.allChildrenActionBlocks + schemaGroupController
 
-    var schemaGroupController = SchemaGroupController(root = model, parent = null)
+    var schemaGroupController = SchemaGroupController()
         set(value) {
             field = value
             loadControllerContent()
@@ -72,7 +72,7 @@ open class RootSchemaGroupController(
 
     fun removeSelectedModel() {
         val futureSelectedNode = selectedModel.findNodeOnTheTop()
-        selectedModel.parent?.removeNode(selectedModel)
+        selectedModel.schemaGroupParent?.removeNode(selectedModel)
         futureSelectedNode?.selectAction()
     }
 
@@ -97,7 +97,7 @@ open class RootSchemaGroupController(
         return if (selectedModelVal is SchemaGroupController) {
             selectedModelVal
         } else {
-            selectedModelVal.parent ?: schemaGroupController
+            selectedModelVal.schemaGroupParent ?: schemaGroupController
         }
     }
 

@@ -46,8 +46,8 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
         }
     }
 
-    override fun serializedToController(serialized: MousePointActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupController?): MousePointActionController {
-        return MousePointActionController(root, parent, serialized.actionType).apply {
+    override fun serializedToController(serialized: MousePointActionSerialized): MousePointActionController {
+        return MousePointActionController(serialized.actionType).apply {
             value = serialized.point ?: ""
             serialized.image?.let {
                 setImage(base64ToInputStream(it))

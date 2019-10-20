@@ -11,10 +11,8 @@ import javafx.fxml.FXML
 import javafx.scene.Node
 
 class KeyboardButtonActionController(
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupController?,
         action: ActionBootKeyboard
-) : LabelActionController<ActionBootKeyboard>("KeyboardFieldAction.fxml", root, parent, action) {
+) : LabelActionController<ActionBootKeyboard>("KeyboardFieldAction.fxml", action) {
 
     @FXML
     lateinit var keyboardField: KeyboardField

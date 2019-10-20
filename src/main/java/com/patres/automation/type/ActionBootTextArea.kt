@@ -30,8 +30,6 @@ enum class ActionBootTextArea(
         return this.controllerType
     }
 
-    override fun createController(): (RootSchemaGroupModel) -> AutomationController<*> {
-        return { root: RootSchemaGroupModel -> TextAreaActionController(root, root.controller.getSelectedSchemaGroupModel(), this) }
-    }
+    override fun createController(): () -> AutomationController<*> = { TextAreaActionController(this) }
 
 }

@@ -12,10 +12,10 @@ interface ActionBootable {
     fun controllerType(): ActionBootControllerType
     fun bundleName(): String
     fun validation(): Validationable?
-    fun createController(): (RootSchemaGroupModel) -> AutomationController<*>
+    fun createController(): () -> AutomationController<*>
 
     fun addController(): (RootSchemaGroupModel) -> Unit {
-        return { root: RootSchemaGroupModel -> root.controller.addActionBlocks(createController().invoke(root)) }
+        return { root: RootSchemaGroupModel -> root.controller.addActionBlocks(createController().invoke()) }
     }
 
 }

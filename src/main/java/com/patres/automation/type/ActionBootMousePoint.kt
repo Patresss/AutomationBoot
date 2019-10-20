@@ -45,8 +45,6 @@ enum class ActionBootMousePoint(
         return this.controllerType
     }
 
-    override fun createController(): (RootSchemaGroupModel) -> AutomationController<*> {
-        return { root: RootSchemaGroupModel -> MousePointActionController(root, root.controller.getSelectedSchemaGroupModel(), this) } // TODO refactro defoult value of parent
-    }
+    override fun createController(): () -> AutomationController<*> = { MousePointActionController(this) }
 
 }

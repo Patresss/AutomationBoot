@@ -14,7 +14,7 @@ object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, T
     override fun controllerToModel(controller: TextAreaActionController): AbstractAction {
         return when (controller.action) {
             ActionBootTextArea.PASTE_TEXT -> PasteTextFromFieldAction(controller.value)
-            ActionBootTextArea.TYPE_TEXT -> TypeTextFromFieldAction(controller.value, controller.root.automationRunningProperty)
+            ActionBootTextArea.TYPE_TEXT -> TypeTextFromFieldAction(controller.value, controller.root?.automationRunningProperty)
         }
     }
 
@@ -24,8 +24,8 @@ object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, T
         }
     }
 
-    override fun serializedToController(serialized: TextAreaActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupController?): TextAreaActionController {
-        return TextAreaActionController(root, parent, serialized.actionType).apply {
+    override fun serializedToController(serialized: TextAreaActionSerialized): TextAreaActionController {
+        return TextAreaActionController(serialized.actionType).apply {
             value = serialized.value
         }
     }

@@ -32,10 +32,8 @@ import java.lang.Math.min
 import kotlin.math.roundToInt
 
 class MousePointActionController(
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupController?,
         action: ActionBootMousePoint
-) : TextActionController<ActionBootMousePoint>("MousePointAction.fxml", root, parent, action) {
+) : TextActionController<ActionBootMousePoint>("MousePointAction.fxml", action) {
 
     @FXML
     lateinit var pointButton: JFXButton

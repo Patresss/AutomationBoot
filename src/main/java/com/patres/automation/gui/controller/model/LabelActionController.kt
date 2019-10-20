@@ -10,10 +10,8 @@ import javafx.scene.layout.Pane
 
 abstract class LabelActionController<ActionBootType: ActionBootable>(
         fxmlFile: String,
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupController?,
         action: ActionBootType
-) : AutomationController<ActionBootType>(fxmlFile, root, parent, action) {
+) : AutomationController<ActionBootType>(fxmlFile, action) {
 
     init {
         actionLabel.textProperty().bind(Main.createStringBinding(action.bundleName()))

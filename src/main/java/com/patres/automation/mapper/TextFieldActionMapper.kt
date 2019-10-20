@@ -14,7 +14,7 @@ object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction,
 
     override fun controllerToModel(controller: TextFieldActionController): AbstractAction {
         return when (controller.action) {
-            ActionBootTextField.DELAY -> DelayAction(controller.value.toInt(), controller.root.automationRunningProperty)
+            ActionBootTextField.DELAY -> DelayAction(controller.value.toInt(), controller.root?.automationRunningProperty)
             ActionBootTextField.SCROLL_WHEEL_UP -> ScrollWheelUpAction(controller.value.toInt())
             ActionBootTextField.SCROLL_WHEEL_DOWN -> ScrollWheelDownAction(controller.value.toInt())
         }
@@ -26,8 +26,8 @@ object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction,
         }
     }
 
-    override fun serializedToController(serialized: TextFieldActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupController?): TextFieldActionController {
-        return TextFieldActionController(root, parent, serialized.actionType).apply {
+    override fun serializedToController(serialized: TextFieldActionSerialized): TextFieldActionController {
+        return TextFieldActionController(serialized.actionType).apply {
             value = serialized.value
         }
     }

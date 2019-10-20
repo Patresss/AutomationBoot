@@ -21,7 +21,7 @@ object RootSchemaGroupMapper {
                 localSettings = serializedModel.localSettings,
                 saved = serializedModel.saved
         ).apply {
-            controller.schemaGroupController = SchemaGroupMapper.serializedToController(serializedModel.schemaGroupSerialized, this, null)
+            controller.schemaGroupController = SchemaGroupMapper.serializedToController(serializedModel.schemaGroupSerialized)
             if (File(serializedModel.tmpFile).exists()) {
                 tmpFile = File(serializedModel.tmpFile)
             }

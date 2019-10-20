@@ -7,13 +7,13 @@ import javafx.beans.property.BooleanProperty
 class SchemaGroupModel(
         private val actions: List<AbstractAction>,
         private val iteration: Int,
-        private val automationRunningProperty: BooleanProperty
+        private val automationRunningProperty: BooleanProperty?
 ) : AbstractAction(ActionBootSchema.ADD_GROUP) {
 
     override fun runAction() {
         for (i in 0 until iteration) {
             for (action in actions) {
-                if (automationRunningProperty.get()) {
+                if (automationRunningProperty?.get() != false) {
                     action.runAction()
                 } else {
                     return

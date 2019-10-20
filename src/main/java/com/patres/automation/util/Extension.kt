@@ -122,3 +122,13 @@ fun GlyphIcons.getIcon(): Node? {
     graphic?.styleClass?.add("sub-icon")
     return graphic
 }
+
+
+fun <T : Node> Node.calculateTypedParent(type: KClass<T>): T? {
+    val potentialParent = parent
+    return when {
+        type.isInstance(potentialParent) -> potentialParent as T
+        potentialParent is Node -> potentialParent.calculateTypedParent(type)
+        else -> null
+    }
+}

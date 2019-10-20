@@ -3,8 +3,6 @@ package com.patres.automation.type
 import com.patres.automation.ActionBootControllerType
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.TextFieldActionController
-import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.validation.IntegerValidation
 import com.patres.automation.validation.PositiveIntegerValidation
 import com.patres.automation.validation.Validationable
 
@@ -33,8 +31,6 @@ enum class ActionBootTextField(
         return this.controllerType
     }
 
-    override fun createController(): (RootSchemaGroupModel) -> AutomationController<*> {
-        return { root: RootSchemaGroupModel -> TextFieldActionController(root, root.controller.getSelectedSchemaGroupModel(), this) }
-    }
+    override fun createController(): () -> AutomationController<*> = { TextFieldActionController(this) }
 
 }

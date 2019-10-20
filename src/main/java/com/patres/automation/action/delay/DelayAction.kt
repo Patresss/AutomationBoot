@@ -7,8 +7,8 @@ import javafx.beans.property.BooleanProperty
 import org.slf4j.LoggerFactory
 
 class DelayAction(
-        val delay: Int,
-        private val canBeRunningProperty: BooleanProperty
+        private val delay: Int,
+        private val canBeRunningProperty: BooleanProperty?
 ) : AbstractAction(ActionBootTextField.DELAY) {
 
     companion object {
@@ -19,7 +19,7 @@ class DelayAction(
     override fun runAction() {
         try {
             var currentDelay = 0
-            while (currentDelay <= delay && canBeRunningProperty.get()) {
+            while (currentDelay <= delay && canBeRunningProperty?.get() != false) {
                 currentDelay += DELAY_STEP
                 Thread.sleep(DELAY_STEP.toLong())
             }

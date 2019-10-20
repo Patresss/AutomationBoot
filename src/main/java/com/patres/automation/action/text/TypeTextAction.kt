@@ -10,16 +10,16 @@ import org.slf4j.LoggerFactory
 import java.io.File
 
 
-class TypeTextFromFieldAction(private val text: String, automationRunningProperty: BooleanProperty) : TypeTextAction(automationRunningProperty, ActionBootTextArea.TYPE_TEXT) {
+class TypeTextFromFieldAction(private val text: String, automationRunningProperty: BooleanProperty?) : TypeTextAction(automationRunningProperty, ActionBootTextArea.TYPE_TEXT) {
     override fun getText() = text
 }
 
-class TypeTextFromFileAction(private val path: String, automationRunningProperty: BooleanProperty) : TypeTextAction(automationRunningProperty, ActionBootBrowser.TYPE_TEXT_FROM_FILE) {
+class TypeTextFromFileAction(private val path: String, automationRunningProperty: BooleanProperty?) : TypeTextAction(automationRunningProperty, ActionBootBrowser.TYPE_TEXT_FROM_FILE) {
     override fun getText() = File(path).readText()
 }
 
 abstract class TypeTextAction(
-        private val automationRunningProperty: BooleanProperty,
+        private val automationRunningProperty: BooleanProperty?,
         actionBoot: ActionBootable
 ) : AbstractAction(actionBoot) {
 
@@ -33,7 +33,7 @@ abstract class TypeTextAction(
         run loop@{
             getText().toCharArray()
                     .forEach {
-                        if (!automationRunningProperty.get()) {
+                        if (automationRunningProperty?.get() == false) {
                             return@loop
                         }
                         pressKey(it)

@@ -10,10 +10,8 @@ import javafx.scene.control.TextInputControl
 
 abstract class TextActionController<ActionBootType : ActionBootable>(
         fxmlFile: String,
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupController?,
         action: ActionBootType
-) : LabelActionController<ActionBootType>(fxmlFile, root, parent, action) {
+) : LabelActionController<ActionBootType>(fxmlFile, action) {
 
     @FXML
     lateinit var valueText: TextInputControl
@@ -27,7 +25,7 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
     override fun initialize() {
         super.initialize()
         valueText.textProperty().addListener { _, _, _ ->
-            root.changeDetect()
+            root?.changeDetect()
             checkValidation()
         }
         checkValidation()

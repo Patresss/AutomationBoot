@@ -17,7 +17,7 @@ object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, 
     override fun controllerToModel(controller: BrowseFileActionController): AbstractAction {
         return when (controller.action) {
             ActionBootBrowser.PASTE_TEXT_FROM_FILE -> PasteTextFromFileAction(controller.value)
-            ActionBootBrowser.TYPE_TEXT_FROM_FILE -> TypeTextFromFileAction(controller.value, controller.root.automationRunningProperty)
+            ActionBootBrowser.TYPE_TEXT_FROM_FILE -> TypeTextFromFileAction(controller.value, controller.root?.automationRunningProperty)
             ActionBootBrowser.OPEN_FILE_OR_DIRECTORY -> OpenFileOrDirectoryAction(controller.value)
             ActionBootBrowser.WINDOWS_SCRIPT_RUN -> WindowsRunScriptAction(controller.value)
             ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE -> WindowsRunAndWaitScriptAction(controller.value)
@@ -30,8 +30,8 @@ object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, 
         }
     }
 
-    override fun serializedToController(serialized: BrowserActionSerialized, root: RootSchemaGroupModel, parent: SchemaGroupController?): BrowseFileActionController {
-        return BrowseFileActionController(root, parent, serialized.actionType).apply {
+    override fun serializedToController(serialized: BrowserActionSerialized): BrowseFileActionController {
+        return BrowseFileActionController(serialized.actionType).apply {
             value = serialized.path
         }
     }

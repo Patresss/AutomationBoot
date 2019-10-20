@@ -11,10 +11,8 @@ import javafx.fxml.FXML
 import javafx.scene.Node
 
 class BrowseFileActionController(
-        root: RootSchemaGroupModel,
-        parent: SchemaGroupController?,
         action: ActionBootBrowser
-) : TextActionController<ActionBootBrowser>("BrowsFileAction.fxml", root, parent, action) {
+) : TextActionController<ActionBootBrowser>("BrowsFileAction.fxml", action) {
 
     @FXML
     lateinit var browseFileButton: JFXButton

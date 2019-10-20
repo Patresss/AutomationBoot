@@ -11,7 +11,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
     override fun controllerToModel(controller: SchemaGroupController): SchemaGroupModel {
         val actionBlockModels = controller.actionBlocks.map { it.toModel() }
         val iteration = controller.getNumberOfIteration()
-        val automationRunningProperty = controller.root.automationRunningProperty
+        val automationRunningProperty = controller.root?.automationRunningProperty
         return SchemaGroupModel(actionBlockModels, iteration, automationRunningProperty)
     }
 
@@ -22,12 +22,12 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
         }
     }
 
-    override fun serializedToController(serialized: SchemaGroupSerialized, root: RootSchemaGroupModel, parent: SchemaGroupController?): SchemaGroupController {
-        return SchemaGroupController(root, parent).apply {
+    override fun serializedToController(serialized: SchemaGroupSerialized): SchemaGroupController {
+        return SchemaGroupController().apply {
             groupNameTextField.text = serialized.groupName
             iterationsTextField.text = serialized.numberOfIterations
             serialized.actionList
-                    .map { it.serializedToController(root, this) }
+                    .map { it.serializedToController() }
                     .forEach { this.addActionBlockToBottom(it) }
         }
     }

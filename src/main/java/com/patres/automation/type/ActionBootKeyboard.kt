@@ -6,7 +6,6 @@ import com.patres.automation.action.keyboard.PressKeyboardButtonAction
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.custom.KeyboardField
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.validation.Validationable
 
 
@@ -31,8 +30,6 @@ enum class ActionBootKeyboard(
         return this.controllerType
     }
 
-    override fun createController(): (RootSchemaGroupModel) -> AutomationController<*> {
-        return { root: RootSchemaGroupModel -> KeyboardButtonActionController(root, root.controller.getSelectedSchemaGroupModel(), this) }
-    }
+    override fun createController(): () -> AutomationController<*> = { KeyboardButtonActionController(this) }
 
 }
