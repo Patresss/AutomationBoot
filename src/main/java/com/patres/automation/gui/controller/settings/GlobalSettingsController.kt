@@ -1,17 +1,13 @@
 package com.patres.automation.gui.controller.settings
 
 import com.patres.automation.Main
+import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.util.fromBundle
-import javafx.animation.Interpolator
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
-import javafx.animation.Timeline
 import javafx.collections.ListChangeListener
-import javafx.util.Duration
 
 
 class GlobalSettingsController(private val mainController: MainController) : SettingsController("menu.settings.globalSettings") {
@@ -24,19 +20,8 @@ class GlobalSettingsController(private val mainController: MainController) : Set
     }
 
     override fun backToPreviousWindow() {
-        val tabPane = mainController.tabPane
-        tabPane.translateXProperty().set(-Main.mainStage.scene.width)
-
-        mainController.centerStackPane.children.add(tabPane)
-
-        val timeline = Timeline()
-        val kv = KeyValue(tabPane.translateXProperty(), 0, Interpolator.EASE_IN)
-        val kf = KeyFrame(Duration.seconds(0.1), kv)
-        timeline.keyFrames.add(kf)
-        timeline.setOnFinished { mainController.centerStackPane.children.remove(this) }
-        timeline.play()
+        SliderAnimation.backToTheWindow(mainController.tabPane, this, mainController.centerStackPane)
     }
-
 
     override fun saveSettings() {
         Main.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
@@ -49,7 +34,7 @@ class GlobalSettingsController(private val mainController: MainController) : Set
         stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
     }
 
-    fun loadGlobalSettings() {
+    private fun loadGlobalSettings() {
         mainVBox.children.add(stopKeysSetting)
         reloadSettingsValue()
     }

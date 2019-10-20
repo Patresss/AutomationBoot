@@ -2,18 +2,14 @@ package com.patres.automation.gui.controller.settings
 
 import com.jfoenix.controls.JFXCheckBox
 import com.patres.automation.Main
+import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.settings.LocalSettings
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootTextField
-import javafx.animation.Interpolator
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
-import javafx.animation.Timeline
 import javafx.collections.ListChangeListener
-import javafx.util.Duration
 
 
 class LocalSettingsController(
@@ -35,17 +31,7 @@ class LocalSettingsController(
     }
 
     override fun backToPreviousWindow() {
-        val rootBorderPane = rootSchemaGroupController.rootBorderPane
-        rootBorderPane.translateXProperty().set(-Main.mainStage.scene.width)
-
-        rootSchemaGroupController.children.add(rootBorderPane)
-
-        val timeline = Timeline()
-        val kv = KeyValue(rootBorderPane.translateXProperty(), 0, Interpolator.EASE_IN)
-        val kf = KeyFrame(Duration.seconds(0.1), kv)
-        timeline.keyFrames.add(kf)
-        timeline.setOnFinished { rootSchemaGroupController.children.remove(this) }
-        timeline.play()
+        SliderAnimation.backToTheWindow(rootSchemaGroupController.rootBorderPane, this, rootSchemaGroupController)
     }
 
     override fun saveSettings() {

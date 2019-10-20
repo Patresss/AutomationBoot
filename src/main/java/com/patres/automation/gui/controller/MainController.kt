@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.settings.GlobalSettingsLoader
@@ -12,10 +13,6 @@ import com.patres.automation.util.RootSchemaLoader
 import com.patres.automation.util.fromBundle
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
-import javafx.animation.Interpolator
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
-import javafx.animation.Timeline
 import javafx.collections.FXCollections
 import javafx.collections.ListChangeListener
 import javafx.collections.ObservableList
@@ -23,7 +20,6 @@ import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.TabPane
 import javafx.scene.layout.StackPane
-import javafx.util.Duration
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.text.MessageFormat
@@ -131,15 +127,7 @@ class MainController {
     fun openGlobalSettings() {
         if (!centerStackPane.children.contains(globalSettingsController)) {
             globalSettingsController.reloadSettingsValue()
-            globalSettingsController.translateXProperty().set(Main.mainStage.scene.width)
-            centerStackPane.children.add(globalSettingsController)
-
-            val timeline = Timeline()
-            val kv = KeyValue(globalSettingsController.translateXProperty(), 0, Interpolator.EASE_IN)
-            val kf = KeyFrame(Duration.seconds(0.1), kv)
-            timeline.keyFrames.add(kf)
-            timeline.setOnFinished { centerStackPane.children.remove(tabPane) }
-            timeline.play()
+            SliderAnimation.goToTheWindow(globalSettingsController, tabPane, centerStackPane)
         }
     }
 

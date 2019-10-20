@@ -2,6 +2,7 @@ package com.patres.automation.gui.controller.model
 
 import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.ActionBarController
 import com.patres.automation.gui.controller.settings.LocalSettingsController
 import com.patres.automation.gui.custom.KeyboardButton
@@ -103,16 +104,7 @@ open class RootSchemaGroupController(
 
     fun openLocalSettings() {
         val localSettingsController = LocalSettingsController(this, model.localSettings)
-        // TODO refactor animation
-        localSettingsController.translateXProperty().set(Main.mainStage.scene.width)
-        children.add(localSettingsController)
-
-        val timeline = Timeline()
-        val kv = KeyValue(localSettingsController.translateXProperty(), 0, Interpolator.EASE_IN)
-        val kf = KeyFrame(Duration.seconds(0.1), kv)
-        timeline.keyFrames.add(kf)
-        timeline.setOnFinished { children.remove(rootBorderPane) }
-        timeline.play()
+        SliderAnimation.goToTheWindow(localSettingsController, rootBorderPane, this)
     }
 
     fun addActionBlocks(actionController: AutomationController<*>) {
