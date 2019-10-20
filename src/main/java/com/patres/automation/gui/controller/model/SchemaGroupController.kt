@@ -3,8 +3,7 @@ package com.patres.automation.gui.controller.model
 import com.jfoenix.controls.JFXTextField
 import com.patres.automation.mapper.SchemaGroupMapper
 import com.patres.automation.mapper.model.SchemaGroupSerialized
-import com.patres.automation.model.RootSchemaGroupModel
-import com.patres.automation.model.SchemaGroupModel
+import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.type.ActionBootSchema
 import javafx.event.EventHandler
 import javafx.fxml.FXML

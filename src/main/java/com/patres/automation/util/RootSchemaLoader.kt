@@ -6,7 +6,7 @@ import com.patres.automation.Main
 import com.patres.automation.file.FileChooser
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.dialog.SaveDialog
-import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.RootSchemaGroupMapper
 import com.patres.automation.mapper.model.RootSchemaGroupSerialized

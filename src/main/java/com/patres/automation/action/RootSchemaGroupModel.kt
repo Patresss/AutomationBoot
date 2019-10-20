@@ -1,10 +1,9 @@
-package com.patres.automation.model
+package com.patres.automation.action
 
 import com.patres.automation.Main
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
-import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader

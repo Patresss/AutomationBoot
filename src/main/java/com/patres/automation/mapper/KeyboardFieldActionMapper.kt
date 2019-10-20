@@ -2,9 +2,7 @@ package com.patres.automation.mapper
 
 import com.patres.automation.action.keyboard.PressKeyboardButtonAction
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
-import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.mapper.model.KeyboardFieldActionSerialized
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootKeyboard
 
 

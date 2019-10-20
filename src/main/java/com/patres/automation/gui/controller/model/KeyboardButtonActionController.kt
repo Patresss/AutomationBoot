@@ -4,7 +4,6 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.custom.KeyboardField
 import com.patres.automation.mapper.KeyboardFieldActionMapper
 import com.patres.automation.mapper.model.KeyboardFieldActionSerialized
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootKeyboard
 import javafx.beans.InvalidationListener
 import javafx.fxml.FXML

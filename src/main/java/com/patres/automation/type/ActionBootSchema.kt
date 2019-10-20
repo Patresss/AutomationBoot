@@ -1,6 +1,5 @@
 package com.patres.automation.type
 
-import com.patres.automation.ActionBootControllerType
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.validation.Validationable
@@ -8,11 +7,10 @@ import com.patres.automation.validation.Validationable
 
 enum class ActionBootSchema(
         val bundleName: String,
-        val validation: Validationable? = null,
-        private val controllerType: ActionBootControllerType
+        val validation: Validationable? = null
 ) : ActionBootable {
 
-    ADD_GROUP("robot.action.addGroup", null, ActionBootControllerType.SCHEMA_GROUP);
+    ADD_GROUP("robot.action.addGroup", null);
 
     override fun validation(): Validationable? {
         return this.validation
@@ -20,10 +18,6 @@ enum class ActionBootSchema(
 
     override fun bundleName(): String {
         return this.bundleName
-    }
-
-    override fun controllerType(): ActionBootControllerType {
-        return this.controllerType
     }
 
     override fun createController(): () -> AutomationController<*> = { SchemaGroupController() }

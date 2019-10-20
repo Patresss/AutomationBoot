@@ -4,7 +4,7 @@ import com.patres.automation.Main
 import com.patres.automation.gui.controller.ActionBarController
 import com.patres.automation.gui.controller.settings.LocalSettingsController
 import com.patres.automation.gui.custom.KeyboardButton
-import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.action.RootSchemaGroupModel
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue

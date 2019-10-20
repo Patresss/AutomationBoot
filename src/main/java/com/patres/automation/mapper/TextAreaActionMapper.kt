@@ -3,10 +3,8 @@ package com.patres.automation.mapper
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.text.PasteTextFromFieldAction
 import com.patres.automation.action.text.TypeTextFromFieldAction
-import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.gui.controller.model.TextAreaActionController
 import com.patres.automation.mapper.model.TextAreaActionSerialized
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootTextArea
 
 object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, TextAreaActionSerialized> {

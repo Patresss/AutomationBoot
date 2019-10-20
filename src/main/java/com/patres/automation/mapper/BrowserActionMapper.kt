@@ -7,9 +7,7 @@ import com.patres.automation.action.script.WindowsRunScriptAction
 import com.patres.automation.action.text.PasteTextFromFileAction
 import com.patres.automation.action.text.TypeTextFromFileAction
 import com.patres.automation.gui.controller.model.BrowseFileActionController
-import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.mapper.model.BrowserActionSerialized
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootBrowser
 
 object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, BrowserActionSerialized> {

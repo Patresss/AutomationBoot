@@ -1,6 +1,5 @@
-package com.patres.automation.model
+package com.patres.automation.action
 
-import com.patres.automation.action.AbstractAction
 import com.patres.automation.type.ActionBootSchema
 import javafx.beans.property.BooleanProperty
 

@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
-import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.util.RootSchemaLoader
 import com.patres.automation.util.fromBundle
@@ -170,7 +170,7 @@ class MainController {
         tabPane.tabs.remove(tabContainer.tab)
     }
 
-    fun findActionByName(actionName: String):RootSchemaGroupModel? {
+    fun findActionByName(actionName: String): RootSchemaGroupModel? {
         return tabContainers
                 .map { it.rootSchema }
                 .find { it.localSettings.enableRest && it.getEndpointName() == actionName}

@@ -1,4 +1,4 @@
-package com.patres.automation.menuItem
+package com.patres.automation.gui.menuItem
 
 
 enum class MenuItemGroup(

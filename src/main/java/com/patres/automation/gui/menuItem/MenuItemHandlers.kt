@@ -1,6 +1,6 @@
-package com.patres.automation.menuItem
+package com.patres.automation.gui.menuItem
 
-import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.action.RootSchemaGroupModel
 
 object MenuItemHandlers {
 

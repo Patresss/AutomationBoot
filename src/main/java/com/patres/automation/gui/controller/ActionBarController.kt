@@ -7,9 +7,8 @@ import com.jfoenix.controls.JFXPopup
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.IconButton
-import com.patres.automation.gui.font.FontAutomationIcon
-import com.patres.automation.menuItem.MenuItem
-import com.patres.automation.menuItem.MenuItemGroup
+import com.patres.automation.gui.menuItem.MenuItem
+import com.patres.automation.gui.menuItem.MenuItemGroup
 import com.patres.automation.util.fromBundle
 import com.patres.automation.util.getIcon
 import javafx.collections.FXCollections

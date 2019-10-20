@@ -5,9 +5,7 @@ import com.patres.automation.action.mouse.point.ImagePointDetector
 import com.patres.automation.action.mouse.point.PointDetector
 import com.patres.automation.action.mouse.point.SpecificPointDetector
 import com.patres.automation.gui.controller.model.MousePointActionController
-import com.patres.automation.gui.controller.model.SchemaGroupController
 import com.patres.automation.mapper.model.MousePointActionSerialized
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.point.Point
 import com.patres.automation.type.ActionBootMousePoint
 import java.io.ByteArrayInputStream

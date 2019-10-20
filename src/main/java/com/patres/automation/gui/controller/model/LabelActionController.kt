@@ -2,7 +2,6 @@ package com.patres.automation.gui.controller.model
 
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.Main
-import com.patres.automation.model.RootSchemaGroupModel
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Label

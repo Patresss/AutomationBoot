@@ -8,7 +8,6 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.controller.pointer.PointerController
 import com.patres.automation.mapper.MousePointActionMapper
 import com.patres.automation.mapper.model.MousePointActionSerialized
-import com.patres.automation.model.RootSchemaGroupModel
 import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.util.MonitorSize
 import com.patres.automation.util.fromBundle

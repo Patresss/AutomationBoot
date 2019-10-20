@@ -1,7 +1,7 @@
 package com.patres.automation.keyboard.listener
 
 import com.patres.automation.keyboard.KeyAdapter
-import com.patres.automation.model.RootSchemaGroupModel
+import com.patres.automation.action.RootSchemaGroupModel
 import javafx.application.Platform
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
