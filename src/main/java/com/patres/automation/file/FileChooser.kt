@@ -2,16 +2,22 @@ package com.patres.automation.file
 
 import com.patres.automation.Main
 import com.patres.automation.settings.GlobalSettingsLoader
+import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 import java.io.File
 
 class FileChooser(
-        fileType: FileType?
+        fileType: FileType?,
+        private val director: Boolean = false
 ) {
 
     private val extFilter = if (fileType != null) FileChooser.ExtensionFilter("${fileType.type} (*.${fileType.extension})", "*.${fileType.extension}") else null
 
-    fun chooseFileToLoad(pathTarget: String? = null): File? {
+    fun chooseToLoad(pathTarget: String? = null): File? {
+        return if(director) chooseFileOrDirectoryToLoad(pathTarget) else chooseFileToLoad(pathTarget)
+    }
+
+    private fun chooseFileToLoad(pathTarget: String? = null): File? {
         val fileChooser = getFileChooser()
         pathTarget?.let {
             val file = File(it)
@@ -20,15 +26,30 @@ class FileChooser(
             }
         }
         fileChooser.titleProperty().bind(Main.createStringBinding("action.chooseFile"))
+        return fileChooser.showOpenDialog(Main.mainStage)?.apply {
+            saveLastOpenDirectory(this)
+        }
+    }
 
-        return fileChooser.showOpenDialog(Main.mainStage)
-                ?.apply { saveLastOpenDirectory(this) }
+    private fun chooseFileOrDirectoryToLoad(pathTarget: String? = null): File? {
+        val chooser = getDirectoryChooser()
+        pathTarget?.let {
+            val file = File(it)
+            if (file.exists()) {
+                chooser.initialDirectory = file.parentFile
+            }
+        }
+        chooser.titleProperty().bind(Main.createStringBinding("action.chooseFileOrDirectory"))
+        return chooser.showDialog(Main.mainStage)?.apply {
+            saveLastOpenDirectory(this)
+        }
     }
 
     fun chooseFileToSave(): File? {
         val fileChooser = getFileChooser()
-        return fileChooser.showSaveDialog(Main.mainStage)
-                ?.apply { saveLastOpenDirectory(this) }
+        return fileChooser.showSaveDialog(Main.mainStage)?.apply {
+            saveLastOpenDirectory(this)
+        }
     }
 
     private fun saveLastOpenDirectory(file: File) {
@@ -40,9 +61,17 @@ class FileChooser(
     }
 
     private fun getFileChooser(): FileChooser {
-        return FileChooser().apply {
+        val chooser = FileChooser()
+        return chooser.apply {
             Main.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
-            extFilter.let { extensionFilters.add(it) }
+            extFilter?.let { extensionFilters.add(it) }
+        }
+    }
+
+    private fun getDirectoryChooser(): DirectoryChooser {
+        val chooser = DirectoryChooser()
+        return chooser.apply {
+            Main.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
         }
     }
 

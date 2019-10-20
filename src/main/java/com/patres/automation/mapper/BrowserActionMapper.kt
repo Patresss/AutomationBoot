@@ -1,7 +1,8 @@
 package com.patres.automation.mapper
 
 import com.patres.automation.action.AbstractAction
-import com.patres.automation.action.script.OpenFileOrDirectoryAction
+import com.patres.automation.action.script.OpenDirectoryAction
+import com.patres.automation.action.script.OpenFileAction
 import com.patres.automation.action.script.WindowsRunAndWaitScriptAction
 import com.patres.automation.action.script.WindowsRunScriptAction
 import com.patres.automation.action.text.PasteTextFromFileAction
@@ -16,7 +17,8 @@ object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, 
         return when (controller.action) {
             ActionBootBrowser.PASTE_TEXT_FROM_FILE -> PasteTextFromFileAction(controller.value)
             ActionBootBrowser.TYPE_TEXT_FROM_FILE -> TypeTextFromFileAction(controller.value, controller.root?.automationRunningProperty)
-            ActionBootBrowser.OPEN_FILE_OR_DIRECTORY -> OpenFileOrDirectoryAction(controller.value)
+            ActionBootBrowser.OPEN_FILE -> OpenFileAction(controller.value)
+            ActionBootBrowser.OPEN_DIRECTORY -> OpenDirectoryAction(controller.value)
             ActionBootBrowser.WINDOWS_SCRIPT_RUN -> WindowsRunScriptAction(controller.value)
             ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE -> WindowsRunAndWaitScriptAction(controller.value)
         }

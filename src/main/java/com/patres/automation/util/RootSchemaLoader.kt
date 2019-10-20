@@ -31,7 +31,7 @@ object RootSchemaLoader {
     }
 
     fun openRootSchema(tabPane: TabPane): TabContainer? {
-        val fileToOpen = loaderFile.chooseFileToLoad()
+        val fileToOpen = loaderFile.chooseToLoad()
         if (fileToOpen != null) {
             val serializedRootGroup = fileToOpen.readText()
             val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)

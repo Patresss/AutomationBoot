@@ -5,10 +5,13 @@ import com.patres.automation.type.ActionBootBrowser
 import java.awt.Desktop
 import java.io.File
 
+class OpenFileAction(path: String) : OpenFileOrDirectoryAction(path, ActionBootBrowser.OPEN_FILE)
+class OpenDirectoryAction(path: String) : OpenFileOrDirectoryAction(path, ActionBootBrowser.OPEN_DIRECTORY)
 
-class OpenFileOrDirectoryAction(
-        val path: String
-) : AbstractAction(ActionBootBrowser.OPEN_FILE_OR_DIRECTORY) {
+abstract class OpenFileOrDirectoryAction(
+        val path: String,
+        action: ActionBootBrowser
+) : AbstractAction(action) {
 
     override fun runAction() {
         val file = File(path)
