@@ -28,7 +28,7 @@
         <JFXTextField fx:id="valueText" GridPane.columnIndex="2"/>
         <JFXButton fx:id="browseFileButton" onAction="#browseFile" styleClass="sub-action-button" GridPane.columnIndex="3" GridPane.rowSpan="2">
             <graphic>
-                <FontAwesomeIconView glyphName="FILE" styleClass="sub-icon"/>
+                <FontAwesomeIconView glyphName="FOLDER" styleClass="sub-icon"/>
             </graphic>
             <GridPane.margin>
                 <Insets left="10.0"/>
