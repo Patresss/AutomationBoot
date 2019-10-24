@@ -28,7 +28,7 @@ class Main : Application() {
 
     companion object {
         val logger = LoggerFactory.getLogger(Main::class.java)!!
-        const val sceneWidth = 475
+        const val sceneWidth = 515
         const val sceneHeight = 715
         const val sceneBarHeight = 35.0 + 4.0
         const val sceneBarWeight = 4.0 + 4.0

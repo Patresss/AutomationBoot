@@ -13,7 +13,8 @@ enum class MenuItem(
         val parent: MenuItem? = null,
         val bundleName: String = actionBoot?.bundleName() ?: "",
         val shouldBeDisabled: (controller: RootSchemaGroupController) -> Boolean = { false },
-        val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = actionBoot?.addController() ?: {}
+        val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = actionBoot?.addController() ?: {},
+        val actionGraphic: GlyphIcons = graphic
 ) {
 
     RUN(FontAwesomeIcon.PLAY, null, null, "robot.action.runAutomation", menuItemHandler = MenuItemHandlers.runAutomation),
@@ -33,21 +34,21 @@ enum class MenuItem(
     KEYBOARD(FontAwesomeIcon.KEYBOARD_ALT, bundleName = "robot.action.keyboard"),
     SCRIPT(FontAwesomeIcon.TERMINAL, bundleName = "robot.action.scripts"),
 
-    CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.CLICK_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON),
-    CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.CLICK_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON),
-    CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.CLICK_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON),
+    CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.CLICK_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.LEFT_MOUSE_BUTTON_EDGE_ALT),
+    CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.CLICK_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.MIDDLE_MOUSE_BUTTON),
+    CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.CLICK_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.RIGHT_MOUSE_BUTTON),
 
-    DOUBLE_CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.DOUBLE_CLICK_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON),
-    DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON),
-    DOUBLE_CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON),
+    DOUBLE_CLICK_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.DOUBLE_CLICK_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.LEFT_MOUSE_BUTTON_EDGE_ALT),
+    DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.MIDDLE_MOUSE_BUTTON),
+    DOUBLE_CLICK_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.RIGHT_MOUSE_BUTTON),
 
-    PRESS_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.PRESS_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON),
-    PRESS_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.PRESS_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON),
-    PRESS_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.PRESS_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON),
+    PRESS_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.PRESS_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.LEFT_MOUSE_BUTTON_EDGE_ALT),
+    PRESS_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.PRESS_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.MIDDLE_MOUSE_BUTTON),
+    PRESS_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.PRESS_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.RIGHT_MOUSE_BUTTON),
 
-    RELEASE_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.RELEASE_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON),
-    RELEASE_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.RELEASE_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON),
-    RELEASE_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.RELEASE_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON),
+    RELEASE_LEFT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.RELEASE_LEFT_MOUSE_BUTTON, LEFT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.LEFT_MOUSE_BUTTON_EDGE_ALT),
+    RELEASE_MIDDLE_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.RELEASE_MIDDLE_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.MIDDLE_MOUSE_BUTTON),
+    RELEASE_RIGHT_MOUSE_BUTTON(FontAwesomeIcon.MOUSE_POINTER, ActionBootMousePoint.RELEASE_RIGHT_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON, actionGraphic = FontAutomationIcon.RIGHT_MOUSE_BUTTON),
     SCROLL_WHEEL_UP(FontAwesomeIcon.CARET_UP, ActionBootTextField.SCROLL_WHEEL_UP, MIDDLE_MOUSE_BUTTON),
     SCROLL_WHEEL_DOWN(FontAwesomeIcon.CARET_DOWN, ActionBootTextField.SCROLL_WHEEL_DOWN, MIDDLE_MOUSE_BUTTON),
 
@@ -66,6 +67,7 @@ enum class MenuItem(
 
     companion object {
         fun findAllWithAction(action: MenuItem) = MenuItem.values().filter { it.parent == action }
+        inline fun <reified T : ActionBootable> findAllWithThisSameActionType() = MenuItem.values().map { it.actionBoot }.filterIsInstance<T>()
     }
 
 }

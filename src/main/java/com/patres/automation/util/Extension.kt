@@ -17,6 +17,12 @@ import javafx.scene.control.TextInputControl
 import javafx.scene.control.Tooltip
 import javafx.util.Duration
 import kotlin.reflect.KClass
+import javafx.scene.layout.GridPane.getColumnIndex
+import javafx.scene.layout.GridPane.getRowIndex
+import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
+import javafx.scene.layout.GridPane
+import com.sun.deploy.security.ValidationState.TYPE
+import de.jensd.fx.glyphs.GlyphIcon
 
 
 fun TextInputControl.setIntegerFilter() {
@@ -113,13 +119,23 @@ fun Tooltip.getHideTimer(): Timeline {
     return fieldTimer.get(objBehavior) as Timeline
 }
 
-fun GlyphIcons.getIcon(): Node? {
-    val graphic: Node? = when (this) {
+fun GlyphIcons.getIcon(): GlyphIcon<*>? {
+    val graphic: GlyphIcon<*>? = when (this) {
         is FontAwesomeIcon -> FontAwesomeIconView(this)
         is FontAutomationIcon -> FontAutomationIconView(this)
         else -> null
     }
-    graphic?.styleClass?.add("sub-icon")
+    graphic?.getStyleClass()?.add("sub-icon")
+    return graphic
+}
+
+fun GlyphIcons.getIcon(size: String): GlyphIcon<*>? {
+    val graphic: GlyphIcon<*>? = when (this) {
+        is FontAwesomeIcon -> FontAwesomeIconView(this, size)
+        is FontAutomationIcon -> FontAutomationIconView(this, size)
+        else -> null
+    }
+    graphic?.getStyleClass()?.add("sub-icon")
     return graphic
 }
 
@@ -131,4 +147,15 @@ fun <T : Node> Node.calculateTypedParent(type: KClass<T>): T? {
         potentialParent is Node -> potentialParent.calculateTypedParent(type)
         else -> null
     }
+}
+
+fun GridPane.getNodeByRowColumnIndex(row: Int, column: Int): Node? {
+    var result: Node? = null
+    for (node in children) {
+        if (getRowIndex(node) == row && getColumnIndex(node) == column) {
+            result = node
+            break
+        }
+    }
+    return result
 }

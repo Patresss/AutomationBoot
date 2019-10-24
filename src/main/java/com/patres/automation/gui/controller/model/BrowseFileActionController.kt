@@ -16,8 +16,6 @@ class BrowseFileActionController(
     @FXML
     lateinit var browseFileButton: JFXButton
 
-    private val loaderFile = FileChooser(action.fileType, action.director)
-
     override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(browseFileButton)
 
     @FXML
@@ -27,6 +25,7 @@ class BrowseFileActionController(
 
     @FXML
     fun browseFile() {
+        val loaderFile = FileChooser(action.fileType, action.director)
         val file = loaderFile.chooseToLoad(value)
         if (file != null) {
             value = file.absolutePath

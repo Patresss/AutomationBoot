@@ -37,7 +37,7 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
         return value.isNotEmpty()
     }
 
-    private fun checkValidation() {
+    override fun checkValidation() {
         val valid = action.validation()?.isValid(value) ?: true || !shouldCheckValidation()
         action.validation()?.setStyles(!valid, validLabel, listOf(valueText))
     }

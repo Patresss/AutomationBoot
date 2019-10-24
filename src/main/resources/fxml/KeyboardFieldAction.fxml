@@ -13,7 +13,7 @@
     <GridPane fx:id="gridPane" hgap="10.0">
       <columnConstraints>
           <ColumnConstraints/>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="150.0" prefWidth="150.0"/>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="190.0" prefWidth="190.0"/>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
       </columnConstraints>
       <rowConstraints>

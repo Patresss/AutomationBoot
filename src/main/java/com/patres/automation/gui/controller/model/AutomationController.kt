@@ -19,8 +19,16 @@ import javafx.scene.layout.StackPane
 
 abstract class AutomationController<ActionBootType : ActionBootable>(
         fxmlFile: String,
-        val action: ActionBootType
+        action: ActionBootType
 ) : StackPane() {
+
+    var action: ActionBootType = action
+        set(value) {
+            field = value
+            checkValidation()
+        }
+
+    open fun checkValidation() {}
 
     val root: RootSchemaGroupModel?
         get() = calculateTypedParent(RootSchemaGroupController::class)?.model
@@ -124,5 +132,6 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
 
     abstract fun toModel(): AbstractAction?
     abstract fun toSerialized(): AutomationActionSerialized
+
 }
 
