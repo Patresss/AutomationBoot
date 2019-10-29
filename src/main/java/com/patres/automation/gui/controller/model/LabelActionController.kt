@@ -1,6 +1,5 @@
 package com.patres.automation.gui.controller.model
 
-import com.jfoenix.controls.JFXComboBox
 import com.patres.automation.Main
 import com.patres.automation.gui.custom.AutomationBootableFactoryCell
 import com.patres.automation.gui.menuItem.MenuItem
@@ -32,10 +31,10 @@ abstract class LabelActionController<ActionBootType : ActionBootable>(
     }
 
     private fun initSelectedAction() {
-        actionComboBox = ComboBox()
         val actions = MenuItem.values().filter { action.javaClass.isInstance(it.actionBoot) }
         val observableListOfActions = FXCollections.observableList(actions)
-        if (observableListOfActions.size > 1) {
+        val selected = actions.firstOrNull { it.actionBoot == action }
+        if (observableListOfActions.size > 1 && selected != null) {
             actionLabel.isVisible = false
             val rowIndex = GridPane.getRowIndex(actionLabel) ?: 0
             val columnIndex = GridPane.getColumnIndex(actionLabel) ?: 0
@@ -44,7 +43,7 @@ abstract class LabelActionController<ActionBootType : ActionBootable>(
                 val factory = AutomationBootableFactoryCell()
                 setCellFactory { factory.createCell() }
                 buttonCell = factory.createButtonCell()
-                selectionModel.select(actions.first { it.actionBoot == action })
+                selectionModel.select(selected)
                 valueProperty().addListener { _, _, newValue -> action = newValue.actionBoot as ActionBootType }
                 toBack()
             }
