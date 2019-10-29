@@ -6,10 +6,6 @@ import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.ActionBarController
 import com.patres.automation.gui.controller.settings.LocalSettingsController
 import com.patres.automation.gui.custom.KeyboardButton
-import javafx.animation.Interpolator
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
-import javafx.animation.Timeline
 import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -17,7 +13,6 @@ import javafx.scene.control.ScrollPane
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
-import javafx.util.Duration
 
 
 open class RootSchemaGroupController(

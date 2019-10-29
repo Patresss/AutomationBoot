@@ -38,7 +38,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
         fxmlLoader.resources = Main.getBundle()
-        fxmlLoader.load<KeyboardButton>()
+        fxmlLoader.load<AutomationController<*>>()
     }
 
     @FXML

@@ -1,25 +1,19 @@
 package com.patres.automation.gui.controller.pointer
 
-import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.point.Point
 import com.patres.automation.point.Point.Companion.VECTOR_CHAR
 import com.patres.automation.point.Point.Companion.transformPoint
-import com.patres.automation.util.fromBundle
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.animation.FadeTransition
 import javafx.animation.ScaleTransition
 import javafx.application.Platform
 import javafx.event.EventHandler
 import javafx.scene.Cursor
 import javafx.scene.Scene
-import javafx.scene.control.Label
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.Pane
-import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Line
@@ -41,8 +35,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     companion object {
         private const val CIRCLE_OPACITY = 0.6
         private const val RADIUS = 12.0
-        private val QUESTION_ICON = FontAwesomeIconView(FontAwesomeIcon.QUESTION)
-        private const val QUESTION_ICON_PADDING = 50.0
+
         private const val CAPTURE_DELAY = 200L
     }
 
@@ -56,6 +49,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     private var rectangle: javafx.scene.shape.Rectangle? = null
     private var mode: PointerMode? = null
 
+    val startWidth = Screen.getScreens().map { it.bounds.minX }.min() ?: 0.0
+
     init {
         setScene()
         setStage()
@@ -65,13 +60,13 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     }
 
     private fun setScene() {
-        val monitorsWidth = Screen.getScreens().map { it.bounds.maxX }.max() ?: 10000.0
+        val monitorsWidth = Screen.getScreens().map { it.bounds.width }.sum()
         val monitorsHeight = Screen.getScreens().map { it.bounds.maxY }.max() ?: 10000.0
         this.scene = Scene(pane, monitorsWidth, monitorsHeight)
     }
 
     private fun setStage() {
-        stage.x = 0.0
+        stage.x = startWidth
         stage.y = 0.0
     }
 
@@ -92,36 +87,9 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     }
 
     private fun loadToolTipButton() {
-        val button = JFXButton(null, QUESTION_ICON)
-        val stackPane = VBox().apply {
-            translateX = QUESTION_ICON_PADDING
-            translateY = QUESTION_ICON_PADDING
-            isVisible = false
-            styleClass.add("tooltip-pointer-pane")
-            hoverProperty().addListener { _, _, newValue ->
-                isVisible = newValue
-                button.isVisible = !newValue
-            }
-        }
-
-        button.apply {
-            translateX = QUESTION_ICON_PADDING
-            translateY = QUESTION_ICON_PADDING
-            styleClass.add("tooltip-pointer-button")
-            graphic.styleClass.add("tooltip-pointer-icon")
-            hoverProperty().addListener { _, _, newValue ->
-                stackPane.isVisible = newValue
-            }
-        }
-
-        val header = Label(fromBundle("pointer.tooltiop.header")).apply { styleClass.add("tooltip-pointer-label-header") }
-        stackPane.children.add(header)
-        stackPane.children.add(Label(fromBundle("pointer.tooltiop.point")).apply { styleClass.add("tooltip-pointer-label") })
-        stackPane.children.add(Label(fromBundle("pointer.tooltiop.vector")).apply { styleClass.add("tooltip-pointer-label") })
-        stackPane.children.add(Label(fromBundle("pointer.tooltiop.image")).apply { styleClass.add("tooltip-pointer-label") })
-
-        pane.children.add(button)
-        pane.children.add(stackPane)
+        val pointerToolTipButton = PointerToolTipButton()
+        pane.children.add(pointerToolTipButton.button)
+        pane.children.add(pointerToolTipButton.stackPane)
     }
 
     private fun addMouseListener() {
@@ -159,7 +127,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
 
     private fun loadDraggedHandler(draggedEvent: MouseEvent) {
         if (mode != null) {
-            circlePoint.centerX = draggedEvent.screenX
+            circlePoint.centerX = draggedEvent.screenX - startWidth
             circlePoint.centerY = draggedEvent.screenY
             line?.endX = circlePoint.centerX
             line?.endY = circlePoint.centerY
@@ -188,47 +156,47 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     }
 
     private fun loadScaleTransition(): ScaleTransition {
-        val scaleEnd = ScaleTransition(Duration.millis(200.0), circlePoint)
-        scaleEnd.toX = 0.0
-        scaleEnd.toY = 0.0
-        return scaleEnd
+        return ScaleTransition(Duration.millis(200.0), circlePoint).apply {
+            toX = 0.0
+            toY = 0.0
+        }
     }
 
     private fun loadScaleTransitionForVector(releasedEvent: MouseEvent): ScaleTransition {
-        val scaleEnd = loadScaleTransition()
-        scaleEnd.setOnFinished {
-            val pair = calculateTwoPoints(releasedEvent)
-            if (pair != null) {
-                pointPane.setText(VECTOR_CHAR + transformPoint(pair.second, pair.first))
-                closeController()
+        return loadScaleTransition().apply {
+            setOnFinished {
+                val pair = calculateTwoPoints(releasedEvent)
+                if (pair != null) {
+                    pointPane.setText(VECTOR_CHAR + transformPoint(pair.second, pair.first))
+                    closeController()
+                }
             }
         }
-        return scaleEnd
     }
 
     private fun loadScaleTransitionForPoint(releasedEvent: MouseEvent): ScaleTransition {
-        val scaleEnd = loadScaleTransition()
-        scaleEnd.setOnFinished {
-            val x = releasedEvent.screenX.toInt()
-            val y = releasedEvent.screenY.toInt()
-            pointPane.setText(Point(x, y).toString())
-            closeController()
+        return loadScaleTransition().apply {
+            setOnFinished {
+                val x = releasedEvent.screenX.toInt()
+                val y = releasedEvent.screenY.toInt()
+                pointPane.setText(Point(x, y).toString())
+                closeController()
+            }
         }
-        return scaleEnd
     }
 
     private fun loadScaleTransitionForImage(releasedEvent: MouseEvent): ScaleTransition {
-        val scaleEnd = loadScaleTransition()
-        scaleEnd.setOnFinished {
-            val pair = calculateTwoPoints(releasedEvent)
-            if (pair != null) {
-                val rectangleFromPoints = RectangleFromPoints(pair.first.x, pair.first.y, pair.second.x, pair.second.y)
-                val screenRect = rectangleFromPoints.calculateAwtRectangle()
-                stage.close()
-                captureImage(screenRect)
+        return loadScaleTransition().apply {
+            setOnFinished {
+                val pair = calculateTwoPoints(releasedEvent)
+                if (pair != null) {
+                    val rectangleFromPoints = RectangleFromPoints(pair.first.x, pair.first.y, pair.second.x, pair.second.y)
+                    val screenRect = rectangleFromPoints.calculateAwtRectangle()
+                    stage.close()
+                    captureImage(screenRect)
+                }
             }
         }
-        return scaleEnd
     }
 
     private fun captureImage(screenRect: Rectangle) {
@@ -246,7 +214,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     }
 
     private fun calculateTwoPoints(releasedEvent: MouseEvent): Pair<Point, Point>? {
-        val x = releasedEvent.screenX.toInt()
+        val x = releasedEvent.screenX.toInt() - startWidth.toInt()
         val y = releasedEvent.screenY.toInt()
 
         if (firstMousePoint == null) {
@@ -254,7 +222,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
             val firstMousePoint = Point(x, y)
 
             if (mode == PointerMode.VECTOR) {
-                line = Line(x.toDouble(), y.toDouble(), x.toDouble(), y.toDouble()).apply {
+                line = Line(x.toDouble() , y.toDouble(), x.toDouble(), y.toDouble()).apply {
                     stroke = mode?.color
                 }
                 pane.setOnMouseMoved { event ->
