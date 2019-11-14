@@ -10,12 +10,11 @@ import com.patres.automation.type.ActionBootTextField
 
 object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction, TextFieldActionSerialized> {
 
-    override fun controllerToModel(controller: TextFieldActionController): AbstractAction? {
+    override fun controllerToModel(controller: TextFieldActionController): AbstractAction {
         return when (controller.action) {
             ActionBootTextField.DELAY -> DelayAction(controller.value.toInt(), controller.root?.automationRunningProperty)
             ActionBootTextField.SCROLL_WHEEL_UP -> ScrollWheelUpAction(controller.value.toInt())
             ActionBootTextField.SCROLL_WHEEL_DOWN -> ScrollWheelDownAction(controller.value.toInt())
-            ActionBootTextField.ENDPOINT_NAME -> null
         }
     }
 

@@ -14,9 +14,8 @@ enum class ActionBootTextField(
     DELAY("robot.action.delay", PositiveIntegerValidation()),
 
     SCROLL_WHEEL_UP("robot.action.scrollWheel.up", PositiveIntegerValidation()),
-    SCROLL_WHEEL_DOWN("robot.action.scrollWheel.down", PositiveIntegerValidation()),
+    SCROLL_WHEEL_DOWN("robot.action.scrollWheel.down", PositiveIntegerValidation());
 
-    ENDPOINT_NAME("settings.endpointName", null);
 
 
     override fun validation(): Validationable? {

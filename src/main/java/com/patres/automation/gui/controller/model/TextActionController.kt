@@ -10,7 +10,7 @@ import javafx.scene.control.TextInputControl
 abstract class TextActionController<ActionBootType : ActionBootable>(
         fxmlFile: String,
         action: ActionBootType
-) : LabelActionController<ActionBootType>(fxmlFile, action) {
+) : AutomationController<ActionBootType>(fxmlFile, action) {
 
     @FXML
     lateinit var valueText: TextInputControl
@@ -18,16 +18,14 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
     @FXML
     lateinit var validLabel: Label
 
-    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(valueText)
-
     @FXML
     override fun initialize() {
         super.initialize()
         valueText.textProperty().addListener { _, _, _ ->
             root?.changeDetect()
-            checkValidation()
+            enableUiValidation()
         }
-        checkValidation()
+        enableUiValidation()
         action.validation()?.getErrorMessageProperty()?.let {
             validLabel.textProperty().bind(Main.createStringBinding(it))
         }
@@ -37,9 +35,13 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
         return value.isNotEmpty()
     }
 
-    override fun checkValidation() {
+    fun enableUiValidation() {
         val valid = action.validation()?.isValid(value) ?: true || !shouldCheckValidation()
         action.validation()?.setStyles(!valid, validLabel, listOf(valueText))
+    }
+
+    override fun checkValidation() {
+        action.validation()?.check(value)
     }
 
     var value: String

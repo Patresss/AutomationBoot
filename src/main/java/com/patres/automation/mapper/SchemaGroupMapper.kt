@@ -1,14 +1,18 @@
 package com.patres.automation.mapper
 
+import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.SchemaGroupModel
-import com.patres.automation.gui.controller.model.SchemaGroupController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
+import com.patres.automation.gui.controller.box.SchemaGroupController
+import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.mapper.model.SchemaGroupSerialized
 
 
 object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, SchemaGroupSerialized> {
 
     override fun controllerToModel(controller: SchemaGroupController): SchemaGroupModel {
-        val actionBlockModels = controller.actionBlocks.mapNotNull { it.toModel() }
+        val actionBlockModels: List<AbstractAction> = controller.abstractBlocks.mapNotNull { it.toModel() }
         val iteration = controller.getNumberOfIteration()
         val automationRunningProperty = controller.root?.automationRunningProperty
         return SchemaGroupModel(actionBlockModels, iteration, automationRunningProperty)
@@ -16,7 +20,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
 
     override fun controllerToSerialized(controller: SchemaGroupController): SchemaGroupSerialized {
         return controller.run {
-            val serializedModels = actionBlocks.map { it.toSerialized() }
+            val serializedModels: List<AutomationActionSerialized> = abstractBlocks.map { it.toSerialized() }
             SchemaGroupSerialized(serializedModels, groupNameTextField.text, iterationsTextField.text)
         }
     }
@@ -27,7 +31,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
             iterationsTextField.text = serialized.numberOfIterations
             serialized.actionList
                     .map { it.serializedToController() }
-                    .forEach { this.addActionBlockToBottom(it) }
+                    .forEach {  this.addNewAction(it) }
         }
     }
 

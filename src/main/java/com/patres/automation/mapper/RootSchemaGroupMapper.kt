@@ -29,6 +29,7 @@ object RootSchemaGroupMapper {
                 file = File(serializedModel.file)
             }
         }
+
     }
 
 }

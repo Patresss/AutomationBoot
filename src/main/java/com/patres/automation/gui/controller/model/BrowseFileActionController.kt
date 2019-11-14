@@ -16,8 +16,6 @@ class BrowseFileActionController(
     @FXML
     lateinit var browseFileButton: JFXButton
 
-    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(browseFileButton)
-
     @FXML
     override fun initialize() {
         super.initialize()
@@ -32,13 +30,8 @@ class BrowseFileActionController(
         }
     }
 
-    override fun toModel(): AbstractAction {
+    override fun checkValidation() {
         action.validation?.check(value)
-        return BrowserActionMapper.controllerToModel(this)
-    }
-
-    override fun toSerialized(): BrowserActionSerialized {
-        return BrowserActionMapper.controllerToSerialized(this)
     }
 
 }

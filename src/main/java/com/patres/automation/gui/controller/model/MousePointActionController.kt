@@ -63,8 +63,6 @@ class MousePointActionController(
         }
     }
 
-    override fun getNodesToSelect(): List<Node> = super.getNodesToSelect() + listOf(pointButton, imageBox, imageView, zoomButton, thresholdSlider)
-
     @FXML
     override fun initialize() {
         super.initialize()
@@ -80,13 +78,8 @@ class MousePointActionController(
         thresholdSlider.labelFormatter = percentConverter
     }
 
-    override fun toModel(): AbstractAction {
+    override fun checkValidation() {
         action.validation?.check(value)
-        return MousePointActionMapper.controllerToModel(this)
-    }
-
-    override fun toSerialized(): MousePointActionSerialized {
-        return MousePointActionMapper.controllerToSerialized(this)
     }
 
     fun setImage(imageInputStream: InputStream) {

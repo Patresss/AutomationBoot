@@ -1,19 +1,19 @@
 package com.patres.automation.gui.controller.model
 
-import com.jfoenix.controls.JFXButton
 import com.patres.automation.Main
-import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.RootSchemaGroupModel
-import com.patres.automation.gui.custom.KeyboardButton
-import com.patres.automation.mapper.model.AutomationActionSerialized
+import com.patres.automation.gui.custom.AutomationBootableFactoryCell
+import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.calculateTypedParent
-import com.patres.automation.util.swap
-import javafx.event.EventHandler
+import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
+import javafx.scene.control.ComboBox
+import javafx.scene.control.Label
 import javafx.scene.layout.GridPane
+import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 
 
@@ -21,6 +21,9 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         fxmlFile: String,
         action: ActionBootType
 ) : StackPane() {
+
+    @FXML
+    lateinit var actionLabel: Label
 
     var action: ActionBootType = action
         set(value) {
@@ -33,105 +36,53 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     val root: RootSchemaGroupModel?
         get() = calculateTypedParent(RootSchemaGroupController::class)?.model
 
+    private var actionComboBox: ComboBox<MenuItem>? = null
+
     init {
+
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
         fxmlLoader.resources = Main.getBundle()
         fxmlLoader.load<AutomationController<*>>()
+
+        actionLabel.textProperty().bind(Main.createStringBinding(action.bundleName()))
+
     }
 
-    @FXML
-    lateinit var selectActionButton: JFXButton
+    private fun initSelectedAction() {
+        val actions = MenuItem.values().filter { action.javaClass.isInstance(it.actionBoot) }
+        val observableListOfActions = FXCollections.observableList(actions)
+        val selected = actions.firstOrNull { it.actionBoot == action }
+        if (observableListOfActions.size > 1 && selected != null) {
+            actionLabel.isVisible = false
+            val rowIndex = GridPane.getRowIndex(actionLabel) ?: 0
+            val columnIndex = GridPane.getColumnIndex(actionLabel) ?: 0
+            actionComboBox = ComboBox(observableListOfActions).apply {
+                maxWidth = Double.MAX_VALUE
+                val factory = AutomationBootableFactoryCell()
+                setCellFactory { factory.createCell() }
+                buttonCell = factory.createButtonCell()
+                selectionModel.select(selected)
+                valueProperty().addListener { _, _, newValue -> action = newValue.actionBoot as ActionBootType }
+                toBack()
+            }
+            gridPane.add(actionComboBox, columnIndex, rowIndex)
+        }
+    }
 
-    @FXML
-    lateinit var selectStackPane: StackPane
 
     @FXML
     lateinit var gridPane: GridPane
 
-    val schemaGroupParent: SchemaGroupController?
-        get() = calculateTypedParent(SchemaGroupController::class)
-
-
     @FXML
     open fun initialize() {
-        getNodesToSelect().forEach { it.onMouseClicked = EventHandler { selectAction() } }
+        initSelectedAction()
     }
 
-    fun selectAction() {
-        root?.controller?.unselectAllButton()
-        selectActionButton.styleClass.add("select-action-button-selected")
-        root?.controller?.selectedModel = this
-    }
+    fun getMainNode(): Node = this
 
-    open fun getNodesToSelect(): List<Node> = listOf(selectStackPane)
-
-    fun unselectSelectActionButton() {
-        selectActionButton.styleClass.remove("select-action-button-selected")
-    }
-
-    private fun isLast(): Boolean = schemaGroupParent?.actionBlocks?.last() == this
-
-    private fun isFirst(): Boolean = schemaGroupParent?.actionBlocks?.first() == this
-
-    private fun swap(actionBlockToSwap: AutomationController<*>) {
-        schemaGroupParent?.getMainInsideNode()?.swap(this, actionBlockToSwap)
-    }
-
-    fun addActionBlockUnder(actionBlock: AutomationController<*>) {
-        val index = schemaGroupParent?.actionBlocks?.indexOf(this) ?: 0
-        schemaGroupParent?.addActionBlockToList(actionBlock, index + 1)
-    }
-
-    fun downActionBlock() {
-        val bottomNode = findNodeOnTheBottomFromGroup()
-        when {
-            bottomNode == null && root?.controller?.schemaGroupController != schemaGroupParent -> schemaGroupParent?.leaveGroupToDown(this)
-            bottomNode is SchemaGroupController -> bottomNode.moveActionBlockToTop(this)
-            bottomNode is AutomationController<*> -> swap(bottomNode)
-        }
-    }
-
-    fun upActionBlock() {
-        val topNode = findNodeOnTheTopFromGroup()
-        when {
-            topNode == null && root?.controller?.schemaGroupController != schemaGroupParent -> schemaGroupParent?.leaveGroupToUp(this)
-            topNode is SchemaGroupController -> topNode.moveActionBlockToBottom(this)
-            topNode is AutomationController<*> -> swap(topNode)
-        }
-    }
-
-    fun findNodeOnTheTop(): AutomationController<*>? {
-        val topNodeInGroup = findNodeOnTheTopFromGroup()
-        if (topNodeInGroup != null) {
-            return topNodeInGroup
-        }
-        return schemaGroupParent
-    }
-
-    private fun findNodeOnTheBottomFromGroup(): AutomationController<*>? {
-        val parentVal = schemaGroupParent
-        return if (!isLast() && parentVal != null) {
-            val currentActionIndex = parentVal.actionBlocks.indexOf(this)
-            parentVal.actionBlocks[currentActionIndex + 1]
-        } else {
-            null
-        }
-    }
-
-    private fun findNodeOnTheTopFromGroup(): AutomationController<*>? {
-        val parentVal = schemaGroupParent
-        return if (!isFirst() && parentVal != null) {
-            val currentActionIndex = parentVal.actionBlocks.indexOf(this)
-            parentVal.actionBlocks[currentActionIndex - 1]
-        } else {
-            null
-        }
-    }
-
-    abstract fun toModel(): AbstractAction?
-    abstract fun toSerialized(): AutomationActionSerialized
+    fun getMainInsideNode(): Pane = this
 
 }
 

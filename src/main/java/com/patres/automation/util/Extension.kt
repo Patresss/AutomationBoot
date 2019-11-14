@@ -23,6 +23,7 @@ import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
 import javafx.scene.layout.GridPane
 import com.sun.deploy.security.ValidationState.TYPE
 import de.jensd.fx.glyphs.GlyphIcon
+import java.util.ArrayList
 
 
 fun TextInputControl.setIntegerFilter() {
@@ -158,4 +159,17 @@ fun GridPane.getNodeByRowColumnIndex(row: Int, column: Int): Node? {
         }
     }
     return result
+}
+
+fun Parent.getAllNodes(): ArrayList<Node> {
+    val nodes = ArrayList<Node>()
+    fun recurseNodes(node: Node) {
+        nodes.add(node)
+        if(node is Parent)
+            for(child in node.childrenUnmodifiable) {
+                recurseNodes(child)
+            }
+    }
+    recurseNodes(this)
+    return nodes
 }

@@ -5,7 +5,7 @@ import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.mapper.model.AutomationActionSerialized
 
 
-interface Mapper<ControllerType : AutomationController<*>, ActionType : AbstractAction, SerializedType : AutomationActionSerialized> {
+interface Mapper<ControllerType : Any, ActionType : AbstractAction, SerializedType : Any> {
 
     fun controllerToModel(controller: ControllerType): ActionType?
 

@@ -3,6 +3,8 @@ package com.patres.automation.mapper.model
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.*
@@ -21,7 +23,7 @@ import com.patres.automation.type.*
         Type(value = TextAreaActionSerialized::class, name = "TextAreaAction")
 )
 sealed class AutomationActionSerialized {
-    abstract fun serializedToController(): AutomationController<*>
+    abstract fun serializedToController(): AbstractBox<*>
 }
 
 data class MousePointActionSerialized(
@@ -30,21 +32,21 @@ data class MousePointActionSerialized(
         val image: String? = null,
         val threshold: Double? = null
 ) : AutomationActionSerialized() {
-    override fun serializedToController() = MousePointActionMapper.serializedToController(this)
+    override fun serializedToController() = ActionBox<ActionBootMousePoint>(MousePointActionMapper.serializedToController(this))
 }
 
 data class KeyboardFieldActionSerialized(
         val actionType: ActionBootKeyboard,
         val keys: List<KeyboardKey> = emptyList()
 ) : AutomationActionSerialized() {
-    override fun serializedToController() = KeyboardFieldActionMapper.serializedToController(this)
+    override fun serializedToController() = ActionBox<ActionBootKeyboard>(KeyboardFieldActionMapper.serializedToController(this))
 }
 
 data class SchemaGroupSerialized(
         val actionList: List<AutomationActionSerialized> = ArrayList(),
         val groupName: String = "Group",
         val numberOfIterations: String = "1"
-) : AutomationActionSerialized() {
+)  : AutomationActionSerialized() {
     override fun serializedToController() = SchemaGroupMapper.serializedToController(this)
 }
 
@@ -52,19 +54,19 @@ data class BrowserActionSerialized(
         val actionType: ActionBootBrowser,
         val path: String = ""
 ) : AutomationActionSerialized() {
-    override fun serializedToController() = BrowserActionMapper.serializedToController(this)
+    override fun serializedToController() = ActionBox<ActionBootBrowser>(BrowserActionMapper.serializedToController(this))
 }
 
 data class TextFieldActionSerialized(
         val actionType: ActionBootTextField,
         val value: String = ""
 ) : AutomationActionSerialized() {
-    override fun serializedToController() = TextFieldActionMapper.serializedToController(this)
+    override fun serializedToController() = ActionBox<ActionBootTextField>(TextFieldActionMapper.serializedToController(this))
 }
 
 data class TextAreaActionSerialized(
         val actionType: ActionBootTextArea,
         val value: String = ""
 ) : AutomationActionSerialized() {
-    override fun serializedToController() = TextAreaActionMapper.serializedToController(this)
+    override fun serializedToController() = ActionBox<ActionBootTextArea>(TextAreaActionMapper.serializedToController(this))
 }

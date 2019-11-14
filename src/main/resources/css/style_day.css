@@ -694,7 +694,7 @@ root {
 }
 
 .select-button-pane {
-    -fx-padding: 15 0 15 5;
+    -fx-padding: 15 15 15 5;
     -fx-background-color: -color-background;
 }
 

@@ -16,7 +16,6 @@
 <fx:root styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane fx:id="gridPane" hgap="10.0">
         <columnConstraints>
-            <ColumnConstraints />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="190.0" prefWidth="190.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="60" minWidth="60.0" prefWidth="60.0" />
@@ -25,10 +24,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
-        <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <JFXTextField fx:id="valueText" GridPane.columnIndex="2" />
-      <HBox fx:id="imageBox" alignment="CENTER" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.rowSpan="2" />
+        <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <JFXTextField fx:id="valueText" GridPane.columnIndex="1" />
+      <HBox fx:id="imageBox" alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
             <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
             <JFXButton fx:id="zoomButton" styleClass="transparent-button">
@@ -38,7 +37,7 @@
             </JFXButton>
          </children>
       </HBox>
-        <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="3" GridPane.rowSpan="2">
+        <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="2" GridPane.rowSpan="2">
             <graphic>
                 <FontAwesomeIconView glyphName="CROSSHAIRS" styleClass="sub-icon" />
             </graphic>
@@ -46,16 +45,6 @@
                 <Insets left="10.0" />
             </GridPane.margin>
         </JFXButton>
-        <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" GridPane.rowSpan="2" StackPane.alignment="CENTER_LEFT">
-            <StackPane.margin>
-                <Insets left="-10.0" />
-            </StackPane.margin>
-            <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
-                <opaqueInsets>
-                    <Insets />
-                </opaqueInsets>
-            </JFXButton>
-        </StackPane>
-      <JFXSlider fx:id="thresholdSlider" value="90.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <JFXSlider fx:id="thresholdSlider" value="90.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
     </GridPane>
 </fx:root>

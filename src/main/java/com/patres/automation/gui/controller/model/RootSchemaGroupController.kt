@@ -4,8 +4,10 @@ import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.ActionBarController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
+import com.patres.automation.gui.controller.box.SchemaGroupController
 import com.patres.automation.gui.controller.settings.LocalSettingsController
-import com.patres.automation.gui.custom.KeyboardButton
 import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -24,7 +26,7 @@ open class RootSchemaGroupController(
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
         fxmlLoader.resources = Main.getBundle()
-        fxmlLoader.load<KeyboardButton>()
+        fxmlLoader.load<RootSchemaGroupController>()
     }
 
     @FXML
@@ -38,7 +40,7 @@ open class RootSchemaGroupController(
 
     lateinit var actionBarController: ActionBarController
 
-    private val allChildrenActionBlocksRoot
+    private val allChildrenAbstractBlocksRoot: List<AbstractBox<*>>
         get() = schemaGroupController.allChildrenActionBlocks + schemaGroupController
 
     var schemaGroupController = SchemaGroupController()
@@ -47,11 +49,12 @@ open class RootSchemaGroupController(
             loadControllerContent()
         }
 
-    var selectedModel: AutomationController<*> = schemaGroupController
+    var selectedModel: AbstractBox<*> = schemaGroupController
         set(value) {
             field = value
             actionBarController.updateDisabledButtons()
         }
+
 
     init {
         loadControllerContent()
@@ -63,7 +66,7 @@ open class RootSchemaGroupController(
     }
 
     fun unselectAllButton() {
-        allChildrenActionBlocksRoot.forEach { it.unselectSelectActionButton() }
+        allChildrenAbstractBlocksRoot.forEach { it.unselectSelectActionButton() }
     }
 
     fun removeSelectedModel() {
@@ -88,27 +91,20 @@ open class RootSchemaGroupController(
         }
     }
 
-    fun getSelectedSchemaGroupModel(): SchemaGroupController {
-        val selectedModelVal = selectedModel
-        return if (selectedModelVal is SchemaGroupController) {
-            selectedModelVal
-        } else {
-            selectedModelVal.schemaGroupParent ?: schemaGroupController
-        }
-    }
-
     fun openLocalSettings() {
         val localSettingsController = LocalSettingsController(this, model.localSettings)
         SliderAnimation.goToTheWindow(localSettingsController, rootBorderPane, this)
     }
 
     fun addActionBlocks(actionController: AutomationController<*>) {
+        val actionBox = ActionBox(actionController)
+        addActionBlocks(actionBox)
+    }
+
+    fun addActionBlocks(actionBox: AbstractBox<*>) {
         val selectedModelVal = selectedModel
-        when (selectedModelVal) {
-            is SchemaGroupController -> selectedModelVal.addActionBlockToBottom(actionController)
-            else -> selectedModelVal.addActionBlockUnder(actionController)
-        }
-        actionController.selectAction()
+        selectedModelVal.addNewAction(actionBox)
+        actionBox.selectAction()
     }
 
 }
