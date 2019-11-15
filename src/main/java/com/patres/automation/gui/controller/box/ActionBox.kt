@@ -7,7 +7,9 @@ import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.mapper.model.BrowserActionSerialized
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.getAllNodes
+import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
+import javafx.scene.text.Text
 
 
 class ActionBox<ActionBootType : ActionBootable>(

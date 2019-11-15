@@ -1,13 +1,12 @@
 package com.patres.automation.gui.controller.box
 
 import com.jfoenix.controls.JFXTextField
-import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.mapper.SchemaGroupMapper
-import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.mapper.model.SchemaGroupSerialized
 import com.patres.automation.type.ActionBootSchema
 import javafx.fxml.FXML
+import javafx.scene.input.MouseEvent
 import javafx.scene.layout.VBox
 
 
@@ -22,9 +21,13 @@ class SchemaGroupController : AbstractBox<ActionBootSchema>("SchemaGroup.fxml") 
     @FXML
     lateinit var iterationsTextField: JFXTextField
 
+
+    init {
+        listOf(groupNameTextField, iterationsTextField).forEach { node -> node.addEventHandler(MouseEvent.MOUSE_PRESSED) { selectAction() } }
+    }
+
     fun getNumberOfIteration(): Int {
-        val text = iterationsTextField.text
-        return if (text == "INF") {
+        return if (iterationsTextField.text == "INF") {
             Integer.MAX_VALUE
         } else {
             try {
@@ -64,7 +67,6 @@ class SchemaGroupController : AbstractBox<ActionBootSchema>("SchemaGroup.fxml") 
         innerBox.children.remove(actionController)
     }
 
-
     fun leaveGroupToUp(abstractController: AbstractBox<*>) {
         abstractController.schemaGroupParent?.removeNode(abstractController)
         val index = schemaGroupParent?.innerBox?.children?.indexOf(this) ?: 0
@@ -86,6 +88,5 @@ class SchemaGroupController : AbstractBox<ActionBootSchema>("SchemaGroup.fxml") 
         abstractController.schemaGroupParent?.removeNode(abstractController)
         innerBox.children.add(abstractController)
     }
-
 
 }

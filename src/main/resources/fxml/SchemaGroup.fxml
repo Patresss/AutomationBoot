@@ -31,10 +31,13 @@
           <Insets right="10.0" />
         </padding>
     </GridPane>
-    <VBox fx:id="innerBox" maxWidth="1.7976931348623157E308">
+    <VBox fx:id="innerBox" spacing="20.0">
         <StackPane.margin>
-          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+          <Insets />
         </StackPane.margin>
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+      </padding>
     </VBox>
     <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" StackPane.alignment="CENTER_LEFT">
         <StackPane.margin>

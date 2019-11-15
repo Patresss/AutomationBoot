@@ -7,10 +7,12 @@ import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.calculateTypedParent
+import com.patres.automation.util.getAllNodes
 import com.patres.automation.util.swap
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
+import javafx.scene.input.MouseEvent
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.StackPane
 
@@ -48,6 +50,7 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(
         fxmlLoader.resources = Main.getBundle()
 
         fxmlLoader.load<AbstractBox<*>>()
+        selectStackPane.addEventHandler(MouseEvent.MOUSE_PRESSED) { selectAction() }
     }
 
     @FXML

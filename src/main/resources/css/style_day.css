@@ -693,8 +693,13 @@ root {
     -fx-background-color: #F1F1F1;
 }
 
+.select-action-button:hover {
+    -fx-cursor: hand;
+}
+
+
 .select-button-pane {
-    -fx-padding: 15 15 15 5;
+    -fx-padding: 15 5 15 5;
     -fx-background-color: -color-background;
 }
 
@@ -821,7 +826,7 @@ root {
  * action-node-pane                                                                *
  ******************************************************************************/
 .action-node-pane {
-    -fx-min-width: 350px;
+    -fx-min-width: 320px;
 }
 
 /*******************************************************************************
