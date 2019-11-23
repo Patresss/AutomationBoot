@@ -3,8 +3,10 @@ package com.patres.automation.gui.controller.settings
 import com.patres.automation.Main
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.MainController
+import com.patres.automation.gui.controller.model.ComboBoxController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.settings.GlobalSettingsLoader
+import com.patres.automation.type.ActionBootComboBox
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.util.fromBundle
 import javafx.collections.ListChangeListener
@@ -13,6 +15,7 @@ import javafx.collections.ListChangeListener
 class GlobalSettingsController(private val mainController: MainController) : SettingsController("menu.settings.globalSettings") {
 
     private val stopKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.STOP_KEYS_SETTINGS)
+    private val language = ComboBoxController(ActionBootComboBox.CHOOSE_LANGUAGE)
 
     init {
         initChangeDetectors()
@@ -32,10 +35,11 @@ class GlobalSettingsController(private val mainController: MainController) : Set
 
     override fun initChangeDetectors() {
         stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+//        language.comboBox.addListener(ListChangeListener { changeDetect() })
     }
 
     private fun loadGlobalSettings() {
-        mainVBox.children.add(stopKeysSetting)
+        mainVBox.children.addAll(stopKeysSetting, language)
         reloadSettingsValue()
     }
 
