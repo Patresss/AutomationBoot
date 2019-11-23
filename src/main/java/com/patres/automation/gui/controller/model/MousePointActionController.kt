@@ -94,7 +94,7 @@ class MousePointActionController(
         root?.changeDetect()
     }
 
-    override fun shouldCheckValidation(): Boolean {
+    override fun shouldCheckUiValidation(): Boolean {
         return value.isNotEmpty() && valueText.isVisible
     }
 

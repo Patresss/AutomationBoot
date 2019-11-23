@@ -39,7 +39,7 @@ class RootSchemaGroupModel(
             val runTask = createRunTask(schemaGroupModel, hideApplication)
             Thread(runTask).start()
         } catch (e: ApplicationException) { // TODO global catch
-            LOGGER.error("ApplicationException: {}", e)
+            LOGGER.error("ApplicationException: {}", e.message)
             Platform.runLater {
                 val dialog = ExceptionHandlerDialog(e)
                 dialog.show()

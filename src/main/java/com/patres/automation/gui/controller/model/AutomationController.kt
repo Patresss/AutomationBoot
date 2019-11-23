@@ -28,10 +28,12 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     var action: ActionBootType = action
         set(value) {
             field = value
-            checkValidation()
+            checkUiValidation()
         }
 
     open fun checkValidation() {}
+    open fun checkUiValidation() {}
+    open fun shouldCheckUiValidation() = true
 
     val root: RootSchemaGroupModel?
         get() = calculateTypedParent(RootSchemaGroupController::class)?.model

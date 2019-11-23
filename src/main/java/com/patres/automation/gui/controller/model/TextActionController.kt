@@ -23,20 +23,18 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
         super.initialize()
         valueText.textProperty().addListener { _, _, _ ->
             root?.changeDetect()
-            enableUiValidation()
+            checkUiValidation()
         }
-        enableUiValidation()
+        checkUiValidation()
         action.validation()?.getErrorMessageProperty()?.let {
             validLabel.textProperty().bind(Main.createStringBinding(it))
         }
     }
 
-    open fun shouldCheckValidation(): Boolean {
-        return value.isNotEmpty()
-    }
+    override fun shouldCheckUiValidation() = value.isNotEmpty()
 
-    fun enableUiValidation() {
-        val valid = action.validation()?.isValid(value) ?: true || !shouldCheckValidation()
+    override fun checkUiValidation() {
+        val valid = action.validation()?.isValid(value) ?: true || !shouldCheckUiValidation()
         action.validation()?.setStyles(!valid, validLabel, listOf(valueText))
     }
 
