@@ -1,6 +1,6 @@
 package com.patres.automation.gui.dialog
 
-import com.patres.automation.Main
+import com.patres.automation.settings.LanguageManager
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.Label
@@ -15,7 +15,7 @@ class DialogController(private val exceptionHandlerDialog: ExceptionHandlerDialo
     private val okButton: Button? = null
 
     fun initialize() {
-        val error: String = Main.getLanguageString("error")
+        val error: String = LanguageManager.getLanguageString("error")
         errorLabel.text = "$error: ${exception.message}"
     }
 

@@ -4,16 +4,13 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDecorator
 import com.jfoenix.controls.JFXSlider
 import com.patres.automation.Main
-import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.controller.pointer.PointerController
-import com.patres.automation.mapper.MousePointActionMapper
-import com.patres.automation.mapper.model.MousePointActionSerialized
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.util.MonitorSize
 import com.patres.automation.util.fromBundle
 import com.patres.automation.util.startTiming
 import javafx.fxml.FXML
-import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.control.ScrollPane
 import javafx.scene.control.Tooltip
@@ -124,7 +121,7 @@ class MousePointActionController(
         val scene = Scene(decorator, width, height)
 
         Main.setStyle(scene)
-        stage.titleProperty().bind(Main.createStringBinding("application.name"))
+        stage.titleProperty().bind(LanguageManager.createStringBinding("application.name"))
         stage.scene = scene
 
         stage.show()

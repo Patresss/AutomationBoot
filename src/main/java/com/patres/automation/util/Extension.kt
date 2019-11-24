@@ -1,9 +1,9 @@
 package com.patres.automation.util
 
-import com.patres.automation.Main
 import com.patres.automation.excpetion.IntegerFormatException
 import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.gui.font.FontAutomationIconView
+import com.patres.automation.settings.LanguageManager
 import com.sun.javafx.util.Utils
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
@@ -19,9 +19,7 @@ import javafx.util.Duration
 import kotlin.reflect.KClass
 import javafx.scene.layout.GridPane.getColumnIndex
 import javafx.scene.layout.GridPane.getRowIndex
-import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
 import javafx.scene.layout.GridPane
-import com.sun.deploy.security.ValidationState.TYPE
 import de.jensd.fx.glyphs.GlyphIcon
 import java.util.ArrayList
 
@@ -90,7 +88,7 @@ fun String.getInteger(): Int {
     }
 }
 
-fun fromBundle(key: String): String = Main.getLanguageString(key)
+fun fromBundle(key: String): String = LanguageManager.getLanguageString(key)
 
 fun Tooltip.startTiming(time: Double) {
     try {

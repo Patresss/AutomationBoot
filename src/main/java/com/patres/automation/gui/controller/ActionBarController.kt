@@ -4,16 +4,17 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
-import com.patres.automation.Main
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.IconButton
 import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.gui.menuItem.MenuItemGroup
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.fromBundle
 import com.patres.automation.util.getIcon
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
 import javafx.scene.Node
+import javafx.scene.control.ListCell
 import javafx.scene.control.ListView
 import javafx.scene.control.Separator
 import javafx.scene.control.Tooltip
@@ -79,14 +80,16 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         val actions = FXCollections.observableArrayList<MenuItem>(nestedAction)
         val listView = JFXListView<MenuItem>().apply { items = actions }
 
+        println(actions)
         listView.cellFactory = Callback {
-            object : JFXListCell<MenuItem>() {
+            object : ListCell<MenuItem>() {  // TODO add JFX component JFXListCell
                 override fun updateItem(item: MenuItem?, empty: Boolean) {
                     super.updateItem(item, empty)
                     if (item != null) {
-                        text = Main.getLanguageString(item.bundleName) // TODO dynamicly change language
+                        textProperty().bind(LanguageManager.createStringBinding(item.bundleName))
+                        graphic = item.graphic.getIcon()
+
                     }
-                    graphic = item?.graphic?.getIcon()
                 }
             }
         }

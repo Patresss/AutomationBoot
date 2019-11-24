@@ -1,12 +1,11 @@
 package com.patres.automation.gui.controller.model
 
-import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.custom.AutomationBootableFactoryCell
 import com.patres.automation.gui.menuItem.MenuItem
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.calculateTypedParent
-import com.patres.automation.validation.Validationable
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -46,10 +45,11 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.getBundle()
+        fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<AutomationController<*>>()
 
-        actionLabel.textProperty().bind(Main.createStringBinding(action.bundleName()))
+        actionLabel.text = "abc"
+//        actionLabel.textProperty().bind(ResourceManager.createStringBinding(action.bundleName()))
 
     }
 

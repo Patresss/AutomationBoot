@@ -2,6 +2,7 @@ package com.patres.automation.file
 
 import com.patres.automation.Main
 import com.patres.automation.settings.GlobalSettingsLoader
+import com.patres.automation.settings.LanguageManager
 import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 import java.io.File
@@ -25,7 +26,7 @@ class FileChooser(
                 fileChooser.initialDirectory = file.parentFile
             }
         }
-        fileChooser.titleProperty().bind(Main.createStringBinding("action.chooseFile"))
+        fileChooser.titleProperty().bind(LanguageManager.createStringBinding("action.chooseFile"))
         return fileChooser.showOpenDialog(Main.mainStage)?.apply {
             saveLastOpenDirectory(this)
         }
@@ -39,7 +40,7 @@ class FileChooser(
                 chooser.initialDirectory = file.parentFile
             }
         }
-        chooser.titleProperty().bind(Main.createStringBinding("action.chooseFileOrDirectory"))
+        chooser.titleProperty().bind(LanguageManager.createStringBinding("action.chooseFileOrDirectory"))
         return chooser.showDialog(Main.mainStage)?.apply {
             saveLastOpenDirectory(this)
         }

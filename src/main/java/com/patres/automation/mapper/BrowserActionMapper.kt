@@ -9,18 +9,18 @@ import com.patres.automation.action.text.PasteTextFromFileAction
 import com.patres.automation.action.text.TypeTextFromFileAction
 import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.mapper.model.BrowserActionSerialized
-import com.patres.automation.type.ActionBootBrowser
+import com.patres.automation.type.ActionBootBrowser.*
 
 object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, BrowserActionSerialized> {
 
     override fun controllerToModel(controller: BrowseFileActionController): AbstractAction {
         return when (controller.action) {
-            ActionBootBrowser.PASTE_TEXT_FROM_FILE -> PasteTextFromFileAction(controller.value)
-            ActionBootBrowser.TYPE_TEXT_FROM_FILE -> TypeTextFromFileAction(controller.value, controller.root?.automationRunningProperty)
-            ActionBootBrowser.OPEN_FILE -> OpenFileAction(controller.value)
-            ActionBootBrowser.OPEN_DIRECTORY -> OpenDirectoryAction(controller.value)
-            ActionBootBrowser.WINDOWS_SCRIPT_RUN -> WindowsRunScriptAction(controller.value)
-            ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE -> WindowsRunAndWaitScriptAction(controller.value)
+            PASTE_TEXT_FROM_FILE -> PasteTextFromFileAction(controller.value)
+            TYPE_TEXT_FROM_FILE -> TypeTextFromFileAction(controller.value, controller.root?.automationRunningProperty)
+            OPEN_FILE -> OpenFileAction(controller.value)
+            OPEN_DIRECTORY -> OpenDirectoryAction(controller.value)
+            WINDOWS_SCRIPT_RUN -> WindowsRunScriptAction(controller.value)
+            WINDOWS_SCRIPT_RUN_AND_WAITE -> WindowsRunAndWaitScriptAction(controller.value)
         }
     }
 

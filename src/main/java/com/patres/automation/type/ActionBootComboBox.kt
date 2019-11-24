@@ -1,27 +1,22 @@
 package com.patres.automation.type
 
-import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.ComboBoxController
-import com.patres.automation.gui.controller.model.TextAreaActionController
+import com.patres.automation.settings.Language
 import com.patres.automation.validation.Validationable
 
 
-enum class ActionBootComboBox(
-        val bundleName: String,
-        val valuesToChoose: List<String>,
-        val validation: Validationable? = null
+abstract class ActionBootComboBox(
+        val bundleName: String
 ) : ActionBootable {
-
-    CHOOSE_LANGUAGE("robot.action.keyboard.paste", listOf("Polski", "Angielski"));
 
     override fun bundleName(): String {
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { ComboBoxController(this) }
+    override fun validation(): Validationable? = null
+}
 
-    override fun validation(): Validationable? {
-        return this.validation
-    }
-
+// new class because I cannot create enum with generic
+class ChooseLanguageActionBootComboBox() : ActionBootComboBox("settings.chooseLanguage") {
+    override fun createController(): () -> ComboBoxController<Language> = { ComboBoxController(this, Language.values().toList()) }
 }

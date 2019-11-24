@@ -1,6 +1,5 @@
 package com.patres.automation.gui.controller.model
 
-import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.ActionBarController
@@ -8,6 +7,7 @@ import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.box.SchemaGroupController
 import com.patres.automation.gui.controller.settings.LocalSettingsController
+import com.patres.automation.settings.LanguageManager
 import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -25,7 +25,7 @@ open class RootSchemaGroupController(
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/RootSchemaGroup.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.getBundle()
+        fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<RootSchemaGroupController>()
     }
 

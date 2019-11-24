@@ -1,6 +1,5 @@
 package com.patres.automation.excpetion
 
-import com.patres.automation.Main
-import java.text.MessageFormat
+import com.patres.automation.settings.LanguageManager
 
-class IntegerFormatException(integer: String) : ApplicationException(MessageFormat.format(Main.getLanguageString("error.mustBeNumber.parameter"), integer))
+class IntegerFormatException(integer: String) : ApplicationException(LanguageManager.getLanguageString("error.mustBeNumber.parameter", integer))

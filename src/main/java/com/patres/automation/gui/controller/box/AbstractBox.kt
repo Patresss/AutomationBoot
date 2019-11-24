@@ -1,13 +1,12 @@
 package com.patres.automation.gui.controller.box
 
-import com.patres.automation.Main
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.calculateTypedParent
-import com.patres.automation.util.getAllNodes
 import com.patres.automation.util.swap
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -47,7 +46,7 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.getBundle()
+         fxmlLoader.resources = LanguageManager.getBundle()
 
         fxmlLoader.load<AbstractBox<*>>()
         selectStackPane.addEventHandler(MouseEvent.MOUSE_PRESSED) { selectAction() }

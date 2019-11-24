@@ -1,9 +1,8 @@
 package com.patres.automation.gui.controller.model
 
-import com.patres.automation.Main
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
 import javafx.fxml.FXML
-import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.control.TextInputControl
 
@@ -27,7 +26,7 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
         }
         checkUiValidation()
         action.validation()?.getErrorMessageProperty()?.let {
-            validLabel.textProperty().bind(Main.createStringBinding(it))
+            validLabel.textProperty().bind(LanguageManager.createStringBinding(it))
         }
     }
 

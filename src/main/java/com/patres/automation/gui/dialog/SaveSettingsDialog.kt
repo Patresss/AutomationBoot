@@ -1,9 +1,9 @@
 package com.patres.automation.gui.dialog
 
 import com.jfoenix.controls.JFXDialog
-import com.patres.automation.Main
 import com.patres.automation.gui.controller.settings.SettingsController
 import com.patres.automation.gui.custom.KeyboardButton
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.fromBundle
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -16,7 +16,7 @@ class SaveSettingsDialog(private val settingsController: SettingsController) : S
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/dialog/SaveDialog.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.getBundle()
+        fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<KeyboardButton>()
     }
 

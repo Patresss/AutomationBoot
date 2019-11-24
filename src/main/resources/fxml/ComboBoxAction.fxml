@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<?import javafx.scene.control.ComboBox?>
 <fx:root styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane fx:id="gridPane" hgap="10.0">
         <columnConstraints>
@@ -20,6 +20,6 @@
         </rowConstraints>
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
         <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <ComboBox fx:id="comboBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+      <ComboBox fx:id="comboBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
     </GridPane>
 </fx:root>

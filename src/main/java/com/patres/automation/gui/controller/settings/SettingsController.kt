@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXSnackbar
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.dialog.SaveSettingsDialog
+import com.patres.automation.settings.LanguageManager
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -34,12 +35,12 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/Settings.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-        fxmlLoader.resources = Main.getBundle()
+        fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<SettingsController>()
 
         saveButton.isDisable = true
         snackBar = JFXSnackbar(this)
-        titleLabel.textProperty().bind(Main.createStringBinding(bundleName))
+        titleLabel.textProperty().bind(LanguageManager.createStringBinding(bundleName))
     }
 
     @FXML

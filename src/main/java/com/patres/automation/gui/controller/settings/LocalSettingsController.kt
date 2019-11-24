@@ -1,12 +1,12 @@
 package com.patres.automation.gui.controller.settings
 
 import com.jfoenix.controls.JFXCheckBox
-import com.patres.automation.Main
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.settings.LocalSettings
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootTextField
 import javafx.collections.ListChangeListener
@@ -19,7 +19,7 @@ class LocalSettingsController(
 
     private val runKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.RUN_KEYS_SETTINGS)
     private val stopKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.STOP_KEYS_SETTINGS)
-    private val enableRestCheckBox = JFXCheckBox().also { it.textProperty().bind(Main.createStringBinding("settings.enableRest")) }
+    private val enableRestCheckBox = JFXCheckBox().also { it.textProperty().bind(LanguageManager.createStringBinding("settings.enableRest")) }
     private val endpointNameTextField = TextFieldActionController(ActionBootTextField.ENDPOINT_NAME)
 
     init {
@@ -40,7 +40,7 @@ class LocalSettingsController(
         settings.enableRest = enableRestCheckBox.isSelected
         settings.endpointName = endpointNameTextField.value
         saveButton.isDisable = true
-        setMessageToSnackBar(Main.getLanguageString("message.snackbar.settingsSave"))
+        setMessageToSnackBar(LanguageManager.getLanguageString("message.snackbar.settingsSave"))
     }
 
     override fun initChangeDetectors() {

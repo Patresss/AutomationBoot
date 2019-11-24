@@ -3,6 +3,7 @@ package com.patres.automation.gui.dialog
 import com.jfoenix.controls.JFXDialog
 import com.jfoenix.controls.JFXDialog.DialogTransition
 import com.patres.automation.Main
+import com.patres.automation.settings.LanguageManager
 import javafx.fxml.FXMLLoader
 import javafx.scene.layout.Region
 import org.slf4j.LoggerFactory
@@ -19,7 +20,7 @@ class ExceptionHandlerDialog(private val exception: Exception) {
                 val loader = FXMLLoader()
                 loader.location = javaClass.getResource("/fxml/dialog/ExceptionHandlerDialog.fxml")
                 loader.setController(DialogController(this, exception))
-                loader.resources = Main.getBundle()
+                loader.resources = LanguageManager.getBundle()
                 content = loader.load<Region>()
             } catch (e: IOException) {
                 LOGGER.error("I/O Exception", e)

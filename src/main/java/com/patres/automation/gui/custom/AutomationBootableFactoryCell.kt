@@ -1,7 +1,7 @@
 package com.patres.automation.gui.custom
 
-import com.patres.automation.Main
 import com.patres.automation.gui.menuItem.MenuItem
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.getIcon
 import javafx.scene.control.ListCell
 import javafx.scene.text.Text
@@ -18,7 +18,7 @@ class AutomationBootableFactoryCell {
             override fun updateItem(item: MenuItem?, empty: Boolean) {
                 super.updateItem(item, empty)
                 if (item != null) {
-                    text = item.actionBoot?.bundleName()?.let { Main.getLanguageString(it) }//  TODO i18n?
+                    textProperty().bind(LanguageManager.createStringBinding(item.actionBoot?.bundleName()?: ""))
                     graphic = item.actionGraphic.getIcon("1em")
                 }
             }
@@ -35,7 +35,7 @@ class AutomationBootableFactoryCell {
                 } else {
                     val wrappedText = Text().apply {
                         wrappingWidthProperty().bind(widthProperty().subtract(10))
-                        text = item.actionBoot?.bundleName()?.let { Main.getLanguageString(it) }
+                        textProperty().bind(LanguageManager.createStringBinding(item.actionBoot?.bundleName()?: ""))
                     }
                     wrappedText.styleClass.add("text-combobox")
                     graphic = wrappedText
