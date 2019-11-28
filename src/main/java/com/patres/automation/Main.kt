@@ -35,7 +35,7 @@ class Main : Application() {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            nu.pattern.OpenCV.loadShared() //add this
+            nu.pattern.OpenCV.loadShared()
 //            ServerBoot.run()
             launch(Main::class.java)
         }

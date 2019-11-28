@@ -308,17 +308,16 @@ root {
 /* ================================================================================*\
  * List View
 \* ================================================================================*/
-.jfx-list-cell-content-container {
+.list-cell-content-container {
     -fx-alignment: center-left;
-
 }
 
-.jfx-list-cell:odd:selected .jfx-list-cell-container,
-.jfx-list-cell:even:selected .jfx-list-cell-container {
+.list-cell:odd:selected .list-cell-container,
+.list-cell:even:selected .list-cell-container {
     -fx-background-color: -color-background;
 }
 
-.jfx-list-cell {
+.list-cell {
     -fx-cursor: hand;
     -fx-background-insets: 0.0;
     -fx-text-fill: -color-primary-text;
@@ -331,30 +330,27 @@ root {
 
 .list-cell:odd,
 .list-cell:even,
-.jfx-list-cell:odd:focused .jfx-list-cell-container,
-.jfx-list-cell:even:focused .jfx-list-cell-container,
+.list-cell:odd:focused .list-cell-container,
+.list-cell:even:focused .list-cell-container,
 .list-cell:filled:selected {
     -fx-background-color: -color-background;
     -fx-font-weight: bold;
+    -fx-cell-size: 35px;
 }
 
 .jfx-list-cell:odd:focused,
 .jfx-list-cell:even:focused,
 .list-cell:filled:hover {
-
     -fx-background-color: -color-primary-ligth;
 }
 
-
-.jfx-list-view {
+.list-view {
     -fx-background-insets: 0.0;
     -fx-cell-horizontal-margin: 0.0;
     -fx-cell-vertical-margin: 5.0;
     -fx-vertical-gap: 10.0;
     -fx-expanded: false;
 }
-
-
 
 .list-cell:disabled .label {
     -fx-opacity: 1.0;
@@ -592,6 +588,11 @@ root {
 .jfx-snackbar-action {
     -fx-text-fill: -color-background;
     -fx-background-color: transparent;
+}
+
+.jfx-snackbar-content .label {
+    -fx-text-fill: -color-background;
+    -fx-font-family: "Roboto-Regular";
 }
 
 .fiche-icon .glyph-icon {

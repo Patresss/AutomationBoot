@@ -13,7 +13,7 @@
       <center>
          <StackPane fx:id="centerStackPane" BorderPane.alignment="CENTER">
             <children>
-                  <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+                  <JFXTabPane fx:id="tabPane" tabClosingPolicy="ALL_TABS">
                       <tabs>
 
                 </tabs>

@@ -16,8 +16,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
 import javafx.collections.ListChangeListener
 import javafx.collections.ObservableList
-import javafx.event.EventHandler
 import javafx.fxml.FXML
+import javafx.scene.control.Label
 import javafx.scene.control.TabPane
 import javafx.scene.layout.StackPane
 import org.slf4j.LoggerFactory
@@ -146,11 +146,7 @@ class MainController {
     }
 
     private fun setMessageToSnackBar(message: String) {
-        snackBar.fireEvent(
-                SnackbarEvent(message, "X",
-                        MESSAGE_SNACKBAR_TIMEOUT,
-                        false,
-                        EventHandler { snackBar.close() }))
+        snackBar.fireEvent(SnackbarEvent(Label(message)))
     }
 
     fun removeTab(tabContainer: TabContainer) {

@@ -65,7 +65,7 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
     }
 
     fun setMessageToSnackBar(message: String) {
-        snackBar.fireEvent(JFXSnackbar.SnackbarEvent(message, "X", MainController.MESSAGE_SNACKBAR_TIMEOUT, false, EventHandler { snackBar.close() }))
+        snackBar.fireEvent(JFXSnackbar.SnackbarEvent(Label(message)))
     }
 
     abstract fun initChangeDetectors()
