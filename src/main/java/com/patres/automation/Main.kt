@@ -27,7 +27,7 @@ class Main : Application() {
         const val sceneHeight = 715
         const val sceneBarHeight = 35.0 + 4.0
         const val sceneBarWeight = 4.0 + 4.0
-        var globalSettings = GlobalSettingsLoader.load()
+        var globalSettings = GlobalSettingsLoader.load().also { LanguageManager.setLanguage(it.language) }
         var mainStage: Stage = Stage()
         var mainPane: StackPane = StackPane()
         var tmpDirector: File = File("tmp")

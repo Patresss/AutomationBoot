@@ -10,6 +10,6 @@ class GlobalSettings(
         language: Language = Language.ENGLISH
 ) {
     var language: Language by Delegates.observable(language) { _, _, newValue ->
-        LanguageManager.setLocale(newValue.local)
+        LanguageManager.setLanguage(newValue)
     }
 }

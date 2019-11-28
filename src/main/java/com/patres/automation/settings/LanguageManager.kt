@@ -19,7 +19,8 @@ object LanguageManager {
         addListener { _, _, newValue -> Locale.setDefault(newValue) }
     }
 
-    fun setLocale(newLocale: Locale) {
+    fun setLanguage(language: Language) {
+        val newLocale = language.local
         locale.set(newLocale)
         Locale.setDefault(newLocale)
     }
