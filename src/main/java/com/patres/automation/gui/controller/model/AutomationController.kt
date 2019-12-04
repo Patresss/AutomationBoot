@@ -48,9 +48,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<AutomationController<*>>()
 
-        actionLabel.text = "abc"
-//        actionLabel.textProperty().bind(ResourceManager.createStringBinding(action.bundleName()))
-
+        actionLabel.textProperty().bind(LanguageManager.createStringBinding(action.bundleName()))
     }
 
     private fun initSelectedAction() {
