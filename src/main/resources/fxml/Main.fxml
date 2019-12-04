@@ -57,9 +57,9 @@
                         </accelerator></MenuItem>
              </items>
            </Menu>
-           <Menu mnemonicParsing="false" text="Help">
+           <Menu mnemonicParsing="false" text="%menu.help">
              <items>
-               <MenuItem mnemonicParsing="false" text="About">
+               <MenuItem mnemonicParsing="false" text="%menu.about">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>

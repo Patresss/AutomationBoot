@@ -1,7 +1,6 @@
 package com.patres.automation.gui.controller
 
 import com.jfoenix.controls.JFXButton
-import com.jfoenix.controls.JFXListCell
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
@@ -9,7 +8,6 @@ import com.patres.automation.gui.custom.IconButton
 import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.gui.menuItem.MenuItemGroup
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.util.fromBundle
 import com.patres.automation.util.getIcon
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
@@ -72,7 +70,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
                 }
             }
         }
-        button.tooltip = Tooltip(fromBundle(action.bundleName))
+        button.tooltip = Tooltip().apply { textProperty().bind(LanguageManager.createStringBinding(action.bundleName)) }
         actionBox.children.add(button)
     }
 
