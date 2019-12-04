@@ -14,25 +14,22 @@ class RootSchemaKeyListener(
         activeListener()
     }
 
-    private val pressedKeys = ArrayList<Int>()
+    private val pressedKeys = HashSet<Int>()
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
-        checkStopKeys(keyEvent)
-        checkRunKeys(keyEvent)
+        pressedKeys.add(KeyAdapter.getKeyEvent(keyEvent))
+        checkStopKeys()
+        checkRunKeys()
     }
 
-    private fun checkStopKeys(keyEvent: NativeKeyEvent) {
-        pressedKeys.add(KeyAdapter.getKeyEvent(keyEvent))
-
+    private fun checkStopKeys() {
         val stopKeys = rootSchemaGroupModel.localSettings.loadStopKeys().map { it.keyValue }
-        if (pressedKeys.containsAll(stopKeys)) {
+        if (stopKeys.isNotEmpty() && pressedKeys.containsAll(stopKeys)) {
             rootSchemaGroupModel.stopAutomation()
         }
     }
 
-    private fun checkRunKeys(keyEvent: NativeKeyEvent) {
-        pressedKeys.add(KeyAdapter.getKeyEvent(keyEvent))
-
+    private fun checkRunKeys() {
         val runKeysSetting = rootSchemaGroupModel.localSettings.runKeysSetting.map { it.keyValue }
         if (runKeysSetting.isNotEmpty() && pressedKeys.containsAll(runKeysSetting)) {
             Platform.runLater {
@@ -40,7 +37,6 @@ class RootSchemaKeyListener(
             }
         }
     }
-
 
     override fun nativeKeyReleased(e: NativeKeyEvent) {
         pressedKeys.remove(KeyAdapter.getKeyEvent(e))
