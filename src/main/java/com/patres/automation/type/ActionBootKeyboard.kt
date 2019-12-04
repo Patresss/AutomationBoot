@@ -11,6 +11,8 @@ enum class ActionBootKeyboard(
 ) : ActionBootable {
 
     PRESS_KEYBOARD_BUTTON("robot.action.keyboard.press"),
+    HOLD_KEYBOARD_BUTTON("robot.action.keyboard.hold"),
+    RELEASE_KEYBOARD_BUTTON("robot.action.keyboard.release"),
 
     RUN_KEYS_SETTINGS("settings.runKeys"),
     STOP_KEYS_SETTINGS("settings.stopKeys");

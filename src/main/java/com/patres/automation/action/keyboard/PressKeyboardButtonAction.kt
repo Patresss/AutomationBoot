@@ -1,22 +1,19 @@
 package com.patres.automation.action.keyboard
 
-import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.custom.KeyboardField
 import com.patres.automation.type.ActionBootKeyboard
 
 
 class PressKeyboardButtonAction(
-        private val keyboardField: KeyboardField
-) : AbstractAction(ActionBootKeyboard.PRESS_KEYBOARD_BUTTON) {
+        keyboardField: KeyboardField
+) : KeyboardButtonAction(keyboardField, ActionBootKeyboard.PRESS_KEYBOARD_BUTTON) {
 
     override fun runAction() {
-        keyboardField.keys
-                .map { it.keyValue }
+        keyValues
                 .forEach { robot.keyPress(it) }
 
-        keyboardField.keys
+        keyValues
                 .reversed()
-                .map { it.keyValue }
                 .forEach { robot.keyRelease(it) }
     }
 

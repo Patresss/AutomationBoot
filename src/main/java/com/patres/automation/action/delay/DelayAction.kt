@@ -19,7 +19,7 @@ class DelayAction(
     override fun runAction() {
         try {
             var currentDelay = 0
-            while (currentDelay <= delay && canBeRunningProperty?.get() != false) {
+            while (currentDelay <= delay && canBeRunningProperty?.get() == true) {
                 currentDelay += DELAY_STEP
                 Thread.sleep(DELAY_STEP.toLong())
             }
