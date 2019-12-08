@@ -41,6 +41,8 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
         saveButton.isDisable = true
         snackBar = JFXSnackbar(this)
         titleLabel.textProperty().bind(LanguageManager.createStringBinding(bundleName))
+        backButton.textProperty().bind(LanguageManager.createStringBinding("button.back"))
+        saveButton.textProperty().bind(LanguageManager.createStringBinding("menu.save"))
     }
 
     @FXML

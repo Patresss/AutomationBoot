@@ -9,8 +9,8 @@ import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.settings.GlobalSettingsLoader
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.RootSchemaLoader
-import com.patres.automation.util.fromBundle
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
@@ -18,19 +18,18 @@ import javafx.collections.ListChangeListener
 import javafx.collections.ObservableList
 import javafx.fxml.FXML
 import javafx.scene.control.Label
+import javafx.scene.control.Menu
+import javafx.scene.control.MenuItem
 import javafx.scene.control.TabPane
 import javafx.scene.layout.StackPane
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.text.MessageFormat
 
 
 class MainController {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(MainController::class.java)
-        val FILE_IS_SAVED: String = fromBundle("message.snackbar.fileIsSaved")
-        const val MESSAGE_SNACKBAR_TIMEOUT: Long = 5000
     }
 
     @FXML
@@ -41,6 +40,36 @@ class MainController {
 
     @FXML
     lateinit var centerStackPane: StackPane
+
+    @FXML
+    lateinit var fileMenu: Menu
+
+    @FXML
+    lateinit var newMenuItem: MenuItem
+
+    @FXML
+    lateinit var openMenuItem: MenuItem
+
+    @FXML
+    lateinit var saveMenuItem: MenuItem
+
+    @FXML
+    lateinit var saveAsMenuItem: MenuItem
+
+    @FXML
+    lateinit var closeTabMenuItem: MenuItem
+
+    @FXML
+    lateinit var settingsMenu: Menu
+
+    @FXML
+    lateinit var globalSettingsMenuItem: MenuItem
+
+    @FXML
+    lateinit var helpMenu: Menu
+
+    @FXML
+    lateinit var aboutMenuItem: MenuItem
 
     private lateinit var snackBar: JFXSnackbar
 
@@ -60,6 +89,20 @@ class MainController {
         }
 
         listenTabContainers()
+        initLanguage()
+    }
+    
+    private fun initLanguage() {
+        fileMenu.textProperty().bind(LanguageManager.createStringBinding("menu.file"))
+        newMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.new"))
+        openMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.open"))
+        saveMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.save"))
+        saveAsMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.saveAs"))
+        closeTabMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.closeTab"))
+        settingsMenu.textProperty().bind(LanguageManager.createStringBinding("menu.settings"))
+        globalSettingsMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.settings.globalSettings"))
+        helpMenu.textProperty().bind(LanguageManager.createStringBinding("menu.help"))
+        aboutMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.about"))
     }
 
     private fun listenTabContainers() {
@@ -108,7 +151,7 @@ class MainController {
         getSelectedTabContainer()?.let {
             val saved = RootSchemaLoader.saveExistingRootSchema(it)
             if (saved) {
-                setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, it.rootSchema.file?.name))
+                createSaveFileSnackBar(it.rootSchema.file?.name)
             }
         }
     }
@@ -118,7 +161,7 @@ class MainController {
         getSelectedTabContainer()?.let {
             val saved = RootSchemaLoader.saveAsRootSchema(it)
             if (saved) {
-                setMessageToSnackBar(MessageFormat.format(FILE_IS_SAVED, it.rootSchema.file?.name))
+                createSaveFileSnackBar(it.rootSchema.file?.name)
             }
         }
     }
@@ -145,8 +188,9 @@ class MainController {
         tabContainer?.tab?.graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
     }
 
-    private fun setMessageToSnackBar(message: String) {
-        snackBar.fireEvent(SnackbarEvent(Label(message)))
+    private fun createSaveFileSnackBar(fileName: String?) {
+        val formattedMessage = LanguageManager.getLanguageString("message.snackbar.fileIsSaved", fileName ?: "")
+        snackBar.fireEvent(SnackbarEvent(Label(formattedMessage)))
     }
 
     fun removeTab(tabContainer: TabContainer) {
