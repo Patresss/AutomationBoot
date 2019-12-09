@@ -4,7 +4,7 @@ import com.patres.automation.Main
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
-import com.patres.automation.gui.dialog.ExceptionHandlerDialog
+import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LocalSettings
@@ -22,7 +22,7 @@ class RootSchemaGroupModel(
 ) {
 
     companion object {
-        private val LOGGER = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
+        private val logger = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
     }
 
     var automationRunningProperty = SimpleBooleanProperty(false)
@@ -38,14 +38,8 @@ class RootSchemaGroupModel(
             val schemaGroupModel = controller.schemaGroupController.toModel()
             val runTask = createRunTask(schemaGroupModel, hideApplication)
             Thread(runTask).start()
-        } catch (e: ApplicationException) { // TODO global catch
-            LOGGER.error("ApplicationException: {}", e.message)
-            Platform.runLater {
-                val dialog = ExceptionHandlerDialog(e)
-                dialog.show()
-            }
         } catch (e: Exception) {
-            LOGGER.error("Exception: {}", e)
+            LogManager.showAndLogException(e)
         }
     }
 
@@ -62,16 +56,14 @@ class RootSchemaGroupModel(
                     if (hideApplication) {
                         Platform.runLater { Main.mainStage.isIconified = true }
                     }
+                    logger.info("Running root actions...")
                     schemaGroupModel.runAction()
+                    logger.info("Completed root actions")
                     Thread.sleep(200)
                 } catch (e: ApplicationException) {
-                    LOGGER.error("ApplicationException: {}", e)
-                    Platform.runLater {
-                        val dialog = ExceptionHandlerDialog(e)
-                        dialog.show()
-                    }
+                    LogManager.showAndLogException(e)
                 } catch (e: Exception) {
-                    LOGGER.error("Exception: {}", e)
+                    logger.error("Exception: {}", e)
                 } finally {
                     if (hideApplication) {
                         Platform.runLater { Main.mainStage.isIconified = false }

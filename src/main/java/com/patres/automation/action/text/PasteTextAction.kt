@@ -43,4 +43,6 @@ abstract class PasteTextAction(
         actionBoot.validation()?.check(value)
     }
 
+    override fun toStringLog() = "Action: `$actionBoot` | value: `$value`"
+
 }

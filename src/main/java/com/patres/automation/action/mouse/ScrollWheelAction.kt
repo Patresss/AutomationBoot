@@ -27,4 +27,7 @@ abstract class ScrollWheelAction(
         }
     }
 
+    override fun toStringLog() = "Action: `$actionBoot` | down: `$down`, numberOfScrolls: `$numberOfScrolls`"
+
+
 }

@@ -14,7 +14,8 @@ abstract class AbstractAction(
     abstract fun runAction()
 
     open fun validate() {
-
     }
+
+    abstract fun toStringLog(): String
 
 }

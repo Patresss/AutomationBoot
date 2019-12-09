@@ -35,8 +35,9 @@ class Main : Application() {
 
         @JvmStatic
         fun main(args: Array<String>) {
+            logger.info("Starting application...")
             nu.pattern.OpenCV.loadShared()
-//            ServerBoot.run()
+            ServerBoot.run()
             launch(Main::class.java)
         }
 
@@ -64,7 +65,6 @@ class Main : Application() {
             } else {
                 createTryIcon()
             }
-            //Platform.setImplicitExit(false)
         } catch (e: IOException) {
             logger.error("Error in start method - I/O Exception", e)
         }

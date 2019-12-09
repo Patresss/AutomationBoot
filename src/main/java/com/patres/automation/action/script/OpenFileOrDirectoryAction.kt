@@ -23,4 +23,6 @@ abstract class OpenFileOrDirectoryAction(
         actionBoot.validation()?.check(path)
     }
 
+    override fun toStringLog() = "Action: `$actionBoot` | path: `$path`"
+
 }

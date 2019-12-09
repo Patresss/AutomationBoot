@@ -13,4 +13,6 @@ abstract class KeyboardButtonAction(
     val keyValues
         get() = keyboardField.keys.map { it.keyValue }
 
+    override fun toStringLog() = "Action: `$actionBoot` | keyValues: `$keyValues`"
+
 }

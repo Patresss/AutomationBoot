@@ -8,6 +8,7 @@ import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
+import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.RootSchemaLoader
@@ -131,9 +132,7 @@ class MainController {
                 tabContainers.add(tabContainer)
             }
         } catch (e: Exception) {
-            LOGGER.error("Exception: {}", e)
-            val dialog = ExceptionHandlerDialog(e)
-            dialog.show()
+            LogManager.showAndLogException(e)
         }
     }
 

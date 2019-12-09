@@ -4,7 +4,9 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.type.ActionBootBrowser
 import java.io.File
 
-class WindowsRunAndWaitScriptAction(path: String) : WindowsScriptAction(path, true, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE)
+class WindowsRunAndWaitScriptAction(path: String) : WindowsScriptAction(path, true, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE) {
+}
+
 class WindowsRunScriptAction(path: String) : WindowsScriptAction(path, false, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE)
 
 abstract class WindowsScriptAction(
@@ -30,5 +32,8 @@ abstract class WindowsScriptAction(
     override fun validate() {
         actionBoot.validation()?.check(path)
     }
+
+    override fun toStringLog() = "Action: `$actionBoot` | path: `$path`, wait: `$wait`"
+
 
 }

@@ -33,21 +33,11 @@ object RootSchemaLoader {
     fun openRootSchema(tabPane: TabPane): TabContainer? {
         val fileToOpen = loaderFile.chooseToLoad()
         if (fileToOpen != null) {
-            val serializedRootGroup = fileToOpen.readText()
-            val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
-            val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
-
-            if (fileToOpen.extension == FileType.TEMP_AUTOMATION_BOOT.extension) {
-                rootGroup.tmpFile = fileToOpen
-            } else {
-                rootGroup.file = fileToOpen
-            }
-            return createTabContainer(tabPane, rootGroup)
+            return openRootSchema(tabPane, fileToOpen)
         }
         return null
     }
 
-    // TODO refactor duplicate ^
     fun openRootSchema(tabPane: TabPane, fileToOpen: File): TabContainer {
         val serializedRootGroup = fileToOpen.readText()
         val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
