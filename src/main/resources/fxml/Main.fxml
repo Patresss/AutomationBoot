@@ -55,6 +55,10 @@
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>
+             <MenuItem mnemonicParsing="false" onAction="#openLocalSettings" text="%menu.settings.localSettings" fx:id="localSettingsMenuItem">
+                 <accelerator>
+                     <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                 </accelerator></MenuItem>
              </items>
            </Menu>
            <Menu mnemonicParsing="false" text="%menu.help" fx:id="helpMenu">

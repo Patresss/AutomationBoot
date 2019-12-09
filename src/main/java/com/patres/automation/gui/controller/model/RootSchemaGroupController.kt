@@ -40,6 +40,8 @@ open class RootSchemaGroupController(
 
     lateinit var actionBarController: ActionBarController
 
+    private val localSettingsController = LocalSettingsController(this, model.localSettings)
+
     private val allChildrenAbstractBlocksRoot: List<AbstractBox<*>>
         get() = schemaGroupController.allChildrenActionBlocks + schemaGroupController
 
@@ -92,8 +94,9 @@ open class RootSchemaGroupController(
     }
 
     fun openLocalSettings() {
-        val localSettingsController = LocalSettingsController(this, model.localSettings)
-        SliderAnimation.goToTheWindow(localSettingsController, rootBorderPane, this)
+        if (!this.children.contains(localSettingsController)) {
+            SliderAnimation.goToTheWindow(localSettingsController, rootBorderPane, this)
+        }
     }
 
     fun addActionBlocks(actionController: AutomationController<*>) {

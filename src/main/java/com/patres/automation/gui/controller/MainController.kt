@@ -7,6 +7,7 @@ import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.settings.GlobalSettingsController
+import com.patres.automation.gui.controller.settings.LocalSettingsController
 import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.settings.GlobalSettingsLoader
@@ -67,6 +68,9 @@ class MainController {
     lateinit var globalSettingsMenuItem: MenuItem
 
     @FXML
+    lateinit var localSettingsMenuItem: MenuItem
+
+    @FXML
     lateinit var helpMenu: Menu
 
     @FXML
@@ -102,6 +106,7 @@ class MainController {
         closeTabMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.closeTab"))
         settingsMenu.textProperty().bind(LanguageManager.createStringBinding("menu.settings"))
         globalSettingsMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.settings.globalSettings"))
+        localSettingsMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.settings.localSettings"))
         helpMenu.textProperty().bind(LanguageManager.createStringBinding("menu.help"))
         aboutMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.about"))
     }
@@ -171,6 +176,14 @@ class MainController {
             globalSettingsController.reloadSettingsValue()
             SliderAnimation.goToTheWindow(globalSettingsController, tabPane, centerStackPane)
         }
+    }
+
+    @FXML
+    fun openLocalSettings() {
+        if (centerStackPane.children.contains(globalSettingsController)) {
+            globalSettingsController.closeSettings()
+        }
+        getSelectedTabContainer()?.rootSchema?.controller?.openLocalSettings()
     }
 
     @FXML
