@@ -4,7 +4,6 @@ import com.patres.automation.excpetion.IntegerFormatException
 import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.gui.font.FontAutomationIconView
 import com.patres.automation.settings.LanguageManager
-import com.sun.javafx.util.Utils
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -38,14 +37,6 @@ fun Parent.swap(node: Node, nodeToSwap: Node) {
     val childSetFromField = getObjectFromField(Parent::class, this, "childSet") as Set<Node>
     val childrenTriggerPermutationField = Parent::class.java.getDeclaredField("childrenTriggerPermutation")
     childrenTriggerPermutationField.isAccessible = true
-
-
-    if (Utils.assertionEnabled()) {
-        if (!childSetFromField.contains(node)) {
-            throw java.lang.AssertionError(
-                    "specified node is not in the list of children")
-        }
-    }
 
     if (nodeToSwap !== node) {
         childrenTriggerPermutationField.setBoolean(this, true)

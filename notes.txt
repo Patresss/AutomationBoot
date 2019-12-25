@@ -14,3 +14,9 @@ To run it with Java 11:
 --add-opens javafx.controls/javafx.scene.control=ALL-UNNAMED
 --add-opens javafx.graphics/com.sun.javafx.util=ALL-UNNAMED
 --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+
+
+--add-opens java.base/java.lang=opencv
+--add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix
+--add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix
+--add-opens javafx.controls/javafx.scene.control=automationBoot

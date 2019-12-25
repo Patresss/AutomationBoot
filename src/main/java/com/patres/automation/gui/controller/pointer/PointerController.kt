@@ -20,9 +20,6 @@ import javafx.scene.shape.Line
 import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.util.Duration
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.awt.Rectangle
 import java.awt.Robot
 import java.io.ByteArrayInputStream
@@ -200,8 +197,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     }
 
     private fun captureImage(screenRect: Rectangle) {
-        GlobalScope.launch {
-            delay(CAPTURE_DELAY)
+        Platform.runLater {
+            Thread.sleep(CAPTURE_DELAY)
             val capture = Robot().createScreenCapture(screenRect)
             val os = ByteArrayOutputStream()
             ImageIO.write(capture, "bmp", os)

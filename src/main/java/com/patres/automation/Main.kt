@@ -28,7 +28,7 @@ class Main : Application() {
         const val sceneBarHeight = 35.0 + 4.0
         const val sceneBarWeight = 4.0 + 4.0
         var globalSettings = GlobalSettingsLoader.load().also { LanguageManager.setLanguage(it.language) }
-        var mainStage: Stage = Stage()
+        lateinit var mainStage: Stage
         var mainPane: StackPane = StackPane()
         var tmpDirector: File = File("tmp")
         var mainController: MainController? = null
@@ -53,7 +53,7 @@ class Main : Application() {
         try {
             mainStage = primaryStage
             mainStage.titleProperty().bind(LanguageManager.createStringBinding("application.name"))
-            mainStage.icons.add(Image("/image/icon.png"))
+            mainStage.icons.add(Image(Main::class.java.getResourceAsStream("/image/icon.png")))
             mainStage.scene = createScene(loadMainPane())
             mainStage.minWidth = sceneWidth.toDouble()
             mainStage.minHeight = sceneHeight.toDouble()

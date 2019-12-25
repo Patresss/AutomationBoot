@@ -15,7 +15,7 @@ object LanguageManager {
 
     val logger = LoggerFactory.getLogger(LanguageManager::class.java)!!
 
-    var locale: ObjectProperty<Locale> = SimpleObjectProperty(Language.ENGLISH.local).apply {
+    private var locale: ObjectProperty<Locale> = SimpleObjectProperty(Language.ENGLISH.local).apply {
         addListener { _, _, newValue -> Locale.setDefault(newValue) }
     }
 
