@@ -2,6 +2,7 @@ package com.patres.automation.gui.dialog
 
 import com.jfoenix.controls.JFXDialog
 import com.jfoenix.controls.JFXDialog.DialogTransition
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.settings.LanguageManager
 import javafx.fxml.FXMLLoader
@@ -30,7 +31,7 @@ class ExceptionHandlerDialog(private val exception: Exception) {
         }
 
     init {
-        val dialogPane = Main.mainPane
+        val dialogPane = ApplicationLauncher.mainPane
         dialog = JFXDialog(dialogPane, dialogContent, DialogTransition.CENTER)
     }
 

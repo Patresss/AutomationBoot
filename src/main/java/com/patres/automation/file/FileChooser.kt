@@ -1,5 +1,6 @@
 package com.patres.automation.file
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
@@ -27,7 +28,7 @@ class FileChooser(
             }
         }
         fileChooser.titleProperty().bind(LanguageManager.createStringBinding("action.chooseFile"))
-        return fileChooser.showOpenDialog(Main.mainStage)?.apply {
+        return fileChooser.showOpenDialog(ApplicationLauncher.mainStage)?.apply {
             saveLastOpenDirectory(this)
         }
     }
@@ -41,14 +42,14 @@ class FileChooser(
             }
         }
         chooser.titleProperty().bind(LanguageManager.createStringBinding("action.chooseFileOrDirectory"))
-        return chooser.showDialog(Main.mainStage)?.apply {
+        return chooser.showDialog(ApplicationLauncher.mainStage)?.apply {
             saveLastOpenDirectory(this)
         }
     }
 
     fun chooseFileToSave(): File? {
         val fileChooser = getFileChooser()
-        return fileChooser.showSaveDialog(Main.mainStage)?.apply {
+        return fileChooser.showSaveDialog(ApplicationLauncher.mainStage)?.apply {
             saveLastOpenDirectory(this)
         }
     }
@@ -56,7 +57,7 @@ class FileChooser(
     private fun saveLastOpenDirectory(file: File) {
         if (file.exists()) {
             val directory = if (file.isDirectory) file else file.parentFile
-            Main.globalSettings.lastLoadedPath = directory.absolutePath
+            ApplicationLauncher.globalSettings.lastLoadedPath = directory.absolutePath
             GlobalSettingsLoader.save()
         }
     }
@@ -64,7 +65,7 @@ class FileChooser(
     private fun getFileChooser(): FileChooser {
         val chooser = FileChooser()
         return chooser.apply {
-            Main.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
+            ApplicationLauncher.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
             extFilter?.let { extensionFilters.add(it) }
         }
     }
@@ -72,7 +73,7 @@ class FileChooser(
     private fun getDirectoryChooser(): DirectoryChooser {
         val chooser = DirectoryChooser()
         return chooser.apply {
-            Main.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
+            ApplicationLauncher.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
         }
     }
 

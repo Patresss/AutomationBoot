@@ -1,5 +1,6 @@
 package com.patres.automation.gui.controller.pointer
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.point.Point
@@ -69,7 +70,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
 
     private fun setStyle() {
         scene.fill = Color.TRANSPARENT
-        scene.stylesheets.add(Main.getStylesheet())
+        scene.stylesheets.add(ApplicationLauncher.getStylesheet())
         pane.styleClass.add("stackpane-background")
         pane.cursor = Cursor.CROSSHAIR
     }
@@ -205,7 +206,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
             val inputStream = ByteArrayInputStream(os.toByteArray())
             Platform.runLater {
                 pointPane.setImage(inputStream)
-                Main.mainStage.isIconified = false
+                ApplicationLauncher.mainStage.isIconified = false
             }
         }
     }
@@ -258,7 +259,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
 
     private fun closeController() {
         stage.close()
-        Main.mainStage.isIconified = false
+        ApplicationLauncher.mainStage.isIconified = false
     }
 
 }

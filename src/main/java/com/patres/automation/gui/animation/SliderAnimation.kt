@@ -1,5 +1,6 @@
 package com.patres.automation.gui.animation
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
@@ -21,7 +22,7 @@ object SliderAnimation {
 
     private fun moveToTheWindow(previousNode: Node, newNode: Node, container: Pane, forward: Boolean) {
         val direction = if(forward) 1 else -1
-        previousNode.translateXProperty().set(direction *  Main.mainStage.scene.width)
+        previousNode.translateXProperty().set(direction *  ApplicationLauncher.mainStage.scene.width)
         container.children.add(previousNode)
 
         val timeline = Timeline()

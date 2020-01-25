@@ -3,6 +3,7 @@ package com.patres.automation.gui.controller.model
 import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDecorator
 import com.jfoenix.controls.JFXSlider
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.pointer.PointerController
 import com.patres.automation.settings.LanguageManager
@@ -117,12 +118,12 @@ class MousePointActionController(
         val stage = Stage()
         val decorator = JFXDecorator(stage, root, false, true, true)
 
-        val width = min((image?.width ?: 500.0) + Main.sceneBarWeight, MonitorSize.width)
+        val width = min((image?.width ?: 500.0) + ApplicationLauncher.sceneBarWeight, MonitorSize.width)
         val height = min((image?.height
-                ?: 500.0) + Main.sceneBarHeight + 8.0, MonitorSize.height) // add 8.0 because of scroll
+                ?: 500.0) + ApplicationLauncher.sceneBarHeight + 8.0, MonitorSize.height) // add 8.0 because of scroll
         val scene = Scene(decorator, width, height)
 
-        Main.setStyle(scene)
+        ApplicationLauncher.setStyle(scene)
         stage.titleProperty().bind(LanguageManager.createStringBinding("application.name"))
         stage.scene = scene
 
@@ -156,7 +157,7 @@ class MousePointActionController(
 
     private fun setHandler() {
         pointButton.setOnAction {
-            Main.mainStage.isIconified = true
+            ApplicationLauncher.mainStage.isIconified = true
             showPointerStage()
         }
     }

@@ -1,6 +1,7 @@
 package com.patres.automation.gui.dialog
 
 import com.jfoenix.controls.JFXDialog
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.custom.KeyboardButton
@@ -40,7 +41,7 @@ class SaveDialog(
     fun save() {
         val saved = RootSchemaLoader.saveExistingRootSchema(tabContainer)
         if (saved) {
-            Main.mainController?.removeTab(tabContainer)
+            ApplicationLauncher.mainController?.removeTab(tabContainer)
             dialogKeeper?.close()
         }
     }
@@ -48,7 +49,7 @@ class SaveDialog(
     @FXML
     fun doNotSave() {
         RootSchemaLoader.removeTmpFile(tabContainer)
-        Main.mainController?.removeTab(tabContainer)
+        ApplicationLauncher.mainController?.removeTab(tabContainer)
         dialogKeeper?.close()
     }
 

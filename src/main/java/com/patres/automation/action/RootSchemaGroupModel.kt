@@ -1,5 +1,6 @@
 package com.patres.automation.action
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.TmpFileLoader
@@ -54,7 +55,7 @@ class RootSchemaGroupModel(
                 try {
                     rootSchemaKeyListener.reset()
                     if (hideApplication) {
-                        Platform.runLater { Main.mainStage.isIconified = true }
+                        Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
                     }
                     logger.info("Running root actions...")
                     schemaGroupModel.runAction()
@@ -66,7 +67,7 @@ class RootSchemaGroupModel(
                     logger.error("Exception: {}", e)
                 } finally {
                     if (hideApplication) {
-                        Platform.runLater { Main.mainStage.isIconified = false }
+                        Platform.runLater { ApplicationLauncher.mainStage.isIconified = false }
                     }
                     automationRunningProperty.set(false)
                 }
@@ -87,7 +88,7 @@ class RootSchemaGroupModel(
             }
             saved = false
             saveTmpFile()
-            Main.mainController?.changeDetect(this)
+            ApplicationLauncher.mainController?.changeDetect(this)
         }
     }
 

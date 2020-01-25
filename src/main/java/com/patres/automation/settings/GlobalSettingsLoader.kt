@@ -1,5 +1,6 @@
 package com.patres.automation.settings
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.mapper.AutomationMapper
 import java.io.File
@@ -21,8 +22,8 @@ object GlobalSettingsLoader {
         }
     }
 
-    fun save(globalSettings: GlobalSettings = Main.globalSettings) {
-        val filesToSave = Main.mainController?.tabContainers?.map { it.rootSchema.getFilePathToSettings() }
+    fun save(globalSettings: GlobalSettings = ApplicationLauncher.globalSettings) {
+        val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchema.getFilePathToSettings() }
         filesToSave?.let { files ->
             globalSettings.previousPathFiles = files
         }

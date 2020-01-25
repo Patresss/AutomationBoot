@@ -1,5 +1,6 @@
 package com.patres.automation.gui.controller.settings
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.MainController
@@ -29,9 +30,9 @@ class GlobalSettingsController(private val mainController: MainController) : Set
     }
 
     override fun saveSettings() {
-        Main.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
-        Main.globalSettings.language = language.comboBox.value
-        GlobalSettingsLoader.save(Main.globalSettings)
+        ApplicationLauncher.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
+        ApplicationLauncher.globalSettings.language = language.comboBox.value
+        GlobalSettingsLoader.save(ApplicationLauncher.globalSettings)
         saveButton.isDisable = true
         setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
@@ -47,8 +48,8 @@ class GlobalSettingsController(private val mainController: MainController) : Set
     }
 
     fun reloadSettingsValue() {
-        stopKeysSetting.keyboardField.setKeyboardButtons(Main.globalSettings.stopKeys)
-        language.comboBox.value = Main.globalSettings.language
+        stopKeysSetting.keyboardField.setKeyboardButtons(ApplicationLauncher.globalSettings.stopKeys)
+        language.comboBox.value = ApplicationLauncher.globalSettings.language
         saveButton.isDisable = true
     }
 

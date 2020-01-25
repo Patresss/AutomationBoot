@@ -3,6 +3,7 @@ package com.patres.automation.gui.controller
 import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
@@ -113,12 +114,12 @@ class MainController {
 
     private fun listenTabContainers() {
         tabContainers.addListener { _: ListChangeListener.Change<out TabContainer>? ->
-            GlobalSettingsLoader.save(Main.globalSettings)
+            GlobalSettingsLoader.save(ApplicationLauncher.globalSettings)
         }
     }
 
     private fun getPreviousOpenModels(): List<File> {
-        return Main.globalSettings.previousPathFiles
+        return ApplicationLauncher.globalSettings.previousPathFiles
                 .map { File(it) }
                 .filter { it.exists() }
     }

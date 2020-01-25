@@ -1,6 +1,7 @@
 package com.patres.automation.util
 
 import com.jfoenix.controls.JFXDialog
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.file.FileChooser
@@ -84,7 +85,7 @@ object RootSchemaLoader {
             text = getTabName(rootSchema)
             graphic = null
         }
-        GlobalSettingsLoader.save(Main.globalSettings)
+        GlobalSettingsLoader.save(ApplicationLauncher.globalSettings)
     }
 
     fun removeTmpFile(tabContainer: TabContainer) {
@@ -114,12 +115,12 @@ object RootSchemaLoader {
         return EventHandler {
             if (!tabContainer.rootSchema.saved) {
                 val saveDialogPane = SaveDialog(tabContainer)
-                val jfxDialog = JFXDialog(Main.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
+                val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
                 saveDialogPane.dialogKeeper = jfxDialog
                 jfxDialog.show()
                 it?.consume()
             } else {
-                Main.mainController?.removeTab(tabContainer)
+                ApplicationLauncher.mainController?.removeTab(tabContainer)
             }
         }
     }

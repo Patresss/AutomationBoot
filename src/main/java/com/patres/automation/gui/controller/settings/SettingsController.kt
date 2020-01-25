@@ -3,6 +3,7 @@ package com.patres.automation.gui.controller.settings
 import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDialog
 import com.jfoenix.controls.JFXSnackbar
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.dialog.SaveSettingsDialog
@@ -56,7 +57,7 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
             backToPreviousWindow()
         } else {
             val saveDialogPane = SaveSettingsDialog(this)
-            val jfxDialog = JFXDialog(Main.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
+            val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
             saveDialogPane.dialogKeeper = jfxDialog
             jfxDialog.show()
         }

@@ -1,5 +1,6 @@
 package com.patres.automation.settings
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.Main
 import com.patres.automation.keyboard.KeyboardKey
 
@@ -12,7 +13,7 @@ data class LocalSettings(
 
     fun loadStopKeys(): List<KeyboardKey> {
         if (stopKeys.isEmpty()) {
-            return Main.globalSettings.stopKeys
+            return ApplicationLauncher.globalSettings.stopKeys
         }
         return stopKeys
     }
