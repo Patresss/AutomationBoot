@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.settings.GlobalSettingsController

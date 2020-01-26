@@ -1,7 +1,7 @@
 package com.patres.automation.file
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.mapper.AutomationMapper
@@ -19,7 +19,7 @@ object TmpFileLoader {
 
     fun createNewTmpFile(): File {
         return findValidFile().apply {
-            logger.info("Creating a file $this")
+            parentFile.mkdirs()
             createNewFile()
         }
     }
@@ -40,6 +40,7 @@ object TmpFileLoader {
         val filename = filenameBinding.get()
         var newFileName = "$filename ${currentNumber++}.$extension"
         var newFile = File(ApplicationLauncher.tmpDirector, newFileName)
+        logger.info("ApplicationLauncher.tmpDirector ${ApplicationLauncher.tmpDirector}")
 
         while (newFile.exists()) {
             newFileName = "$filename ${currentNumber++}.$extension"

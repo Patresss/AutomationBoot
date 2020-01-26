@@ -1,7 +1,7 @@
 package com.patres.automation.settings
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.mapper.AutomationMapper
 import java.io.File
 

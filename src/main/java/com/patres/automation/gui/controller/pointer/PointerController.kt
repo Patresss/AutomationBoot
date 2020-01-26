@@ -1,7 +1,7 @@
 package com.patres.automation.gui.controller.pointer
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.point.Point
 import com.patres.automation.point.Point.Companion.VECTOR_CHAR

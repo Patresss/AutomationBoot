@@ -1,7 +1,7 @@
 package com.patres.automation.gui.animation
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue

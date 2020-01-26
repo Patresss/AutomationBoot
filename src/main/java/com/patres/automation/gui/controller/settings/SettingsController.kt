@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDialog
 import com.jfoenix.controls.JFXSnackbar
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.dialog.SaveSettingsDialog
 import com.patres.automation.settings.LanguageManager

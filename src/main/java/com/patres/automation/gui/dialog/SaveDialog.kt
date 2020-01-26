@@ -2,7 +2,7 @@ package com.patres.automation.gui.dialog
 
 import com.jfoenix.controls.JFXDialog
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.settings.LanguageManager

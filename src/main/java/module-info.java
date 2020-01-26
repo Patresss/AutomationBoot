@@ -13,6 +13,8 @@ module automationBoot {
     requires com.fasterxml.jackson.databind;
     requires commons.lang3;
     requires kotlin.stdlib;
+    requires jackson.module.kotlin;
+    requires kotlin.reflect;
 
     opens com.patres.automation to javafx.fxml, javafx.graphics;
     opens com.patres.automation.gui.controller to javafx.fxml;
@@ -28,6 +30,6 @@ module automationBoot {
     exports com.patres.automation.keyboard to com.fasterxml.jackson.databind;
     exports com.patres.automation.type to com.fasterxml.jackson.databind;
 
-//    exports com.patres.automation;
+    exports com.patres.automation;
 
 }

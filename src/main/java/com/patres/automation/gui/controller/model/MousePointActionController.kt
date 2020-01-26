@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDecorator
 import com.jfoenix.controls.JFXSlider
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.gui.controller.pointer.PointerController
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootMousePoint

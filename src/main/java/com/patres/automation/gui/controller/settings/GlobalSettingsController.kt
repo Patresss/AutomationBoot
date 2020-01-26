@@ -1,14 +1,10 @@
 package com.patres.automation.gui.controller.settings
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.MainController
-import com.patres.automation.gui.controller.model.ComboBoxController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.settings.GlobalSettingsLoader
-import com.patres.automation.settings.Language
-import com.patres.automation.type.ActionBootComboBox
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ChooseLanguageActionBootComboBox
 import com.patres.automation.util.fromBundle

@@ -2,7 +2,7 @@ package com.patres.automation.util
 
 import com.jfoenix.controls.JFXDialog
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.Main
+
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.file.FileChooser
 import com.patres.automation.file.FileType

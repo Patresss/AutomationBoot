@@ -30,8 +30,15 @@ class ApplicationLauncher : Application() {
         var globalSettings = GlobalSettingsLoader.load().also { LanguageManager.setLanguage(it.language) }
         lateinit var mainStage: Stage
         var mainPane: StackPane = StackPane()
-        var tmpDirector: File = File("tmp")
+        var tmpDirector: File = File(System.getProperty("user.dir"),"tmp")
         var mainController: MainController? = null
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            logger.info("Application is starting...")
+            launch(ApplicationLauncher::class.java)
+        }
+
 
         fun getStylesheet(): String = ApplicationLauncher::class.java.getResource("/css/style_day.css").toExternalForm()
 
