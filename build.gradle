@@ -38,6 +38,10 @@ idea {
 group 'com.patres'
 version '1.0-SNAPSHOT'
 
+project.description = "Simple tool for automation."
+project.ext.buildDate = new Date()
+project.version = "0.1"
+
 sourceCompatibility = 11
 javafx {
     version = "11.0.2"
@@ -158,179 +162,45 @@ jlink {
                 "--add-opens=javafx.controls/javafx.scene.control=automationBoot"
         ]
     }
-}
 
-//
-//
-//ext {
-//    publishedVersion = project.version
-//    bundlerScript = file('bin/build-package.sh')
-//    santulatorLibraryPath = file("${buildDir}/libraries")
-//    mainJar = project(':gui').jar.outputs.files[0].name
-//    bundlePath = file("${buildDir}/bundle")
-//    fileAssociations = file("${buildDir}/resources/main/file-associations.properties")
-//    extraBundlerArguments = []
-//    if (operatingSystem.isMacOsX()) {
-////        packageType = 'pkg'
-////        appIcon = file('icons/mac/Santulator.icns')
-////        sessionIcon = file('icons/mac/SantulatorSession.icns')
-////        extraBundlerArguments = ['--mac-sign']
-//    } else if (operatingSystem.isLinux()) {
-////        packageType = 'deb'
-////        appIcon = file('icons/App1024.png')
-////        sessionIcon = file('icons/Doc1024.png')
-//    } else if (operatingSystem.isWindows()) {
-//        appIcon = file('icons/windows/Santulator.ico')
-//        sessionIcon = file('icons/windows/SantulatorSession.ico')
-//        bundlerScript = file('bin/build-package.bat')
-//        generatedInnoSetupFile = file("${buildDir}/resources/main/santulator.iss")
-//        windowsExecutable = file("${bundlePath}/Santulator/Santulator.exe")
-//        bundleContent = file("${bundlePath}/Santulator/*")
-//        // Locations for the DLL workaround (see https://github.com/Santulator/Santulator/issues/5)
-//        windowsDllDirectory = file('C:\\Windows\\System32')
-//        windowsDllMSVCP140 = file("${windowsDllDirectory}/MSVCP140.dll")
-//        windowsDllVCRUNTIME140 = file("${windowsDllDirectory}/VCRUNTIME140.dll")
-//    }
-//    if (publishedVersion.endsWith('-SNAPSHOT')) {
-//        publishedVersion = '0.0.1'
-//    }
-//}
-//
-////task recreateIconMacApp(type: Exec) {
-////    description 'Regenerate the Mac application icon'
-////    commandLine 'sh', file('bin/mac-icon.sh'), file('icons/App1024.png'), file('icons/mac'), 'Santulator'
-////}
-////
-////task recreateIconMacSession(type: Exec) {
-////    description 'Regenerate the Mac session file icon'
-////    commandLine 'sh', file('bin/mac-icon.sh'), file('icons/Doc1024.png'), file('icons/mac'), 'SantulatorSession'
-////}
-//
-//task recreateIconWindowsApp(type: Exec) {
-//    description 'Regenerate the Windows application icon'
-//    commandLine 'sh', file('bin/windows-icon.sh'), file('icons/App1024.png'), file('icons/windows'), 'Santulator'
-//}
-//
-//task recreateIconWindowsSession(type: Exec) {
-//    description 'Regenerate the Windows session file icon'
-//    commandLine 'sh', file('bin/windows-icon.sh'), file('icons/Doc1024.png'), file('icons/windows'), 'SantulatorSession'
-//}
-//
-//task recreateIcons(dependsOn: [recreateIconMacApp, recreateIconMacSession, recreateIconWindowsApp, recreateIconWindowsSession]) {
-//    description 'Regenerate all the application bundle icons'
-//}
-//
-//task checkBundlingEnvironment {
-//    description 'Check the environment for building the installable bundle'
-//    doLast {
-//        if (JavaVersion.current() != JavaVersion.VERSION_11) {
-//            throw new GradleException("You need JDK 11 to build the Santulator installable bundle")
+    jpackage {
+        installerOptions = [
+                '--description', project.description,
+                '--copyright', 'Copyrigth 2020 Patres - Patryk Piechaczek'
+        ]
+//        installerType = project.findProperty('installerType') // we will pass this from the command line (example: -PinstallerType=msi)
+        installerType = 'msi'
+        if (installerType == 'msi') {
+            imageOptions += ['--icon', 'src/main/resources/image/icon.ico']
+            installerOptions += [
+                    '--win-per-user-install', '--win-dir-chooser',
+                    '--win-menu', '--win-shortcut'
+            ]
+        }
+//        if (installerType == 'pkg') {
+//            imageOptions += ['--icon', 'src/main/resources/image/icon.png']
 //        }
-//        if (project.hasProperty('javafxJmodsPath')) {
-//            def modsPath = file("${javafxJmodsPath}")
-//
-//            if (modsPath.exists() && modsPath.isDirectory()) {
-//                if (!modsPath.list({ d, f -> f ==~ /.*.jmod/ } as FilenameFilter)) {
-//                    throw new GradleException("JavaFX modules directory '$modsPath' does not contain any '*.jmod' files")
-//                }
-//            } else {
-//                throw new GradleException("JavaFX modules directory '$modsPath' not found")
-//            }
-//        } else {
-//            throw new GradleException("Use -PjavafxJmodsPath=... to specify the directory containing the OpenJFX 11 JMod files")
-//        }
-//        if (operatingSystem.isWindows()) {
-//            def javaHome = System.env.JAVA_HOME
-//
-//            if (javaHome) {
-//                def javaExecutable = file("${javaHome}/bin/java.exe")
-//                def packagerFile = file("${javaHome}/bin/jpackager.exe")
-//                def jmodFile = file("${javaHome}/jmods/jdk.packager.jar")
-//
-//                if (!javaExecutable.exists()) {
-//                    throw new GradleException("Unable to find Java executable '${javaExecutable}'")
-//                }
-//                if (!packagerFile.exists()) {
-//                    throw new GradleException("Unable to find Java packager executable at '${packagerFile}'")
-//                }
-//                if (!jmodFile.exists()) {
-//                    throw new GradleException("Unable to find Java packager module at '${jmodFile}'")
-//                }
-//                // Check existence of files for DLL workaround (see https://github.com/Santulator/Santulator/issues/5)
-//                if (!windowsDllMSVCP140.exists() || !windowsDllVCRUNTIME140.exists()) {
-//                    throw new GradleException("Unable to find '${windowsDllMSVCP140}' and '${windowsDllVCRUNTIME140}' (see https://github.com/Santulator/Santulator/issues/5)")
-//                }
-//            } else {
-//                throw new GradleException("JAVA_HOME must be set")
-//            }
-//        } else {
-//            if (project.hasProperty('javaPackagerPath')) {
-//                def packagerFile = file("${javaPackagerPath}/jpackager")
-//
-//                if (!packagerFile.exists() || !packagerFile.isFile()) {
-//                    throw new GradleException("The Java Packager '$packagerFile' is missing")
-//                }
-//            } else {
-//                throw new GradleException("Use -PjavaPackagerPath=... to specify the directory containing the Java Packager")
-//            }
-//        }
-//    }
-//}
-//
-//task createBundle(type: Exec, dependsOn: [copyDependencies, processResources, checkBundlingEnvironment]) {
-//    description 'Build the installable bundle'
-//    if (operatingSystem.isWindows()) {
-//        commandLine 'cmd', '/c',
-//                bundlerScript,
-//                "${-> javafxJmodsPath}",
-//                santulatorLibraryPath,
-//                bundlePath,
-//                mainJar,
-//                publishedVersion,
-//                appIcon
-//    } else {
-//        commandLine = ['sh',
-//                       bundlerScript,
-//                       "${-> file("${javaPackagerPath}/jpackager")}",
-//                       packageType,
-//                       "${-> file("${javafxJmodsPath}")}",
-//                       santulatorLibraryPath,
-//                       bundlePath,
-//                       mainJar,
-//                       publishedVersion,
-//                       fileAssociations,
-//                       appIcon,
-//                       *extraBundlerArguments]
-//    }
-//}
-//
-//if (operatingSystem.isWindows()) {
-//    processResources {
-//        filesMatching('santulator.iss') {
-//            filter ReplaceTokens, tokens: [
-//                    'bundle.version': publishedVersion,
-//                    'executable.location': windowsExecutable.toString(),
-//                    'bundle.content': bundleContent.toString()
+//        if (installerType in ['deb', 'rpm']) {
+//            imageOptions += ['--icon', 'src/main/resources/image/icon.png']
+//            installerOptions += [
+//                    '--linux-shortcut'
 //            ]
 //        }
-//    }
-//
-//    task completeInnoSetup(dependsOn: processResources) {
-//        doLast {
-//            copy {
-//                from 'icons/windows'
-//                into "${bundlePath}/Santulator"
-//                include 'SantulatorSession.ico'
-//            }
-//            // Copy files for DLL workaround (see https://github.com/Santulator/Santulator/issues/5)
-//            copy {
-//                from windowsDllMSVCP140
-//                from windowsDllVCRUNTIME140
-//                into "${bundlePath}/Santulator"
-//            }
-//            println("Inno Setup file: ${generatedInnoSetupFile}")
+//        if (installerType == 'deb') {
+//            installerOptions += [
+//                    '--linux-deb-maintainer', 'app@test.it'
+//            ]
 //        }
+//        if (installerType == 'rpm') {
+//            installerOptions += [
+//                    '--linux-rpm-license-type', 'GPLv3'
+//            ]
+//        }
+    }
+}
+
+//jpackage {
+//    doFirst {
+//        project.getProperty('installerType') // throws exception if its missing
 //    }
-//
-//    createBundle.finalizedBy completeInnoSetup
 //}
