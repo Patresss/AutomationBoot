@@ -25,8 +25,6 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.3.61"
     id 'org.openjfx.javafxplugin' version '0.0.8'
     id 'org.beryx.jlink' version '2.17.0'
-
-//    id 'kotlin-allopen'
 }
 
 idea {
@@ -36,11 +34,11 @@ idea {
 }
 
 group 'com.patres'
-version '1.0-SNAPSHOT'
+version '0.1'
 
-project.description = "Simple tool for automation."
-project.ext.buildDate = new Date()
 project.version = "0.1"
+project.description = "Tool for automation"
+project.ext.buildDate = new Date()
 
 sourceCompatibility = 11
 javafx {
@@ -63,7 +61,6 @@ dependencies {
     compile 'com.jfoenix:jfoenix:9.0.9'
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'com.1stleg:jnativehook:2.1.0'
@@ -71,11 +68,6 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'org.slf4j:slf4j-log4j12:1.7.5'
-//    compile 'org.apache.logging.log4j:log4j-core:2.13.0'
-//    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.0'
-
-//    compile 'org.apache.logging.log4j:log4j-jul:2.10.0'
-//    compile 'org.slf4j:log4j-over-slf4j:1.7.25'
 
     compile 'de.jensd:fontawesomefx-emojione:2.2.7-2'
     compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-5'
@@ -87,27 +79,14 @@ dependencies {
     compile 'de.jensd:fontawesomefx-commons:9.1.2'
 
 //    compile group: 'io.ktor', name: 'ktor-server-core', version: '1.3.0-rc'
-
 //    compile "io.ktor:ktor-server-netty:$ktor_version"
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
-
     compile group: 'org.openpnp', name: 'opencv', version: '3.4.2-1'
-
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.10.+"
-
 }
 
 mainClassName = 'automationBoot/com.patres.automation.ApplicationLauncher'
-//jar {
-//    manifest {
-//        attributes "Main-Class": "com.patres.automation.Main"
-//    }
-//    from {
-//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//}
-
 
 compileKotlin {
     kotlinOptions {
@@ -119,21 +98,6 @@ compileTestKotlin {
         jvmTarget = "11"
     }
 }
-
-//jar {
-//    manifest {
-//        attributes "Main-Class": "com.patres.automation.ApplicationLauncher"
-//    }
-//    from {
-//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//}
-//
-//task libs(type: Sync) {
-//    from configurations.runtime
-//    into "$buildDir/deplibs"
-//}
-
 
 run {
     jvmArgs = [
