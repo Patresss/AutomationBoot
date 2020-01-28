@@ -11,8 +11,9 @@ class ImagePointDetector(
     override fun calculatePoint() = loadPoint()
 
     private fun loadPoint(): Point? {
-        val threshold = threshold / 100.0
-        return ImageToPointConverter(templateByteArray, threshold).calculatePointByTemplateMatchAndLogTime()
+        val thresholdMatch = threshold / 100.0
+        val imageToPointConverter = ImageToPointConverter(templateByteArray, thresholdMatch)
+        return imageToPointConverter.calculatePointByTemplateMatchAndLogTime()
     }
 
 }

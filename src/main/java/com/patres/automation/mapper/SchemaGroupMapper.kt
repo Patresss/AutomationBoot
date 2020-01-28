@@ -2,11 +2,10 @@ package com.patres.automation.mapper
 
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.SchemaGroupModel
-import com.patres.automation.gui.controller.box.AbstractBox
-import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.box.SchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.mapper.model.SchemaGroupSerialized
+import javafx.beans.property.SimpleBooleanProperty
 
 
 object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, SchemaGroupSerialized> {
@@ -31,7 +30,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
             iterationsTextField.text = serialized.numberOfIterations
             serialized.actionList
                     .map { it.serializedToController() }
-                    .forEach {  this.addNewAction(it) }
+                    .forEach { this.addNewAction(it) }
         }
     }
 

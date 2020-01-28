@@ -71,14 +71,6 @@ fun getObjectFromField(clazz: KClass<out Any>, instance: Any, nameOfField: Strin
     return field.get(instance)
 }
 
-fun String.getInteger(): Int {
-    try {
-        return Integer.parseInt(this)
-    } catch (e: Exception) {
-        throw IntegerFormatException(this)
-    }
-}
-
 fun fromBundle(key: String): String = LanguageManager.getLanguageString(key)
 
 fun Tooltip.startTiming(time: Double) {
@@ -96,17 +88,6 @@ fun Tooltip.startTiming(time: Double) {
     } catch (e: Exception) {
         e.printStackTrace()
     }
-}
-
-
-fun Tooltip.getHideTimer(): Timeline {
-    val fieldBehavior = this.javaClass.getDeclaredField("BEHAVIOR")
-    fieldBehavior.isAccessible = true
-    val objBehavior = fieldBehavior.get(this)
-
-    val fieldTimer = objBehavior.javaClass.getDeclaredField("hideTimer")
-    fieldTimer.isAccessible = true
-    return fieldTimer.get(objBehavior) as Timeline
 }
 
 fun GlyphIcons.getIcon(): GlyphIcon<*>? {
@@ -137,17 +118,6 @@ fun <T : Node> Node.calculateTypedParent(type: KClass<T>): T? {
         potentialParent is Node -> potentialParent.calculateTypedParent(type)
         else -> null
     }
-}
-
-fun GridPane.getNodeByRowColumnIndex(row: Int, column: Int): Node? {
-    var result: Node? = null
-    for (node in children) {
-        if (getRowIndex(node) == row && getColumnIndex(node) == column) {
-            result = node
-            break
-        }
-    }
-    return result
 }
 
 fun Parent.getAllNodes(): ArrayList<Node> {

@@ -10,7 +10,7 @@ abstract class MousePointAction(
 ) : AbstractAction(actionBoot) {
 
     companion object {
-        private const val DELAY = 150L
+        private const val DELAY = 150L // TODO add to propertied
     }
 
     override fun runAction() {

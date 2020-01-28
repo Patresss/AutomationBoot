@@ -4,14 +4,12 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.type.ActionBootBrowser
 import java.io.File
 
-class WindowsRunAndWaitScriptAction(path: String) : WindowsScriptAction(path, true, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE) {
-}
-
+class WindowsRunAndWaitScriptAction(path: String) : WindowsScriptAction(path, true, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE)
 class WindowsRunScriptAction(path: String) : WindowsScriptAction(path, false, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE)
 
 abstract class WindowsScriptAction(
         val path: String,
-        val wait: Boolean,
+        private val wait: Boolean,
         actionBoot: ActionBootBrowser
 ) : AbstractAction(actionBoot) {
 
@@ -20,7 +18,6 @@ abstract class WindowsScriptAction(
 
         val processBuilder = ProcessBuilder().apply {
             command(file.absolutePath)
-//            directory(file.parentFile)
         }
 
         if (wait) {
@@ -34,6 +31,5 @@ abstract class WindowsScriptAction(
     }
 
     override fun toStringLog() = "Action: `$actionBoot` | path: `$path`, wait: `$wait`"
-
 
 }

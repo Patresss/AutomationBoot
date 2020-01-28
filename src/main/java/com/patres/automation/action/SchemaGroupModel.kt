@@ -10,20 +10,14 @@ class SchemaGroupModel(
         private val automationRunningProperty: BooleanProperty?
 ) : AbstractAction(ActionBootSchema.ADD_GROUP) {
 
-    companion object {
-        private val logger = LoggerFactory.getLogger(SchemaGroupModel::class.java)
-    }
-
     override fun runAction() {
         for (i in 0 until iteration) {
             for (action in actions) {
-                logger.info("Running action  - {}", action.toStringLog())
                 if (automationRunningProperty?.get() != false) {
-                    action.runAction()
+                    action.runAndLogAction()
                 } else {
                     return
                 }
-                logger.info("Finished action - {}", action.toStringLog())
             }
         }
     }

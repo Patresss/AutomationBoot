@@ -4,7 +4,6 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.type.ActionBootTextField
 import javafx.beans.property.BooleanProperty
-import org.slf4j.LoggerFactory
 
 class DelayAction(
         private val delay: Int,
