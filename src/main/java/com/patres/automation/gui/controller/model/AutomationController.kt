@@ -41,7 +41,6 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     private var actionComboBox: ComboBox<MenuItem>? = null
 
     init {
-
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)

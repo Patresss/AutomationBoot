@@ -106,7 +106,9 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         nodeActionMap.forEach { (button, action) ->
             button.onMouseClicked = EventHandler {
                 action.menuItemHandler(model)
-                model.changeDetect()
+                if (action.enabledForChangeDetector) {
+                    model.changeDetect()
+                }
             }
 
             button.hoverProperty().bean

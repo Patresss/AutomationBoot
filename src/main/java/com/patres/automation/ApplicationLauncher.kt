@@ -2,6 +2,7 @@ package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
+import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import javafx.application.Application
@@ -36,9 +37,9 @@ class ApplicationLauncher : Application() {
         @JvmStatic
         fun main(args: Array<String>) {
             logger.info("Application is starting...")
+            ServerBoot.run()
             launch(ApplicationLauncher::class.java)
         }
-
 
         fun getStylesheet(): String = ApplicationLauncher::class.java.getResource("/css/style_day.css").toExternalForm()
 

@@ -15,6 +15,7 @@ module automationBoot {
     requires kotlin.stdlib;
     requires jackson.module.kotlin;
     requires kotlin.reflect;
+    requires jdk.httpserver;
 
     opens com.patres.automation to javafx.fxml, javafx.graphics;
     opens com.patres.automation.gui.controller to javafx.fxml;

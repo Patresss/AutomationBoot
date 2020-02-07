@@ -14,11 +14,12 @@ enum class MenuItem(
         val bundleName: String = actionBoot?.bundleName() ?: "",
         val shouldBeDisabled: (controller: RootSchemaGroupController) -> Boolean = { false },
         val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = actionBoot?.addController() ?: {},
-        val actionGraphic: GlyphIcons = graphic
+        val actionGraphic: GlyphIcons = graphic,
+        val enabledForChangeDetector:Boolean = true
 ) {
 
-    RUN(FontAwesomeIcon.PLAY, null, null, "robot.action.runAutomation", menuItemHandler = MenuItemHandlers.runAutomation),
-    STOP(FontAwesomeIcon.STOP, null, null, "robot.action.stop", menuItemHandler = MenuItemHandlers.stopAutomation),
+    RUN(FontAwesomeIcon.PLAY, null, null, "robot.action.runAutomation", menuItemHandler = MenuItemHandlers.runAutomation, enabledForChangeDetector = false),
+    STOP(FontAwesomeIcon.STOP, null, null, "robot.action.stop", menuItemHandler = MenuItemHandlers.stopAutomation, enabledForChangeDetector = false),
     MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, null, null, "robot.action.moveToUp", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToUp),
     MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, null, null, "robot.action.moveToDown", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToDown),
     REMOVE(FontAwesomeIcon.REMOVE, null, null, "robot.action.remove", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.remove),

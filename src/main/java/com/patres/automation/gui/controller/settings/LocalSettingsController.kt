@@ -5,8 +5,8 @@ import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.model.TextFieldActionController
-import com.patres.automation.settings.LocalSettings
 import com.patres.automation.settings.LanguageManager
+import com.patres.automation.settings.LocalSettings
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootTextField
 import javafx.collections.ListChangeListener
@@ -50,7 +50,6 @@ class LocalSettingsController(
         endpointNameTextField.valueText.textProperty().addListener { _, _, _ -> changeDetect() }
     }
 
-
     private fun loadLocalSettings() {
         mainVBox.children.add(runKeysSetting)
         mainVBox.children.add(stopKeysSetting)
@@ -60,10 +59,8 @@ class LocalSettingsController(
         runKeysSetting.keyboardField.setKeyboardButtons(settings.runKeysSetting)
         stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
         enableRestCheckBox.isSelected = settings.enableRest
-        endpointNameTextField.value = rootSchemaGroupController.model.getEndpointName()
-
+        endpointNameTextField.value = settings.endpointName
         endpointNameTextField.isVisible = settings.enableRest
     }
-
 
 }

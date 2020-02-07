@@ -8,8 +8,6 @@ import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.settings.GlobalSettingsController
-import com.patres.automation.gui.controller.settings.LocalSettingsController
-import com.patres.automation.gui.dialog.ExceptionHandlerDialog
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
@@ -32,7 +30,7 @@ import java.io.File
 class MainController {
 
     companion object {
-        private val LOGGER = LoggerFactory.getLogger(MainController::class.java)
+        private val logger = LoggerFactory.getLogger(MainController::class.java)
     }
 
     @FXML
@@ -119,9 +117,13 @@ class MainController {
     }
 
     private fun getPreviousOpenModels(): List<File> {
-        return ApplicationLauncher.globalSettings.previousPathFiles
+        val (existingFile, notExistingFiles) = ApplicationLauncher.globalSettings.previousPathFiles
                 .map { File(it) }
-                .filter { it.exists() }
+                .partition { it.exists() }
+        if (notExistingFiles.isNotEmpty()) {
+            logger.warn("Cannot find files to open: $notExistingFiles")
+        }
+        return existingFile
     }
 
     @FXML
@@ -147,7 +149,7 @@ class MainController {
             val tabContainer = RootSchemaLoader.openRootSchema(tabPane, fileToLoad)
             tabContainers.add(tabContainer)
         } catch (e: Exception) {
-            LOGGER.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message)
+            logger.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message)
         }
     }
 
