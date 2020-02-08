@@ -4,6 +4,7 @@ import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
+import org.slf4j.LoggerFactory
 import java.net.HttpURLConnection
 
 abstract class ActionHttpHandler(
@@ -12,9 +13,14 @@ abstract class ActionHttpHandler(
         private val invokedNameAction: String
 ) : HttpHandler {
 
+    companion object {
+        val logger = LoggerFactory.getLogger(ActionHttpHandler::class.java)!!
+    }
+
     abstract fun invokeAction(action: RootSchemaGroupModel)
 
     override fun handle(exchange: HttpExchange) {
+        logger.debug("Receive request - method: ${exchange.requestMethod}, url: ${exchange.requestURI.path}")
         if (method == exchange.requestMethod) {
             val actionName = exchange.requestURI.path.removePrefix(url)
             val action = ApplicationLauncher.mainController?.findActionByName(actionName)
@@ -27,6 +33,7 @@ abstract class ActionHttpHandler(
         } else {
             createBadMethodResponse(exchange)
         }
+        logger.debug("Send response request - code: ${exchange.responseCode}, body: ${exchange.responseBody}") // todo repsonse as text
         exchange.close()
     }
 

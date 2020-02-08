@@ -8,7 +8,7 @@ import java.net.InetSocketAddress
 
 object ServerBoot {
 
-    val logger = LoggerFactory.getLogger(ApplicationLauncher::class.java)!!
+    val logger = LoggerFactory.getLogger(ServerBoot::class.java)!!
     private val actionHandlers = setOf(ActionRunHttpHandler(), ActionStopHttpHandler())
 
     fun run() {
