@@ -25,7 +25,7 @@ class ApplicationLauncher : Application() {
     companion object {
         val logger = LoggerFactory.getLogger(ApplicationLauncher::class.java)!!
         const val sceneWidth = 515
-        const val sceneHeight = 715
+        const val sceneHeight = 745
         const val sceneBarHeight = 35.0 + 4.0
         const val sceneBarWeight = 4.0 + 4.0
         var globalSettings = GlobalSettingsLoader.load().also { LanguageManager.setLanguage(it.language) }

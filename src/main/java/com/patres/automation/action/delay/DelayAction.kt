@@ -6,7 +6,7 @@ import com.patres.automation.type.ActionBootTextField
 import javafx.beans.property.BooleanProperty
 
 class DelayAction(
-        private val delay: Int,
+        private val delay: Long,
         private val canBeRunningProperty: BooleanProperty?
 ) : AbstractAction(ActionBootTextField.DELAY) {
 

@@ -8,6 +8,7 @@ import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LocalSettings
+import com.patres.automation.record.ActionRecorder
 import javafx.application.Platform
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.concurrent.Task
@@ -26,6 +27,7 @@ class RootSchemaGroupModel(
     }
 
     var automationRunningProperty = SimpleBooleanProperty(false)
+    val actionRecorder = ActionRecorder()
 
     var loaded: Boolean = false
 
@@ -103,5 +105,15 @@ class RootSchemaGroupModel(
     fun getName() = file?.nameWithoutExtension ?: tmpFile.nameWithoutExtension
 
     fun getEndpointName() = if (localSettings.endpointName.isNotBlank()) localSettings.endpointName else getName().replace("\\s".toRegex(), "")
+
+    fun startRecord() {
+        actionRecorder.record()
+    }
+
+    fun stopRecord() {
+        val recordedActions = actionRecorder.stopRecording()
+        val controllers = recordedActions.map { it.serializedToController() }
+        controllers.forEach {controller.addActionBlocks(it)  }
+    }
 
 }

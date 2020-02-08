@@ -15,7 +15,8 @@ enum class MenuItem(
         val shouldBeDisabled: (controller: RootSchemaGroupController) -> Boolean = { false },
         val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = actionBoot?.addController() ?: {},
         val actionGraphic: GlyphIcons = graphic,
-        val enabledForChangeDetector:Boolean = true
+        val enabledForChangeDetector: Boolean = true,
+        val shouldBeVisible: (controller: RootSchemaGroupController) -> Boolean = { true }
 ) {
 
     RUN(FontAwesomeIcon.PLAY, null, null, "robot.action.runAutomation", menuItemHandler = MenuItemHandlers.runAutomation, enabledForChangeDetector = false),
@@ -23,6 +24,8 @@ enum class MenuItem(
     MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, null, null, "robot.action.moveToUp", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToUp),
     MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, null, null, "robot.action.moveToDown", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToDown),
     REMOVE(FontAwesomeIcon.REMOVE, null, null, "robot.action.remove", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.remove),
+    START_RECORD(FontAwesomeIcon.CIRCLE, null, null, "robot.action.record.start", menuItemHandler = MenuItemHandlers.startRecord),
+    STOP_RECORD(FontAwesomeIcon.CIRCLE_ALT, null, null, "robot.action.record.stop", menuItemHandler = MenuItemHandlers.stopRecord),
 
     ADD_GROUP(FontAwesomeIcon.OBJECT_GROUP, ActionBootSchema.ADD_GROUP, null, menuItemHandler = MenuItemHandlers.addGroup),
 

@@ -14,9 +14,9 @@ object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, Keyboa
 
     override fun controllerToModel(controller: KeyboardButtonActionController): KeyboardButtonAction {
         return when (controller.action) {
-            PRESS_KEYBOARD_BUTTON -> PressKeyboardButtonAction(controller.keyboardField)
-            HOLD_KEYBOARD_BUTTON -> HoldKeyboardButtonAction(controller.keyboardField)
-            RELEASE_KEYBOARD_BUTTON -> ReleaseKeyboardButtonAction(controller.keyboardField)
+            PRESS_KEYBOARD_BUTTON -> PressKeyboardButtonAction(controller.keyboardField.keys)
+            HOLD_KEYBOARD_BUTTON -> HoldKeyboardButtonAction(controller.keyboardField.keys)
+            RELEASE_KEYBOARD_BUTTON -> ReleaseKeyboardButtonAction(controller.keyboardField.keys)
 
             RUN_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(RUN_KEYS_SETTINGS)
             STOP_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(STOP_KEYS_SETTINGS)

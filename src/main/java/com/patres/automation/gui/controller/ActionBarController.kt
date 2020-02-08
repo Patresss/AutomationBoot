@@ -9,6 +9,7 @@ import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.gui.menuItem.MenuItemGroup
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.getIcon
+import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
 import javafx.scene.Node
@@ -26,13 +27,18 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     private val nodeActionMap = HashMap<Node, MenuItem>()
     private val listViews = ArrayList<ListView<MenuItem>>()
 
-    private var runButton: Node? = null
-    private var stopButton: Node? = null
+    private var runActionsButton: Node? = null
+    private var stopActionsButton: Node? = null
+    private var runRecordButton: Node? = null
+    private var stopRecordButton: Node? = null
 
     init {
         addActions()
         setRunIcon()
+
+        initRecordButtonListener()
     }
+
 
     fun initAfterSetModel() {
         updateDisabledButtons()
@@ -64,8 +70,10 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
             nodeActionMap[button] = action
 
             when (action) {
-                MenuItem.RUN -> runButton = button
-                MenuItem.STOP -> stopButton = button
+                MenuItem.RUN -> runActionsButton = button
+                MenuItem.STOP -> stopActionsButton = button
+                MenuItem.START_RECORD -> runRecordButton = button
+                MenuItem.STOP_RECORD -> stopRecordButton = button
                 else -> {
                 }
             }
@@ -124,16 +132,45 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     }
 
     fun setStopIcon() {
-        actionBox.children.remove(runButton)
-        if (!actionBox.children.contains(stopButton)) {
-            actionBox.children.add(0, stopButton)
+        actionBox.children.remove(runActionsButton)
+        if (!actionBox.children.contains(stopActionsButton)) {
+            actionBox.children.add(0, stopActionsButton)
         }
     }
 
     fun setRunIcon() {
-        actionBox.children.remove(stopButton)
-        if (!actionBox.children.contains(runButton)) {
-            actionBox.children.add(0, runButton)
+        actionBox.children.remove(stopActionsButton)
+        if (!actionBox.children.contains(runActionsButton)) {
+            actionBox.children.add(0, runActionsButton)
+        }
+    }
+
+    private fun initRecordButtonListener() {
+        setRunRecordIcon()
+        rootSchemaGroupController.model.actionRecorder.recordRunningProperty.addListener { _, _, newValue ->
+            Platform.runLater {
+                if (newValue) {
+                    setStopRecordIcon()
+                } else {
+                    setRunRecordIcon()
+                }
+            }
+        }
+    }
+
+    private fun setStopRecordIcon() {
+        val buttonIndex = actionBox.children.indexOf(runRecordButton)
+        actionBox.children.remove(runRecordButton)
+        if (!actionBox.children.contains(stopRecordButton)) {
+            actionBox.children.add(buttonIndex, stopRecordButton)
+        }
+    }
+
+    private fun setRunRecordIcon() {
+        val buttonIndex = actionBox.children.indexOf(stopRecordButton)
+        actionBox.children.remove(stopRecordButton)
+        if (!actionBox.children.contains(runRecordButton)) {
+            actionBox.children.add(buttonIndex, runRecordButton)
         }
     }
 

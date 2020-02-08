@@ -42,6 +42,10 @@ class Point(
             }
         }
 
+        fun awtPointToPoint(point: java.awt.Point) = Point(point.x, point.y)
+
+        fun awtPointToString(point: java.awt.Point) = Point(point.x, point.y).toString()
+
         fun transformPoint(point1: Point, point2: Point): Point {
             return Point(point1.x - point2.x, point1.y - point2.y)
         }

@@ -45,7 +45,7 @@ class RootSchemaKeyListener(
     override fun nativeKeyTyped(e: NativeKeyEvent) {}
 
     private fun activeListener() {
-        GlobalKeyListener.activeListener(this)
+        GlobalKeyMouseListener.activeKeyListener(this)
     }
 
     fun reset() {

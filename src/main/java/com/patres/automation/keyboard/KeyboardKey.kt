@@ -123,5 +123,8 @@ enum class KeyboardKey(
     WINDOWS(KeyEvent.VK_WINDOWS),
     CONTEXT_MENU(KeyEvent.VK_CONTEXT_MENU);
 
+    companion object {
+        fun findById(id: Int): KeyboardKey? = KeyboardKey.values().find { it.keyValue == id }
+    }
 
 }

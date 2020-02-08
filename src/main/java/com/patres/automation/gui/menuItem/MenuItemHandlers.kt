@@ -10,6 +10,8 @@ object MenuItemHandlers {
     val moveToDown: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.controller.selectedModel.downActionBlock() }
     val moveToUp: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.controller.selectedModel.upActionBlock() }
     val remove: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.controller.removeSelectedModel() }
+    val startRecord: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.startRecord() }
+    val stopRecord: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.stopRecord() }
     val addGroup: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = { it.controller.addActionBlocks(SchemaGroupController()) }
 
 }
