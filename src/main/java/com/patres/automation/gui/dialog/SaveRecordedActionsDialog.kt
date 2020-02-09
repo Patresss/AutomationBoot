@@ -61,10 +61,12 @@ class SaveRecordedActionsDialog(
     }
 
     private fun changeLastActionLabel(newValue: Boolean) {
-        if (newValue) {
-            addStrike(actionTextMap.values.last())
-        } else {
-            removeStrike(actionTextMap.values.last())
+        if (actionTextMap.isNotEmpty()) {
+            if (newValue) {
+                addStrike(actionTextMap.values.last())
+            } else {
+                removeStrike(actionTextMap.values.last())
+            }
         }
     }
 

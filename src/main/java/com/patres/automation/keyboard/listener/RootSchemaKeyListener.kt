@@ -17,8 +17,6 @@ class RootSchemaKeyListener(
     private val pressedKeys = HashSet<Int>()
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
-        println("Key prss: " + KeyAdapter.getKeyEvent(keyEvent))
-
         pressedKeys.add(KeyAdapter.getKeyEvent(keyEvent))
         checkStopKeys()
         checkRunKeys()
@@ -40,11 +38,12 @@ class RootSchemaKeyListener(
         }
     }
 
-    override fun nativeKeyReleased(e: NativeKeyEvent) {
-        pressedKeys.remove(KeyAdapter.getKeyEvent(e))
+    override fun nativeKeyReleased(keyEvent: NativeKeyEvent) {
+        pressedKeys.remove(KeyAdapter.getKeyEvent(keyEvent))
     }
 
-    override fun nativeKeyTyped(e: NativeKeyEvent) {}
+    override fun nativeKeyTyped(keyEvent: NativeKeyEvent) {
+    }
 
     private fun activeListener() {
         GlobalKeyMouseListener.activeKeyListener(this)
