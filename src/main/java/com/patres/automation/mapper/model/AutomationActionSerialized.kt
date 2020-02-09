@@ -28,7 +28,7 @@ sealed class AutomationActionSerialized {
     abstract fun toTranslatedString(): String
 }
 
-data class MousePointActionSerialized(
+class MousePointActionSerialized(
         val actionType: ActionBootMousePoint,
         val point: String? = null,
         val image: String? = null,
@@ -38,7 +38,7 @@ data class MousePointActionSerialized(
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $point"
 }
 
-data class KeyboardFieldActionSerialized(
+class KeyboardFieldActionSerialized(
         val actionType: ActionBootKeyboard,
         val keys: List<KeyboardKey> = emptyList()
 ) : AutomationActionSerialized() {
@@ -46,7 +46,7 @@ data class KeyboardFieldActionSerialized(
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $keys"
 }
 
-data class SchemaGroupSerialized(
+class SchemaGroupSerialized(
         val actionList: List<AutomationActionSerialized> = ArrayList(),
         val groupName: String = "Group",
         val numberOfIterations: String = "1"
@@ -56,7 +56,7 @@ data class SchemaGroupSerialized(
 
 }
 
-data class BrowserActionSerialized(
+class BrowserActionSerialized(
         val actionType: ActionBootBrowser,
         val path: String = ""
 ) : AutomationActionSerialized() {
@@ -64,7 +64,7 @@ data class BrowserActionSerialized(
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $path"
 }
 
-data class TextFieldActionSerialized(
+class TextFieldActionSerialized(
         val actionType: ActionBootTextField,
         val value: String = ""
 ) : AutomationActionSerialized() {
@@ -73,7 +73,7 @@ data class TextFieldActionSerialized(
 
 }
 
-data class TextAreaActionSerialized(
+class TextAreaActionSerialized(
         val actionType: ActionBootTextArea,
         val value: String = ""
 ) : AutomationActionSerialized() {
