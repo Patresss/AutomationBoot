@@ -8,6 +8,7 @@ import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.*
+import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.*
 
 @JsonTypeInfo(
@@ -24,6 +25,7 @@ import com.patres.automation.type.*
 )
 sealed class AutomationActionSerialized {
     abstract fun serializedToController(): AbstractBox<*>
+    abstract fun toTranslatedString(): String
 }
 
 data class MousePointActionSerialized(
@@ -33,6 +35,7 @@ data class MousePointActionSerialized(
         val threshold: Double? = null
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox<ActionBootMousePoint>(MousePointActionMapper.serializedToController(this))
+    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $point"
 }
 
 data class KeyboardFieldActionSerialized(
@@ -40,6 +43,7 @@ data class KeyboardFieldActionSerialized(
         val keys: List<KeyboardKey> = emptyList()
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox<ActionBootKeyboard>(KeyboardFieldActionMapper.serializedToController(this))
+    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $keys"
 }
 
 data class SchemaGroupSerialized(
@@ -48,6 +52,8 @@ data class SchemaGroupSerialized(
         val numberOfIterations: String = "1"
 )  : AutomationActionSerialized() {
     override fun serializedToController() = SchemaGroupMapper.serializedToController(this)
+    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString("group")}: $groupName"
+
 }
 
 data class BrowserActionSerialized(
@@ -55,6 +61,7 @@ data class BrowserActionSerialized(
         val path: String = ""
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox<ActionBootBrowser>(BrowserActionMapper.serializedToController(this))
+    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $path"
 }
 
 data class TextFieldActionSerialized(
@@ -62,6 +69,8 @@ data class TextFieldActionSerialized(
         val value: String = ""
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox<ActionBootTextField>(TextFieldActionMapper.serializedToController(this))
+    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $value"
+
 }
 
 data class TextAreaActionSerialized(
@@ -69,4 +78,5 @@ data class TextAreaActionSerialized(
         val value: String = ""
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox<ActionBootTextArea>(TextAreaActionMapper.serializedToController(this))
+    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionType.bundleName)}: $value"
 }

@@ -32,7 +32,7 @@
     -color-primary-dark: #0288D1;
     -color-primary-ligth: #B3E5FC;
 
-    -color-primary-text: #01547a;  /*1, 84, 122*/
+    -color-primary-text: #01547a; /*1, 84, 122*/
     -color-primary-text-transparent: rgba(1, 84, 122, 0.9);
 
     -color-background: #FFFFFF;
@@ -122,7 +122,7 @@ root {
     -fx-font-weight: bold;
 }
 
-.label.error{
+.label.error {
     -fx-text-fill: -color-root-error;
     -fx-font-weight: bold;
 }
@@ -136,6 +136,11 @@ root {
     -fx-font-size: 20.0px;
     -fx-padding: 14.0px;
     -fx-font-weight: bold;
+}
+
+.strike-label .text {
+    -fx-strikethrough: true;
+    -fx-opacity: 0.5;
 }
 
 /* ================================================================================*\
@@ -173,7 +178,7 @@ root {
 }
 
 .button-secondary {
-    -fx-text-fill:  -color-primary-dark-1;
+    -fx-text-fill: -color-primary-dark-1;
     -fx-background-color: -color-primary-bright-9;
 
     -fx-background-radius: 50.0;
@@ -262,9 +267,10 @@ root {
 
 
 .scroll-bar:horizontal,
-.scroll-bar:vertical{
-    -fx-background-color:transparent;
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
 }
+
 .scroll-bar:vertical {
     -fx-pref-width: 10;
     -fx-max-width: -fx-pref-width;
@@ -281,13 +287,13 @@ root {
     -fx-font-size: 10;
 }
 
-.increment-button ,.decrement-button {
-    -fx-background-color:  transparent;
-    -fx-border-color:transparent;
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
-.scroll-bar:horizontal .track ,
-.scroll-bar:vertical .track{
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
     -fx-background-color: -color-primary-bright-9;
     -fx-border-color: -color-primary-bright-10;
     -fx-background-radius: 2em;
@@ -296,7 +302,7 @@ root {
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color:  -color-primary-bright-5;
+    -fx-background-color: -color-primary-bright-5;
     -fx-border-color: -color-primary-bright-10;
 }
 
@@ -467,7 +473,6 @@ root {
 }
 
 
-
 .tree-table-view .tree-table-cell {
     -fx-padding: 0 0 0 16;
 }
@@ -629,8 +634,6 @@ root {
 }
 
 
-
-
 .grid-outside-schema-box .jfx-text-field {
     -jfx-focus-color: -color-primary-text;
     -jfx-unfocus-color: transparent;
@@ -750,16 +753,13 @@ root {
 }
 
 
-
 /* ================================================================================*\
  * Text field
 \* ================================================================================*/
-.text-field.error{
+.text-field.error {
     -jfx-focus-color: -color-root-error;
     -jfx-unfocus-color: -color-root-error;
 }
-
-
 
 
 .stackpane-background {
@@ -778,7 +778,7 @@ root {
  * Menu Bar
 \* ================================================================================*/
 .context-menu,
-.menu-bar{
+.menu-bar {
     -fx-background-color: -color-primary-dark;
     -fx-font-weight: bold;
 }
@@ -792,7 +792,7 @@ root {
 .menu-bar > .container > .menu-button:focused,
 .menu-bar > .container > .menu-button:showing,
 .menu-item:focused {
-    -fx-background-color:  -color-primary-bright-2;
+    -fx-background-color: -color-primary-bright-2;
 }
 
 /* ================================================================================*\
@@ -819,7 +819,7 @@ root {
  ******************************************************************************/
 .jfx-popup .action-bar,
 .jfx-popup .jfx-popup-container .action-bar,
-.jfx-popup .jfx-list-view .action-bar{
+.jfx-popup .jfx-list-view .action-bar {
     -fx-pref-width: 295px;
 }
 
@@ -856,13 +856,13 @@ root {
 }
 
 .title-bar {
-    -fx-background-color:  -color-primary-dark;
+    -fx-background-color: -color-primary-dark;
     -fx-padding: 15px;
 
 }
 
 .title-bar .label {
-    -fx-text-fill:  -color-primary-bright-10;
+    -fx-text-fill: -color-primary-bright-10;
     -fx-font-size: 16pt;
     -fx-font-weight: bold;
 
@@ -883,8 +883,8 @@ root {
 /*******************************************************************************
  * Tooltip pointer                        *
  ******************************************************************************/
-.tooltip-pointer-pane{
-    -fx-background-color:  -color-primary-bright-10;
+.tooltip-pointer-pane {
+    -fx-background-color: -color-primary-bright-10;
     -fx-opacity: 0.9;
     -fx-padding: 40;
 }

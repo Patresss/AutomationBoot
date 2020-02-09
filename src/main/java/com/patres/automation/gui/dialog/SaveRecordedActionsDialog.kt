@@ -11,9 +11,20 @@ import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootTextField
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
+import javafx.scene.control.Label
 import javafx.scene.layout.StackPane
+import javafx.scene.layout.VBox
 
-class SaveRecordedActionsDialog(val actions: List<AutomationActionSerialized>, val controller: RootSchemaGroupController) : StackPane() {
+class SaveRecordedActionsDialog(
+        private val actions: List<AutomationActionSerialized>,
+        private val controller: RootSchemaGroupController,
+        removeDelayDefaultValue: Boolean = true,
+        removeLastActionDefaultValue: Boolean = true
+) : StackPane() {
+
+    companion object {
+        const val STRIKE_STYLE = "strike-label"
+    }
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/dialog/SaveRecordedActions.fxml"))
@@ -29,7 +40,41 @@ class SaveRecordedActionsDialog(val actions: List<AutomationActionSerialized>, v
     @FXML
     lateinit var removeLastActionCheckBox: JFXCheckBox
 
+    @FXML
+    lateinit var actionContainer: VBox
+
     private val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, this, JFXDialog.DialogTransition.CENTER)
+    private val actionTextMap: Map<AutomationActionSerialized, Label> = actions.map { it to Label(it.toTranslatedString()) }.toMap()
+    private val delayLabels = actionTextMap.filterKeys { it is TextFieldActionSerialized && it.actionType == ActionBootTextField.DELAY }.values
+
+    init {
+        actionContainer.children.addAll(actionTextMap.values)
+        removeDelayCheckBox.selectedProperty().addListener { _, _, newValue ->
+            changeDelayLabels(newValue)
+        }
+        removeLastActionCheckBox.selectedProperty().addListener { _, _, newValue ->
+            changeLastActionLabel(newValue)
+        }
+
+        removeDelayCheckBox.isSelected = removeDelayDefaultValue
+        removeLastActionCheckBox.isSelected = removeLastActionDefaultValue
+    }
+
+    private fun changeLastActionLabel(newValue: Boolean) {
+        if (newValue) {
+            addStrike(actionTextMap.values.last())
+        } else {
+            removeStrike(actionTextMap.values.last())
+        }
+    }
+
+    private fun changeDelayLabels(newValue: Boolean) {
+        if (newValue) {
+            delayLabels.forEach { addStrike(it) }
+        } else {
+            delayLabels.forEach { removeStrike(it) }
+        }
+    }
 
     fun showDialog() {
         jfxDialog.show()
@@ -43,7 +88,7 @@ class SaveRecordedActionsDialog(val actions: List<AutomationActionSerialized>, v
     fun save() {
         val controllers = actions
                 .filterNot { removeDelayCheckBox.isSelected && it is TextFieldActionSerialized && it.actionType == ActionBootTextField.DELAY }
-                .filterNot { removeLastActionCheckBox.isSelected && actions.indexOf(it) + 1 == actions.size}
+                .filterNot { removeLastActionCheckBox.isSelected && actions.indexOf(it) + 1 == actions.size }
                 .map { it.serializedToController() }
         controllers.forEach { controller.addActionBlocks(it) }
 
@@ -53,6 +98,18 @@ class SaveRecordedActionsDialog(val actions: List<AutomationActionSerialized>, v
     @FXML
     fun doNotSave() {
         closeDialog()
+    }
+
+    private fun addStrike(label: Label) {
+        if (!label.styleClass.contains(STRIKE_STYLE)) {
+            label.styleClass.add(STRIKE_STYLE)
+        }
+    }
+
+    private fun removeStrike(label: Label) {
+        if (label.styleClass.contains(STRIKE_STYLE)) {
+            label.styleClass.remove(STRIKE_STYLE)
+        }
     }
 
 }
