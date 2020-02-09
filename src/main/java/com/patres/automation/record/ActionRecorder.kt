@@ -38,7 +38,7 @@ class ActionRecorder {
         listeners.forEach { it.deactivateListener() }
         recordRunningProperty.set(false)
         logger.info("Stop to record...")
-        return recordedActions.toList()
+        return recordedActions.toList() // to avoid ConcurrentModificationException
     }
 
     fun addPressKeyboardKey(key: Int) {

@@ -17,6 +17,8 @@ class RootSchemaKeyListener(
     private val pressedKeys = HashSet<Int>()
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
+        println("Key prss: " + KeyAdapter.getKeyEvent(keyEvent))
+
         pressedKeys.add(KeyAdapter.getKeyEvent(keyEvent))
         checkStopKeys()
         checkRunKeys()

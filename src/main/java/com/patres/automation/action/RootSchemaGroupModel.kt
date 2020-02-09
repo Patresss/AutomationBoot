@@ -5,6 +5,7 @@ import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.LogManager
+import com.patres.automation.gui.dialog.SaveRecordedActionsDialog
 import com.patres.automation.keyboard.listener.RootSchemaKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LocalSettings
@@ -112,8 +113,7 @@ class RootSchemaGroupModel(
 
     fun stopRecord() {
         val recordedActions = actionRecorder.stopRecording()
-        val controllers = recordedActions.map { it.serializedToController() }
-        controllers.forEach {controller.addActionBlocks(it)  }
+        SaveRecordedActionsDialog(recordedActions, controller).showDialog()
     }
 
 }
