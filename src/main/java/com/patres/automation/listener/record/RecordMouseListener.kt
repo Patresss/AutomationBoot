@@ -1,6 +1,6 @@
-package com.patres.automation.record
+package com.patres.automation.listener.record
 
-import com.patres.automation.keyboard.listener.GlobalKeyMouseListener
+import com.patres.automation.listener.GlobalKeyMouseListener
 import com.patres.automation.point.Point
 import org.jnativehook.mouse.NativeMouseEvent
 import org.jnativehook.mouse.NativeMouseListener

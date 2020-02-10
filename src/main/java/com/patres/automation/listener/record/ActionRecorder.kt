@@ -1,4 +1,4 @@
-package com.patres.automation.record
+package com.patres.automation.listener.record
 
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.model.AutomationActionSerialized
@@ -15,6 +15,7 @@ class ActionRecorder {
 
     companion object {
         val logger = LoggerFactory.getLogger(ActionRecorder::class.java)!!
+        const val SLEEP_DELAY_AFTER_DEACTIVATE_LISTENERS = 50L // ms
     }
 
     private val listeners = listOf<RecordListener>(
@@ -23,19 +24,20 @@ class ActionRecorder {
             RecordMouseWheelListener(this)
     )
     private val recordedActions = mutableListOf<AutomationActionSerialized>()
+    private var currentTime = System.currentTimeMillis()
     val recordRunningProperty = SimpleBooleanProperty(false)
-    var currentTime = System.currentTimeMillis()
 
     fun record() {
         logger.info("Starting to record...")
+        recordedActions.clear()
         recordRunningProperty.set(true)
         listeners.forEach { it.activateListener() }
-        recordedActions.clear()
         currentTime = System.currentTimeMillis()
     }
 
     fun stopRecording(): List<AutomationActionSerialized> {
         listeners.forEach { it.deactivateListener() }
+        Thread.sleep(SLEEP_DELAY_AFTER_DEACTIVATE_LISTENERS)
         recordRunningProperty.set(false)
         logger.info("Stop to record...")
         return recordedActions.toList() // to avoid ConcurrentModificationException
@@ -75,8 +77,10 @@ class ActionRecorder {
     }
 
     private fun addActionWithDelay(action: AutomationActionSerialized) {
-        addDelay()
-        recordedActions.add(action)
+        if (recordRunningProperty.get()) {
+            addDelay()
+            recordedActions.add(action)
+        }
     }
 
     private fun addDelay() {

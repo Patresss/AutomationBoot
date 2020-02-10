@@ -1,14 +1,10 @@
-package com.patres.automation.keyboard.listener
+package com.patres.automation.listener
 
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.keyboard.KeyAdapter
-import javafx.application.Platform
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
 
-class RootSchemaKeyListener(
-        private val rootSchemaGroupModel: RootSchemaGroupModel
-) : NativeKeyListener {
+class RunStopKeyListener(private val actionListenable: Set<RunStopActionListenable>) : NativeKeyListener {
 
     init {
         activeListener()
@@ -17,23 +13,24 @@ class RootSchemaKeyListener(
     private val pressedKeys = HashSet<Int>()
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
+        println("Key: ${KeyAdapter.getKeyEvent(keyEvent)} ")
         pressedKeys.add(KeyAdapter.getKeyEvent(keyEvent))
         checkStopKeys()
         checkRunKeys()
     }
 
     private fun checkStopKeys() {
-        val stopKeys = rootSchemaGroupModel.localSettings.loadStopKeys().map { it.keyValue }
-        if (stopKeys.isNotEmpty() && pressedKeys.containsAll(stopKeys)) {
-            rootSchemaGroupModel.stopAutomation()
+        actionListenable.forEach { action ->
+            if (action.stopKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.stopKeyboardKey())) {
+                action.invokeStopAction()
+            }
         }
     }
 
     private fun checkRunKeys() {
-        val runKeysSetting = rootSchemaGroupModel.localSettings.runKeysSetting.map { it.keyValue }
-        if (runKeysSetting.isNotEmpty() && pressedKeys.containsAll(runKeysSetting)) {
-            Platform.runLater {
-                rootSchemaGroupModel.runAutomation(false)
+        actionListenable.forEach { action ->
+            if (action.runKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.runKeyboardKey())) {
+                action.invokeRunAction()
             }
         }
     }

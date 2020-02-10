@@ -7,6 +7,7 @@ import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.mapper.model.TextFieldActionSerialized
+import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootTextField
 import javafx.fxml.FXML
@@ -17,9 +18,7 @@ import javafx.scene.layout.VBox
 
 class SaveRecordedActionsDialog(
         private val actions: List<AutomationActionSerialized>,
-        private val controller: RootSchemaGroupController,
-        removeDelayDefaultValue: Boolean = true,
-        removeLastActionDefaultValue: Boolean = true
+        private val controller: RootSchemaGroupController
 ) : StackPane() {
 
     companion object {
@@ -56,8 +55,8 @@ class SaveRecordedActionsDialog(
             changeLastActionLabel(newValue)
         }
 
-        removeDelayCheckBox.isSelected = removeDelayDefaultValue
-        removeLastActionCheckBox.isSelected = removeLastActionDefaultValue
+        removeDelayCheckBox.isSelected = ApplicationLauncher.globalSettings.removeDelay
+        removeLastActionCheckBox.isSelected = ApplicationLauncher.globalSettings.removeLastAction
     }
 
     private fun changeLastActionLabel(newValue: Boolean) {
@@ -94,7 +93,16 @@ class SaveRecordedActionsDialog(
                 .map { it.serializedToController() }
         controllers.forEach { controller.addActionBlocks(it) }
 
+        saveGlobalSettings()
         closeDialog()
+    }
+
+    private fun saveGlobalSettings() {
+        ApplicationLauncher.globalSettings.run {
+            removeDelay = removeDelayCheckBox.isSelected
+            removeLastAction = removeLastActionCheckBox.isSelected
+        }
+        GlobalSettingsLoader.save()
     }
 
     @FXML

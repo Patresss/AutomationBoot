@@ -14,7 +14,9 @@ import javafx.collections.ListChangeListener
 class GlobalSettingsController(private val mainController: MainController) : SettingsController("menu.settings.globalSettings") {
 
     private val stopKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.STOP_KEYS_SETTINGS)
-    private val language = ChooseLanguageActionBootComboBox().createController().invoke()
+    private val startRecordKeysSettings = KeyboardButtonActionController(ActionBootKeyboard.START_RECORDING_KEYS_SETTINGS)
+    private val stopRecordKeysSettings = KeyboardButtonActionController(ActionBootKeyboard.STOP_RECORDING_KEYS_SETTINGS)
+    private val languageComboBox = ChooseLanguageActionBootComboBox().createController().invoke()
 
     init {
         initChangeDetectors()
@@ -26,26 +28,40 @@ class GlobalSettingsController(private val mainController: MainController) : Set
     }
 
     override fun saveSettings() {
-        ApplicationLauncher.globalSettings.stopKeys = ArrayList(stopKeysSetting.keyboardField.keys)
-        ApplicationLauncher.globalSettings.language = language.comboBox.value
-        GlobalSettingsLoader.save(ApplicationLauncher.globalSettings)
+        ApplicationLauncher.globalSettings.run {
+            stopActionKeys = ArrayList(stopKeysSetting.keyboardField.keys)
+            startRecordKeys = ArrayList(startRecordKeysSettings.keyboardField.keys)
+            stopRecordKeys = ArrayList(stopRecordKeysSettings.keyboardField.keys)
+            language = languageComboBox.comboBox.value
+        }
+        GlobalSettingsLoader.save()
         saveButton.isDisable = true
         setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
 
     override fun initChangeDetectors() {
         stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
-        language.comboBox.valueProperty().addListener { _ -> changeDetect() }
+        startRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+        stopRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
+        languageComboBox.comboBox.valueProperty().addListener { _ -> changeDetect() }
     }
 
     private fun loadGlobalSettings() {
-        mainVBox.children.addAll(stopKeysSetting, language)
+        mainVBox.children.addAll(
+                stopKeysSetting,
+                languageComboBox,
+                startRecordKeysSettings,
+                stopRecordKeysSettings)
         reloadSettingsValue()
     }
 
     fun reloadSettingsValue() {
-        stopKeysSetting.keyboardField.setKeyboardButtons(ApplicationLauncher.globalSettings.stopKeys)
-        language.comboBox.value = ApplicationLauncher.globalSettings.language
+        ApplicationLauncher.globalSettings.run {
+            stopKeysSetting.keyboardField.setKeyboardButtons(stopActionKeys)
+            startRecordKeysSettings.keyboardField.setKeyboardButtons(startRecordKeys)
+            stopRecordKeysSettings.keyboardField.setKeyboardButtons(stopRecordKeys)
+            languageComboBox.comboBox.value = language
+        }
         saveButton.isDisable = true
     }
 

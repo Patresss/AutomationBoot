@@ -15,7 +15,9 @@ enum class ActionBootKeyboard(
     RELEASE_KEYBOARD_BUTTON("robot.action.keyboard.release"),
 
     RUN_KEYS_SETTINGS("settings.runKeys"),
-    STOP_KEYS_SETTINGS("settings.stopKeys");
+    STOP_KEYS_SETTINGS("settings.stopKeys"),
+    START_RECORDING_KEYS_SETTINGS("settings.record.startKeys"),
+    STOP_RECORDING_KEYS_SETTINGS("settings.record.stopKeys");
 
 
     override fun validation(): Validationable? {

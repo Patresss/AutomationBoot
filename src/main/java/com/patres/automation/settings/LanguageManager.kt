@@ -26,7 +26,6 @@ object LanguageManager {
     }
 
     fun createStringBinding(key: String, vararg args: Any): StringBinding {
-        logger.debug("Get string property for key: $key")
         return Bindings.createStringBinding(Callable { getLanguageString(key, args) }, locale)
     }
 

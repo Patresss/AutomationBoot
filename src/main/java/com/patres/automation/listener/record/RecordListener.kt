@@ -1,4 +1,4 @@
-package com.patres.automation.record
+package com.patres.automation.listener.record
 
 interface RecordListener {
 

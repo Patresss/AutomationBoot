@@ -1,4 +1,4 @@
-package com.patres.automation.keyboard.listener
+package com.patres.automation.listener
 
 import org.jnativehook.GlobalScreen
 import org.jnativehook.keyboard.NativeKeyListener

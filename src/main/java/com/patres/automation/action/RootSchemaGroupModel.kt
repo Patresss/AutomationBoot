@@ -6,10 +6,13 @@ import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.gui.dialog.SaveRecordedActionsDialog
-import com.patres.automation.keyboard.listener.RootSchemaKeyListener
+import com.patres.automation.listener.RunStopKeyListener
+import com.patres.automation.listener.action.RunStopGlobalRootSchemaKeyListener
+import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
+import com.patres.automation.listener.action.RunStopRecordKeyListener
+import com.patres.automation.listener.record.ActionRecorder
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LocalSettings
-import com.patres.automation.record.ActionRecorder
 import javafx.application.Platform
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.concurrent.Task
@@ -29,10 +32,13 @@ class RootSchemaGroupModel(
 
     var automationRunningProperty = SimpleBooleanProperty(false)
     val actionRecorder = ActionRecorder()
-
     var loaded: Boolean = false
-
-    val rootSchemaKeyListener = RootSchemaKeyListener(this)
+    val keyListener = RunStopKeyListener(setOf(
+            RunStopGlobalRootSchemaKeyListener(this),
+            RunStopLocalRootSchemaKeyListener(this),
+            RunStopRecordKeyListener(this)
+    ))
+    private val runStopRecordKeyListener = RunStopRecordKeyListener(this)
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
 
@@ -55,7 +61,7 @@ class RootSchemaGroupModel(
             override fun call(): Void? {
                 automationRunningProperty.set(true)
                 try {
-                    rootSchemaKeyListener.reset()
+                    keyListener.reset()
                     if (hideApplication) {
                         Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
                     }
@@ -114,6 +120,7 @@ class RootSchemaGroupModel(
     fun stopRecord() {
         val recordedActions = actionRecorder.stopRecording()
         SaveRecordedActionsDialog(recordedActions, controller).showDialog()
+        keyListener.reset()
     }
 
 }

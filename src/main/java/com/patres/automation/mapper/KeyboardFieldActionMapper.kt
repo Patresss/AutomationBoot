@@ -18,8 +18,10 @@ object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, Keyboa
             HOLD_KEYBOARD_BUTTON -> HoldKeyboardButtonAction(controller.keyboardField.keys)
             RELEASE_KEYBOARD_BUTTON -> ReleaseKeyboardButtonAction(controller.keyboardField.keys)
 
-            RUN_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(RUN_KEYS_SETTINGS)
-            STOP_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(STOP_KEYS_SETTINGS)
+            RUN_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(controller.action)
+            STOP_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(controller.action)
+            START_RECORDING_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(controller.action)
+            STOP_RECORDING_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(controller.action)
         }
     }
 

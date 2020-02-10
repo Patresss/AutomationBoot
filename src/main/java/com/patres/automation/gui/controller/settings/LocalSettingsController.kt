@@ -35,8 +35,8 @@ class LocalSettingsController(
     }
 
     override fun saveSettings() {
-        settings.runKeysSetting = runKeysSetting.keyboardField.keys
-        settings.stopKeys = stopKeysSetting.keyboardField.keys
+        settings.runActionsKeys = runKeysSetting.keyboardField.keys
+        settings.stopActionsKeys = stopKeysSetting.keyboardField.keys
         settings.enableRest = enableRestCheckBox.isSelected
         settings.endpointName = endpointNameTextField.value
         saveButton.isDisable = true
@@ -56,8 +56,8 @@ class LocalSettingsController(
         mainVBox.children.add(enableRestCheckBox)
         mainVBox.children.add(endpointNameTextField)
 
-        runKeysSetting.keyboardField.setKeyboardButtons(settings.runKeysSetting)
-        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopKeys)
+        runKeysSetting.keyboardField.setKeyboardButtons(settings.runActionsKeys)
+        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopActionsKeys)
         enableRestCheckBox.isSelected = settings.enableRest
         endpointNameTextField.value = settings.endpointName
         endpointNameTextField.isVisible = settings.enableRest

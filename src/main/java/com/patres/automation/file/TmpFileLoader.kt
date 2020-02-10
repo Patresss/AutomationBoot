@@ -40,8 +40,6 @@ object TmpFileLoader {
         val filename = filenameBinding.get()
         var newFileName = "$filename ${currentNumber++}.$extension"
         var newFile = File(ApplicationLauncher.tmpDirector, newFileName)
-        logger.info("ApplicationLauncher.tmpDirector ${ApplicationLauncher.tmpDirector}")
-
         while (newFile.exists()) {
             newFileName = "$filename ${currentNumber++}.$extension"
             newFile = File(ApplicationLauncher.tmpDirector, newFileName)
