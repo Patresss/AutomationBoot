@@ -1,10 +1,12 @@
 package com.patres.automation.gui.controller.settings
 
-import com.jfoenix.controls.JFXCheckBox
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.animation.SliderAnimation
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.model.TextFieldActionController
+import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.settings.LocalSettings
 import com.patres.automation.type.ActionBootKeyboard
@@ -19,15 +21,17 @@ class LocalSettingsController(
 
     private val runKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.RUN_KEYS_SETTINGS)
     private val stopKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.STOP_KEYS_SETTINGS)
-    private val enableRestCheckBox = JFXCheckBox().also { it.textProperty().bind(LanguageManager.createStringBinding("settings.enableRest")) }
     private val endpointNameTextField = TextFieldActionController(ActionBootTextField.ENDPOINT_NAME)
+
+    private val allSettings = listOf<AutomationController<*>>(
+            runKeysSetting,
+            stopKeysSetting,
+            endpointNameTextField)
 
     init {
         loadLocalSettings()
         initChangeDetectors()
-        enableRestCheckBox.selectedProperty().addListener { _, _, newValue ->
-            endpointNameTextField.isVisible = newValue
-        }
+        endpointNameTextField.isVisible = ApplicationLauncher.globalSettings.enableRest
     }
 
     override fun backToPreviousWindow() {
@@ -35,32 +39,33 @@ class LocalSettingsController(
     }
 
     override fun saveSettings() {
-        settings.runActionsKeys = runKeysSetting.keyboardField.keys
-        settings.stopActionsKeys = stopKeysSetting.keyboardField.keys
-        settings.enableRest = enableRestCheckBox.isSelected
-        settings.endpointName = endpointNameTextField.value
-        saveButton.isDisable = true
-        setMessageToSnackBar(LanguageManager.getLanguageString("message.snackbar.settingsSave"))
+        try {
+            allSettings.forEach { it.checkValidation() }
+            settings.run {
+                runActionsKeys = runKeysSetting.keyboardField.keys
+                stopActionsKeys = stopKeysSetting.keyboardField.keys
+                endpointName = endpointNameTextField.value
+            }
+            saveButton.isDisable = true
+            setMessageToSnackBar(LanguageManager.getLanguageString("message.snackbar.settingsSave"))
+        } catch (e: Exception) {
+            LogManager.showAndLogException(e)
+        }
     }
 
     override fun initChangeDetectors() {
         runKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
         stopKeysSetting.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
-        enableRestCheckBox.selectedProperty().addListener { _, _, _ -> changeDetect() }
         endpointNameTextField.valueText.textProperty().addListener { _, _, _ -> changeDetect() }
     }
 
     private fun loadLocalSettings() {
-        mainVBox.children.add(runKeysSetting)
-        mainVBox.children.add(stopKeysSetting)
-        mainVBox.children.add(enableRestCheckBox)
-        mainVBox.children.add(endpointNameTextField)
+        mainVBox.children.addAll(allSettings)
 
         runKeysSetting.keyboardField.setKeyboardButtons(settings.runActionsKeys)
         stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopActionsKeys)
-        enableRestCheckBox.isSelected = settings.enableRest
         endpointNameTextField.value = settings.endpointName
-        endpointNameTextField.isVisible = settings.enableRest
+        endpointNameTextField.valueText.promptText = rootSchemaGroupController.model.getEndpointName()
     }
 
 }

@@ -17,7 +17,8 @@ object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction,
             SCROLL_WHEEL_UP -> ScrollWheelUpAction(controller.value.toInt())
             SCROLL_WHEEL_DOWN -> ScrollWheelDownAction(controller.value.toInt())
 
-            ENDPOINT_NAME -> throw ControllerCannotBeMapToModelException(ENDPOINT_NAME)
+            ENDPOINT_NAME -> throw ControllerCannotBeMapToModelException(controller.action)
+            PORT -> throw ControllerCannotBeMapToModelException(controller.action)
         }
     }
 

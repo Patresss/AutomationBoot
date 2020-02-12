@@ -226,6 +226,6 @@ class MainController {
     fun findActionByName(actionName: String): RootSchemaGroupModel? {
         return tabContainers
                 .map { it.rootSchema }
-                .find { it.localSettings.enableRest && it.getEndpointName() == actionName }
+                .find { it.getEndpointName() == actionName }
     }
 }
