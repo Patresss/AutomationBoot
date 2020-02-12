@@ -2,6 +2,9 @@ package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
+import com.patres.automation.listener.RunStopKeyListener
+import com.patres.automation.listener.action.RunStopGlobalRootSchemaKeyListener
+import com.patres.automation.listener.action.RunStopRecordKeyListener
 import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
@@ -30,15 +33,24 @@ class ApplicationLauncher : Application() {
         const val sceneBarWeight = 4.0 + 4.0
         var globalSettings = GlobalSettingsLoader.load().also { LanguageManager.setLanguage(it.language) }
         lateinit var mainStage: Stage
+        lateinit var mainController: MainController
         var mainPane: StackPane = StackPane()
         var tmpDirector: File = File(System.getProperty("user.dir"),"tmp")
-        var mainController: MainController? = null
+        val keyListener: RunStopKeyListener = RunStopKeyListener()
 
         @JvmStatic
         fun main(args: Array<String>) {
             logger.info("Application is starting...")
             ServerBoot.run()
             launch(ApplicationLauncher::class.java)
+
+        }
+
+        private fun initListeners() {
+            keyListener.addListeners(
+                    RunStopGlobalRootSchemaKeyListener(mainController),
+                    RunStopRecordKeyListener(mainController)
+            )
         }
 
         fun getStylesheet(): String = ApplicationLauncher::class.java.getResource("/css/style_day.css").toExternalForm()
@@ -114,6 +126,8 @@ class ApplicationLauncher : Application() {
 
         mainPane = loader.load<StackPane>()
         mainController = loader.getController<MainController>()
+        initListeners()
+
         return mainPane
     }
 

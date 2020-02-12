@@ -1,12 +1,11 @@
 package com.patres.automation.listener.action
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.gui.controller.MainController
 import com.patres.automation.listener.RunStopActionListenable
-import javafx.application.Platform
 
 class RunStopRecordKeyListener(
-        private val rootSchemaGroupModel: RootSchemaGroupModel
+        private val mainController: MainController
 ) : RunStopActionListenable {
 
     override fun runKeyboardKey() = ApplicationLauncher.globalSettings.startRecordKeys.map { it.keyValue }
@@ -14,16 +13,11 @@ class RunStopRecordKeyListener(
     override fun stopKeyboardKey() = ApplicationLauncher.globalSettings.stopRecordKeys.map { it.keyValue }
 
     override fun invokeRunAction() {
-        Platform.runLater {
-            rootSchemaGroupModel.startRecord()
-        }
+        mainController.getSelectedTabContainer()?.rootSchema?.startRecord()
     }
 
     override fun invokeStopAction() {
-        Platform.runLater {
-            ApplicationLauncher.mainStage.isIconified = false
-            rootSchemaGroupModel.stopRecord()
-        }
+        mainController.getSelectedTabContainer()?.rootSchema?.stopRecord()
     }
 
 }

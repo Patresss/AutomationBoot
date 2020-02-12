@@ -4,7 +4,7 @@ import com.patres.automation.keyboard.KeyAdapter
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
 
-class RunStopKeyListener(private val actionListenable: Set<RunStopActionListenable>) : NativeKeyListener {
+class RunStopKeyListener(private val actionListenable: MutableSet<RunStopActionListenable> = HashSet()) : NativeKeyListener {
 
     init {
         activeListener()
@@ -13,7 +13,6 @@ class RunStopKeyListener(private val actionListenable: Set<RunStopActionListenab
     private val pressedKeys = HashSet<Int>()
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
-        println("Key: ${KeyAdapter.getKeyEvent(keyEvent)} ")
         pressedKeys.add(KeyAdapter.getKeyEvent(keyEvent))
         checkStopKeys()
         checkRunKeys()
@@ -23,6 +22,7 @@ class RunStopKeyListener(private val actionListenable: Set<RunStopActionListenab
         actionListenable.forEach { action ->
             if (action.stopKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.stopKeyboardKey())) {
                 action.invokeStopAction()
+                reset()
             }
         }
     }
@@ -31,6 +31,7 @@ class RunStopKeyListener(private val actionListenable: Set<RunStopActionListenab
         actionListenable.forEach { action ->
             if (action.runKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.runKeyboardKey())) {
                 action.invokeRunAction()
+                reset()
             }
         }
     }
@@ -48,6 +49,14 @@ class RunStopKeyListener(private val actionListenable: Set<RunStopActionListenab
 
     fun reset() {
         pressedKeys.clear()
+    }
+
+    fun addListeners(vararg listeners: RunStopActionListenable ) {
+        actionListenable.addAll(listeners)
+    }
+
+    fun removeListeners(vararg listeners: RunStopActionListenable ) {
+        actionListenable.removeAll(listeners)
     }
 
 }

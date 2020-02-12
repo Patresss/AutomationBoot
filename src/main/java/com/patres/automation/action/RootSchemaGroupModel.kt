@@ -33,12 +33,6 @@ class RootSchemaGroupModel(
     var automationRunningProperty = SimpleBooleanProperty(false)
     val actionRecorder = ActionRecorder()
     var loaded: Boolean = false
-    val keyListener = RunStopKeyListener(setOf(
-            RunStopGlobalRootSchemaKeyListener(this),
-            RunStopLocalRootSchemaKeyListener(this),
-            RunStopRecordKeyListener(this)
-    ))
-    private val runStopRecordKeyListener = RunStopRecordKeyListener(this)
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
 
@@ -61,7 +55,6 @@ class RootSchemaGroupModel(
             override fun call(): Void? {
                 automationRunningProperty.set(true)
                 try {
-                    keyListener.reset()
                     if (hideApplication) {
                         Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
                     }
@@ -75,8 +68,7 @@ class RootSchemaGroupModel(
                     logger.error("Exception: {}", e)
                 } finally {
                     if (hideApplication) {
-                        Platform.runLater { ApplicationLauncher.mainStage.isIconified = false }
-                    }
+                        Platform.runLater {ApplicationLauncher.mainStage.isIconified = false } }
                     automationRunningProperty.set(false)
                 }
                 return null
@@ -114,13 +106,23 @@ class RootSchemaGroupModel(
     fun getEndpointName() = if (localSettings.endpointName.isNotBlank()) localSettings.endpointName else getName().replace("\\s".toRegex(), "")
 
     fun startRecord() {
-        actionRecorder.record()
+       val startRecordTask =  object : Task<Void>() {
+            override fun call(): Void? {
+                if (!actionRecorder.recordRunningProperty.get()) {
+                    Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
+                    actionRecorder.record()
+                }
+                return null
+            }
+        }
+        Thread(startRecordTask).run()
     }
 
     fun stopRecord() {
-        val recordedActions = actionRecorder.stopRecording()
-        SaveRecordedActionsDialog(recordedActions, controller).showDialog()
-        keyListener.reset()
+        if (actionRecorder.recordRunningProperty.get()) {
+            val recordedActions = actionRecorder.stopRecording()
+            SaveRecordedActionsDialog(recordedActions, controller).showDialog()
+        }
     }
 
 }

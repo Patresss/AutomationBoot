@@ -10,11 +10,13 @@ import com.patres.automation.mapper.model.TextFieldActionSerialized
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootTextField
+import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
+import org.slf4j.LoggerFactory
 
 class SaveRecordedActionsDialog(
         private val actions: List<AutomationActionSerialized>,
@@ -23,6 +25,8 @@ class SaveRecordedActionsDialog(
 
     companion object {
         const val STRIKE_STYLE = "strike-label"
+        private val logger = LoggerFactory.getLogger(SaveRecordedActionsDialog::class.java)
+
     }
 
     init {
@@ -78,7 +82,10 @@ class SaveRecordedActionsDialog(
     }
 
     fun showDialog() {
-        jfxDialog.show()
+        Platform.runLater {
+            ApplicationLauncher.mainStage.isIconified = false
+            jfxDialog.show()
+        }
     }
 
     private fun closeDialog() {

@@ -4,11 +4,11 @@ import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.ApplicationLauncher
-
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.LogManager
+import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.RootSchemaLoader
@@ -78,6 +78,10 @@ class MainController {
     private lateinit var snackBar: JFXSnackbar
 
     val tabContainers: ObservableList<TabContainer> = FXCollections.observableList(ArrayList<TabContainer>())
+    val rootSchemas: List<RootSchemaGroupModel>
+        get() {
+            return tabContainers.map { it.rootSchema }
+        }
 
     private val globalSettingsController = GlobalSettingsController(this)
 
@@ -95,7 +99,7 @@ class MainController {
         listenTabContainers()
         initLanguage()
     }
-    
+
     private fun initLanguage() {
         fileMenu.textProperty().bind(LanguageManager.createStringBinding("menu.file"))
         newMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.new"))
@@ -129,7 +133,7 @@ class MainController {
     @FXML
     fun createNewRootSchema() {
         val tabContainer = RootSchemaLoader.createNewRootSchema(tabPane)
-        tabContainers.add(tabContainer)
+        addTabToContainer(tabContainer)
     }
 
     @FXML
@@ -137,7 +141,7 @@ class MainController {
         try {
             val tabContainer = RootSchemaLoader.openRootSchema(tabPane)
             if (tabContainer != null) {
-                tabContainers.add(tabContainer)
+                addTabToContainer(tabContainer)
             }
         } catch (e: Exception) {
             LogManager.showAndLogException(e)
@@ -147,7 +151,7 @@ class MainController {
     private fun loadModelFromFile(fileToLoad: File) {
         try {
             val tabContainer = RootSchemaLoader.openRootSchema(tabPane, fileToLoad)
-            tabContainers.add(tabContainer)
+            addTabToContainer(tabContainer)
         } catch (e: Exception) {
             logger.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message)
         }
@@ -196,7 +200,7 @@ class MainController {
         }
     }
 
-    private fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }
+    fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }
 
     fun changeDetect(rootSchemaGroupModel: RootSchemaGroupModel) {
         val tabContainer = tabContainers.find { it.rootSchema == rootSchemaGroupModel }
@@ -211,6 +215,12 @@ class MainController {
     fun removeTab(tabContainer: TabContainer) {
         tabContainers.remove(tabContainer)
         tabPane.tabs.remove(tabContainer.tab)
+        ApplicationLauncher.keyListener.removeListeners(RunStopLocalRootSchemaKeyListener(tabContainer.rootSchema))
+    }
+
+    private fun addTabToContainer(tabContainer: TabContainer) {
+        tabContainers.add(tabContainer)
+        ApplicationLauncher.keyListener.addListeners(RunStopLocalRootSchemaKeyListener(tabContainer.rootSchema))
     }
 
     fun findActionByName(actionName: String): RootSchemaGroupModel? {
