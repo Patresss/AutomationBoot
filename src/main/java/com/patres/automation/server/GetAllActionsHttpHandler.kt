@@ -1,35 +1,28 @@
 package com.patres.automation.server
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.action.RootSchemaGroupModel
 import com.sun.net.httpserver.HttpExchange
-import com.sun.net.httpserver.HttpHandler
 import org.slf4j.LoggerFactory
 import java.net.HttpURLConnection
+import java.net.Inet4Address
 
-abstract class ActionHttpHandler(
+
+class GetAllActionsHttpHandler(
         private val method: String,
-        url: String,
-        private val invokedNameAction: String
+        url: String
 ) : ApplicationHttpHandler(url) {
 
-    companion object {
-        val logger = LoggerFactory.getLogger(ActionHttpHandler::class.java)!!
-    }
+    val ip: String = Inet4Address.getLocalHost().getHostAddress()
 
-    abstract fun invokeAction(action: RootSchemaGroupModel)
+
+    companion object {
+        val logger = LoggerFactory.getLogger(GetAllActionsHttpHandler::class.java)!!
+    }
 
     override fun handle(exchange: HttpExchange) {
         logger.debug("Receive request - method: ${exchange.requestMethod}, url: ${exchange.requestURI.path}")
         if (method == exchange.requestMethod) {
-            val actionName = exchange.requestURI.path.removePrefix(url)
-            val action = ApplicationLauncher.mainController?.findActionByName(actionName)
-            if (action != null) {
-                invokeAction(action)
-                createSuccessResponse(exchange, actionName)
-            } else {
-                createCannotFindActionResponse(exchange, actionName)
-            }
+            createResponse(exchange, createButtonsWithAction(), HttpURLConnection.HTTP_OK)
         } else {
             createBadMethodResponse(exchange)
         }
@@ -37,19 +30,19 @@ abstract class ActionHttpHandler(
         exchange.close()
     }
 
-    private fun createSuccessResponse(exchange: HttpExchange, actionName: String) {
-        val responseMessage = "$invokedNameAction action: $actionName"
-        createResponse(exchange, responseMessage, HttpURLConnection.HTTP_OK)
-    }
-
-    private fun createCannotFindActionResponse(exchange: HttpExchange, actionName: String) {
-        val responseMessage = "Cannot find action: $actionName"
-        createResponse(exchange, responseMessage, HttpURLConnection.HTTP_BAD_REQUEST)
-    }
-
     private fun createBadMethodResponse(exchange: HttpExchange) {
         val responseMessage = "Method is not allowed. Please use POST"
         createResponse(exchange, responseMessage, HttpURLConnection.HTTP_BAD_METHOD)
+    }
+
+    private fun createButtonsWithAction(): String {
+        return ApplicationLauncher.mainController.rootSchemas.joinToString("<br /> <br />") {
+            """
+                <button onclick="location.href='http://${ip}:${ApplicationLauncher.globalSettings.port}/action/run/${it.getEndpointName()}'" type="button">
+                    ${it.getEndpointName()}
+                </button>
+            """.trimIndent()
+        }
     }
 
     private fun createResponse(exchange: HttpExchange, responseMessage: String, statusCode: Int) {

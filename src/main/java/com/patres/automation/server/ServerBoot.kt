@@ -9,7 +9,10 @@ import java.net.InetSocketAddress
 object ServerBoot {
 
     val logger = LoggerFactory.getLogger(ServerBoot::class.java)!!
-    private val actionHandlers = setOf(ActionRunHttpHandler(), ActionStopHttpHandler())
+    private val actionHandlers = setOf(
+            ActionRunHttpHandler(),
+            ActionStopHttpHandler(),
+            GetAllActionsHttpHandler("GET", "/action/buttons"))
 
     fun run() {
         val serverPort = ApplicationLauncher.globalSettings.port
