@@ -12,7 +12,7 @@ class GetAllActionsHttpHandler(
         url: String
 ) : ApplicationHttpHandler(url) {
 
-    val ip: String = Inet4Address.getLocalHost().getHostAddress()
+    val ip: String = "192.168.1.11" //Inet4Address.getLocalHost().getHostAddress()
 
 
     companion object {

@@ -14,7 +14,7 @@ class RunStopLocalRootSchemaKeyListener(
 
     override fun invokeRunAction() {
         Platform.runLater {
-            rootSchemaGroupModel.runAutomation(true)
+            rootSchemaGroupModel.runAutomation()
         }
     }
 

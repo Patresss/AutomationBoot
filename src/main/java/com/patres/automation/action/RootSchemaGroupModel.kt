@@ -6,10 +6,6 @@ import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.gui.dialog.SaveRecordedActionsDialog
-import com.patres.automation.listener.RunStopKeyListener
-import com.patres.automation.listener.action.RunStopGlobalRootSchemaKeyListener
-import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
-import com.patres.automation.listener.action.RunStopRecordKeyListener
 import com.patres.automation.listener.record.ActionRecorder
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LocalSettings
@@ -36,10 +32,10 @@ class RootSchemaGroupModel(
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
 
-    fun runAutomation(hideApplication: Boolean = true) {
+    fun runAutomation() {
         try {
             val schemaGroupModel = controller.schemaGroupController.toModel()
-            val runTask = createRunTask(schemaGroupModel, hideApplication)
+            val runTask = createRunTask(schemaGroupModel)
             Thread(runTask).start()
         } catch (e: Exception) {
             LogManager.showAndLogException(e)
@@ -50,14 +46,13 @@ class RootSchemaGroupModel(
         automationRunningProperty.set(false)
     }
 
-    private fun createRunTask(schemaGroupModel: SchemaGroupModel, hideApplication: Boolean = false): Task<Void> {
+    private fun createRunTask(schemaGroupModel: SchemaGroupModel): Task<Void> {
         return object : Task<Void>() {
             override fun call(): Void? {
                 automationRunningProperty.set(true)
+                val applicationStageIsActive = ApplicationLauncher.mainStage.isIconified
                 try {
-                    if (hideApplication) {
-                        Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
-                    }
+                    Platform.runLater { ApplicationLauncher.mainStage.isIconified = !applicationStageIsActive }
                     logger.info("Running root actions...")
                     schemaGroupModel.runAction()
                     logger.info("Completed root actions")
@@ -67,8 +62,7 @@ class RootSchemaGroupModel(
                 } catch (e: Exception) {
                     logger.error("Exception: {}", e)
                 } finally {
-                    if (hideApplication) {
-                        Platform.runLater {ApplicationLauncher.mainStage.isIconified = false } }
+                    Platform.runLater { ApplicationLauncher.mainStage.isIconified = applicationStageIsActive }
                     automationRunningProperty.set(false)
                 }
                 return null
@@ -88,7 +82,7 @@ class RootSchemaGroupModel(
             }
             saved = false
             saveTmpFile()
-            ApplicationLauncher.mainController?.changeDetect(this)
+            ApplicationLauncher.mainController.changeDetect(this)
         }
     }
 
@@ -106,7 +100,7 @@ class RootSchemaGroupModel(
     fun getEndpointName() = if (localSettings.endpointName.isNotBlank()) localSettings.endpointName else getName().replace("\\s".toRegex(), "")
 
     fun startRecord() {
-       val startRecordTask =  object : Task<Void>() {
+        val startRecordTask = object : Task<Void>() {
             override fun call(): Void? {
                 if (!actionRecorder.recordRunningProperty.get()) {
                     Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
