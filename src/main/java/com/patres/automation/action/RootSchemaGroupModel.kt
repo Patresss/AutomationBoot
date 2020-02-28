@@ -52,7 +52,7 @@ class RootSchemaGroupModel(
                 automationRunningProperty.set(true)
                 val applicationStageIsActive = ApplicationLauncher.mainStage.isIconified
                 try {
-                    Platform.runLater { ApplicationLauncher.mainStage.isIconified = !applicationStageIsActive }
+                    Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
                     logger.info("Running root actions...")
                     schemaGroupModel.runAction()
                     logger.info("Completed root actions")
