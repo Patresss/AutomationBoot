@@ -1,14 +1,11 @@
-package com.patres.automation.gui.controller.settings
+package com.patres.automation.gui.controller.saveBackScreen
 
 import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDialog
 import com.jfoenix.controls.JFXSnackbar
 import com.patres.automation.ApplicationLauncher
-
-import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.dialog.SaveSettingsDialog
 import com.patres.automation.settings.LanguageManager
-import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
@@ -16,7 +13,7 @@ import javafx.scene.layout.BorderPane
 import javafx.scene.layout.VBox
 
 
-abstract class SettingsController(val bundleName: String) : BorderPane() {
+abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
 
     @FXML
     lateinit var mainVBox: VBox
@@ -33,11 +30,11 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
     private var snackBar: JFXSnackbar
 
     init {
-        val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/Settings.fxml"))
+        val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/SaveBackScreen.fxml"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
         fxmlLoader.resources = LanguageManager.getBundle()
-        fxmlLoader.load<SettingsController>()
+        fxmlLoader.load<SaveBackScreenController>()
 
         saveButton.isDisable = true
         snackBar = JFXSnackbar(this)
@@ -52,7 +49,7 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
     }
 
     @FXML
-    fun closeSettings() {
+    fun close() {
         if (saveButton.isDisable) {
             backToPreviousWindow()
         } else {
@@ -61,6 +58,7 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
             saveDialogPane.dialogKeeper = jfxDialog
             jfxDialog.show()
         }
+        saveButton.isDisable = true
     }
 
     fun changeDetect() {
@@ -72,7 +70,8 @@ abstract class SettingsController(val bundleName: String) : BorderPane() {
     }
 
     abstract fun initChangeDetectors()
-    abstract fun saveSettings()
     abstract fun backToPreviousWindow()
+    abstract fun reloadSettingsValue()
+    abstract fun save()
 
 }

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.automation.gui.controller.MainController">
+<StackPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.patres.automation.gui.controller.MainController">
    <BorderPane>
       <center>
          <StackPane fx:id="centerStackPane" BorderPane.alignment="CENTER">
@@ -24,46 +24,60 @@
       <top>
          <MenuBar BorderPane.alignment="CENTER">
            <menus>
-           <Menu mnemonicParsing="false" text="%menu.file" fx:id="fileMenu">
+           <Menu fx:id="fileMenu" mnemonicParsing="false" text="%menu.file">
              <items>
-               <MenuItem mnemonicParsing="false" onAction="#createNewRootSchema" text="%menu.new" fx:id="newMenuItem" >
+               <MenuItem fx:id="newMenuItem" mnemonicParsing="false" onAction="#createNewRootSchema" text="%menu.new">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>
-                   <MenuItem mnemonicParsing="false" onAction="#openRootSchema" text="%menu.open" fx:id="openMenuItem">
+                   <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#openRootSchema" text="%menu.open">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>
-                   <MenuItem mnemonicParsing="false" onAction="#saveExistingRootSchema" text="%menu.save" fx:id="saveMenuItem">
+                   <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveExistingRootSchema" text="%menu.save">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>
-                   <MenuItem mnemonicParsing="false" onAction="#saveAsRootSchema" text="%menu.saveAs" fx:id="saveAsMenuItem">
+                   <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#saveAsRootSchema" text="%menu.saveAs">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>
-                     <MenuItem mnemonicParsing="false" onAction="#closeCurrentTab" text="%menu.closeTab" fx:id="closeTabMenuItem">
+                     <MenuItem fx:id="closeTabMenuItem" mnemonicParsing="false" onAction="#closeCurrentTab" text="%menu.closeTab">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator>
                      </MenuItem>
              </items>
            </Menu>
-           <Menu mnemonicParsing="false" text="%menu.settings" fx:id="settingsMenu">
+               <Menu fx:id="activeSchemasMenu" mnemonicParsing="false" text="%menu.activeSchemas">
+                  <items>
+                     <MenuItem fx:id="activeSchemasListMenuItem" mnemonicParsing="false" onAction="#openActiveSchemas" text="%menu.activeSchemas.list">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                     </MenuItem>
+                     <MenuItem fx:id="activeSchemasAddMenuItem" mnemonicParsing="false" onAction="#addActiveSchema" text="%menu.activeSchemas.add">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="K" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                     </MenuItem>
+                  </items>
+               </Menu>
+           <Menu fx:id="settingsMenu" mnemonicParsing="false" text="%menu.settings">
              <items>
-               <MenuItem mnemonicParsing="false" onAction="#openGlobalSettings" text="%menu.settings.globalSettings" fx:id="globalSettingsMenuItem">
+               <MenuItem fx:id="globalSettingsMenuItem" mnemonicParsing="false" onAction="#openGlobalSettings" text="%menu.settings.globalSettings">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>
-             <MenuItem mnemonicParsing="false" onAction="#openLocalSettings" text="%menu.settings.localSettings" fx:id="localSettingsMenuItem">
+             <MenuItem fx:id="localSettingsMenuItem" mnemonicParsing="false" onAction="#openLocalSettings" text="%menu.settings.localSettings">
                  <accelerator>
                      <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                  </accelerator></MenuItem>
              </items>
            </Menu>
-           <Menu mnemonicParsing="false" text="%menu.help" fx:id="helpMenu">
+           <Menu fx:id="helpMenu" mnemonicParsing="false" text="%menu.help">
              <items>
-               <MenuItem mnemonicParsing="false" text="%menu.about" fx:id="aboutMenuItem">
+               <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="%menu.about">
                         <accelerator>
                            <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                         </accelerator></MenuItem>

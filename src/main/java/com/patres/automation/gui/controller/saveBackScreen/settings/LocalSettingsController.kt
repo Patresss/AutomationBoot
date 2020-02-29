@@ -1,4 +1,4 @@
-package com.patres.automation.gui.controller.settings
+package com.patres.automation.gui.controller.saveBackScreen.settings
 
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.animation.SliderAnimation
@@ -6,6 +6,7 @@ import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.model.TextFieldActionController
+import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.settings.LocalSettings
@@ -17,7 +18,7 @@ import javafx.collections.ListChangeListener
 class LocalSettingsController(
         private val rootSchemaGroupController: RootSchemaGroupController,
         private val settings: LocalSettings
-) : SettingsController("menu.settings.localSettings") {
+) : SaveBackScreenController("menu.settings.localSettings") {
 
     private val runKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.RUN_KEYS_SETTINGS)
     private val stopKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.STOP_KEYS_SETTINGS)
@@ -34,11 +35,7 @@ class LocalSettingsController(
         endpointNameTextField.isVisible = ApplicationLauncher.globalSettings.enableRest
     }
 
-    override fun backToPreviousWindow() {
-        SliderAnimation.backToTheWindow(rootSchemaGroupController.rootBorderPane, this, rootSchemaGroupController)
-    }
-
-    override fun saveSettings() {
+    override fun save() {
         try {
             allSettings.forEach { it.checkValidation() }
             settings.run {
@@ -59,13 +56,22 @@ class LocalSettingsController(
         endpointNameTextField.valueText.textProperty().addListener { _, _, _ -> changeDetect() }
     }
 
+    override fun backToPreviousWindow() {
+        SliderAnimation.backToTheWindow(rootSchemaGroupController.rootBorderPane, this, rootSchemaGroupController)
+    }
+
     private fun loadLocalSettings() {
         mainVBox.children.addAll(allSettings)
+    }
 
-        runKeysSetting.keyboardField.setKeyboardButtons(settings.runActionsKeys)
-        stopKeysSetting.keyboardField.setKeyboardButtons(settings.stopActionsKeys)
-        endpointNameTextField.value = settings.endpointName
-        endpointNameTextField.valueText.promptText = rootSchemaGroupController.model.getEndpointName()
+    override fun reloadSettingsValue() {
+        settings.run {
+            runKeysSetting.keyboardField.setKeyboardButtons(runActionsKeys)
+            stopKeysSetting.keyboardField.setKeyboardButtons(stopActionsKeys)
+            endpointNameTextField.value = endpointName
+            endpointNameTextField.valueText.promptText = rootSchemaGroupController.model.getEndpointName()
+        }
+        saveButton.isDisable = true
     }
 
 }

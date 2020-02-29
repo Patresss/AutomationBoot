@@ -25,16 +25,15 @@ object GlobalSettingsLoader {
             logger.info("Global settings not found - creating new")
             return GlobalSettings()
         } catch (e: Exception) {
+            logger.error("Exception during load Global settings - creating new", e)
             return GlobalSettings()
         }
     }
 
     fun save(globalSettings: GlobalSettings = ApplicationLauncher.globalSettings) {
         logger.info("Global settings are saving...")
-        val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchema.getFilePathToSettings() }
-        filesToSave?.let { files ->
-            globalSettings.previousPathFiles = files
-        }
+        val filesToSave = ApplicationLauncher.mainController.tabContainers.map { it.rootSchema.getFilePathToSettings() }
+        globalSettings.previousPathFiles = filesToSave
 
         val serializedRootGroup = AutomationMapper.toJson(globalSettings)
         val file = File(path)

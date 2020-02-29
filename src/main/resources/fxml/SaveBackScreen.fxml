@@ -9,31 +9,35 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <StackPane fx:id="rootStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="settings-pane">
-      
-               <VBox fx:id="mainVBox" prefHeight="200.0" prefWidth="100.0">
-            <children>
-               <AnchorPane>
+         <BorderPane>
+            <center>
+            
+                     <VBox fx:id="mainVBox" prefHeight="200.0" prefWidth="100.0">
+                  <padding>
+                     <Insets top="30.0" />
+                  </padding>
+               </VBox>
+            </center>
+            <top>
+               <AnchorPane BorderPane.alignment="CENTER">
                   <children>
-                     <JFXButton fx:id="backButton" layoutX="15.0" layoutY="11.0" onAction="#closeSettings" styleClass="back-button" text="%button.back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <JFXButton fx:id="backButton" layoutX="15.0" layoutY="11.0" onAction="#close" styleClass="back-button" text="%button.back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <graphic>
                            <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" size="35" styleClass="sub-icon" />
                         </graphic>
                      </JFXButton>
-                     <JFXButton fx:id="saveButton" layoutX="25.0" layoutY="21.0" onAction="#saveSettings" styleClass="back-button" text="%menu.save" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <JFXButton fx:id="saveButton" layoutX="25.0" layoutY="21.0" onAction="#save" styleClass="back-button" text="%menu.save" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <graphic>
                            <FontAwesomeIconView glyphName="SAVE" size="35" styleClass="sub-icon" />
                         </graphic>
                      </JFXButton>
                   </children>
-                  <VBox.margin>
-                     <Insets bottom="30.0" />
-                  </VBox.margin>
                </AnchorPane>
-            </children>
-         </VBox>
+            </top>
+         </BorderPane>
       </StackPane>
    </center>
    <top>

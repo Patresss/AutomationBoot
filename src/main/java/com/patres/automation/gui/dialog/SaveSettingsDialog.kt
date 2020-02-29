@@ -1,7 +1,7 @@
 package com.patres.automation.gui.dialog
 
 import com.jfoenix.controls.JFXDialog
-import com.patres.automation.gui.controller.settings.SettingsController
+import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.fromBundle
@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
 import javafx.scene.layout.StackPane
 
-class SaveSettingsDialog(private val settingsController: SettingsController) : StackPane() {
+class SaveSettingsDialog(private val settingsController: SaveBackScreenController) : StackPane() {
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/dialog/SaveDialog.fxml"))
@@ -32,7 +32,7 @@ class SaveSettingsDialog(private val settingsController: SettingsController) : S
 
     @FXML
     fun save() {
-        settingsController.saveSettings()
+        settingsController.save()
         settingsController.backToPreviousWindow()
         dialogKeeper?.close()
     }

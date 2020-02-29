@@ -6,7 +6,8 @@ import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
-import com.patres.automation.gui.controller.settings.GlobalSettingsController
+import com.patres.automation.gui.controller.saveBackScreen.activeSchema.ActiveSchemasController
+import com.patres.automation.gui.controller.saveBackScreen.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
@@ -18,6 +19,7 @@ import javafx.collections.FXCollections
 import javafx.collections.ListChangeListener
 import javafx.collections.ObservableList
 import javafx.fxml.FXML
+import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.control.Menu
 import javafx.scene.control.MenuItem
@@ -61,6 +63,15 @@ class MainController {
     lateinit var closeTabMenuItem: MenuItem
 
     @FXML
+    lateinit var activeSchemasMenu: Menu
+
+    @FXML
+    lateinit var activeSchemasListMenuItem: MenuItem
+
+    @FXML
+    lateinit var activeSchemasAddMenuItem: MenuItem
+
+    @FXML
     lateinit var settingsMenu: Menu
 
     @FXML
@@ -85,11 +96,13 @@ class MainController {
 
     private val globalSettingsController = GlobalSettingsController(this)
 
+    private val activeSchemasController = ActiveSchemasController(this)
+
     fun initialize() {
         snackBar = JFXSnackbar(root)
         tabPane.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS
 
-        val previousOpenModels = getPreviousOpenModels()
+        val previousOpenModels = ApplicationLauncher.globalSettings.calculatePreviousOpenModels()
         if (previousOpenModels.isEmpty()) {
             createNewRootSchema()
         } else {
@@ -97,6 +110,7 @@ class MainController {
         }
 
         listenTabContainers()
+        listenRootSchemaIsDisplayed()
         initLanguage()
     }
 
@@ -107,27 +121,43 @@ class MainController {
         saveMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.save"))
         saveAsMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.saveAs"))
         closeTabMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.closeTab"))
+        activeSchemasMenu.textProperty().bind(LanguageManager.createStringBinding("menu.activeSchemas"))
+        activeSchemasListMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.activeSchemas.list"))
+        activeSchemasAddMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.activeSchemas.add"))
         settingsMenu.textProperty().bind(LanguageManager.createStringBinding("menu.settings"))
         globalSettingsMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.settings.globalSettings"))
         localSettingsMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.settings.localSettings"))
         helpMenu.textProperty().bind(LanguageManager.createStringBinding("menu.help"))
         aboutMenuItem.textProperty().bind(LanguageManager.createStringBinding("menu.about"))
+
+    }
+
+    private fun listenRootSchemaIsDisplayed() {
+        centerStackPane.children.addListener { children: ListChangeListener.Change<out Node> ->
+            while (children.next()) {
+                if (children.addedSubList.contains(tabPane)) {
+                    calculateEnableState(tabContainers.isNotEmpty())
+                }
+
+                if (children.removed.contains(tabPane)) {
+                    calculateEnableState(false)
+                }
+            }
+        }
+        tabContainers.addListener { _: ListChangeListener.Change<out TabContainer>? ->
+            calculateEnableState(tabContainers.isNotEmpty())
+        }
+    }
+
+    private fun calculateEnableState(state: Boolean) {
+        localSettingsMenuItem.isDisable = !state
+        activeSchemasAddMenuItem.isDisable = !state
     }
 
     private fun listenTabContainers() {
         tabContainers.addListener { _: ListChangeListener.Change<out TabContainer>? ->
             GlobalSettingsLoader.save(ApplicationLauncher.globalSettings)
         }
-    }
-
-    private fun getPreviousOpenModels(): List<File> {
-        val (existingFile, notExistingFiles) = ApplicationLauncher.globalSettings.previousPathFiles
-                .map { File(it) }
-                .partition { it.exists() }
-        if (notExistingFiles.isNotEmpty()) {
-            logger.warn("Cannot find files to open: $notExistingFiles")
-        }
-        return existingFile
     }
 
     @FXML
@@ -148,7 +178,7 @@ class MainController {
         }
     }
 
-    private fun loadModelFromFile(fileToLoad: File) {
+    fun loadModelFromFile(fileToLoad: File) {
         try {
             val tabContainer = RootSchemaLoader.openRootSchema(tabPane, fileToLoad)
             addTabToContainer(tabContainer)
@@ -179,6 +209,10 @@ class MainController {
 
     @FXML
     fun openGlobalSettings() {
+        if (centerStackPane.children.contains(activeSchemasController)) {
+            activeSchemasController.close()
+        }
+
         if (!centerStackPane.children.contains(globalSettingsController)) {
             globalSettingsController.reloadSettingsValue()
             SliderAnimation.goToTheWindow(globalSettingsController, tabPane, centerStackPane)
@@ -188,8 +222,9 @@ class MainController {
     @FXML
     fun openLocalSettings() {
         if (centerStackPane.children.contains(globalSettingsController)) {
-            globalSettingsController.closeSettings()
+            globalSettingsController.close()
         }
+
         getSelectedTabContainer()?.rootSchema?.controller?.openLocalSettings()
     }
 
@@ -199,6 +234,27 @@ class MainController {
             RootSchemaLoader.createOnCloseRequest(it).handle(null)
         }
     }
+
+    @FXML
+    fun openActiveSchemas() {
+        if (centerStackPane.children.contains(globalSettingsController)) {
+            globalSettingsController.close()
+        }
+
+        if (!centerStackPane.children.contains(activeSchemasController)) {
+            activeSchemasController.reloadSettingsValue()
+            SliderAnimation.goToTheWindow(activeSchemasController, tabPane, centerStackPane)
+        }
+    }
+
+    @FXML
+    fun addActiveSchema() {
+        getSelectedTabContainer()?.let { tabContainer ->
+            ApplicationLauncher.globalSettings.activeSchemas.add(tabContainer.rootSchema.getFilePathToSettings())
+            removeTab(tabContainer)
+        }
+    }
+
 
     fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }
 

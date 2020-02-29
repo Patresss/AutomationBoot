@@ -6,7 +6,7 @@ import com.patres.automation.gui.controller.ActionBarController
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.box.SchemaGroupController
-import com.patres.automation.gui.controller.settings.LocalSettingsController
+import com.patres.automation.gui.controller.saveBackScreen.settings.LocalSettingsController
 import com.patres.automation.settings.LanguageManager
 import javafx.application.Platform
 import javafx.fxml.FXML
@@ -95,6 +95,7 @@ open class RootSchemaGroupController(
 
     fun openLocalSettings() {
         if (!this.children.contains(localSettingsController)) {
+            localSettingsController.reloadSettingsValue()
             SliderAnimation.goToTheWindow(localSettingsController, rootBorderPane, this)
         }
     }

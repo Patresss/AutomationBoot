@@ -120,7 +120,7 @@ object RootSchemaLoader {
                 jfxDialog.show()
                 it?.consume()
             } else {
-                ApplicationLauncher.mainController?.removeTab(tabContainer)
+                ApplicationLauncher.mainController.removeTab(tabContainer)
             }
         }
     }
