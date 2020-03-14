@@ -8,7 +8,6 @@ import com.patres.automation.gui.controller.model.CheckBoxActionController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.type.ActionBootCheckBox
 import com.patres.automation.type.ActionBootKeyboard
@@ -16,6 +15,7 @@ import com.patres.automation.type.ActionBootTextField
 import com.patres.automation.type.ChooseLanguageActionBootComboBox
 import com.patres.automation.util.fromBundle
 import javafx.collections.ListChangeListener
+import javafx.fxml.FXML
 
 
 class GlobalSettingsController(private val mainController: MainController) : SaveBackScreenController(
@@ -42,23 +42,18 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         loadGlobalSettings()
     }
 
-    override fun save() {
-        try {
-            allSettings.forEach { it.checkValidation() }
-            ApplicationLauncher.globalSettings.run {
-                stopActionKeys = ArrayList(stopKeysSetting.keyboardField.keys)
-                startRecordKeys = ArrayList(startRecordKeysSettings.keyboardField.keys)
-                stopRecordKeys = ArrayList(stopRecordKeysSettings.keyboardField.keys)
-                language = languageComboBox.comboBox.value
-                port = portText.value.toInt()
-                enableRest = enableRestCheckBox.checkBox.isSelected
-            }
-            GlobalSettingsLoader.save()
-            saveButton.isDisable = true
-            setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
-        } catch (e: Exception) {
-            LogManager.showAndLogException(e)
+
+    override fun saveChanges() {
+        allSettings.forEach { it.checkValidation() }
+        ApplicationLauncher.globalSettings.editAndSave {
+            stopActionKeys = ArrayList(stopKeysSetting.keyboardField.keys)
+            startRecordKeys = ArrayList(startRecordKeysSettings.keyboardField.keys)
+            stopRecordKeys = ArrayList(stopRecordKeysSettings.keyboardField.keys)
+            language = languageComboBox.comboBox.value
+            port = portText.value.toInt()
+            enableRest = enableRestCheckBox.checkBox.isSelected
         }
+        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
 
     override fun initChangeDetectors() {

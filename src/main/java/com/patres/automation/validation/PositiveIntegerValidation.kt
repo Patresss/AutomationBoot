@@ -1,6 +1,7 @@
 package com.patres.automation.validation
 
 import com.patres.automation.excpetion.PositiveIntegerFormatException
+import com.patres.automation.settings.LanguageManager
 
 class PositiveIntegerValidation : Validationable() {
 
@@ -18,6 +19,6 @@ class PositiveIntegerValidation : Validationable() {
         throw PositiveIntegerFormatException(value)
     }
 
-    override fun getErrorMessageProperty() = "error.mustBePositiveNumber"
+    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.mustBePositiveNumber")
 
 }

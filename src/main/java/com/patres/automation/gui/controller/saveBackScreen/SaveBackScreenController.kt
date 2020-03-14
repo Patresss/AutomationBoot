@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDialog
 import com.jfoenix.controls.JFXSnackbar
 import com.patres.automation.ApplicationLauncher
+import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.gui.dialog.SaveSettingsDialog
 import com.patres.automation.settings.LanguageManager
 import javafx.fxml.FXML
@@ -49,6 +50,16 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
     }
 
     @FXML
+    fun save() {
+        try {
+            saveChanges()
+            saveButton.isDisable = true
+        } catch (e: Exception) {
+            LogManager.showAndLogException(e)
+        }
+    }
+
+    @FXML
     fun close() {
         if (saveButton.isDisable) {
             backToPreviousWindow()
@@ -58,7 +69,6 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
             saveDialogPane.dialogKeeper = jfxDialog
             jfxDialog.show()
         }
-        saveButton.isDisable = true
     }
 
     fun changeDetect() {
@@ -72,6 +82,6 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
     abstract fun initChangeDetectors()
     abstract fun backToPreviousWindow()
     abstract fun reloadSettingsValue()
-    abstract fun save()
+    abstract fun saveChanges()
 
 }

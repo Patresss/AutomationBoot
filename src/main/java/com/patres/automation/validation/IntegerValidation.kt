@@ -1,6 +1,7 @@
 package com.patres.automation.validation
 
 import com.patres.automation.excpetion.IntegerFormatException
+import com.patres.automation.settings.LanguageManager
 
 class IntegerValidation : Validationable() {
 
@@ -19,6 +20,6 @@ class IntegerValidation : Validationable() {
         throw IntegerFormatException(value)
     }
 
-    override fun getErrorMessageProperty() = "error.mustBeNumber"
+    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.mustBeNumber")
 
 }

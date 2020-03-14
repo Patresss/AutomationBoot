@@ -32,9 +32,14 @@ class SaveSettingsDialog(private val settingsController: SaveBackScreenControlle
 
     @FXML
     fun save() {
-        settingsController.save()
-        settingsController.backToPreviousWindow()
-        dialogKeeper?.close()
+        try {
+            settingsController.saveChanges()
+            settingsController.backToPreviousWindow()
+        } catch (e: Exception) {
+            LogManager.showAndLogException(e)
+        } finally {
+            dialogKeeper?.close()
+        }
     }
 
     @FXML

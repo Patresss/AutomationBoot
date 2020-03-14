@@ -26,7 +26,7 @@ object LanguageManager {
     }
 
     fun createStringBinding(key: String, vararg args: Any): StringBinding {
-        return Bindings.createStringBinding(Callable { getLanguageString(key, args) }, locale)
+        return Bindings.createStringBinding(Callable { getLanguageString(key, *args) }, locale)
     }
 
     fun getLanguageString(key: String, vararg args: Any): String = MessageFormat.format(getBundle().getString(key), *args)

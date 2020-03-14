@@ -5,7 +5,6 @@ import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import com.patres.automation.util.RootSchemaLoader
@@ -31,20 +30,14 @@ class ActiveSchemasController(
         calculateRootSchemaModels()
     }
 
-    @FXML
-    override fun save() {
-        try {
-            saveButton.isDisable = true
-            openSchemasToEdit()
-            ApplicationLauncher.globalSettings.editAndSave {
-                activeSchemas = getActiveSchemaFromUi()
-            }
-            activeActions.removeIf { !ApplicationLauncher.globalSettings.activeSchemas.contains(it.getFilePathToSettings()) }
-            logger.debug("Saved ${activeActions.size} schema models as active")
-            setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
-        } catch (e: Exception) {
-            LogManager.showAndLogException(e)
+    override fun saveChanges() {
+        openSchemasToEdit()
+        ApplicationLauncher.globalSettings.editAndSave {
+            activeSchemas = getActiveSchemaFromUi()
         }
+        activeActions.removeIf { !ApplicationLauncher.globalSettings.activeSchemas.contains(it.getFilePathToSettings()) }
+        logger.debug("Saved ${activeActions.size} schema models as active")
+        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
     }
 
     private fun openSchemasToEdit() {

@@ -7,7 +7,6 @@ import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.settings.LocalSettings
 import com.patres.automation.type.ActionBootKeyboard
@@ -35,19 +34,14 @@ class LocalSettingsController(
         endpointNameTextField.isVisible = ApplicationLauncher.globalSettings.enableRest
     }
 
-    override fun save() {
-        try {
-            allSettings.forEach { it.checkValidation() }
-            settings.run {
-                runActionsKeys = runKeysSetting.keyboardField.keys
-                stopActionsKeys = stopKeysSetting.keyboardField.keys
-                endpointName = endpointNameTextField.value
-            }
-            saveButton.isDisable = true
-            setMessageToSnackBar(LanguageManager.getLanguageString("message.snackbar.settingsSave"))
-        } catch (e: Exception) {
-            LogManager.showAndLogException(e)
+    override fun saveChanges() {
+        allSettings.forEach { it.checkValidation() }
+        settings.run {
+            runActionsKeys = runKeysSetting.keyboardField.keys
+            stopActionsKeys = stopKeysSetting.keyboardField.keys
+            endpointName = endpointNameTextField.value
         }
+        setMessageToSnackBar(LanguageManager.getLanguageString("message.snackbar.settingsSave"))
     }
 
     override fun initChangeDetectors() {

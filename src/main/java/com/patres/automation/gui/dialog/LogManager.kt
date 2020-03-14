@@ -7,7 +7,6 @@ object LogManager {
 
     private val logger = LoggerFactory.getLogger(LogManager::class.java)
 
-
     fun showAndLogException(e: Exception) {
         logger.error("ApplicationException: {}", e.message, e)
         Platform.runLater {

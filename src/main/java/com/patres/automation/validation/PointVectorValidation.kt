@@ -1,6 +1,7 @@
 package com.patres.automation.validation
 
 import com.patres.automation.excpetion.PointVectorFormatException
+import com.patres.automation.settings.LanguageManager
 
 class PointVectorValidation : Validationable() {
 
@@ -17,8 +18,7 @@ class PointVectorValidation : Validationable() {
         throw PointVectorFormatException(value)
     }
 
-    override fun getErrorMessageProperty() = "error.mustBePointOrVector"
-
+    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.mustBePointOrVector")
 
 }
 

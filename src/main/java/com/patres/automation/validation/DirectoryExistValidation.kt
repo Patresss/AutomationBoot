@@ -1,6 +1,8 @@
 package com.patres.automation.validation
 
 import com.patres.automation.excpetion.DirectoryNotExistException
+import com.patres.automation.server.ServerBoot
+import com.patres.automation.settings.LanguageManager
 import java.io.File
 
 class DirectoryExistValidation : Validationable() {
@@ -14,6 +16,6 @@ class DirectoryExistValidation : Validationable() {
         throw DirectoryNotExistException(value)
     }
 
-    override fun getErrorMessageProperty() = "error.directoryDoesntExist"
+    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.directoryDoesntExist")
 
 }

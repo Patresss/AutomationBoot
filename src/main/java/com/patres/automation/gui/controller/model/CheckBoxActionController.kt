@@ -26,8 +26,8 @@ class CheckBoxActionController(
             checkUiValidation()
         }
         checkUiValidation()
-        action.validation()?.getErrorMessageProperty()?.let {
-            validLabel.textProperty().bind(LanguageManager.createStringBinding(it))
+        action.validation()?.getErrorMessageStringBinding()?.let {
+            validLabel.textProperty().bind(it)
         }
     }
 

@@ -2,6 +2,7 @@ package com.patres.automation.validation
 
 import com.patres.automation.excpetion.FileHasWrongExtensiontException
 import com.patres.automation.file.FileType
+import com.patres.automation.settings.LanguageManager
 import java.io.File
 
 class FileExtensionValidation(fileType: FileType) : Validationable() {
@@ -16,6 +17,6 @@ class FileExtensionValidation(fileType: FileType) : Validationable() {
         throw FileHasWrongExtensiontException(value, extension)
     }
 
-    override fun getErrorMessageProperty() = "error.fileHasWrongExtension"
+    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.fileHasWrongExtension")
 
 }

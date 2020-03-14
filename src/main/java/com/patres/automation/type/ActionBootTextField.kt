@@ -2,10 +2,7 @@ package com.patres.automation.type
 
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.TextFieldActionController
-import com.patres.automation.validation.IntegerValidation
-import com.patres.automation.validation.PositiveIntegerValidation
-import com.patres.automation.validation.StringWithoutWhiteCharactersValidation
-import com.patres.automation.validation.Validationable
+import com.patres.automation.validation.*
 
 
 enum class ActionBootTextField(
@@ -18,7 +15,7 @@ enum class ActionBootTextField(
     SCROLL_WHEEL_UP("robot.action.scrollWheel.up", PositiveIntegerValidation()),
     SCROLL_WHEEL_DOWN("robot.action.scrollWheel.down", PositiveIntegerValidation()),
 
-    PORT("settings.port", IntegerValidation()),
+    PORT("settings.port", PortValidation()),
     ENDPOINT_NAME("settings.endpointName", StringWithoutWhiteCharactersValidation());
 
 

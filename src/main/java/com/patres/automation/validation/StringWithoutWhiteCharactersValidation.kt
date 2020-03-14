@@ -1,6 +1,7 @@
 package com.patres.automation.validation
 
 import com.patres.automation.excpetion.StringWithWhiteCharactersException
+import com.patres.automation.settings.LanguageManager
 
 class StringWithoutWhiteCharactersValidation : Validationable() {
 
@@ -12,6 +13,6 @@ class StringWithoutWhiteCharactersValidation : Validationable() {
         throw StringWithWhiteCharactersException(value)
     }
 
-    override fun getErrorMessageProperty() = "error.stringWithWhiteCharacters"
+    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.stringWithWhiteCharacters")
 
 }

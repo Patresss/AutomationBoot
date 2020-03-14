@@ -1,6 +1,7 @@
 package com.patres.automation.settings
 
 import com.patres.automation.keyboard.KeyboardKey
+import com.patres.automation.server.ServerBoot
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.properties.Delegates
@@ -12,7 +13,7 @@ class GlobalSettings(
         var previousPathFiles: List<String> = emptyList(),
         var lastLoadedPath: String? = null,
         language: Language = Language.ENGLISH,
-        var port: Int = 8012,
+        var port: Int = ServerBoot.DEFAULT_PORT,
         var removeDelay: Boolean = true,
         var removeLastAction: Boolean = true,
         var enableRest: Boolean = true,

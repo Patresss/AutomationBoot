@@ -1,6 +1,7 @@
 package com.patres.automation.validation
 
 import com.patres.automation.excpetion.FileNotExistException
+import com.patres.automation.settings.LanguageManager
 import java.io.File
 
 class FileExistValidation : Validationable() {
@@ -13,6 +14,6 @@ class FileExistValidation : Validationable() {
         throw FileNotExistException(value)
     }
 
-    override fun getErrorMessageProperty() = "error.fileDoesntExist"
+    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.fileDoesntExist")
 
 }

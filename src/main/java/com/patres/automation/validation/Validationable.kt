@@ -1,5 +1,6 @@
 package com.patres.automation.validation
 
+import javafx.beans.binding.StringBinding
 import javafx.scene.Node
 
 abstract class Validationable {
@@ -29,6 +30,6 @@ abstract class Validationable {
         }
     }
 
-    abstract fun getErrorMessageProperty(): String
+    abstract fun getErrorMessageStringBinding(): StringBinding
 
 }

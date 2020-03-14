@@ -41,7 +41,9 @@ class ApplicationLauncher : Application() {
             nu.pattern.OpenCV.loadShared()
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
 
-            ServerBoot.run()
+            if (globalSettings.enableRest) {
+                ServerBoot.run(globalSettings.port)
+            }
             launch(ApplicationLauncher::class.java)
         }
 
