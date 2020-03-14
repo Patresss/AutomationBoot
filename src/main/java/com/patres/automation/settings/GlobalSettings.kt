@@ -19,7 +19,6 @@ class GlobalSettings(
         var activeSchemas: MutableList<String> = mutableListOf()
 ) {
 
-
     companion object {
         private val logger = LoggerFactory.getLogger(GlobalSettings::class.java)
     }
@@ -46,5 +45,10 @@ class GlobalSettings(
             logger.warn("Cannot find files to active: $notExistingFiles")
         }
         return existingFile
+    }
+
+    fun editAndSave(block: GlobalSettings.() -> Unit) {
+        this.block()
+        GlobalSettingsLoader.save(this)
     }
 }

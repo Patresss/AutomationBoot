@@ -21,6 +21,7 @@ module automationBoot {
     opens com.patres.automation.gui.controller to javafx.fxml;
     opens com.patres.automation.gui.controller.saveBackScreen to javafx.fxml;
     opens com.patres.automation.gui.controller.saveBackScreen.activeSchema to javafx.fxml;
+    opens com.patres.automation.gui.controller.saveBackScreen.settings to javafx.fxml;
     opens com.patres.automation.gui.controller.model to javafx.fxml;
     opens com.patres.automation.gui.controller.box to javafx.fxml;
     opens com.patres.automation.gui.custom to javafx.fxml;

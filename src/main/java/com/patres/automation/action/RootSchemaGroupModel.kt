@@ -59,7 +59,7 @@ class RootSchemaGroupModel(
                     Thread.sleep(200)
                 } catch (e: ApplicationException) {
                     LogManager.showAndLogException(e)
-                } catch (e: Exception) {
+                } catch (e: Throwable) {
                     logger.error("Exception: {}", e)
                 } finally {
                     Platform.runLater { ApplicationLauncher.mainStage.isIconified = applicationStageIsActive }

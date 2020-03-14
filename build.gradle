@@ -101,7 +101,9 @@ run {
         "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
         "--add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix",
         "--add-opens=javafx.controls/javafx.scene.control=automationBoot",
-        "--add-opens=javafx.graphics/javafx.scene=automationBoot"
+        "--add-opens=javafx.graphics/javafx.scene=automationBoot",
+        "--add-opens=javafx.graphics/javafx.scene.control=automationBoot"
+
     ]
 }
 
@@ -121,7 +123,8 @@ jlink {
                 "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
                 "--add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix",
                 "--add-opens=javafx.controls/javafx.scene.control=automationBoot",
-                "--add-opens=javafx.graphics/javafx.scene=automationBoot"
+                "--add-opens=javafx.graphics/javafx.scene=automationBoot",
+                "--add-opens=javafx.graphics/javafx.scene.control=automationBoot"
         ]
     }
 

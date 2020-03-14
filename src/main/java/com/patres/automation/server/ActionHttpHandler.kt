@@ -3,7 +3,6 @@ package com.patres.automation.server
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
 import com.sun.net.httpserver.HttpExchange
-import com.sun.net.httpserver.HttpHandler
 import org.slf4j.LoggerFactory
 import java.net.HttpURLConnection
 
@@ -23,7 +22,7 @@ abstract class ActionHttpHandler(
         logger.debug("Receive request - method: ${exchange.requestMethod}, url: ${exchange.requestURI.path}")
         if (method == exchange.requestMethod) {
             val actionName = exchange.requestURI.path.removePrefix(url)
-            val action = ApplicationLauncher.mainController?.findActionByName(actionName)
+            val action = ApplicationLauncher.mainController.findActionByName(actionName)
             if (action != null) {
                 invokeAction(action)
                 createSuccessResponse(exchange, actionName)

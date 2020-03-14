@@ -1,14 +1,17 @@
 package com.patres.automation.gui.controller.saveBackScreen.activeSchema
 
 import com.patres.automation.ApplicationLauncher
+import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.model.RootSchemaGroupSerialized
+import com.patres.automation.util.RootSchemaLoader
 import com.patres.automation.util.fromBundle
 import javafx.fxml.FXML
+import org.slf4j.LoggerFactory
 import java.io.File
 
 
@@ -16,10 +19,16 @@ class ActiveSchemasController(
         private val mainController: MainController
 ) : SaveBackScreenController("menu.activeSchemas.details") {
 
+    companion object {
+        private val logger = LoggerFactory.getLogger(ActiveSchemasController::class.java)
+    }
+
     val toEditSchema: MutableList<ActiveSchemaItemController> = mutableListOf()
+    val activeActions: MutableList<RootSchemaGroupModel> = mutableListOf()
 
     init {
         initChangeDetectors()
+        calculateRootSchemaModels()
     }
 
     @FXML
@@ -27,8 +36,11 @@ class ActiveSchemasController(
         try {
             saveButton.isDisable = true
             openSchemasToEdit()
-            ApplicationLauncher.globalSettings.activeSchemas = getActiveSchemaFromUi()
-
+            ApplicationLauncher.globalSettings.editAndSave {
+                activeSchemas = getActiveSchemaFromUi()
+            }
+            activeActions.removeIf { !ApplicationLauncher.globalSettings.activeSchemas.contains(it.getFilePathToSettings()) }
+            logger.debug("Saved ${activeActions.size} schema models as active")
             setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
         } catch (e: Exception) {
             LogManager.showAndLogException(e)
@@ -53,7 +65,6 @@ class ActiveSchemasController(
     override fun reloadSettingsValue() {
         mainVBox.children.clear()
         toEditSchema.clear()
-
         val activeSchemas: List<ActiveSchemaItemController> = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles()
                 .sortedBy { it.nameWithoutExtension }
                 .map { mapFileActiveSchemaItem(it) }
@@ -62,7 +73,7 @@ class ActiveSchemasController(
 
     private fun mapFileActiveSchemaItem(file: File): ActiveSchemaItemController {
         val rootSchemaGroupSerialized = AutomationMapper.toObject<RootSchemaGroupSerialized>(file.readText())
-        val fileWithName = if(rootSchemaGroupSerialized.file != null) { // to avoid tmp name
+        val fileWithName = if (rootSchemaGroupSerialized.file != null) { // to avoid tmp name
             File(rootSchemaGroupSerialized.file)
         } else {
             file
@@ -79,6 +90,19 @@ class ActiveSchemasController(
                 .filterIsInstance<ActiveSchemaItemController>()
                 .map { it.path }
                 .toMutableList()
+    }
+
+    private fun calculateRootSchemaModels() {
+        activeActions.clear()
+        val rootSchemaModels = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles().map { RootSchemaLoader.createRootSchemaGroupFromFile(it) }
+        activeActions.addAll(rootSchemaModels)
+    }
+
+    fun addNewSchemaModel(rootSchema: RootSchemaGroupModel) {
+        ApplicationLauncher.globalSettings.editAndSave {
+            activeSchemas.add(rootSchema.getFilePathToSettings())
+        }
+        activeActions.add(rootSchema)
     }
 
 }

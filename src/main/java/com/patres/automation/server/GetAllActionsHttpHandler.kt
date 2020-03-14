@@ -36,7 +36,7 @@ class GetAllActionsHttpHandler(
     }
 
     private fun createButtonsWithAction(): String {
-        return ApplicationLauncher.mainController.rootSchemas.joinToString("<br /> <br />") {
+        return ApplicationLauncher.mainController.findAllowedAction().joinToString("<br /> <br />") {
             """
                 <button onclick="location.href='http://${ip}:${ApplicationLauncher.globalSettings.port}/action/run/${it.getEndpointName()}'" type="button">
                     ${it.getEndpointName()}

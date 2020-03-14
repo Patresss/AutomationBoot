@@ -2,9 +2,6 @@ package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
-import com.patres.automation.listener.RunStopKeyListener
-import com.patres.automation.listener.action.RunStopGlobalRootSchemaKeyListener
-import com.patres.automation.listener.action.RunStopRecordKeyListener
 import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
@@ -16,6 +13,7 @@ import javafx.scene.image.Image
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
+import org.opencv.core.Core
 import org.slf4j.LoggerFactory
 import java.awt.*
 import java.io.File
@@ -35,22 +33,16 @@ class ApplicationLauncher : Application() {
         lateinit var mainStage: Stage
         lateinit var mainController: MainController
         var mainPane: StackPane = StackPane()
-        var tmpDirector: File = File(System.getProperty("user.dir"),"tmp")
-        val keyListener: RunStopKeyListener = RunStopKeyListener()
+        var tmpDirector: File = File(System.getProperty("user.dir"), "tmp")
 
         @JvmStatic
         fun main(args: Array<String>) {
             logger.info("Application is starting...")
+            nu.pattern.OpenCV.loadShared()
+            System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
+
             ServerBoot.run()
             launch(ApplicationLauncher::class.java)
-
-        }
-
-        private fun initListeners() {
-            keyListener.addListeners(
-                    RunStopGlobalRootSchemaKeyListener(mainController),
-                    RunStopRecordKeyListener(mainController)
-            )
         }
 
         fun getStylesheet(): String = ApplicationLauncher::class.java.getResource("/css/style_day.css").toExternalForm()
@@ -124,9 +116,8 @@ class ApplicationLauncher : Application() {
         loader.location = ApplicationLauncher::class.java.getResource("/fxml/Main.fxml")
         loader.resources = LanguageManager.getBundle()
 
-        mainPane = loader.load<StackPane>()
-        mainController = loader.getController<MainController>()
-        initListeners()
+        mainPane = loader.load()
+        mainController = loader.getController()
 
         return mainPane
     }

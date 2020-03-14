@@ -9,7 +9,7 @@ import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.controller.saveBackScreen.activeSchema.ActiveSchemasController
 import com.patres.automation.gui.controller.saveBackScreen.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.LogManager
-import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
+import com.patres.automation.listener.RunStopKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.util.RootSchemaLoader
@@ -97,6 +97,8 @@ class MainController {
     private val globalSettingsController = GlobalSettingsController(this)
 
     private val activeSchemasController = ActiveSchemasController(this)
+
+    val keyListener: RunStopKeyListener = RunStopKeyListener(this)
 
     fun initialize() {
         snackBar = JFXSnackbar(root)
@@ -250,7 +252,7 @@ class MainController {
     @FXML
     fun addActiveSchema() {
         getSelectedTabContainer()?.let { tabContainer ->
-            ApplicationLauncher.globalSettings.activeSchemas.add(tabContainer.rootSchema.getFilePathToSettings())
+            activeSchemasController.addNewSchemaModel(tabContainer.rootSchema)
             removeTab(tabContainer)
         }
     }
@@ -271,17 +273,16 @@ class MainController {
     fun removeTab(tabContainer: TabContainer) {
         tabContainers.remove(tabContainer)
         tabPane.tabs.remove(tabContainer.tab)
-        ApplicationLauncher.keyListener.removeListeners(RunStopLocalRootSchemaKeyListener(tabContainer.rootSchema))
     }
 
     private fun addTabToContainer(tabContainer: TabContainer) {
         tabContainers.add(tabContainer)
-        ApplicationLauncher.keyListener.addListeners(RunStopLocalRootSchemaKeyListener(tabContainer.rootSchema))
     }
 
     fun findActionByName(actionName: String): RootSchemaGroupModel? {
-        return tabContainers
-                .map { it.rootSchema }
+        return findAllowedAction()
                 .find { it.getEndpointName() == actionName }
     }
+
+    fun findAllowedAction() = tabContainers.map { it.rootSchema } + activeSchemasController.activeActions
 }

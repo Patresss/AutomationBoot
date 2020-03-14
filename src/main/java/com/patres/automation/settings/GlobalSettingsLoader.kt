@@ -39,7 +39,6 @@ object GlobalSettingsLoader {
         val file = File(path)
         file.writeText(serializedRootGroup)
         logger.info("Global settings are saved")
-
     }
 
 }

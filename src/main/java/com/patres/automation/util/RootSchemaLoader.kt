@@ -40,6 +40,10 @@ object RootSchemaLoader {
     }
 
     fun openRootSchema(tabPane: TabPane, fileToOpen: File): TabContainer {
+        return createTabContainer(tabPane, createRootSchemaGroupFromFile(fileToOpen))
+    }
+
+    fun createRootSchemaGroupFromFile(fileToOpen: File): RootSchemaGroupModel {
         val serializedRootGroup = fileToOpen.readText()
         val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
         val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
@@ -49,7 +53,7 @@ object RootSchemaLoader {
         } else {
             rootGroup.file = fileToOpen
         }
-        return createTabContainer(tabPane, rootGroup)
+        return rootGroup
     }
 
     fun saveExistingRootSchema(tabContainer: TabContainer): Boolean {

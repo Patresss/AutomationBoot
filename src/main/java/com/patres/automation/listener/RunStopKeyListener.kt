@@ -1,10 +1,12 @@
 package com.patres.automation.listener
 
+import com.patres.automation.gui.controller.MainController
 import com.patres.automation.keyboard.KeyAdapter
+import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
 
-class RunStopKeyListener(private val actionListenable: MutableSet<RunStopActionListenable> = HashSet()) : NativeKeyListener {
+class RunStopKeyListener(private val mainController: MainController) : NativeKeyListener {
 
     init {
         activeListener()
@@ -18,19 +20,19 @@ class RunStopKeyListener(private val actionListenable: MutableSet<RunStopActionL
         checkRunKeys()
     }
 
-    private fun checkStopKeys() {
-        actionListenable.forEach { action ->
-            if (action.stopKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.stopKeyboardKey())) {
-                action.invokeStopAction()
+    private fun checkRunKeys() {
+        calculateActiveSchema().forEach { action ->
+            if (action.runKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.runKeyboardKey())) {
+                action.invokeRunAction()
                 reset()
             }
         }
     }
 
-    private fun checkRunKeys() {
-        actionListenable.forEach { action ->
-            if (action.runKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.runKeyboardKey())) {
-                action.invokeRunAction()
+    private fun checkStopKeys() {
+        calculateActiveSchema().forEach { action ->
+            if (action.stopKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.stopKeyboardKey())) {
+                action.invokeStopAction()
                 reset()
             }
         }
@@ -47,16 +49,14 @@ class RunStopKeyListener(private val actionListenable: MutableSet<RunStopActionL
         GlobalKeyMouseListener.activeKeyListener(this)
     }
 
-    fun reset() {
+    private fun reset() {
         pressedKeys.clear()
     }
 
-    fun addListeners(vararg listeners: RunStopActionListenable ) {
-        actionListenable.addAll(listeners)
-    }
-
-    fun removeListeners(vararg listeners: RunStopActionListenable ) {
-        actionListenable.removeAll(listeners)
+    private fun calculateActiveSchema(): List<RunStopLocalRootSchemaKeyListener> {
+        val map = mainController.findAllowedAction().map { RunStopLocalRootSchemaKeyListener(it) }
+        println("Number of listners: ${map.size} | $map")
+        return map
     }
 
 }

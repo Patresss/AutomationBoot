@@ -20,3 +20,5 @@ To run it with Java 11:
 --add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix
 --add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix
 --add-opens javafx.controls/javafx.scene.control=automationBoot
+--add-opens javafx.graphics/javafx.scene.control=automationBoot
+module javafx.graphics does not "opens javafx.scene" to module automationBoot
