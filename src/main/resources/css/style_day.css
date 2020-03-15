@@ -25,8 +25,9 @@
     -color-complementary-bright-8: #f5dbcc;
     -color-complementary-bright-7: #f1c9b3;
     -color-complementary-bright-6: #ecb799;
-    -color-complementary-bright-4: #fd975f;
-    -color-complementary: #d14b02;
+    -color-complementary-bright-4: #e39367;
+    -color-complementary-bright-2: #da6e34;
+    -color-complementary: #d14b02; /* https://www.color-hex.com/color/d14b02 */
 
 
     -color-primary-dark: #0288D1;
@@ -598,6 +599,11 @@ root {
 .jfx-snackbar-content .label {
     -fx-text-fill: -color-background;
     -fx-font-family: "Roboto-Regular";
+}
+
+
+.jfx-snackbar-content:warning-toast {
+    -fx-background-color: -color-complementary-bright-2;
 }
 
 .fiche-icon .glyph-icon {

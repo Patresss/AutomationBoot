@@ -58,7 +58,7 @@ class LocalSettingsController(
         mainVBox.children.addAll(allSettings)
     }
 
-    override fun reloadSettingsValue() {
+    override fun reloadSettings() {
         settings.run {
             runKeysSetting.keyboardField.setKeyboardButtons(runActionsKeys)
             stopKeysSetting.keyboardField.setKeyboardButtons(stopActionsKeys)

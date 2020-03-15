@@ -1,6 +1,5 @@
 package com.patres.automation.gui.controller.model
 
-import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
 import javafx.fxml.FXML
 import javafx.scene.control.Label

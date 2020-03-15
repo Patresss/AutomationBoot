@@ -95,7 +95,7 @@ open class RootSchemaGroupController(
 
     fun openLocalSettings() {
         if (!this.children.contains(localSettingsController)) {
-            localSettingsController.reloadSettingsValue()
+            localSettingsController.reload()
             SliderAnimation.goToTheWindow(localSettingsController, rootBorderPane, this)
         }
     }

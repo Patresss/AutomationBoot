@@ -216,7 +216,7 @@ class MainController {
         }
 
         if (!centerStackPane.children.contains(globalSettingsController)) {
-            globalSettingsController.reloadSettingsValue()
+            globalSettingsController.reload()
             SliderAnimation.goToTheWindow(globalSettingsController, tabPane, centerStackPane)
         }
     }
@@ -244,7 +244,7 @@ class MainController {
         }
 
         if (!centerStackPane.children.contains(activeSchemasController)) {
-            activeSchemasController.reloadSettingsValue()
+            activeSchemasController.reload()
             SliderAnimation.goToTheWindow(activeSchemasController, tabPane, centerStackPane)
         }
     }

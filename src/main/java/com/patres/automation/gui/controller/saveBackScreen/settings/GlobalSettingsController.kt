@@ -8,18 +8,15 @@ import com.patres.automation.gui.controller.model.CheckBoxActionController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.type.ActionBootCheckBox
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootTextField
 import com.patres.automation.type.ChooseLanguageActionBootComboBox
 import com.patres.automation.util.fromBundle
 import javafx.collections.ListChangeListener
-import javafx.fxml.FXML
 
 
-class GlobalSettingsController(private val mainController: MainController) : SaveBackScreenController(
-        "menu.settings.globalSettings") {
+class GlobalSettingsController(private val mainController: MainController) : SaveBackScreenController("menu.settings.globalSettings") {
 
     private val stopKeysSetting = KeyboardButtonActionController(ActionBootKeyboard.STOP_KEYS_SETTINGS)
     private val startRecordKeysSettings = KeyboardButtonActionController(ActionBootKeyboard.START_RECORDING_KEYS_SETTINGS)
@@ -38,10 +35,9 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             portText)
 
     init {
-        initChangeDetectors()
         loadGlobalSettings()
+        initChangeDetectors()
     }
-
 
     override fun saveChanges() {
         allSettings.forEach { it.checkValidation() }
@@ -61,10 +57,14 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         startRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
         stopRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
         languageComboBox.comboBox.valueProperty().addListener { _ -> changeDetect() }
-        portText.valueText.textProperty().addListener { _ -> changeDetect() }
-        enableRestCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
+        portText.valueText.textProperty().addListener { _ ->
+            setWarningMessageToSnackBar(fromBundle("message.snackbar.changesAppliedAfterRestart"))
             changeDetect()
+        }
+        enableRestCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
+            setWarningMessageToSnackBar(fromBundle("message.snackbar.changesAppliedAfterRestart"))
             portText.isVisible = newValue
+            changeDetect()
         }
     }
 
@@ -76,7 +76,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         SliderAnimation.backToTheWindow(mainController.tabPane, this, mainController.centerStackPane)
     }
 
-    override fun reloadSettingsValue() {
+    override fun reloadSettings() {
         ApplicationLauncher.globalSettings.run {
             stopKeysSetting.keyboardField.setKeyboardButtons(stopActionKeys)
             startRecordKeysSettings.keyboardField.setKeyboardButtons(startRecordKeys)

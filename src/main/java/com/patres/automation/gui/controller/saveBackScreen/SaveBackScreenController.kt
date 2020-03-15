@@ -7,6 +7,7 @@ import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.gui.dialog.SaveSettingsDialog
 import com.patres.automation.settings.LanguageManager
+import javafx.css.PseudoClass
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
@@ -29,6 +30,8 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
     lateinit var titleLabel: Label
 
     private var snackBar: JFXSnackbar
+
+    var isLoaded: Boolean = false
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/SaveBackScreen.fxml"))
@@ -76,12 +79,31 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
     }
 
     fun setMessageToSnackBar(message: String) {
-        snackBar.fireEvent(JFXSnackbar.SnackbarEvent(Label(message)))
+        if (isLoaded) {
+            snackBar.fireEvent(JFXSnackbar.SnackbarEvent(Label(message)))
+        }
+    }
+
+
+    fun setWarningMessageToSnackBar(message: String) {
+        if (isLoaded) {
+            val currentContent = snackBar.currentEvent?.content
+            if (!(currentContent is Label && currentContent.text == message)) {
+                val snackbarEvent = JFXSnackbar.SnackbarEvent(Label(message), PseudoClass.getPseudoClass("warning-toast"))
+                snackBar.enqueue(snackbarEvent)
+            }
+        }
     }
 
     abstract fun initChangeDetectors()
     abstract fun backToPreviousWindow()
-    abstract fun reloadSettingsValue()
+    abstract fun reloadSettings()
     abstract fun saveChanges()
+
+    fun reload() {
+        isLoaded = false
+        reloadSettings()
+        isLoaded = true
+    }
 
 }

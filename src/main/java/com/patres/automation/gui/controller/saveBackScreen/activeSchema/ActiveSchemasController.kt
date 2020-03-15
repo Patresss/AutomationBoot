@@ -9,7 +9,6 @@ import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import com.patres.automation.util.RootSchemaLoader
 import com.patres.automation.util.fromBundle
-import javafx.fxml.FXML
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -55,7 +54,7 @@ class ActiveSchemasController(
         SliderAnimation.backToTheWindow(mainController.tabPane, this, mainController.centerStackPane)
     }
 
-    override fun reloadSettingsValue() {
+    override fun reloadSettings() {
         mainVBox.children.clear()
         toEditSchema.clear()
         val activeSchemas: List<ActiveSchemaItemController> = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles()
