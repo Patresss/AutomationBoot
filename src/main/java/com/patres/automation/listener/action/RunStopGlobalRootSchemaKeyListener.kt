@@ -1,7 +1,6 @@
 package com.patres.automation.listener.action
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.listener.RunStopActionListenable
 
