@@ -2,11 +2,18 @@ package com.patres.automation.listener
 
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.keyboard.KeyAdapter
+import com.patres.automation.listener.action.RunStopGlobalRootSchemaKeyListener
 import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
+import com.patres.automation.listener.action.RunStopRecordKeyListener
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
 
 class RunStopKeyListener(private val mainController: MainController) : NativeKeyListener {
+
+    private val constListeners = setOf(
+            RunStopGlobalRootSchemaKeyListener(mainController),
+            RunStopRecordKeyListener(mainController)
+    )
 
     init {
         activeListener()
@@ -21,7 +28,7 @@ class RunStopKeyListener(private val mainController: MainController) : NativeKey
     }
 
     private fun checkRunKeys() {
-        calculateActiveSchema().forEach { action ->
+        calculateAllListeners().forEach { action ->
             if (action.runKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.runKeyboardKey())) {
                 action.invokeRunAction()
                 reset()
@@ -30,7 +37,7 @@ class RunStopKeyListener(private val mainController: MainController) : NativeKey
     }
 
     private fun checkStopKeys() {
-        calculateActiveSchema().forEach { action ->
+        calculateAllListeners().forEach { action ->
             if (action.stopKeyboardKey().isNotEmpty() && pressedKeys.containsAll(action.stopKeyboardKey())) {
                 action.invokeStopAction()
                 reset()
@@ -53,6 +60,8 @@ class RunStopKeyListener(private val mainController: MainController) : NativeKey
         pressedKeys.clear()
     }
 
-    private fun calculateActiveSchema()= mainController.findAllowedAction().map { RunStopLocalRootSchemaKeyListener(it) }
+    private fun calculateActiveSchemaListeners() = mainController.findAllowedAction().map { RunStopLocalRootSchemaKeyListener(it) }
+
+    private fun calculateAllListeners() = constListeners + calculateActiveSchemaListeners()
 
 }

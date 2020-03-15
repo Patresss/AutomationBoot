@@ -86,7 +86,6 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             portText.isVisible = enableRest
             portText.valueText.text = port.toString()
         }
-        saveButton.isDisable = true
     }
 
 }

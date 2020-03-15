@@ -65,7 +65,6 @@ class LocalSettingsController(
             endpointNameTextField.value = endpointName
             endpointNameTextField.valueText.promptText = rootSchemaGroupController.model.getEndpointName()
         }
-        saveButton.isDisable = true
     }
 
 }

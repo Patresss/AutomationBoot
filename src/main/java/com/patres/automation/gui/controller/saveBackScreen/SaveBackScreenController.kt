@@ -103,6 +103,7 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
     fun reload() {
         isLoaded = false
         reloadSettings()
+        saveButton.isDisable = true
         isLoaded = true
     }
 

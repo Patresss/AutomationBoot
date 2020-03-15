@@ -2,6 +2,7 @@ package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
+import com.patres.automation.listener.RunStopKeyListener
 import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
