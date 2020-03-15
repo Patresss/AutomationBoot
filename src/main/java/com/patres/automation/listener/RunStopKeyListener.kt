@@ -53,10 +53,6 @@ class RunStopKeyListener(private val mainController: MainController) : NativeKey
         pressedKeys.clear()
     }
 
-    private fun calculateActiveSchema(): List<RunStopLocalRootSchemaKeyListener> {
-        val map = mainController.findAllowedAction().map { RunStopLocalRootSchemaKeyListener(it) }
-        println("Number of listners: ${map.size} | $map")
-        return map
-    }
+    private fun calculateActiveSchema()= mainController.findAllowedAction().map { RunStopLocalRootSchemaKeyListener(it) }
 
 }
