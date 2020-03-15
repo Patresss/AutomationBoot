@@ -2,7 +2,6 @@ package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.controller.MainController
-import com.patres.automation.listener.RunStopKeyListener
 import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
@@ -20,6 +19,7 @@ import java.awt.*
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
+import kotlin.system.exitProcess
 
 
 class ApplicationLauncher : Application() {
@@ -60,7 +60,7 @@ class ApplicationLauncher : Application() {
         try {
             mainStage = primaryStage
             mainStage.titleProperty().bind(LanguageManager.createStringBinding("application.name"))
-            mainStage.icons.add(Image(ApplicationLauncher::class.java.getResourceAsStream("/image/icon.png")))
+            mainStage.icons.add(Image(ApplicationLauncher::class.java.getResourceAsStream("/icon/desktop/main-icon.png")))
             mainStage.scene = createScene(loadMainPane())
             mainStage.minWidth = sceneWidth.toDouble()
             mainStage.minHeight = sceneHeight.toDouble()
@@ -70,7 +70,7 @@ class ApplicationLauncher : Application() {
                 logger.error("SystemTray is not supported")
                 Platform.exit()
             } else {
-                createTryIcon()
+                createTrayIcon()
             }
         } catch (e: IOException) {
             logger.error("Error in start method - I/O Exception", e)
@@ -78,9 +78,10 @@ class ApplicationLauncher : Application() {
 
     }
 
-    private fun createTryIcon() {
+    private fun createTrayIcon() {
+        Platform.setImplicitExit(false)
         val popup = PopupMenu()
-        val url = ApplicationLauncher::class.java.getResource("/image/icon-small.png")
+        val url = ApplicationLauncher::class.java.getResource("/icon/desktop/small-icon.png")
         val image = ImageIO.read(url)
 
         val trayIcon = TrayIcon(image)
@@ -95,6 +96,7 @@ class ApplicationLauncher : Application() {
         exitItem.addActionListener {
             Platform.exit()
             tray.remove(trayIcon)
+            exitProcess(0)
         }
         popup.add(openItem)
         popup.addSeparator()
