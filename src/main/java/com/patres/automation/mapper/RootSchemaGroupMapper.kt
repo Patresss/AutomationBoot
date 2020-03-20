@@ -7,15 +7,10 @@ import java.io.File
 object RootSchemaGroupMapper {
 
     fun modelToSerialize(model: RootSchemaGroupModel): RootSchemaGroupSerialized {
-        return modelToSerializeWithFileName(model, model.file)
-    }
-
-    fun modelToSerializeWithFileName(model: RootSchemaGroupModel, file: File?): RootSchemaGroupSerialized {
         return RootSchemaGroupSerialized(
                 schemaGroupSerialized = SchemaGroupMapper.controllerToSerialized(model.controller.schemaGroupController),
                 localSettings = model.localSettings,
                 tmpFile = model.tmpFile.absolutePath,
-                name = file?.nameWithoutExtension,
                 saved = model.saved
         )
     }

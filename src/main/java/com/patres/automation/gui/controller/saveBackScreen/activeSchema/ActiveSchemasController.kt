@@ -57,13 +57,14 @@ class ActiveSchemasController(
     override fun reloadSettings() {
         mainVBox.children.clear()
         toEditSchema.clear()
-        val activeSchemas: List<ActiveSchemaItemController> = mainController.findAllowedAction()
-                .map { mapRootToActiveSchemaItem(it) }
+        val activeSchemas: List<ActiveSchemaItemController> = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles()
+                .sortedBy { it.nameWithoutExtension }
+                .map { mapFileActiveSchemaItem(it) }
         mainVBox.children.addAll(activeSchemas)
     }
 
-    private fun mapRootToActiveSchemaItem(rootSchemaModel: RootSchemaGroupModel): ActiveSchemaItemController {
-        return ActiveSchemaItemController(this, rootSchemaModel.getName(), rootSchemaModel.file?.absolutePath?: "")
+    private fun mapFileActiveSchemaItem(file: File): ActiveSchemaItemController {
+        return ActiveSchemaItemController(this, file.nameWithoutExtension, file.path)
     }
 
     fun removeActiveSchemaFromList(action: ActiveSchemaItemController) {
@@ -79,8 +80,18 @@ class ActiveSchemasController(
 
     private fun calculateRootSchemaModels() {
         activeActions.clear()
-        val rootSchemaModels = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles().map { RootSchemaLoader.createRootSchemaGroupFromFile(it) }
+        val rootSchemaModels = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles()
+                .mapNotNull { mapFileToRootSchema(it) }
         activeActions.addAll(rootSchemaModels)
+    }
+
+    private fun mapFileToRootSchema(file: File): RootSchemaGroupModel? {
+        return try {
+            RootSchemaLoader.createRootSchemaGroupFromFile(file)
+        } catch (e: Exception) {
+            logger.error("Cannot create RootSchemaModel from file ${file.absoluteFile}", e)
+            null
+        }
     }
 
     fun addNewSchemaModel(rootSchema: RootSchemaGroupModel) {

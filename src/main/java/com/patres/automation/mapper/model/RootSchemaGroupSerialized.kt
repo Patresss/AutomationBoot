@@ -6,6 +6,5 @@ data class RootSchemaGroupSerialized(
         val schemaGroupSerialized: SchemaGroupSerialized,
         val localSettings: LocalSettings,
         val tmpFile: String,
-        val name: String?,
         val saved: Boolean
 )
