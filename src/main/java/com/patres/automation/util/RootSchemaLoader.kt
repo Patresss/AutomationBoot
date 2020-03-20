@@ -46,7 +46,7 @@ object RootSchemaLoader {
     fun createRootSchemaGroupFromFile(fileToOpen: File): RootSchemaGroupModel {
         val serializedRootGroup = fileToOpen.readText()
         val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
-        val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized)
+        val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized, fileToOpen)
 
         if (fileToOpen.extension == FileType.TEMP_AUTOMATION_BOOT.extension) {
             rootGroup.tmpFile = fileToOpen
@@ -81,7 +81,7 @@ object RootSchemaLoader {
         val rootSchema = tabContainer.rootSchema.apply {
             saved = true
         }
-        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerializeWithNewFileName(rootSchema, file)
+        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerializeWithFileName(rootSchema, file)
         val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
         file.writeText(serializedRootGroup)
         rootSchema.file = file

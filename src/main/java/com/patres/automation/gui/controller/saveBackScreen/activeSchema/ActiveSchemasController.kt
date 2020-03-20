@@ -57,20 +57,13 @@ class ActiveSchemasController(
     override fun reloadSettings() {
         mainVBox.children.clear()
         toEditSchema.clear()
-        val activeSchemas: List<ActiveSchemaItemController> = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles()
-                .sortedBy { it.nameWithoutExtension }
-                .map { mapFileActiveSchemaItem(it) }
+        val activeSchemas: List<ActiveSchemaItemController> = mainController.findAllowedAction()
+                .map { mapRootToActiveSchemaItem(it) }
         mainVBox.children.addAll(activeSchemas)
     }
 
-    private fun mapFileActiveSchemaItem(file: File): ActiveSchemaItemController {
-        val rootSchemaGroupSerialized = AutomationMapper.toObject<RootSchemaGroupSerialized>(file.readText())
-        val fileWithName = if (rootSchemaGroupSerialized.file != null) { // to avoid tmp name
-            File(rootSchemaGroupSerialized.file)
-        } else {
-            file
-        }
-        return ActiveSchemaItemController(this, fileWithName.nameWithoutExtension, file.path)
+    private fun mapRootToActiveSchemaItem(rootSchemaModel: RootSchemaGroupModel): ActiveSchemaItemController {
+        return ActiveSchemaItemController(this, rootSchemaModel.getName(), rootSchemaModel.file?.absolutePath?: "")
     }
 
     fun removeActiveSchemaFromList(action: ActiveSchemaItemController) {

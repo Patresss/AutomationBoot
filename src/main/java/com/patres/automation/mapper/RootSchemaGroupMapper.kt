@@ -7,26 +7,20 @@ import java.io.File
 object RootSchemaGroupMapper {
 
     fun modelToSerialize(model: RootSchemaGroupModel): RootSchemaGroupSerialized {
+        return modelToSerializeWithFileName(model, model.file)
+    }
+
+    fun modelToSerializeWithFileName(model: RootSchemaGroupModel, file: File?): RootSchemaGroupSerialized {
         return RootSchemaGroupSerialized(
                 schemaGroupSerialized = SchemaGroupMapper.controllerToSerialized(model.controller.schemaGroupController),
                 localSettings = model.localSettings,
                 tmpFile = model.tmpFile.absolutePath,
-                file = model.file?.absolutePath,
+                name = file?.nameWithoutExtension,
                 saved = model.saved
         )
     }
 
-    fun modelToSerializeWithNewFileName(model: RootSchemaGroupModel, file: File): RootSchemaGroupSerialized {
-        return RootSchemaGroupSerialized(
-                schemaGroupSerialized = SchemaGroupMapper.controllerToSerialized(model.controller.schemaGroupController),
-                localSettings = model.localSettings,
-                tmpFile = model.tmpFile.absolutePath,
-                file = file.absolutePath,
-                saved = model.saved
-        )
-    }
-
-    fun serializedToModel(serializedModel: RootSchemaGroupSerialized): RootSchemaGroupModel {
+    fun serializedToModel(serializedModel: RootSchemaGroupSerialized, rootSchemaFile: File): RootSchemaGroupModel {
         return RootSchemaGroupModel(
                 localSettings = serializedModel.localSettings,
                 saved = serializedModel.saved
@@ -35,8 +29,8 @@ object RootSchemaGroupMapper {
             if (File(serializedModel.tmpFile).exists()) {
                 tmpFile = File(serializedModel.tmpFile)
             }
-            if (serializedModel.file != null && File(serializedModel.file).exists()) {
-                file = File(serializedModel.file)
+            if (rootSchemaFile.exists()) {
+                file = rootSchemaFile
             }
         }
 
