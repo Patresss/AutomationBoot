@@ -16,6 +16,16 @@ object RootSchemaGroupMapper {
         )
     }
 
+    fun modelToSerializeWithNewFileName(model: RootSchemaGroupModel, file: File): RootSchemaGroupSerialized {
+        return RootSchemaGroupSerialized(
+                schemaGroupSerialized = SchemaGroupMapper.controllerToSerialized(model.controller.schemaGroupController),
+                localSettings = model.localSettings,
+                tmpFile = model.tmpFile.absolutePath,
+                file = file.absolutePath,
+                saved = model.saved
+        )
+    }
+
     fun serializedToModel(serializedModel: RootSchemaGroupSerialized): RootSchemaGroupModel {
         return RootSchemaGroupModel(
                 localSettings = serializedModel.localSettings,

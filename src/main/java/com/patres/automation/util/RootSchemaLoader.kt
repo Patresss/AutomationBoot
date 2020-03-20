@@ -81,7 +81,7 @@ object RootSchemaLoader {
         val rootSchema = tabContainer.rootSchema.apply {
             saved = true
         }
-        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchema)
+        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerializeWithNewFileName(rootSchema, file)
         val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
         file.writeText(serializedRootGroup)
         rootSchema.file = file
