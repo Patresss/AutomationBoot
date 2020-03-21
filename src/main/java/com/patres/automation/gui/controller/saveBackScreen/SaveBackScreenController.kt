@@ -7,7 +7,6 @@ import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.gui.dialog.SaveSettingsDialog
 import com.patres.automation.settings.LanguageManager
-import javafx.css.PseudoClass
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
@@ -29,7 +28,7 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
     @FXML
     lateinit var titleLabel: Label
 
-    private var snackBar: JFXSnackbar
+    var snackBar: JFXSnackbar
 
     var isLoaded: Boolean = false
 
@@ -76,23 +75,6 @@ abstract class SaveBackScreenController(val bundleName: String) : BorderPane() {
 
     fun changeDetect() {
         saveButton.isDisable = false
-    }
-
-    fun setMessageToSnackBar(message: String) {
-        if (isLoaded) {
-            snackBar.fireEvent(JFXSnackbar.SnackbarEvent(Label(message)))
-        }
-    }
-
-
-    fun setWarningMessageToSnackBar(message: String) {
-        if (isLoaded) {
-            val currentContent = snackBar.currentEvent?.content
-            if (!(currentContent is Label && currentContent.text == message)) {
-                val snackbarEvent = JFXSnackbar.SnackbarEvent(Label(message), PseudoClass.getPseudoClass("warning-toast"))
-                snackBar.enqueue(snackbarEvent)
-            }
-        }
     }
 
     abstract fun initChangeDetectors()

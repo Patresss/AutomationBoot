@@ -34,7 +34,3 @@ object LanguageManager {
     fun getBundle(): ResourceBundle = ResourceBundle.getBundle("language/Bundle", locale.get())
 }
 
-
-
-
-

@@ -1,11 +1,12 @@
 package com.patres.automation.gui.controller
 
 import com.jfoenix.controls.JFXSnackbar
-import com.jfoenix.controls.JFXSnackbar.SnackbarEvent
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
+import com.patres.automation.gui.component.snackBar.SnackBarType
+import com.patres.automation.gui.component.snackBar.addMessageLanguage
 import com.patres.automation.gui.controller.saveBackScreen.activeSchema.ActiveSchemasController
 import com.patres.automation.gui.controller.saveBackScreen.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.LogManager
@@ -20,7 +21,6 @@ import javafx.collections.ListChangeListener
 import javafx.collections.ObservableList
 import javafx.fxml.FXML
 import javafx.scene.Node
-import javafx.scene.control.Label
 import javafx.scene.control.Menu
 import javafx.scene.control.MenuItem
 import javafx.scene.control.TabPane
@@ -252,11 +252,15 @@ class MainController {
     @FXML
     fun addActiveSchema() {
         getSelectedTabContainer()?.let { tabContainer ->
-            activeSchemasController.addNewSchemaModel(tabContainer.rootSchema)
-            removeTab(tabContainer)
+            if (tabContainer.rootSchema.saved) {
+                activeSchemasController.addNewSchemaModel(tabContainer.rootSchema)
+                removeTab(tabContainer)
+                snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaAdded")
+            } else {
+                snackBar.addMessageLanguage(SnackBarType.WARNING, "message.snackbar.saveSchemaBeforeAdding")
+            }
         }
     }
-
 
     fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }
 
@@ -266,8 +270,7 @@ class MainController {
     }
 
     private fun createSaveFileSnackBar(fileName: String?) {
-        val formattedMessage = LanguageManager.getLanguageString("message.snackbar.fileIsSaved", fileName ?: "")
-        snackBar.fireEvent(SnackbarEvent(Label(formattedMessage)))
+        snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.fileIsSaved", fileName ?: "")
     }
 
     fun removeTab(tabContainer: TabContainer) {

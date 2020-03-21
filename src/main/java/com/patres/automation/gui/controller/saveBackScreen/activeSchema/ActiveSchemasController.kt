@@ -3,12 +3,11 @@ package com.patres.automation.gui.controller.saveBackScreen.activeSchema
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.animation.SliderAnimation
+import com.patres.automation.gui.component.snackBar.SnackBarType
+import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.mapper.AutomationMapper
-import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import com.patres.automation.util.RootSchemaLoader
-import com.patres.automation.util.fromBundle
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -36,7 +35,7 @@ class ActiveSchemasController(
         }
         activeActions.removeIf { !ApplicationLauncher.globalSettings.activeSchemas.contains(it.getFilePathToSettings()) }
         logger.debug("Saved ${activeActions.size} schema models as active")
-        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
+        snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO, "message.snackbar.settingsSave")
     }
 
     private fun openSchemasToEdit() {

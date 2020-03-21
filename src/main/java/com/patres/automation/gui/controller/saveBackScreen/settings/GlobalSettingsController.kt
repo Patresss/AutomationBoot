@@ -2,6 +2,8 @@ package com.patres.automation.gui.controller.saveBackScreen.settings
 
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.animation.SliderAnimation
+import com.patres.automation.gui.component.snackBar.SnackBarType
+import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.CheckBoxActionController
@@ -49,7 +51,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             port = portText.value.toInt()
             enableRest = enableRestCheckBox.checkBox.isSelected
         }
-        setMessageToSnackBar(fromBundle("message.snackbar.settingsSave"))
+        snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO,"message.snackbar.settingsSave")
     }
 
     override fun initChangeDetectors() {
@@ -58,11 +60,11 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         stopRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
         languageComboBox.comboBox.valueProperty().addListener { _ -> changeDetect() }
         portText.valueText.textProperty().addListener { _ ->
-            setWarningMessageToSnackBar(fromBundle("message.snackbar.changesAppliedAfterRestart"))
+            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING,"message.snackbar.changesAppliedAfterRestart")
             changeDetect()
         }
         enableRestCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
-            setWarningMessageToSnackBar(fromBundle("message.snackbar.changesAppliedAfterRestart"))
+            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING,"message.snackbar.changesAppliedAfterRestart")
             portText.isVisible = newValue
             changeDetect()
         }

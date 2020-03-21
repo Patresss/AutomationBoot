@@ -1,9 +1,11 @@
 package com.patres.automation.util
 
-import com.patres.automation.excpetion.IntegerFormatException
+import com.jfoenix.controls.JFXSnackbar
+import com.patres.automation.gui.component.snackBar.SnackBarFactory
 import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.gui.font.FontAutomationIconView
 import com.patres.automation.settings.LanguageManager
+import de.jensd.fx.glyphs.GlyphIcon
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -15,12 +17,8 @@ import javafx.scene.Parent
 import javafx.scene.control.TextInputControl
 import javafx.scene.control.Tooltip
 import javafx.util.Duration
+import java.util.*
 import kotlin.reflect.KClass
-import javafx.scene.layout.GridPane.getColumnIndex
-import javafx.scene.layout.GridPane.getRowIndex
-import javafx.scene.layout.GridPane
-import de.jensd.fx.glyphs.GlyphIcon
-import java.util.ArrayList
 
 
 fun TextInputControl.setIntegerFilter() {
@@ -124,11 +122,12 @@ fun Parent.getAllNodes(): ArrayList<Node> {
     val nodes = ArrayList<Node>()
     fun recurseNodes(node: Node) {
         nodes.add(node)
-        if(node is Parent)
-            for(child in node.childrenUnmodifiable) {
+        if (node is Parent)
+            for (child in node.childrenUnmodifiable) {
                 recurseNodes(child)
             }
     }
     recurseNodes(this)
     return nodes
 }
+

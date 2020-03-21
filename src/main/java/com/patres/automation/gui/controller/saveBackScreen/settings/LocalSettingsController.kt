@@ -2,12 +2,13 @@ package com.patres.automation.gui.controller.saveBackScreen.settings
 
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.animation.SliderAnimation
+import com.patres.automation.gui.component.snackBar.SnackBarType
+import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.settings.LanguageManager
 import com.patres.automation.settings.LocalSettings
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootTextField
@@ -41,7 +42,7 @@ class LocalSettingsController(
             stopActionsKeys = stopKeysSetting.keyboardField.keys
             endpointName = endpointNameTextField.value
         }
-        setMessageToSnackBar(LanguageManager.getLanguageString("message.snackbar.settingsSave"))
+        snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO, "message.snackbar.settingsSave")
     }
 
     override fun initChangeDetectors() {
