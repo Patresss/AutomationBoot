@@ -1,13 +1,12 @@
 package com.patres.automation.file
 
 import com.patres.automation.ApplicationLauncher
-
 import com.patres.automation.action.RootSchemaGroupModel
-import com.patres.automation.gui.controller.MainController
+import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.RootSchemaGroupMapper
+import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.util.fromBundle
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -25,15 +24,18 @@ object TmpFileLoader {
     }
 
     fun saveTmpFile(rootSchemaGroupModel: RootSchemaGroupModel) {
-        if (!rootSchemaGroupModel.tmpFile.exists()) {
-            ApplicationLauncher.tmpDirector.mkdir()
-            rootSchemaGroupModel.tmpFile = findValidFile()
+        if (rootSchemaGroupModel.rootFiles.calculateTmpFile() == null) {
+            val createNewTmpFile = createNewTmpFile()
+            rootSchemaGroupModel.rootFiles.setNewTmpFile(createNewTmpFile)
+            GlobalSettingsLoader.save()
         }
+        val tmpFile = rootSchemaGroupModel.rootFiles.calculateTmpFile()?: throw ApplicationException("Temp file for ${rootSchemaGroupModel.getName()} cannot be found")
         val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
-
         val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
-        rootSchemaGroupModel.tmpFile.writeText(serializedRootGroup)
+
+        tmpFile.writeText(serializedRootGroup)
     }
+
 
     private fun findValidFile(): File {
         var currentNumber = 1

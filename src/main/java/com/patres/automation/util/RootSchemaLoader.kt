@@ -2,10 +2,12 @@ package com.patres.automation.util
 
 import com.jfoenix.controls.JFXDialog
 import com.patres.automation.ApplicationLauncher
+import com.patres.automation.action.RootSchemaFiles
 
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.file.FileChooser
 import com.patres.automation.file.FileType
+import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.dialog.SaveDialog
 import com.patres.automation.mapper.AutomationMapper
@@ -26,9 +28,11 @@ object RootSchemaLoader {
     private val loaderFile = FileChooser(FileType.AUTOMATION_BOOT)
 
     fun createNewRootSchema(tabPane: TabPane): TabContainer {
-        return createTabContainer(tabPane, RootSchemaGroupModel()).apply {
-            rootSchema.saveTmpFile()
-        }
+        val newTmpFile = TmpFileLoader.createNewTmpFile()
+        val rootSchemaFiles = RootSchemaFiles(newTmpFile)
+        val tabContainer = createTabContainer(tabPane, RootSchemaGroupModel(rootFiles = rootSchemaFiles))
+        saveFile(tabContainer, newTmpFile)
+        return tabContainer
     }
 
     fun openRootSchema(tabPane: TabPane): TabContainer? {
@@ -46,20 +50,14 @@ object RootSchemaLoader {
     fun createRootSchemaGroupFromFile(fileToOpen: File): RootSchemaGroupModel {
         val serializedRootGroup = fileToOpen.readText()
         val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
-        val rootGroup = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized, fileToOpen)
-
-        if (fileToOpen.extension == FileType.TEMP_AUTOMATION_BOOT.extension) {
-            rootGroup.tmpFile = fileToOpen
-        } else {
-            rootGroup.file = fileToOpen
-        }
-        return rootGroup
+        return RootSchemaGroupMapper.serializedToModel(rootGroupSerialized, fileToOpen)
     }
 
     fun saveExistingRootSchema(tabContainer: TabContainer): Boolean {
-        var file = tabContainer.rootSchema.file
-        if (file == null) {
-            file = loaderFile.chooseFileToSave()
+        val file = if (tabContainer.rootSchema.rootFiles.isNewTmpFile()) {
+            loaderFile.chooseFileToSave()
+        } else {
+            tabContainer.rootSchema.rootFiles.getFileToSave()
         }
         if (file != null) {
             saveFile(tabContainer, file)
@@ -78,13 +76,11 @@ object RootSchemaLoader {
     }
 
     private fun saveFile(tabContainer: TabContainer, file: File) {
-        val rootSchema = tabContainer.rootSchema.apply {
-            saved = true
-        }
-        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchema)
+        val rootSchema = tabContainer.rootSchema
+        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchema, null)
         val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
         file.writeText(serializedRootGroup)
-        rootSchema.file = file
+        rootSchema.rootFiles.saveNewFile(file)
         tabContainer.tab.apply {
             text = getTabName(rootSchema)
             graphic = null
@@ -93,14 +89,13 @@ object RootSchemaLoader {
     }
 
     fun removeTmpFile(tabContainer: TabContainer) {
-        tabContainer.rootSchema.tmpFile.delete()
-        tabContainer.rootSchema.saved = true
+        tabContainer.rootSchema.rootFiles.removeTmpFile()
     }
 
     private fun createTabContainer(tabPane: TabPane, rootGroup: RootSchemaGroupModel): TabContainer {
         val fileName = getTabName(rootGroup)
         val newTab = Tab(fileName, rootGroup.controller).apply {
-            if (!rootGroup.saved) {
+            if (!rootGroup.isSaved()) {
                 graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
             }
         }
@@ -117,7 +112,7 @@ object RootSchemaLoader {
 
     fun createOnCloseRequest(tabContainer: TabContainer): EventHandler<Event> {
         return EventHandler {
-            if (!tabContainer.rootSchema.saved) {
+            if (!tabContainer.rootSchema.isSaved()) {
                 val saveDialogPane = SaveDialog(tabContainer)
                 val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
                 saveDialogPane.dialogKeeper = jfxDialog

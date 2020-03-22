@@ -194,7 +194,7 @@ class MainController {
         getSelectedTabContainer()?.let {
             val saved = RootSchemaLoader.saveExistingRootSchema(it)
             if (saved) {
-                createSaveFileSnackBar(it.rootSchema.file?.name)
+                createSaveFileSnackBar(it.rootSchema.rootFiles.getName())
             }
         }
     }
@@ -204,7 +204,7 @@ class MainController {
         getSelectedTabContainer()?.let {
             val saved = RootSchemaLoader.saveAsRootSchema(it)
             if (saved) {
-                createSaveFileSnackBar(it.rootSchema.file?.name)
+                createSaveFileSnackBar(it.rootSchema.rootFiles.getName())
             }
         }
     }
@@ -252,7 +252,7 @@ class MainController {
     @FXML
     fun addActiveSchema() {
         getSelectedTabContainer()?.let { tabContainer ->
-            if (tabContainer.rootSchema.saved) {
+            if (tabContainer.rootSchema.isSaved()) {
                 activeSchemasController.addNewSchemaModel(tabContainer.rootSchema)
                 removeTab(tabContainer)
                 snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaAdded")
