@@ -15,7 +15,8 @@ import javafx.scene.layout.StackPane
 import java.text.MessageFormat
 
 class SaveDialog(
-        val tabContainer: TabContainer
+        val tabContainer: TabContainer,
+        val rootSchemaLoader: RootSchemaLoader
 ) : StackPane() {
 
     init {
@@ -39,7 +40,7 @@ class SaveDialog(
 
     @FXML
     fun save() {
-        val saved = RootSchemaLoader.saveExistingRootSchema(tabContainer)
+        val saved = rootSchemaLoader.saveExistingRootSchema(tabContainer)
         if (saved) {
             ApplicationLauncher.mainController?.removeTab(tabContainer)
             dialogKeeper?.close()
@@ -48,7 +49,7 @@ class SaveDialog(
 
     @FXML
     fun doNotSave() {
-        RootSchemaLoader.removeTmpFile(tabContainer)
+        rootSchemaLoader.removeTmpFile(tabContainer)
         ApplicationLauncher.mainController?.removeTab(tabContainer)
         dialogKeeper?.close()
     }

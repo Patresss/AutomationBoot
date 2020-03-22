@@ -23,7 +23,7 @@ class RootSchemaFiles(
     fun isNewTmpFile() = currentFileIsTemp() && orgFile == null
 
     fun saveNewFile(file: File) {
-        if(calculateTmpFile() != file) {
+        if (calculateTmpFile() != file) {
             calculateTmpFile()?.delete()
         }
         currentFile = file
@@ -37,6 +37,8 @@ class RootSchemaFiles(
         orgFile = currentFile
         currentFile = tmpFile
     }
+
+    fun isRelated(fileToOpen: File) = currentFile == fileToOpen || orgFile == fileToOpen
 
     private fun currentFileIsTemp() = currentFile.extension == FileType.TEMP_AUTOMATION_BOOT.extension
 

@@ -1,7 +1,6 @@
 package com.patres.automation.gui.controller.saveBackScreen.activeSchema
 
 import com.jfoenix.controls.JFXButton
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.settings.LanguageManager
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -43,14 +42,14 @@ class ActiveSchemaItemController(
     @FXML
     fun editActiveSchema() {
         activeSchemasController.changeDetect()
-        activeSchemasController.removeActiveSchemaFromList(this)
+        activeSchemasController.removeActiveSchemaFromUiList(this)
         activeSchemasController.toEditSchema.add(this)
     }
 
     @FXML
     fun closeActiveSchema() {
         activeSchemasController.changeDetect()
-        activeSchemasController.removeActiveSchemaFromList(this)
+        activeSchemasController.removeActiveSchemaFromUiList(this)
     }
 
 }

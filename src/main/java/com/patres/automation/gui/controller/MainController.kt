@@ -86,17 +86,17 @@ class MainController {
     @FXML
     lateinit var aboutMenuItem: MenuItem
 
-    private lateinit var snackBar: JFXSnackbar
+    lateinit var snackBar: JFXSnackbar
 
     val tabContainers: ObservableList<TabContainer> = FXCollections.observableList(ArrayList<TabContainer>())
-    val rootSchemas: List<RootSchemaGroupModel>
+    val openedRootSchemas: List<RootSchemaGroupModel>
         get() {
             return tabContainers.map { it.rootSchema }
         }
 
     private val globalSettingsController = GlobalSettingsController(this)
-
-    private val activeSchemasController = ActiveSchemasController(this)
+    val rootSchemaLoader = RootSchemaLoader(this)
+    val activeSchemasController = ActiveSchemasController(this)
 
     val keyListener: RunStopKeyListener = RunStopKeyListener(this)
 
@@ -164,17 +164,13 @@ class MainController {
 
     @FXML
     fun createNewRootSchema() {
-        val tabContainer = RootSchemaLoader.createNewRootSchema(tabPane)
-        addTabToContainer(tabContainer)
+        rootSchemaLoader.createNewRootSchema()
     }
 
     @FXML
     fun openRootSchema() {
         try {
-            val tabContainer = RootSchemaLoader.openRootSchema(tabPane)
-            if (tabContainer != null) {
-                addTabToContainer(tabContainer)
-            }
+            rootSchemaLoader.openRootSchema()
         } catch (e: Exception) {
             LogManager.showAndLogException(e)
         }
@@ -182,7 +178,7 @@ class MainController {
 
     fun loadModelFromFile(fileToLoad: File) {
         try {
-            val tabContainer = RootSchemaLoader.openRootSchema(tabPane, fileToLoad)
+            val tabContainer = rootSchemaLoader.openRootSchema(fileToLoad)
             addTabToContainer(tabContainer)
         } catch (e: Exception) {
             logger.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message)
@@ -192,7 +188,7 @@ class MainController {
     @FXML
     fun saveExistingRootSchema() {
         getSelectedTabContainer()?.let {
-            val saved = RootSchemaLoader.saveExistingRootSchema(it)
+            val saved = rootSchemaLoader.saveExistingRootSchema(it)
             if (saved) {
                 createSaveFileSnackBar(it.rootSchema.rootFiles.getName())
             }
@@ -202,7 +198,7 @@ class MainController {
     @FXML
     fun saveAsRootSchema() {
         getSelectedTabContainer()?.let {
-            val saved = RootSchemaLoader.saveAsRootSchema(it)
+            val saved = rootSchemaLoader.saveAsRootSchema(it)
             if (saved) {
                 createSaveFileSnackBar(it.rootSchema.rootFiles.getName())
             }
@@ -233,7 +229,7 @@ class MainController {
     @FXML
     fun closeCurrentTab() {
         getSelectedTabContainer()?.let {
-            RootSchemaLoader.createOnCloseRequest(it).handle(null)
+            rootSchemaLoader.createOnCloseRequest(it).handle(null)
         }
     }
 
@@ -278,7 +274,7 @@ class MainController {
         tabPane.tabs.remove(tabContainer.tab)
     }
 
-    private fun addTabToContainer(tabContainer: TabContainer) {
+    fun addTabToContainer(tabContainer: TabContainer) {
         tabContainers.add(tabContainer)
     }
 
@@ -287,5 +283,6 @@ class MainController {
                 .find { it.getEndpointName() == actionName }
     }
 
-    fun findAllowedAction() = tabContainers.map { it.rootSchema } + activeSchemasController.activeActions
+    fun findAllowedAction() = openedRootSchemas + activeSchemasController.activeActions
+
 }

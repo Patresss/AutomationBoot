@@ -28,14 +28,14 @@ class GlobalSettings(
         LanguageManager.setLanguage(newValue)
     }
 
-    fun calculatePreviousOpenModels(): List<File> {
+    fun calculatePreviousOpenModels(): Set<File> {
         val (existingFile, notExistingFiles) = previousPathFiles
                 .map { File(it) }
                 .partition { it.exists() }
         if (notExistingFiles.isNotEmpty()) {
             logger.warn("Cannot find files to open: $notExistingFiles")
         }
-        return existingFile
+        return existingFile.toSet()
     }
 
     fun calculateActiveSchemasAsFiles(): List<File> {

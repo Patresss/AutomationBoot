@@ -16,7 +16,7 @@ class RunStopGlobalRootSchemaKeyListener(
     }
 
     override fun invokeStopAction() {
-        mainController.rootSchemas.forEach { it.stopAutomation() }
+        mainController.openedRootSchemas.forEach { it.stopAutomation() }
     }
 
 }

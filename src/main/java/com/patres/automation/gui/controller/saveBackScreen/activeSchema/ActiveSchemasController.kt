@@ -7,7 +7,6 @@ import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.util.RootSchemaLoader
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -42,6 +41,7 @@ class ActiveSchemasController(
         toEditSchema
                 .map { File(it.path) }
                 .filter { it.exists() }
+                .toSet()
                 .forEach { mainController.loadModelFromFile(it) }
     }
 
@@ -66,7 +66,7 @@ class ActiveSchemasController(
         return ActiveSchemaItemController(this, file.nameWithoutExtension, file.path)
     }
 
-    fun removeActiveSchemaFromList(action: ActiveSchemaItemController) {
+    fun removeActiveSchemaFromUiList(action: ActiveSchemaItemController) {
         mainVBox.children.remove(action)
     }
 
@@ -86,7 +86,7 @@ class ActiveSchemasController(
 
     private fun mapFileToRootSchema(file: File): RootSchemaGroupModel? {
         return try {
-            RootSchemaLoader.createRootSchemaGroupFromFile(file)
+            mainController.rootSchemaLoader.createRootSchemaGroupFromFile(file)
         } catch (e: Exception) {
             logger.error("Cannot create RootSchemaModel from file ${file.absoluteFile}", e)
             null
@@ -98,6 +98,13 @@ class ActiveSchemasController(
             activeSchemas.add(rootSchema.getFilePathToSettings())
         }
         activeActions.add(rootSchema)
+    }
+
+    fun removeActiveSchemaFromList(rootSchema: RootSchemaGroupModel) {
+        activeActions.remove(rootSchema)
+        ApplicationLauncher.globalSettings.editAndSave {
+            activeSchemas.removeIf { it == rootSchema.rootFiles.currentFile.absolutePath }
+        }
     }
 
 }

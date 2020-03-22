@@ -8,6 +8,9 @@ import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.file.FileChooser
 import com.patres.automation.file.FileType
 import com.patres.automation.file.TmpFileLoader
+import com.patres.automation.gui.component.snackBar.SnackBarType
+import com.patres.automation.gui.component.snackBar.addMessageLanguage
+import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.dialog.SaveDialog
 import com.patres.automation.mapper.AutomationMapper
@@ -19,32 +22,55 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.control.Tab
-import javafx.scene.control.TabPane
+import org.slf4j.LoggerFactory
 import java.io.File
 
-object RootSchemaLoader {
+class RootSchemaLoader(val mainController: MainController) {
 
-    private const val MAX_NUMBER_OF_CHARACTERS = 24
+    companion object {
+        private const val MAX_NUMBER_OF_CHARACTERS = 24
+        val logger = LoggerFactory.getLogger(RootSchemaLoader::class.java)!!
+
+    }
+
     private val loaderFile = FileChooser(FileType.AUTOMATION_BOOT)
 
-    fun createNewRootSchema(tabPane: TabPane): TabContainer {
+    fun createNewRootSchema(): TabContainer {
         val newTmpFile = TmpFileLoader.createNewTmpFile()
         val rootSchemaFiles = RootSchemaFiles(newTmpFile)
-        val tabContainer = createTabContainer(tabPane, RootSchemaGroupModel(rootFiles = rootSchemaFiles))
+        val tabContainer = createTabContainer(RootSchemaGroupModel(rootFiles = rootSchemaFiles))
         saveFile(tabContainer, newTmpFile)
         return tabContainer
     }
 
-    fun openRootSchema(tabPane: TabPane): TabContainer? {
+    fun openRootSchema() {
         val fileToOpen = loaderFile.chooseToLoad()
         if (fileToOpen != null) {
-            return openRootSchema(tabPane, fileToOpen)
+            // Open existing tab
+            findOpenedTab(fileToOpen)?.also {
+                logger.debug("Open existing tab")
+                mainController.tabPane.selectionModel.select(it.tab)
+                mainController.snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaIsAlreadyOpen")
+            } ?:
+            // Find Active if doesn't exist
+            findActiveSchema(fileToOpen)?.also {
+                logger.debug("Open existing active schema")
+                mainController.activeSchemasController.removeActiveSchemaFromList(it)
+                val openRootSchema = createTabContainer(it)
+                mainController.addTabToContainer(openRootSchema) // duplicate TODO
+                mainController.snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaWasInTheActiveSchemas")
+            } ?:
+            // Open if doesn't exist
+            run {
+                logger.debug("Open schema")
+                val openRootSchema = openRootSchema(fileToOpen)
+                mainController.addTabToContainer(openRootSchema)
+            }
         }
-        return null
     }
 
-    fun openRootSchema(tabPane: TabPane, fileToOpen: File): TabContainer {
-        return createTabContainer(tabPane, createRootSchemaGroupFromFile(fileToOpen))
+    fun openRootSchema(fileToOpen: File): TabContainer {
+        return createTabContainer(createRootSchemaGroupFromFile(fileToOpen))
     }
 
     fun createRootSchemaGroupFromFile(fileToOpen: File): RootSchemaGroupModel {
@@ -75,45 +101,15 @@ object RootSchemaLoader {
         return false
     }
 
-    private fun saveFile(tabContainer: TabContainer, file: File) {
-        val rootSchema = tabContainer.rootSchema
-        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchema, null)
-        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
-        file.writeText(serializedRootGroup)
-        rootSchema.rootFiles.saveNewFile(file)
-        tabContainer.tab.apply {
-            text = getTabName(rootSchema)
-            graphic = null
-        }
-        GlobalSettingsLoader.save(ApplicationLauncher.globalSettings)
-    }
-
     fun removeTmpFile(tabContainer: TabContainer) {
         tabContainer.rootSchema.rootFiles.removeTmpFile()
     }
 
-    private fun createTabContainer(tabPane: TabPane, rootGroup: RootSchemaGroupModel): TabContainer {
-        val fileName = getTabName(rootGroup)
-        val newTab = Tab(fileName, rootGroup.controller).apply {
-            if (!rootGroup.isSaved()) {
-                graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
-            }
-        }
-        val tabContainer = TabContainer(tab = newTab, rootSchema = rootGroup)
-        tabPane.apply {
-            tabs?.add(newTab)
-            selectionModel?.select(newTab)
-        }
-
-        newTab.onCloseRequest = createOnCloseRequest(tabContainer)
-        rootGroup.loaded = true
-        return tabContainer
-    }
 
     fun createOnCloseRequest(tabContainer: TabContainer): EventHandler<Event> {
         return EventHandler {
             if (!tabContainer.rootSchema.isSaved()) {
-                val saveDialogPane = SaveDialog(tabContainer)
+                val saveDialogPane = SaveDialog(tabContainer, mainController.rootSchemaLoader)
                 val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
                 saveDialogPane.dialogKeeper = jfxDialog
                 jfxDialog.show()
@@ -127,6 +123,49 @@ object RootSchemaLoader {
     private fun getTabName(model: RootSchemaGroupModel): String {
         val fileName = model.getName()
         return if (fileName.length > MAX_NUMBER_OF_CHARACTERS) fileName.substring(0, MAX_NUMBER_OF_CHARACTERS) + "…" else fileName
+    }
+
+    private fun createTabContainer(rootGroup: RootSchemaGroupModel): TabContainer {
+        val fileName = getTabName(rootGroup)
+        val newTab = Tab(fileName, rootGroup.controller).apply {
+            if (!rootGroup.isSaved()) {
+                graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
+            }
+        }
+        val tabContainer = TabContainer(tab = newTab, rootSchema = rootGroup)
+        mainController.tabPane.apply {
+            tabs?.add(newTab)
+            selectionModel?.select(newTab)
+        }
+
+        newTab.onCloseRequest = createOnCloseRequest(tabContainer)
+        rootGroup.loaded = true
+        return tabContainer
+    }
+
+    private fun saveFile(tabContainer: TabContainer, file: File) {
+        val rootSchema = tabContainer.rootSchema
+        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchema, null)
+        val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
+        file.writeText(serializedRootGroup)
+        rootSchema.rootFiles.saveNewFile(file)
+        tabContainer.tab.apply {
+            text = getTabName(rootSchema)
+            graphic = null
+        }
+        GlobalSettingsLoader.save(ApplicationLauncher.globalSettings)
+    }
+
+    private fun findOpenedTab(fileToOpen: File): TabContainer? {
+        val tabContainer = mainController.tabContainers
+        return tabContainer
+                .firstOrNull { it.rootSchema.rootFiles.isRelated(fileToOpen) }
+    }
+
+    private fun findActiveSchema(fileToOpen: File): RootSchemaGroupModel? {
+        val activeActions = mainController.activeSchemasController.activeActions
+        return activeActions
+                .firstOrNull { it.rootFiles.isRelated(fileToOpen) }
     }
 
 }
