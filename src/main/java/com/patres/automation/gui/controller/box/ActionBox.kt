@@ -34,6 +34,7 @@ class ActionBox<ActionBootType : ActionBootable>(
             is MousePointActionController ->  MousePointActionMapper.controllerToModel(controller)
             is TextAreaActionController ->  TextAreaActionMapper.controllerToModel(controller)
             is TextFieldActionController ->  TextFieldActionMapper.controllerToModel(controller)
+            is DelayActionController ->  DelayActionMapper.controllerToModel(controller)
             else -> throw IllegalStateException("Controller ${controller.javaClass.name} toModel is not correct") // If sealed class will be allowed it should be replaced
         }
     }
@@ -45,6 +46,7 @@ class ActionBox<ActionBootType : ActionBootable>(
             is MousePointActionController ->  MousePointActionMapper.controllerToSerialized(controller)
             is TextAreaActionController ->  TextAreaActionMapper.controllerToSerialized(controller)
             is TextFieldActionController ->  TextFieldActionMapper.controllerToSerialized(controller)
+            is DelayActionController ->  DelayActionMapper.controllerToSerialized(controller)
             else -> throw IllegalStateException("Controller ${controller.javaClass.name} toSerialized is not correct") // If sealed class will be allowed it should be replaced
         }
     }

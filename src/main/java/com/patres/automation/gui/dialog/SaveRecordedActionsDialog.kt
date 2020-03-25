@@ -6,9 +6,11 @@ import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.mapper.model.AutomationActionSerialized
+import com.patres.automation.mapper.model.DelayActionSerialized
 import com.patres.automation.mapper.model.TextFieldActionSerialized
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
+import com.patres.automation.type.ActionBootDelay
 import com.patres.automation.type.ActionBootTextField
 import javafx.application.Platform
 import javafx.fxml.FXML
@@ -48,7 +50,7 @@ class SaveRecordedActionsDialog(
 
     private val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, this, JFXDialog.DialogTransition.CENTER)
     private val actionTextMap: Map<AutomationActionSerialized, Label> = actions.map { it to Label(it.toTranslatedString()) }.toMap()
-    private val delayLabels = actionTextMap.filterKeys { it is TextFieldActionSerialized && it.actionType == ActionBootTextField.DELAY }.values
+    private val delayLabels = actionTextMap.filterKeys { it is DelayActionSerialized }.values
 
     init {
         actionContainer.children.addAll(actionTextMap.values)
@@ -95,7 +97,7 @@ class SaveRecordedActionsDialog(
     @FXML
     fun save() {
         val controllers = actions
-                .filterNot { removeDelayCheckBox.isSelected && it is TextFieldActionSerialized && it.actionType == ActionBootTextField.DELAY }
+                .filterNot { removeDelayCheckBox.isSelected && it is DelayActionSerialized }
                 .filterNot { removeLastActionCheckBox.isSelected && actions.indexOf(it) + 1 == actions.size }
                 .map { it.serializedToController() }
         controllers.forEach { controller.addActionBlocks(it) }

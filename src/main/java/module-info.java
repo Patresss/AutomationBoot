@@ -29,10 +29,11 @@ module automationBoot {
 
     opens com.patres.automation.mapper.model to com.fasterxml.jackson.databind;
     opens com.patres.automation.settings to com.fasterxml.jackson.databind;
-    exports com.patres.automation.mapper.model to com.fasterxml.jackson.databind;
+    exports com.patres.automation.mapper.model to com.fasterxml.jackson.databind, kotlin.reflect;
     exports com.patres.automation.settings to com.fasterxml.jackson.databind, kotlin.reflect;
     exports com.patres.automation.keyboard to com.fasterxml.jackson.databind;
     exports com.patres.automation.type to com.fasterxml.jackson.databind;
+    exports com.patres.automation.action.delay to com.fasterxml.jackson.databind;
 
     exports com.patres.automation;
 

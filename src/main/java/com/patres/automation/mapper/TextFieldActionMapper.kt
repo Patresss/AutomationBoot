@@ -13,7 +13,6 @@ object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction,
 
     override fun controllerToModel(controller: TextFieldActionController): AbstractAction {
         return when (controller.action) {
-            DELAY -> DelayAction(controller.value.toLong(), controller.root?.automationRunningProperty)
             SCROLL_WHEEL_UP -> ScrollWheelUpAction(controller.value.toInt())
             SCROLL_WHEEL_DOWN -> ScrollWheelDownAction(controller.value.toInt())
 

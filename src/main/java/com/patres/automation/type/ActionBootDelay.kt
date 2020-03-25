@@ -1,21 +1,17 @@
 package com.patres.automation.type
 
 import com.patres.automation.gui.controller.model.AutomationController
+import com.patres.automation.gui.controller.model.DelayActionController
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.validation.*
 
 
-enum class ActionBootTextField(
+enum class ActionBootDelay(
         val bundleName: String,
         val validation: Validationable? = null
 ) : ActionBootable {
 
-    SCROLL_WHEEL_UP("robot.action.scrollWheel.up", PositiveIntegerValidation()),
-    SCROLL_WHEEL_DOWN("robot.action.scrollWheel.down", PositiveIntegerValidation()),
-
-    PORT("settings.port", PortValidation()),
-    ENDPOINT_NAME("settings.endpointName", StringWithoutWhiteCharactersValidation());
-
+    DELAY("robot.action.delay", PositiveIntegerValidation());
 
     override fun validation(): Validationable? {
         return this.validation
@@ -25,6 +21,6 @@ enum class ActionBootTextField(
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { TextFieldActionController(this) }
+    override fun createController(): () -> AutomationController<*> = { DelayActionController(this) }
 
 }

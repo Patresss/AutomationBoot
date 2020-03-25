@@ -29,7 +29,7 @@ enum class MenuItem(
 
     ADD_GROUP(FontAwesomeIcon.OBJECT_GROUP, ActionBootSchema.ADD_GROUP, null, menuItemHandler = MenuItemHandlers.addGroup),
 
-    DELAY_ITEM(FontAwesomeIcon.HOURGLASS, ActionBootTextField.DELAY, null),
+    DELAY_ITEM(FontAwesomeIcon.HOURGLASS, ActionBootDelay.DELAY, null),
     MOVE_MOUSE(FontAutomationIcon.MOVE_MOUSE, ActionBootMousePoint.MOVE_MOUSE, null),
 
     LEFT_MOUSE_BUTTON(FontAutomationIcon.LEFT_MOUSE_BUTTON_EDGE_ALT, bundleName = "roboto.action.mouse.left"),
