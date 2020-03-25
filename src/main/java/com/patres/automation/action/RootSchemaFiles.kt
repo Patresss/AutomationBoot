@@ -40,6 +40,6 @@ class RootSchemaFiles(
 
     fun isRelated(fileToOpen: File) = currentFile == fileToOpen || orgFile == fileToOpen
 
-    private fun currentFileIsTemp() = currentFile.extension == FileType.TEMP_AUTOMATION_BOOT.extension
+    fun currentFileIsTemp() = currentFile.extension == FileType.TEMP_AUTOMATION_BOOT.extension
 
 }

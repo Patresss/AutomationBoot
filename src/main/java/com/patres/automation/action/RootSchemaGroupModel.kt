@@ -105,6 +105,6 @@ class RootSchemaGroupModel(
         }
     }
 
-    fun isSaved() = rootFiles.orgFile == null
+    fun isSaved() = rootFiles.orgFile == null && !rootFiles.currentFileIsTemp()
 
 }

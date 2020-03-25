@@ -40,6 +40,7 @@ class RootSchemaLoader(val mainController: MainController) {
         val rootSchemaFiles = RootSchemaFiles(newTmpFile)
         val tabContainer = createTabContainer(RootSchemaGroupModel(rootFiles = rootSchemaFiles))
         saveFile(tabContainer, newTmpFile)
+        mainController.addTabToContainer(tabContainer)
         return tabContainer
     }
 
