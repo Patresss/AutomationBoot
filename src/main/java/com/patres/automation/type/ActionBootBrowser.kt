@@ -3,10 +3,7 @@ package com.patres.automation.type
 import com.patres.automation.file.FileType
 import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.BrowseFileActionController
-import com.patres.automation.validation.DirectoryExistValidation
-import com.patres.automation.validation.FileExistValidation
-import com.patres.automation.validation.FileExtensionValidation
-import com.patres.automation.validation.Validationable
+import com.patres.automation.validation.*
 
 
 enum class ActionBootBrowser(
@@ -23,7 +20,9 @@ enum class ActionBootBrowser(
     OPEN_DIRECTORY("robot.action.open.directory", DirectoryExistValidation(), director = true),
 
     WINDOWS_SCRIPT_RUN("robot.action.script.windows.run", FileExtensionValidation(FileType.BAT)),
-    WINDOWS_SCRIPT_RUN_AND_WAITE("robot.action.script.windows.runAndWait", FileExtensionValidation(FileType.BAT));
+    WINDOWS_SCRIPT_RUN_AND_WAITE("robot.action.script.windows.runAndWait", FileExtensionValidation(FileType.BAT)),
+
+    RUN_EXISTING_SCHEMA("robot.action.runExistingSchema", AutomationBootFileValidation());
 
     override fun validation(): Validationable? {
         return this.validation

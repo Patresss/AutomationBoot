@@ -4,12 +4,13 @@ import com.patres.automation.action.mouse.*
 import com.patres.automation.action.mouse.point.ImagePointDetector
 import com.patres.automation.action.mouse.point.PointDetector
 import com.patres.automation.action.mouse.point.SpecificPointDetector
+import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.mapper.model.MousePointActionSerialized
 import com.patres.automation.point.Point
 import com.patres.automation.type.ActionBootMousePoint
-import java.io.ByteArrayInputStream
-import java.io.InputStream
+import com.patres.automation.util.Base64Converter
+import javafx.beans.property.BooleanProperty
 import java.util.*
 
 
@@ -17,7 +18,32 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
 
     override fun controllerToModel(controller: MousePointActionController): MousePointAction {
         val pointDetector = calculatePointDetector(controller)
-        return when (controller.action) {
+        return createModel(controller.action, pointDetector)
+    }
+
+    override fun controllerToSerialized(controller: MousePointActionController): MousePointActionSerialized {
+        return controller.run {
+            MousePointActionSerialized(action, value, bytesArrayToBase64(calculateImageBytesArray()), thresholdSlider.value)
+        }
+    }
+
+    override fun serializedToController(serialized: MousePointActionSerialized): MousePointActionController {
+        return MousePointActionController(serialized.actionType).apply {
+            value = serialized.point ?: ""
+            serialized.image?.let {
+                setImage(Base64Converter.base64ToInputStream(it))
+                thresholdSlider.value = serialized.threshold ?: 90.0
+            }
+        }
+    }
+
+    override fun serializedToModel(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty?): MousePointAction {
+        val pointDetector = calculatePointDetectorFromSerialized(serialized)
+        return createModel(serialized.actionType, pointDetector)
+    }
+
+    private fun createModel(actionType: ActionBootMousePoint, pointDetector: PointDetector): MousePointAction {
+        return when (actionType) {
             ActionBootMousePoint.MOVE_MOUSE -> MoveMouseAction(pointDetector)
 
             ActionBootMousePoint.CLICK_LEFT_MOUSE_BUTTON -> LeftMouseClickAction(pointDetector)
@@ -38,21 +64,6 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
         }
     }
 
-    override fun controllerToSerialized(controller: MousePointActionController): MousePointActionSerialized {
-        return controller.run {
-            MousePointActionSerialized(action, value, bytesArrayToBase64(calculateImageBytesArray()), thresholdSlider.value)
-        }
-    }
-
-    override fun serializedToController(serialized: MousePointActionSerialized): MousePointActionController {
-        return MousePointActionController(serialized.actionType).apply {
-            value = serialized.point ?: ""
-            serialized.image?.let {
-                setImage(base64ToInputStream(it))
-                thresholdSlider.value = serialized.threshold ?: 90.0
-            }
-        }
-    }
 
     private fun calculatePointDetector(controller: MousePointActionController): PointDetector {
         val calculatedImageBytesArray = controller.calculateImageBytesArray()
@@ -70,8 +81,21 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
         return null
     }
 
-    private fun base64ToInputStream(string: String): InputStream {
-        return ByteArrayInputStream(Base64.getDecoder().decode(string))
+
+    private fun calculatePointDetectorFromSerialized(serialized: MousePointActionSerialized): PointDetector {
+        return when {
+            serialized.image != null -> {
+                val templateByteArray: ByteArray = Base64Converter.base64ToByteArray(serialized.image)
+                val threshold = serialized.threshold ?: 90.0
+                ImagePointDetector(templateByteArray, threshold)
+            }
+            serialized.point != null -> {
+                SpecificPointDetector(Point.stringToPoint(serialized.point))
+            }
+            else -> {
+                throw ApplicationException("Point cannot be found")
+            }
+        }
     }
 
 }

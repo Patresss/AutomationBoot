@@ -31,6 +31,12 @@ class RootSchemaLoader(val mainController: MainController) {
         private const val MAX_NUMBER_OF_CHARACTERS = 24
         val logger = LoggerFactory.getLogger(RootSchemaLoader::class.java)!!
 
+        fun createRootSchemaGroupFromFile(fileToOpen: File): RootSchemaGroupModel {
+            val serializedRootGroup = fileToOpen.readText()
+            val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
+            return RootSchemaGroupMapper.serializedToModel(rootGroupSerialized, fileToOpen)
+        }
+
     }
 
     private val loaderFile = FileChooser(FileType.AUTOMATION_BOOT)
@@ -74,11 +80,6 @@ class RootSchemaLoader(val mainController: MainController) {
         return createTabContainer(createRootSchemaGroupFromFile(fileToOpen))
     }
 
-    fun createRootSchemaGroupFromFile(fileToOpen: File): RootSchemaGroupModel {
-        val serializedRootGroup = fileToOpen.readText()
-        val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
-        return RootSchemaGroupMapper.serializedToModel(rootGroupSerialized, fileToOpen)
-    }
 
     fun saveExistingRootSchema(tabContainer: TabContainer): Boolean {
         val file = if (tabContainer.rootSchema.rootFiles.isNewTmpFile()) {

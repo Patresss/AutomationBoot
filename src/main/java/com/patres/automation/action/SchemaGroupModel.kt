@@ -2,12 +2,11 @@ package com.patres.automation.action
 
 import com.patres.automation.type.ActionBootSchema
 import javafx.beans.property.BooleanProperty
-import org.slf4j.LoggerFactory
 
 class SchemaGroupModel(
         private val actions: List<AbstractAction>,
         private val iteration: Int,
-        private val automationRunningProperty: BooleanProperty?
+        val automationRunningProperty: BooleanProperty?
 ) : AbstractAction(ActionBootSchema.ADD_GROUP) {
 
     override fun runAction() {

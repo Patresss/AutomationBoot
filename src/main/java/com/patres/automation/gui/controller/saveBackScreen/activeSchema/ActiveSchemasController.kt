@@ -7,6 +7,7 @@ import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
+import com.patres.automation.util.RootSchemaLoader
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -86,7 +87,7 @@ class ActiveSchemasController(
 
     private fun mapFileToRootSchema(file: File): RootSchemaGroupModel? {
         return try {
-            mainController.rootSchemaLoader.createRootSchemaGroupFromFile(file)
+            RootSchemaLoader.createRootSchemaGroupFromFile(file)
         } catch (e: Exception) {
             logger.error("Cannot create RootSchemaModel from file ${file.absoluteFile}", e)
             null

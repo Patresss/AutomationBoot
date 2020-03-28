@@ -1,27 +1,20 @@
 package com.patres.automation.mapper
 
 import com.patres.automation.action.AbstractAction
-import com.patres.automation.action.script.OpenDirectoryAction
-import com.patres.automation.action.script.OpenFileAction
-import com.patres.automation.action.script.WindowsRunAndWaitScriptAction
-import com.patres.automation.action.script.WindowsRunScriptAction
+import com.patres.automation.action.script.*
 import com.patres.automation.action.text.PasteTextFromFileAction
 import com.patres.automation.action.text.TypeTextFromFileAction
 import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.mapper.model.BrowserActionSerialized
+import com.patres.automation.type.ActionBootBrowser
 import com.patres.automation.type.ActionBootBrowser.*
+import javafx.beans.property.BooleanProperty
 
 object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, BrowserActionSerialized> {
 
     override fun controllerToModel(controller: BrowseFileActionController): AbstractAction {
-        return when (controller.action) {
-            PASTE_TEXT_FROM_FILE -> PasteTextFromFileAction(controller.value)
-            TYPE_TEXT_FROM_FILE -> TypeTextFromFileAction(controller.value, controller.root?.automationRunningProperty)
-            OPEN_FILE -> OpenFileAction(controller.value)
-            OPEN_DIRECTORY -> OpenDirectoryAction(controller.value)
-            WINDOWS_SCRIPT_RUN -> WindowsRunScriptAction(controller.value)
-            WINDOWS_SCRIPT_RUN_AND_WAITE -> WindowsRunAndWaitScriptAction(controller.value)
-        }
+        return calculateBrowserAction(controller.action, controller.value, controller.root?.automationRunningProperty)
+
     }
 
     override fun controllerToSerialized(controller: BrowseFileActionController): BrowserActionSerialized {
@@ -36,4 +29,22 @@ object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, 
         }
     }
 
+    override fun serializedToModel(serialized: BrowserActionSerialized, automationRunningProperty: BooleanProperty?): AbstractAction {
+        return calculateBrowserAction(serialized.actionType, serialized.path, automationRunningProperty)
+    }
+
+    private fun calculateBrowserAction(actionType: ActionBootBrowser, path: String, automationRunningProperty: BooleanProperty?): AbstractAction {
+        return when (actionType) {
+            PASTE_TEXT_FROM_FILE -> PasteTextFromFileAction(path)
+            TYPE_TEXT_FROM_FILE -> TypeTextFromFileAction(path, automationRunningProperty)
+            OPEN_FILE -> OpenFileAction(path)
+            OPEN_DIRECTORY -> OpenDirectoryAction(path)
+            WINDOWS_SCRIPT_RUN -> WindowsRunScriptAction(path)
+            WINDOWS_SCRIPT_RUN_AND_WAITE -> WindowsRunAndWaitScriptAction(path)
+            RUN_EXISTING_SCHEMA -> {
+                val schemaModel = RootSchemaGroupMapper.serializedToMainSchemaModel(path, automationRunningProperty)
+                RunExistingSchemaAction(schemaModel, actionType)
+            }
+        }
+    }
 }

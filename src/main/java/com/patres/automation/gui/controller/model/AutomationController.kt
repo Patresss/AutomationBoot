@@ -28,11 +28,13 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     var action: ActionBootType = action
         set(value) {
             field = value
+            changeErrorMessage()
             checkUiValidation()
         }
 
     open fun checkValidation() {}
     open fun checkUiValidation() {}
+    open fun changeErrorMessage() {}
     open fun shouldCheckUiValidation() = true
 
     val root: RootSchemaGroupModel?
@@ -70,7 +72,6 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
             gridPane.add(actionComboBox, columnIndex, rowIndex)
         }
     }
-
 
     @FXML
     lateinit var gridPane: GridPane

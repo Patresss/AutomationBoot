@@ -8,6 +8,7 @@ import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.controller.pointer.PointerController
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootMousePoint
+import com.patres.automation.util.Base64Converter
 import com.patres.automation.util.MonitorSize
 import com.patres.automation.util.fromBundle
 import com.patres.automation.util.startTiming
@@ -83,7 +84,7 @@ class MousePointActionController(
     }
 
     fun setImage(imageInputStream: InputStream) {
-        setByteArrayOutputStream(imageInputStream)
+        imageByteArrayOutputStream = Base64Converter.calculateByteArrayOutputStream(imageInputStream)
         setupVisible(false)
         imageByteArrayOutputStream?.let {
             val inputStream = ByteArrayInputStream(calculateImageBytesArray())
@@ -128,20 +129,6 @@ class MousePointActionController(
         stage.scene = scene
 
         stage.show()
-    }
-
-
-    private fun setByteArrayOutputStream(inputStream: InputStream) {
-        imageByteArrayOutputStream = ByteArrayOutputStream()
-        imageByteArrayOutputStream?.let { imageByteArrayOutputStream ->
-            val buffer = ByteArray(1024)
-            var len: Int = inputStream.read(buffer)
-            while (len > -1) {
-                imageByteArrayOutputStream.write(buffer, 0, len)
-                len = inputStream.read(buffer)
-            }
-            imageByteArrayOutputStream.flush()
-        }
     }
 
     fun calculateImageBytesArray() = imageByteArrayOutputStream?.toByteArray()

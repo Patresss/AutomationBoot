@@ -10,7 +10,7 @@ import javafx.scene.layout.Region
 import org.slf4j.LoggerFactory
 import java.io.IOException
 
-class ExceptionHandlerDialog(private val exception: Exception) {
+class ExceptionHandlerDialog(private val exception: Throwable) {
 
     private var dialog: JFXDialog
 

@@ -24,9 +24,7 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
             checkUiValidation()
         }
         checkUiValidation()
-        action.validation()?.getErrorMessageStringBinding()?.let {
-            validLabel.textProperty().bind(it)
-        }
+        changeErrorMessage()
     }
 
     override fun shouldCheckUiValidation() = value.isNotEmpty()
@@ -38,6 +36,12 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
 
     override fun checkValidation() {
         action.validation()?.check(value)
+    }
+
+    override fun changeErrorMessage() {
+        action.validation()?.getErrorMessageStringBinding()?.let {
+            validLabel.textProperty().bind(it)
+        }
     }
 
     var value: String

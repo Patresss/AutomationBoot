@@ -5,7 +5,7 @@ import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.gui.controller.box.SchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.mapper.model.SchemaGroupSerialized
-import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.BooleanProperty
 
 
 object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, SchemaGroupSerialized> {
@@ -32,6 +32,11 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
                     .map { it.serializedToController() }
                     .forEach { this.addNewAction(it) }
         }
+    }
+
+    override fun serializedToModel(serialized: SchemaGroupSerialized, automationRunningProperty: BooleanProperty?): SchemaGroupModel {
+        val serializedModels: List<AbstractAction> = serialized.actionList.map { it.serializedToModel(automationRunningProperty) }
+        return SchemaGroupModel(serializedModels, serialized.numberOfIterations.toInt(), automationRunningProperty)
     }
 
 }

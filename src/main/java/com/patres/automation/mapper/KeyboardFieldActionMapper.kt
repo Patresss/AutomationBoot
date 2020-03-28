@@ -8,6 +8,7 @@ import com.patres.automation.excpetion.ControllerCannotBeMapToModelException
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.mapper.model.KeyboardFieldActionSerialized
 import com.patres.automation.type.ActionBootKeyboard.*
+import javafx.beans.property.BooleanProperty
 
 
 object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, KeyboardButtonAction, KeyboardFieldActionSerialized> {
@@ -34,6 +35,19 @@ object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, Keyboa
     override fun serializedToController(serialized: KeyboardFieldActionSerialized): KeyboardButtonActionController {
         return KeyboardButtonActionController(serialized.actionType).apply {
             serialized.keys.forEach { keyboardField.addKeyboardButton(it) }
+        }
+    }
+
+    override fun serializedToModel(serialized: KeyboardFieldActionSerialized, automationRunningProperty: BooleanProperty?): KeyboardButtonAction {
+        return when (serialized.actionType) {
+            PRESS_KEYBOARD_BUTTON -> PressKeyboardButtonAction(serialized.keys)
+            HOLD_KEYBOARD_BUTTON -> HoldKeyboardButtonAction(serialized.keys)
+            RELEASE_KEYBOARD_BUTTON -> ReleaseKeyboardButtonAction(serialized.keys)
+
+            RUN_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(serialized.actionType)
+            STOP_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(serialized.actionType)
+            START_RECORDING_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(serialized.actionType)
+            STOP_RECORDING_KEYS_SETTINGS -> throw ControllerCannotBeMapToModelException(serialized.actionType)
         }
     }
 

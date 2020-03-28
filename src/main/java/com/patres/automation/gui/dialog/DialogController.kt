@@ -6,7 +6,7 @@ import javafx.scene.control.Button
 import javafx.scene.control.Label
 
 
-class DialogController(private val exceptionHandlerDialog: ExceptionHandlerDialog, private val exception: Exception) {
+class DialogController(private val exceptionHandlerDialog: ExceptionHandlerDialog, private val exception: Throwable) {
 
     @FXML
     private lateinit var errorLabel: Label

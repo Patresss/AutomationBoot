@@ -1,7 +1,6 @@
 package com.patres.automation.action
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.LogManager
@@ -27,10 +26,12 @@ class RootSchemaGroupModel(
     var loaded: Boolean = false
 
     val controller: RootSchemaGroupController = RootSchemaGroupController(this)
+    val schemaGroupModel
+        get() = controller.schemaGroupController.toModel()
 
     fun runAutomation() {
         try {
-            val schemaGroupModel = controller.schemaGroupController.toModel()
+            val schemaGroupModel = schemaGroupModel
             val runTask = createRunTask(schemaGroupModel)
             Thread(runTask).start()
         } catch (e: Exception) {
@@ -53,10 +54,8 @@ class RootSchemaGroupModel(
                     schemaGroupModel.runAction()
                     logger.info("Completed root actions")
                     Thread.sleep(200)
-                } catch (e: ApplicationException) {
-                    LogManager.showAndLogException(e)
                 } catch (e: Throwable) {
-                    logger.error("Exception: {}", e)
+                    LogManager.showAndLogException(e)
                 } finally {
                     Platform.runLater { ApplicationLauncher.mainStage.isIconified = applicationStageIsActive }
                     automationRunningProperty.set(false)
