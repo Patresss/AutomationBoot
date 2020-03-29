@@ -20,7 +20,10 @@ class ActiveSchemasController(
         private val logger = LoggerFactory.getLogger(ActiveSchemasController::class.java)
     }
 
-    val toEditSchema: MutableList<ActiveSchemaItemController> = mutableListOf()
+    private val rootSchemaLoader = RootSchemaLoader(mainController)
+    val toEditSchema: MutableList<RootSchemaGroupModel> = mutableListOf()
+    val toRemoveSchema: MutableList<RootSchemaGroupModel> = mutableListOf()
+
     val activeActions: MutableList<RootSchemaGroupModel> = mutableListOf()
 
     init {
@@ -30,20 +33,23 @@ class ActiveSchemasController(
 
     override fun saveChanges() {
         openSchemasToEdit()
+        stopSchemasToClose()
         ApplicationLauncher.globalSettings.editAndSave {
             activeSchemas = getActiveSchemaFromUi()
         }
         activeActions.removeIf { !ApplicationLauncher.globalSettings.activeSchemas.contains(it.getFilePathToSettings()) }
+
         logger.debug("Saved ${activeActions.size} schema models as active")
         snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO, "message.snackbar.settingsSave")
     }
 
     private fun openSchemasToEdit() {
-        toEditSchema
-                .map { File(it.path) }
-                .filter { it.exists() }
-                .toSet()
-                .forEach { mainController.loadModelFromFile(it) }
+        toEditSchema.forEach {rootSchemaLoader.openRootSchema(it)}
+    }
+
+    private fun stopSchemasToClose() {
+        toRemoveSchema.forEach { it.stopAutomation() }
+
     }
 
     override fun initChangeDetectors() {
@@ -57,14 +63,13 @@ class ActiveSchemasController(
     override fun reloadSettings() {
         mainVBox.children.clear()
         toEditSchema.clear()
-        val activeSchemas: List<ActiveSchemaItemController> = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles()
-                .sortedBy { it.nameWithoutExtension }
-                .map { mapFileActiveSchemaItem(it) }
-        mainVBox.children.addAll(activeSchemas)
+//        calculateRootSchemaModels()
+        val activeActionsItems = activeActions.map { mapRootToActiveSchemaItem(it) }
+        mainVBox.children.addAll(activeActionsItems)
     }
 
-    private fun mapFileActiveSchemaItem(file: File): ActiveSchemaItemController {
-        return ActiveSchemaItemController(this, file.nameWithoutExtension, file.path)
+    private fun mapRootToActiveSchemaItem(rootSchemaGroupModel: RootSchemaGroupModel): ActiveSchemaItemController {
+        return ActiveSchemaItemController(this, rootSchemaGroupModel)
     }
 
     fun removeActiveSchemaFromUiList(action: ActiveSchemaItemController) {
@@ -74,14 +79,13 @@ class ActiveSchemasController(
     private fun getActiveSchemaFromUi(): MutableList<String> {
         return mainVBox.children
                 .filterIsInstance<ActiveSchemaItemController>()
-                .map { it.path }
+                .map { it.rootSchemaGroupModel.rootFiles.currentFile.path }
                 .toMutableList()
     }
 
     private fun calculateRootSchemaModels() {
         activeActions.clear()
-        val rootSchemaModels = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles()
-                .mapNotNull { mapFileToRootSchema(it) }
+        val rootSchemaModels = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles().mapNotNull { mapFileToRootSchema(it) }
         activeActions.addAll(rootSchemaModels)
     }
 

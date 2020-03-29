@@ -46,7 +46,6 @@ class RootSchemaLoader(val mainController: MainController) {
         val rootSchemaFiles = RootSchemaFiles(newTmpFile)
         val tabContainer = createTabContainer(RootSchemaGroupModel(rootFiles = rootSchemaFiles))
         saveFile(tabContainer, newTmpFile)
-        mainController.addTabToContainer(tabContainer)
         return tabContainer
     }
 
@@ -64,14 +63,12 @@ class RootSchemaLoader(val mainController: MainController) {
                 logger.debug("Open existing active schema")
                 mainController.activeSchemasController.removeActiveSchemaFromList(it)
                 val openRootSchema = createTabContainer(it)
-                mainController.addTabToContainer(openRootSchema) // duplicate TODO
                 mainController.snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaWasInTheActiveSchemas")
             } ?:
             // Open if doesn't exist
             run {
                 logger.debug("Open schema")
                 val openRootSchema = openRootSchema(fileToOpen)
-                mainController.addTabToContainer(openRootSchema)
             }
         }
     }
@@ -80,6 +77,9 @@ class RootSchemaLoader(val mainController: MainController) {
         return createTabContainer(createRootSchemaGroupFromFile(fileToOpen))
     }
 
+    fun openRootSchema(rootGroup: RootSchemaGroupModel): TabContainer {
+        return createTabContainer(rootGroup)
+    }
 
     fun saveExistingRootSchema(tabContainer: TabContainer): Boolean {
         val file = if (tabContainer.rootSchema.rootFiles.isNewTmpFile()) {
@@ -107,7 +107,6 @@ class RootSchemaLoader(val mainController: MainController) {
         tabContainer.rootSchema.rootFiles.removeTmpFile()
     }
 
-
     fun createOnCloseRequest(tabContainer: TabContainer): EventHandler<Event> {
         return EventHandler {
             if (!tabContainer.rootSchema.isSaved()) {
@@ -117,6 +116,7 @@ class RootSchemaLoader(val mainController: MainController) {
                 jfxDialog.show()
                 it?.consume()
             } else {
+                tabContainer.rootSchema.stopAutomation()
                 ApplicationLauncher.mainController.removeTab(tabContainer)
             }
         }
@@ -136,6 +136,7 @@ class RootSchemaLoader(val mainController: MainController) {
         }
         val tabContainer = TabContainer(tab = newTab, rootSchema = rootGroup)
         mainController.tabPane.apply {
+            mainController.addTabToContainer(tabContainer)
             tabs?.add(newTab)
             selectionModel?.select(newTab)
         }

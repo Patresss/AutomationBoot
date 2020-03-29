@@ -178,8 +178,7 @@ class MainController {
 
     fun loadModelFromFile(fileToLoad: File) {
         try {
-            val tabContainer = rootSchemaLoader.openRootSchema(fileToLoad)
-            addTabToContainer(tabContainer)
+            rootSchemaLoader.openRootSchema(fileToLoad)
         } catch (e: Exception) {
             logger.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message)
         }

@@ -1,6 +1,7 @@
 package com.patres.automation.gui.controller.saveBackScreen.activeSchema
 
 import com.jfoenix.controls.JFXButton
+import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.settings.LanguageManager
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -11,8 +12,7 @@ import javafx.scene.layout.StackPane
 
 class ActiveSchemaItemController(
         private val activeSchemasController: ActiveSchemasController,
-        val name: String,
-        val path: String) : StackPane() {
+        val rootSchemaGroupModel: RootSchemaGroupModel) : StackPane() {
 
     @FXML
     lateinit var activeSchemaLabel: Label
@@ -34,8 +34,8 @@ class ActiveSchemaItemController(
         fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<ActiveSchemaItemController>()
 
-        activeSchemaLabel.text = "• $name"
-        nameTooltip.text = path
+        activeSchemaLabel.text = "• ${rootSchemaGroupModel.rootFiles.getName()}"
+        nameTooltip.text = rootSchemaGroupModel.rootFiles.currentFile.absolutePath
     }
 
 
@@ -43,13 +43,15 @@ class ActiveSchemaItemController(
     fun editActiveSchema() {
         activeSchemasController.changeDetect()
         activeSchemasController.removeActiveSchemaFromUiList(this)
-        activeSchemasController.toEditSchema.add(this)
+        activeSchemasController.toEditSchema.add(rootSchemaGroupModel)
     }
 
     @FXML
     fun closeActiveSchema() {
         activeSchemasController.changeDetect()
         activeSchemasController.removeActiveSchemaFromUiList(this)
+        activeSchemasController.toRemoveSchema.add(rootSchemaGroupModel)
+
     }
 
 }

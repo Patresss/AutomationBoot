@@ -42,15 +42,17 @@ class SaveDialog(
     fun save() {
         val saved = rootSchemaLoader.saveExistingRootSchema(tabContainer)
         if (saved) {
-            ApplicationLauncher.mainController?.removeTab(tabContainer)
+            tabContainer.rootSchema.stopAutomation()
+            ApplicationLauncher.mainController.removeTab(tabContainer)
             dialogKeeper?.close()
         }
     }
 
     @FXML
     fun doNotSave() {
+        tabContainer.rootSchema.stopAutomation()
         rootSchemaLoader.removeTmpFile(tabContainer)
-        ApplicationLauncher.mainController?.removeTab(tabContainer)
+        ApplicationLauncher.mainController.removeTab(tabContainer)
         dialogKeeper?.close()
     }
 
