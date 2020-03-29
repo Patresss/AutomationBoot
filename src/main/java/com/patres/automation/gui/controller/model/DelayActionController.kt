@@ -66,6 +66,6 @@ class DelayActionController(
         }
     }
 
-    fun selectedDelayTime(): DelayType = comboBox.value?: DelayType.MILLISECONDS
+    fun selectedDelayTime(): DelayType = comboBox.value ?: DelayType.MILLISECONDS
 
 }

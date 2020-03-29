@@ -15,7 +15,7 @@ class FileChooser(
     private val extFilter = if (fileType != null) FileChooser.ExtensionFilter("${fileType.type} (*.${fileType.extension})", "*.${fileType.extension}") else null
 
     fun chooseToLoad(pathTarget: String? = null): File? {
-        return if(director) chooseFileOrDirectoryToLoad(pathTarget) else chooseFileToLoad(pathTarget)
+        return if (director) chooseFileOrDirectoryToLoad(pathTarget) else chooseFileToLoad(pathTarget)
     }
 
     private fun chooseFileToLoad(pathTarget: String? = null): File? {

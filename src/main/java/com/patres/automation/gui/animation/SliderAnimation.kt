@@ -21,8 +21,8 @@ object SliderAnimation {
     }
 
     private fun moveToTheWindow(previousNode: Node, newNode: Node, container: Pane, forward: Boolean) {
-        val direction = if(forward) 1 else -1
-        previousNode.translateXProperty().set(direction *  ApplicationLauncher.mainStage.scene.width)
+        val direction = if (forward) 1 else -1
+        previousNode.translateXProperty().set(direction * ApplicationLauncher.mainStage.scene.width)
         container.children.add(previousNode)
 
         val timeline = Timeline()

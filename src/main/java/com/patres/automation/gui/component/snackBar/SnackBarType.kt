@@ -7,6 +7,8 @@ enum class SnackBarType(cssClass: String? = null) {
     INFO,
     WARNING("warning-toast");
 
-    val pseudoClass = if (cssClass != null) { PseudoClass.getPseudoClass(cssClass) } else null
+    val pseudoClass = if (cssClass != null) {
+        PseudoClass.getPseudoClass(cssClass)
+    } else null
 
 }

@@ -78,7 +78,7 @@ class MousePointActionController(
     }
 
     override fun checkValidation() {
-        if(image == null) {
+        if (image == null) {
             action.validation?.check(value)
         }
     }

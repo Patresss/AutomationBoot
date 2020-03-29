@@ -29,7 +29,8 @@ object TmpFileLoader {
             rootSchemaGroupModel.rootFiles.setNewTmpFile(createNewTmpFile)
             GlobalSettingsLoader.save()
         }
-        val tmpFile = rootSchemaGroupModel.rootFiles.calculateTmpFile()?: throw ApplicationException("Temp file for ${rootSchemaGroupModel.getName()} cannot be found")
+        val tmpFile = rootSchemaGroupModel.rootFiles.calculateTmpFile()
+                ?: throw ApplicationException("Temp file for ${rootSchemaGroupModel.getName()} cannot be found")
         val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
         val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
 

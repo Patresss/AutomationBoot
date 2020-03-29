@@ -220,7 +220,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
             val firstMousePoint = Point(x, y)
 
             if (mode == PointerMode.VECTOR) {
-                line = Line(x.toDouble() , y.toDouble(), x.toDouble(), y.toDouble()).apply {
+                line = Line(x.toDouble(), y.toDouble(), x.toDouble(), y.toDouble()).apply {
                     stroke = mode?.color
                 }
                 pane.setOnMouseMoved { event ->

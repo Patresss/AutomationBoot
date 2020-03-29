@@ -1,7 +1,5 @@
 package com.patres.automation.util
 
-import com.jfoenix.controls.JFXSnackbar
-import com.patres.automation.gui.component.snackBar.SnackBarFactory
 import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.gui.font.FontAutomationIconView
 import com.patres.automation.settings.LanguageManager

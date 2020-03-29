@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
-
+<?import javafx.scene.layout.*?>
 <fx:root type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane fx:id="rootBorderPane">
-         <center>
-            <ScrollPane fx:id="insidePane" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </center>
-         <left>
-            <AnchorPane>
-               <BorderPane.margin>
-                  <Insets right="10.0" />
-               </BorderPane.margin>
-               <VBox fx:id="actionBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="1.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" spacing="10.0" styleClass="root-schema-group-box-buttons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                  <padding>
-                     <Insets bottom="10.0" top="10.0" />
-                  </padding>
-               </VBox>
-            </AnchorPane>
-         </left>
-       </BorderPane>
-   </children>
+    <children>
+        <BorderPane fx:id="rootBorderPane">
+            <center>
+                <ScrollPane fx:id="insidePane" fitToWidth="true" prefHeight="200.0" prefWidth="200.0"
+                            BorderPane.alignment="CENTER"/>
+            </center>
+            <left>
+                <AnchorPane>
+                    <BorderPane.margin>
+                        <Insets right="10.0"/>
+                    </BorderPane.margin>
+                    <VBox fx:id="actionBox" alignment="TOP_CENTER" layoutX="10.0" layoutY="1.0" maxWidth="-Infinity"
+                          minWidth="-Infinity" prefWidth="40.0" spacing="10.0"
+                          styleClass="root-schema-group-box-buttons" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <padding>
+                            <Insets bottom="10.0" top="10.0"/>
+                        </padding>
+                    </VBox>
+                </AnchorPane>
+            </left>
+        </BorderPane>
+    </children>
 </fx:root>

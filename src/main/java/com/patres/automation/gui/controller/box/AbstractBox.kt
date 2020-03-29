@@ -46,7 +46,7 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
-         fxmlLoader.resources = LanguageManager.getBundle()
+        fxmlLoader.resources = LanguageManager.getBundle()
 
         fxmlLoader.load<AbstractBox<*>>()
         selectStackPane.addEventHandler(MouseEvent.MOUSE_PRESSED) { selectAction() }

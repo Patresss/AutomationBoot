@@ -1,8 +1,6 @@
 package com.patres.automation.mapper
 
 import com.patres.automation.action.AbstractAction
-import com.patres.automation.gui.controller.model.AutomationController
-import com.patres.automation.mapper.model.AutomationActionSerialized
 import javafx.beans.property.BooleanProperty
 
 

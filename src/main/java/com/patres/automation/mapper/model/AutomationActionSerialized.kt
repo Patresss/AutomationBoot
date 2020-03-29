@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.delay.DelayType
-import com.patres.automation.action.mouse.MousePointAction
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
-import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.*
 import com.patres.automation.settings.LanguageManager
@@ -58,7 +56,7 @@ class SchemaGroupSerialized(
         val actionList: List<AutomationActionSerialized> = ArrayList(),
         val groupName: String = "Group",
         val numberOfIterations: String = "1"
-)  : AutomationActionSerialized() {
+) : AutomationActionSerialized() {
     override fun serializedToController() = SchemaGroupMapper.serializedToController(this)
     override fun serializedToModel(automationRunningProperty: BooleanProperty?) = SchemaGroupMapper.serializedToModel(this, automationRunningProperty)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString("group")}: $groupName"

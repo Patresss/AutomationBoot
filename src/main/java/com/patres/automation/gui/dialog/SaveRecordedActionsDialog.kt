@@ -7,11 +7,8 @@ import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.mapper.model.DelayActionSerialized
-import com.patres.automation.mapper.model.TextFieldActionSerialized
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.type.ActionBootDelay
-import com.patres.automation.type.ActionBootTextField
 import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader

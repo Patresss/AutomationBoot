@@ -14,7 +14,6 @@ import com.patres.automation.type.ActionBootCheckBox
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootTextField
 import com.patres.automation.type.ChooseLanguageActionBootComboBox
-import com.patres.automation.util.fromBundle
 import javafx.collections.ListChangeListener
 
 
@@ -51,7 +50,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             port = portText.value.toInt()
             enableRest = enableRestCheckBox.checkBox.isSelected
         }
-        snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO,"message.snackbar.settingsSave")
+        snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO, "message.snackbar.settingsSave")
     }
 
     override fun initChangeDetectors() {
@@ -60,11 +59,11 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         stopRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
         languageComboBox.comboBox.valueProperty().addListener { _ -> changeDetect() }
         portText.valueText.textProperty().addListener { _ ->
-            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING,"message.snackbar.changesAppliedAfterRestart")
+            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING, "message.snackbar.changesAppliedAfterRestart")
             changeDetect()
         }
         enableRestCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
-            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING,"message.snackbar.changesAppliedAfterRestart")
+            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING, "message.snackbar.changesAppliedAfterRestart")
             portText.isVisible = newValue
             changeDetect()
         }

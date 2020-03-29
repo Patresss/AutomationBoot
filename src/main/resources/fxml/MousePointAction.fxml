@@ -7,44 +7,42 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-
-<fx:root styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.*?>
+<fx:root styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111"
+         xmlns:fx="http://javafx.com/fxml/1">
     <GridPane fx:id="gridPane" hgap="10.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="190.0" prefWidth="190.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="40" minWidth="40.0" prefWidth="40.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="190.0" prefWidth="190.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="40" minWidth="40.0" prefWidth="40.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.rowSpan="2" />
-        <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <JFXTextField fx:id="valueText" GridPane.columnIndex="1" />
-      <HBox fx:id="imageBox" alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <children>
-            <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
-            <JFXButton fx:id="zoomButton" styleClass="transparent-button">
-               <graphic>
-                  <FontAwesomeIconView glyphName="SEARCH_PLUS" styleClass="sub-icon" text="" />
-               </graphic>
-            </JFXButton>
-         </children>
-      </HBox>
+        <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.rowSpan="2"/>
+        <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label"
+               visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP"/>
+        <JFXTextField fx:id="valueText" GridPane.columnIndex="1"/>
+        <HBox fx:id="imageBox" alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+              GridPane.valignment="CENTER">
+            <children>
+                <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true"/>
+                <JFXButton fx:id="zoomButton" styleClass="transparent-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="SEARCH_PLUS" styleClass="sub-icon" text=""/>
+                    </graphic>
+                </JFXButton>
+            </children>
+        </HBox>
         <JFXButton fx:id="pointButton" styleClass="sub-action-button" GridPane.columnIndex="2" GridPane.rowSpan="2">
             <graphic>
-                <FontAwesomeIconView glyphName="CROSSHAIRS" styleClass="sub-icon" />
+                <FontAwesomeIconView glyphName="CROSSHAIRS" styleClass="sub-icon"/>
             </graphic>
             <GridPane.margin>
-                <Insets left="10.0" />
+                <Insets left="10.0"/>
             </GridPane.margin>
         </JFXButton>
-      <JFXSlider fx:id="thresholdSlider" value="90.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <JFXSlider fx:id="thresholdSlider" value="90.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     </GridPane>
 </fx:root>

@@ -44,7 +44,7 @@ class ActiveSchemasController(
     }
 
     private fun openSchemasToEdit() {
-        toEditSchema.forEach {rootSchemaLoader.openRootSchema(it)}
+        toEditSchema.forEach { rootSchemaLoader.openRootSchema(it) }
     }
 
     private fun stopSchemasToClose() {

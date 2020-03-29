@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-
-
-<fx:root styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.*?>
+<fx:root styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111"
+         xmlns:fx="http://javafx.com/fxml/1">
     <GridPane fx:id="gridPane" hgap="10.0">
         <columnConstraints>
             <ColumnConstraints/>
@@ -20,11 +17,14 @@
             <RowConstraints/>
         </rowConstraints>
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2"/>
-        <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" StackPane.alignment="CENTER_LEFT">
+        <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane"
+                   StackPane.alignment="CENTER_LEFT">
             <StackPane.margin>
                 <Insets left="-10.0"/>
             </StackPane.margin>
-            <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
+            <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY"
+                       graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button"
+                       StackPane.alignment="CENTER">
                 <opaqueInsets>
                     <Insets/>
                 </opaqueInsets>

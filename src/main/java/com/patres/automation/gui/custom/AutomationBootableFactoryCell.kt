@@ -18,7 +18,7 @@ class AutomationBootableFactoryCell {
             override fun updateItem(item: MenuItem?, empty: Boolean) {
                 super.updateItem(item, empty)
                 if (item != null) {
-                    textProperty().bind(LanguageManager.createStringBinding(item.actionBoot?.bundleName()?: ""))
+                    textProperty().bind(LanguageManager.createStringBinding(item.actionBoot?.bundleName() ?: ""))
                     graphic = item.actionGraphic.getIcon("1em")
                 }
             }
@@ -35,7 +35,7 @@ class AutomationBootableFactoryCell {
                 } else {
                     val wrappedText = Text().apply {
                         wrappingWidthProperty().bind(widthProperty().subtract(10))
-                        textProperty().bind(LanguageManager.createStringBinding(item.actionBoot?.bundleName()?: ""))
+                        textProperty().bind(LanguageManager.createStringBinding(item.actionBoot?.bundleName() ?: ""))
                     }
                     wrappedText.styleClass.add("text-combobox")
                     graphic = wrappedText
