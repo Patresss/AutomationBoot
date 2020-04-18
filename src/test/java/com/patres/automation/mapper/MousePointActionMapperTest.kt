@@ -4,9 +4,9 @@ import com.patres.automation.action.mouse.point.ImagePointDetector
 import com.patres.automation.action.mouse.point.SpecificPointDetector
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.helpers.JfxSpec
+import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.mapper.model.MousePointActionSerialized
 import com.patres.automation.point.Point
-import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.util.Base64Converter
 import io.kotest.matchers.shouldBe

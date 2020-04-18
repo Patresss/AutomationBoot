@@ -15,13 +15,13 @@ import java.nio.charset.StandardCharsets
 
 internal class BrowserActionMapperTest : JfxSpec({
 
-    val testedFilePath = URLDecoder.decode(BrowserActionMapperTest::class.java.getResource("/tested-value/test-file.txt").file, StandardCharsets.UTF_8.toString())
-    val testedFileAbPath = URLDecoder.decode(BrowserActionMapperTest::class.java.getResource("/tested-value/test-file.ab").file, StandardCharsets.UTF_8.toString())
+    val testedFilePath = URLDecoder.decode(BrowserActionMapperTest::class.java.getResource("/test-files/test-file.txt").file, StandardCharsets.UTF_8.toString())
+    val testedFileAbPath = URLDecoder.decode(BrowserActionMapperTest::class.java.getResource("/test-files/test-file.ab").file, StandardCharsets.UTF_8.toString())
     val testedFileResult = "Text 123"
 
     "Should map serialized to controller" - {
         ActionBootBrowser.values().map { verifiedAction: ActionBootBrowser ->
-            verifiedAction.name {
+            verifiedAction.name - {
                 // given
                 val serializedModel = BrowserActionSerialized(verifiedAction, testedFilePath)
 

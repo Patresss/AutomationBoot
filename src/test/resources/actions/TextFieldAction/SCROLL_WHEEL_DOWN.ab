@@ -1,0 +1,18 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "TextFieldAction",
+      "actionBootType" : "SCROLL_WHEEL_DOWN",
+      "value" : "4"
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

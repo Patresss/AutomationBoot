@@ -54,17 +54,23 @@ class FileChooser(
     }
 
     private fun saveLastOpenDirectory(file: File) {
-        if (file.exists()) {
-            val directory = if (file.isDirectory) file else file.parentFile
-            ApplicationLauncher.globalSettings.lastLoadedPath = directory.absolutePath
-            GlobalSettingsLoader.save()
+        val directory = if (file.isDirectory) file else file.parentFile
+        if (directory.exists()) {
+            ApplicationLauncher.globalSettings.editAndSave {
+                lastLoadedPath = directory.absolutePath
+            }
         }
     }
 
     private fun getFileChooser(): FileChooser {
         val chooser = FileChooser()
         return chooser.apply {
-            ApplicationLauncher.globalSettings.lastLoadedPath?.let { path -> initialDirectory = File(path) }
+            ApplicationLauncher.globalSettings.lastLoadedPath?.let { path ->
+                val file = File(path)
+                if (file.exists() && file.isDirectory) {
+                    initialDirectory = File(path)
+                }
+            }
             extFilter?.let { extensionFilters.add(it) }
         }
     }

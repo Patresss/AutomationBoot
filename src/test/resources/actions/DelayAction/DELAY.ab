@@ -1,0 +1,19 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "DelayAction",
+      "actionBootType" : "DELAY",
+      "value" : "123",
+      "delayType" : "SECONDS"
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

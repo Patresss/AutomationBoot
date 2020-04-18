@@ -1,0 +1,18 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "BrowserAction",
+      "actionBootType" : "OPEN_DIRECTORY",
+      "path" : "${PROJECT_PATH}\\src\\test\\resources\\test-files"
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

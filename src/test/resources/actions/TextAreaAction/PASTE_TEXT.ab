@@ -1,0 +1,18 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "TextAreaAction",
+      "actionBootType" : "PASTE_TEXT",
+      "value" : "Test 123"
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

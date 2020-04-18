@@ -1,0 +1,48 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "SchemaGroup",
+      "actionList" : [ {
+        "type" : "MousePointAction",
+        "actionBootType" : "MOVE_MOUSE",
+        "point" : "(1127;460)",
+        "image" : null,
+        "threshold" : 90.0
+      }, {
+        "type" : "MousePointAction",
+        "actionBootType" : "CLICK_LEFT_MOUSE_BUTTON",
+        "point" : "(1141;448)",
+        "image" : null,
+        "threshold" : 90.0
+      }, {
+        "type" : "SchemaGroup",
+        "actionList" : [ {
+          "type" : "MousePointAction",
+          "actionBootType" : "MOVE_MOUSE",
+          "point" : "(1356;553)",
+          "image" : null,
+          "threshold" : 90.0
+        } ],
+        "groupName" : "Grupa",
+        "numberOfIterations" : "1"
+      } ],
+      "groupName" : "Grupa",
+      "numberOfIterations" : "1"
+    }, {
+      "type" : "MousePointAction",
+      "actionBootType" : "MOVE_MOUSE",
+      "point" : "(1316;357)",
+      "image" : null,
+      "threshold" : 90.0
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

@@ -4,7 +4,6 @@ import io.kotest.matchers.beInstanceOf
 import io.kotest.matchers.nulls.beNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
-import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 

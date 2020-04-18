@@ -31,8 +31,7 @@ class RootSchemaGroupModel(
 
     fun runAutomation() {
         try {
-            val schemaGroupModel = schemaGroupModel
-            val runTask = createRunTask(schemaGroupModel)
+            val runTask = createRunTask()
             Thread(runTask).start()
         } catch (e: Exception) {
             LogManager.showAndLogException(e)
@@ -43,7 +42,7 @@ class RootSchemaGroupModel(
         automationRunningProperty.set(false)
     }
 
-    private fun createRunTask(schemaGroupModel: SchemaGroupModel): Task<Void> {
+    private fun createRunTask(): Task<Void> {
         return object : Task<Void>() {
             override fun call(): Void? {
                 automationRunningProperty.set(true)

@@ -9,7 +9,7 @@ enum class ActionBootSchema(
         val validation: Validationable? = null
 ) : ActionBootable {
 
-    ADD_GROUP("robot.action.addGroup", null);
+    SCHEMA_GROUP("robot.action.addGroup", null);
 
     override fun validation(): Validationable? {
         return this.validation

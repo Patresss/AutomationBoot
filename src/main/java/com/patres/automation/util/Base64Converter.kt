@@ -23,5 +23,5 @@ object Base64Converter {
         return ByteArrayInputStream(Base64.getDecoder().decode(string))
     }
 
-    fun base64ToByteArray(base64: String) = Base64Converter.calculateByteArrayOutputStream(base64ToInputStream(base64)).toByteArray()
+    fun base64ToByteArray(base64: String) = calculateByteArrayOutputStream(base64ToInputStream(base64)).toByteArray()
 }

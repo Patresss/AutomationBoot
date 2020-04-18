@@ -27,7 +27,7 @@ enum class MenuItem(
     START_RECORD(FontAwesomeIcon.CIRCLE, null, null, "robot.action.record.start", menuItemHandler = MenuItemHandlers.startRecord),
     STOP_RECORD(FontAwesomeIcon.CIRCLE_ALT, null, null, "robot.action.record.stop", menuItemHandler = MenuItemHandlers.stopRecord),
 
-    ADD_GROUP(FontAwesomeIcon.OBJECT_GROUP, ActionBootSchema.ADD_GROUP, null, menuItemHandler = MenuItemHandlers.addGroup),
+    ADD_GROUP(FontAwesomeIcon.OBJECT_GROUP, ActionBootSchema.SCHEMA_GROUP, null, menuItemHandler = MenuItemHandlers.addGroup),
 
     DELAY_ITEM(FontAwesomeIcon.HOURGLASS, ActionBootDelay.DELAY, null),
     MOVE_MOUSE(FontAutomationIcon.MOVE_MOUSE, ActionBootMousePoint.MOVE_MOUSE, null),

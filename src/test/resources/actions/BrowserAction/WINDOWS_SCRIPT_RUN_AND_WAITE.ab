@@ -1,0 +1,18 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "BrowserAction",
+      "actionBootType" : "WINDOWS_SCRIPT_RUN_AND_WAITE",
+      "path" : "${PROJECT_PATH}\\src\\test\\resources\\test-files\\createNewFile.bat"
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

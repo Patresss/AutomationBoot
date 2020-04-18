@@ -1,0 +1,18 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "KeyboardFieldAction",
+      "actionBootType" : "PRESS_KEYBOARD_BUTTON",
+      "keys" : [ "SHIFT", "A" ]
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

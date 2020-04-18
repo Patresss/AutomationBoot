@@ -7,7 +7,7 @@ class SchemaGroupModel(
         val actions: List<AbstractAction>,
         val iteration: Int,
         val automationRunningProperty: BooleanProperty?
-) : AbstractAction(ActionBootSchema.ADD_GROUP) {
+) : AbstractAction(ActionBootSchema.SCHEMA_GROUP) {
 
     override fun runAction() {
         for (i in 0 until iteration) {
