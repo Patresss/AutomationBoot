@@ -40,9 +40,9 @@ abstract class PasteTextAction(
     abstract fun getText(): String
 
     override fun validate() {
-        actionBoot.validation()?.check(value)
+        actionBootType.validation()?.check(value)
     }
 
-    override fun toStringLog() = "Action: `$actionBoot` | value: `$value`"
+    override fun toStringLog() = "Action: `$actionBootType` | value: `$value`"
 
 }

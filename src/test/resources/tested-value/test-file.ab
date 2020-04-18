@@ -1,0 +1,20 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "MousePointAction",
+      "actionBootType" : "MOVE_MOUSE",
+      "point" : "(833;233)",
+      "image" : null,
+      "threshold" : 90.0
+    } ],
+    "groupName" : "Grupa",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null
+}

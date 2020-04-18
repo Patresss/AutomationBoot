@@ -12,9 +12,8 @@ import javafx.scene.text.Text
 import javafx.util.Callback
 
 class DelayActionController(
-        action: ActionBootDelay,
-        fxmlFile: String = "DelayAction.fxml"
-) : TextActionController<ActionBootDelay>(fxmlFile, action) {
+        action: ActionBootDelay
+) : TextActionController<ActionBootDelay>("DelayAction.fxml", action) {
 
     @FXML
     lateinit var comboBox: ComboBox<DelayType>

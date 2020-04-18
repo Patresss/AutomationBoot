@@ -4,8 +4,8 @@ import com.patres.automation.type.ActionBootSchema
 import javafx.beans.property.BooleanProperty
 
 class SchemaGroupModel(
-        private val actions: List<AbstractAction>,
-        private val iteration: Int,
+        val actions: List<AbstractAction>,
+        val iteration: Int,
         val automationRunningProperty: BooleanProperty?
 ) : AbstractAction(ActionBootSchema.ADD_GROUP) {
 
@@ -27,6 +27,6 @@ class SchemaGroupModel(
         }
     }
 
-    override fun toStringLog() = "Action: `$actionBoot` | iteration: `$iteration`"
+    override fun toStringLog() = "Action: `$actionBootType` | iteration: `$iteration` | number of actions: `${actions.size}"
 
 }

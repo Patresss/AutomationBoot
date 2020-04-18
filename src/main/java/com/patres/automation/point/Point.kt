@@ -4,7 +4,7 @@ package com.patres.automation.point
 import com.patres.automation.excpetion.PointVectorFormatException
 import java.awt.MouseInfo
 
-class Point(
+data class Point(
         var x: Int,
         var y: Int,
         var vector: Boolean = false
@@ -51,4 +51,6 @@ class Point(
         }
 
     }
+
+
 }

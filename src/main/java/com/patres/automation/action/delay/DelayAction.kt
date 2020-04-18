@@ -6,9 +6,9 @@ import com.patres.automation.type.ActionBootDelay
 import javafx.beans.property.BooleanProperty
 
 class DelayAction(
-        private val delay: Long,
+        val delay: Long,
         private val canBeRunningProperty: BooleanProperty?,
-        private val delayType: DelayType = DelayType.MILLISECONDS
+        val delayType: DelayType = DelayType.MILLISECONDS
 ) : AbstractAction(ActionBootDelay.DELAY) {
 
     companion object {
@@ -28,5 +28,5 @@ class DelayAction(
         }
     }
 
-    override fun toStringLog() = "Action: `$actionBoot` | delay: `$delay`, delayType: `$delayType`"
+    override fun toStringLog() = "Action: `$actionBootType` | delay: `$delay`, delayType: `$delayType`"
 }

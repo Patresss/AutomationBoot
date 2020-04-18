@@ -17,6 +17,6 @@ class RunExistingSchemaAction(
 //        actionBoot.validation()?.check(path)
     }
 
-    override fun toStringLog() = "Action: `$actionBoot` | schema: `$schema`"
+    override fun toStringLog() = "Action: `$actionBootType` | schema: `$schema`"
 
 }

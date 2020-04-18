@@ -9,8 +9,8 @@ class ScrollWheelDownAction(numberOfScrolls: Int) : ScrollWheelAction(numberOfSc
 class ScrollWheelUpAction(numberOfScrolls: Int) : ScrollWheelAction(numberOfScrolls, false, ActionBootTextField.SCROLL_WHEEL_UP)
 
 abstract class ScrollWheelAction(
-        private val numberOfScrolls: Int,
-        private val down: Boolean,
+        val numberOfScrolls: Int,
+        val down: Boolean,
         actionBoot: ActionBootable
 ) : AbstractAction(actionBoot) {
 
@@ -27,7 +27,7 @@ abstract class ScrollWheelAction(
         }
     }
 
-    override fun toStringLog() = "Action: `$actionBoot` | down: `$down`, numberOfScrolls: `$numberOfScrolls`"
+    override fun toStringLog() = "Action: `$actionBootType` | down: `$down`, numberOfScrolls: `$numberOfScrolls`"
 
 
 }

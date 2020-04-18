@@ -11,26 +11,26 @@ import javafx.beans.property.BooleanProperty
 object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, TextAreaActionSerialized> {
 
     override fun controllerToModel(controller: TextAreaActionController): AbstractAction {
-        return calculateTExtAreaModel(controller.action, controller.value, controller.root?.automationRunningProperty)
+        return calculateTextAreaModel(controller.actionBoot, controller.value, controller.root?.automationRunningProperty)
     }
 
     override fun controllerToSerialized(controller: TextAreaActionController): TextAreaActionSerialized {
         return controller.run {
-            TextAreaActionSerialized(action, value)
+            TextAreaActionSerialized(actionBoot, value)
         }
     }
 
     override fun serializedToController(serialized: TextAreaActionSerialized): TextAreaActionController {
-        return TextAreaActionController(serialized.actionType).apply {
+        return TextAreaActionController(serialized.actionBootType).apply {
             value = serialized.value
         }
     }
 
     override fun serializedToModel(serialized: TextAreaActionSerialized, automationRunningProperty: BooleanProperty?): AbstractAction {
-        return calculateTExtAreaModel(serialized.actionType, serialized.value, automationRunningProperty)
+        return calculateTextAreaModel(serialized.actionBootType, serialized.value, automationRunningProperty)
     }
 
-    private fun calculateTExtAreaModel(actionType: ActionBootTextArea, value: String, automationRunningProperty: BooleanProperty?): AbstractAction {
+    private fun calculateTextAreaModel(actionType: ActionBootTextArea, value: String, automationRunningProperty: BooleanProperty?): AbstractAction {
         return when (actionType) {
             ActionBootTextArea.PASTE_TEXT -> PasteTextFromFieldAction(value)
             ActionBootTextArea.TYPE_TEXT -> TypeTextFromFieldAction(value, automationRunningProperty)

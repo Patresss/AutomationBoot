@@ -25,7 +25,7 @@ class CheckBoxActionController(
             checkUiValidation()
         }
         checkUiValidation()
-        action.validation()?.getErrorMessageStringBinding()?.let {
+        actionBoot.validation()?.getErrorMessageStringBinding()?.let {
             validLabel.textProperty().bind(it)
         }
     }
@@ -33,12 +33,12 @@ class CheckBoxActionController(
     override fun shouldCheckUiValidation() = true
 
     override fun checkUiValidation() {
-        val valid = action.validation()?.isValid(value) ?: true || !shouldCheckUiValidation()
-        action.validation()?.setStyles(!valid, validLabel, listOf(checkBox))
+        val valid = actionBoot.validation()?.isValid(value) ?: true || !shouldCheckUiValidation()
+        actionBoot.validation()?.setStyles(!valid, validLabel, listOf(checkBox))
     }
 
     override fun checkValidation() {
-        action.validation()?.check(value)
+        actionBoot.validation()?.check(value)
     }
 
     val value: String

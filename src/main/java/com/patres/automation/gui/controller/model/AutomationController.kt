@@ -19,13 +19,13 @@ import javafx.scene.layout.StackPane
 
 abstract class AutomationController<ActionBootType : ActionBootable>(
         fxmlFile: String,
-        action: ActionBootType
+        actionBoot: ActionBootType
 ) : StackPane() {
 
     @FXML
     lateinit var actionLabel: Label
 
-    var action: ActionBootType = action
+    var actionBoot: ActionBootType = actionBoot
         set(value) {
             field = value
             changeErrorMessage()
@@ -49,13 +49,13 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<AutomationController<*>>()
 
-        actionLabel.textProperty().bind(LanguageManager.createStringBinding(action.bundleName()))
+        actionLabel.textProperty().bind(LanguageManager.createStringBinding(actionBoot.bundleName()))
     }
 
     private fun initSelectedAction() {
-        val actions = MenuItem.values().filter { action.javaClass.isInstance(it.actionBoot) }
+        val actions = MenuItem.values().filter { actionBoot.javaClass.isInstance(it.actionBoot) }
         val observableListOfActions = FXCollections.observableList(actions)
-        val selected = actions.firstOrNull { it.actionBoot == action }
+        val selected = actions.firstOrNull { it.actionBoot == actionBoot }
         if (observableListOfActions.size > 1 && selected != null) {
             actionLabel.isVisible = false
             val rowIndex = GridPane.getRowIndex(actionLabel) ?: 0
@@ -66,7 +66,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
                 setCellFactory { factory.createCell() }
                 buttonCell = factory.createButtonCell()
                 selectionModel.select(selected)
-                valueProperty().addListener { _, _, newValue -> action = newValue.actionBoot as ActionBootType }
+                valueProperty().addListener { _, _, newValue -> actionBoot = newValue.actionBoot as ActionBootType }
                 toBack()
             }
             gridPane.add(actionComboBox, columnIndex, rowIndex)

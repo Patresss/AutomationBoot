@@ -19,7 +19,7 @@ class BrowseFileActionController(
 
     @FXML
     fun browseFile() {
-        val loaderFile = FileChooser(action.fileType, action.director)
+        val loaderFile = FileChooser(actionBoot.fileType, actionBoot.director)
         val file = loaderFile.chooseToLoad(value)
         if (file != null) {
             value = file.absolutePath
@@ -27,7 +27,7 @@ class BrowseFileActionController(
     }
 
     override fun checkValidation() {
-        action.validation?.check(value)
+        actionBoot.validation?.check(value)
     }
 
 }

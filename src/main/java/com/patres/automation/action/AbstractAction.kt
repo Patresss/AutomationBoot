@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 import java.awt.Robot
 
 abstract class AbstractAction(
-        var actionBoot: ActionBootable
+        var actionBootType: ActionBootable
 ) {
 
     companion object {

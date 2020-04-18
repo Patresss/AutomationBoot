@@ -5,7 +5,7 @@ import com.patres.automation.action.mouse.point.PointDetector
 import com.patres.automation.type.ActionBootMousePoint
 
 abstract class MousePointAction(
-        private val pointDetector: PointDetector,
+        val pointDetector: PointDetector,
         actionBoot: ActionBootMousePoint
 ) : AbstractAction(actionBoot) {
 
@@ -24,6 +24,6 @@ abstract class MousePointAction(
 
     abstract fun runMouseAction()
 
-    override fun toStringLog() = "Action: `$actionBoot` | Point: ${pointDetector.calculatePoint()}"
+    override fun toStringLog() = "Action: `$actionBootType` | Point: ${pointDetector.calculatePoint()}"
 
 }

@@ -12,7 +12,6 @@ import java.io.File
 
 object RootSchemaGroupMapper {
 
-
     fun modelToSerialize(model: RootSchemaGroupModel, orgFile: File?): RootSchemaGroupSerialized {
         return RootSchemaGroupSerialized(
                 schemaGroupSerialized = SchemaGroupMapper.controllerToSerialized(model.controller.schemaGroupController),

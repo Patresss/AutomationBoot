@@ -13,24 +13,24 @@ import javafx.beans.property.BooleanProperty
 object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, BrowserActionSerialized> {
 
     override fun controllerToModel(controller: BrowseFileActionController): AbstractAction {
-        return calculateBrowserAction(controller.action, controller.value, controller.root?.automationRunningProperty)
+        return calculateBrowserAction(controller.actionBoot, controller.value, controller.root?.automationRunningProperty)
 
     }
 
     override fun controllerToSerialized(controller: BrowseFileActionController): BrowserActionSerialized {
         return controller.run {
-            BrowserActionSerialized(action, value)
+            BrowserActionSerialized(actionBoot, value)
         }
     }
 
     override fun serializedToController(serialized: BrowserActionSerialized): BrowseFileActionController {
-        return BrowseFileActionController(serialized.actionType).apply {
+        return BrowseFileActionController(serialized.actionBootType).apply {
             value = serialized.path
         }
     }
 
     override fun serializedToModel(serialized: BrowserActionSerialized, automationRunningProperty: BooleanProperty?): AbstractAction {
-        return calculateBrowserAction(serialized.actionType, serialized.path, automationRunningProperty)
+        return calculateBrowserAction(serialized.actionBootType, serialized.path, automationRunningProperty)
     }
 
     private fun calculateBrowserAction(actionType: ActionBootBrowser, path: String, automationRunningProperty: BooleanProperty?): AbstractAction {

@@ -13,14 +13,16 @@ import java.io.File
 class TypeTextFromFieldAction(private val text: String, automationRunningProperty: BooleanProperty?) : TypeTextAction(automationRunningProperty, ActionBootTextArea.TYPE_TEXT) {
     override fun getText() = text
 
-    override fun toStringLog() = "Action: `$actionBoot` | text: `$text`"
+    override fun toStringLog() = "Action: `$actionBootType` | text: `$text`"
 
 }
 
 class TypeTextFromFileAction(private val path: String, automationRunningProperty: BooleanProperty?) : TypeTextAction(automationRunningProperty, ActionBootBrowser.TYPE_TEXT_FROM_FILE) {
-    override fun getText() = File(path).readText()
+    override fun getText(): String {
+        return File(path).readText()
+    }
 
-    override fun toStringLog() = "Action: `$actionBoot` | text: `$path`"
+    override fun toStringLog() = "Action: `$actionBootType` | text: `$path`"
 
 }
 

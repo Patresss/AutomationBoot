@@ -30,16 +30,16 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
     override fun shouldCheckUiValidation() = value.isNotEmpty()
 
     override fun checkUiValidation() {
-        val valid = action.validation()?.isValid(value) ?: true || !shouldCheckUiValidation()
-        action.validation()?.setStyles(!valid, validLabel, listOf(valueText))
+        val valid = actionBoot.validation()?.isValid(value) ?: true || !shouldCheckUiValidation()
+        actionBoot.validation()?.setStyles(!valid, validLabel, listOf(valueText))
     }
 
     override fun checkValidation() {
-        action.validation()?.check(value)
+        actionBoot.validation()?.check(value)
     }
 
     override fun changeErrorMessage() {
-        action.validation()?.getErrorMessageStringBinding()?.let {
+        actionBoot.validation()?.getErrorMessageStringBinding()?.let {
             validLabel.textProperty().bind(it)
         }
     }
