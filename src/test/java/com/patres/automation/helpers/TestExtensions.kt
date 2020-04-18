@@ -10,7 +10,7 @@ import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
 fun <T> T.shouldNotBeNullAndCheck(block: T.() -> Unit) {
-        contract {
+    contract {
         returns() implies (this@shouldNotBeNullAndCheck != null)
     }
     this shouldNot beNull()
