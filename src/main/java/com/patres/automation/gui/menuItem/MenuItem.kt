@@ -60,6 +60,7 @@ enum class MenuItem(
     PASTE_TEXT_FROM_FILE(FontAwesomeIcon.PASTE, ActionBootBrowser.PASTE_TEXT_FROM_FILE, KEYBOARD),
     TYPE_TEXT(FontAwesomeIcon.KEYBOARD_ALT, ActionBootTextArea.TYPE_TEXT, KEYBOARD),
     TYPE_TEXT_FROM_FILE(FontAwesomeIcon.KEYBOARD_ALT, ActionBootBrowser.TYPE_TEXT_FROM_FILE, KEYBOARD),
+    PRESS_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, ActionBootKeyboard.PRESS_KEYBOARD_BUTTON, KEYBOARD), 
 //    HOLD_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, ActionBootKeyboard.HOLD_KEYBOARD_BUTTON, KEYBOARD), // hold using roboto doesn't work
 //    RELEASE_KEYBOARD_BUTTON(FontAwesomeIcon.KEYBOARD_ALT, ActionBootKeyboard.RELEASE_KEYBOARD_BUTTON, KEYBOARD),
 
