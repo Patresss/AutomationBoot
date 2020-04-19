@@ -3,6 +3,7 @@ package com.patres.automation.gui.controller
 import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXPopup
+import com.jfoenix.skins.JFXPopupSkin
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.IconButton
 import com.patres.automation.gui.menuItem.MenuItem
@@ -17,6 +18,7 @@ import javafx.scene.control.ListCell
 import javafx.scene.control.ListView
 import javafx.scene.control.Separator
 import javafx.scene.control.Tooltip
+import javafx.scene.effect.DropShadow
 import javafx.util.Callback
 
 
@@ -100,7 +102,11 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         listView.styleClass.add("action-bar")
         val popup = JFXPopup(listView)
         listViews.add(listView)
-        button.setOnMouseClicked { popup.show(button, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 35.0, 0.0) }
+        popup.setOnShown {
+            // workaround to disable shadow on the left (buttons cannot be clicked)
+            ((popup.skin as JFXPopupSkin?)?.node?.effect as DropShadow?)?.widthProperty()?.value = 15.0
+        }
+        button.setOnMouseClicked { popup.show(button, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 36.0, 0.0) }
     }
 
     fun updateDisabledButtons() {
