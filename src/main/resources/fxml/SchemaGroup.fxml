@@ -2,49 +2,50 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.layout.*?>
-<fx:root fx:id="outsideBox" minHeight="100.0" styleClass="outside-schema-box" type="StackPane"
-         xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane fx:id="gridPane" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-              minWidth="-Infinity" styleClass="grid-outside-schema-box" vgap="10.0" StackPane.alignment="TOP_LEFT">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root fx:id="outsideBox" minHeight="100.0" styleClass="outside-schema-box" type="StackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane fx:id="gridPane" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="grid-outside-schema-box" vgap="10.0" StackPane.alignment="TOP_LEFT">
         <columnConstraints>
-            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0"/>
-            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0"/>
-            <ColumnConstraints/>
-            <ColumnConstraints/>
+            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
+            <ColumnConstraints />
+            <ColumnConstraints />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="-Infinity"/>
+            <RowConstraints minHeight="-Infinity" />
         </rowConstraints>
         <StackPane.margin>
-            <Insets left="20.0" top="-12.0"/>
+            <Insets left="20.0" top="-12.0" />
         </StackPane.margin>
         <children>
-            <JFXTextField fx:id="groupNameTextField" alignment="TOP_LEFT" promptText="%group" text="%group"/>
-            <JFXTextField fx:id="iterationsTextField" promptText="%iternation.1" text="1" GridPane.columnIndex="1"/>
+            <JFXTextField fx:id="groupNameTextField" alignment="TOP_LEFT" promptText="%group" text="%group" />
+            <JFXTextField fx:id="iterationsTextField" promptText="%iternation.1" text="1" GridPane.columnIndex="1" />
         </children>
         <padding>
-            <Insets right="10.0"/>
+            <Insets right="10.0" />
         </padding>
     </GridPane>
-    <VBox fx:id="innerBox" spacing="20.0">
+    <VBox fx:id="innerBox" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
         <StackPane.margin>
-            <Insets/>
+            <Insets />
         </StackPane.margin>
-        <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="30.0"/>
-        </padding>
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+      </padding>
     </VBox>
-    <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane"
-               StackPane.alignment="CENTER_LEFT">
+    <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" StackPane.alignment="CENTER_LEFT">
         <StackPane.margin>
-            <Insets left="-10.0"/>
+            <Insets left="-10.0" />
         </StackPane.margin>
-        <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0"
-                   onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
+        <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
         </JFXButton>
     </StackPane>
