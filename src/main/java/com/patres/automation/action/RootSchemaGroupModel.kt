@@ -65,7 +65,7 @@ class RootSchemaGroupModel(
     }
 
     fun saveTmpFile() {
-        TmpFileLoader.saveTmpFile(this) // TODO refactor -> 1 loader per root - not singleton
+        TmpFileLoader.saveTmpFile(this)
     }
 
     fun changeDetect() {

@@ -7,12 +7,10 @@ import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.RootSchemaGroupMapper
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
-import org.slf4j.LoggerFactory
 import java.io.File
 
 object TmpFileLoader {
 
-    private val logger = LoggerFactory.getLogger(TmpFileLoader::class.java)
     private val extension = FileType.TEMP_AUTOMATION_BOOT.extension
     private val filenameBinding = LanguageManager.createStringBinding("rootSchema.defaultFileName")
 
