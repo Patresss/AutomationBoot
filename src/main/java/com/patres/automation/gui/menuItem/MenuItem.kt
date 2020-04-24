@@ -15,8 +15,7 @@ enum class MenuItem(
         val shouldBeDisabled: (controller: RootSchemaGroupController) -> Boolean = { false },
         val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = actionBoot?.addController() ?: {},
         val actionGraphic: GlyphIcons = graphic,
-        val enabledForChangeDetector: Boolean = true,
-        val shouldBeVisible: (controller: RootSchemaGroupController) -> Boolean = { true }
+        val enabledForChangeDetector: Boolean = true
 ) {
 
     RUN(FontAwesomeIcon.PLAY, null, null, "robot.action.runAutomation", menuItemHandler = MenuItemHandlers.runAutomation, enabledForChangeDetector = false),
@@ -73,8 +72,7 @@ enum class MenuItem(
     SETTINGS(FontAwesomeIcon.GEAR, null, null, "menu.settings.localSettings", menuItemHandler = { root: RootSchemaGroupModel -> root.controller.openLocalSettings() });
 
     companion object {
-        fun findAllWithAction(action: MenuItem) = MenuItem.values().filter { it.parent == action }
-        inline fun <reified T : ActionBootable> findAllWithThisSameActionType() = MenuItem.values().map { it.actionBoot }.filterIsInstance<T>()
+        fun findAllWithAction(action: MenuItem) = values().filter { it.parent == action }
     }
 
 }

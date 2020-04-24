@@ -25,12 +25,20 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     @FXML
     lateinit var actionLabel: Label
 
+    @FXML
+    lateinit var gridPane: GridPane
+
     var actionBoot: ActionBootType = actionBoot
         set(value) {
             field = value
             changeErrorMessage()
             checkUiValidation()
         }
+
+    @FXML
+    open fun initialize() {
+        initSelectedAction()
+    }
 
     open fun checkValidation() {}
     open fun checkUiValidation() {}
@@ -52,6 +60,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
         actionLabel.textProperty().bind(LanguageManager.createStringBinding(actionBoot.bundleName()))
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun initSelectedAction() {
         val actions = MenuItem.values().filter { actionBoot.javaClass.isInstance(it.actionBoot) }
         val observableListOfActions = FXCollections.observableList(actions)
@@ -66,20 +75,15 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
                 setCellFactory { factory.createCell() }
                 buttonCell = factory.createButtonCell()
                 selectionModel.select(selected)
-                valueProperty().addListener { _, _, newValue -> actionBoot = newValue.actionBoot as ActionBootType }
+                valueProperty().addListener { _, _, newValue ->
+                    actionBoot = newValue.actionBoot as ActionBootType
+                }
                 toBack()
             }
             gridPane.add(actionComboBox, columnIndex, rowIndex)
         }
     }
 
-    @FXML
-    lateinit var gridPane: GridPane
-
-    @FXML
-    open fun initialize() {
-        initSelectedAction()
-    }
 
     fun getMainNode(): Node = this
 

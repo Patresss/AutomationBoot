@@ -62,13 +62,13 @@ class RootSchemaLoader(val mainController: MainController) {
             findActiveSchema(fileToOpen)?.also {
                 logger.debug("Open existing active schema")
                 mainController.activeSchemasController.removeActiveSchemaFromList(it)
-                val openRootSchema = createTabContainer(it)
+                createTabContainer(it)
                 mainController.snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaWasInTheActiveSchemas")
             } ?:
             // Open if doesn't exist
             run {
                 logger.debug("Open schema")
-                val openRootSchema = openRootSchema(fileToOpen)
+                openRootSchema(fileToOpen)
             }
         }
     }

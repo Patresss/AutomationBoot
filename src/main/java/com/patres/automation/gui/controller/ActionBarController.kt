@@ -85,7 +85,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     }
 
     private fun createPopup(nestedAction: List<MenuItem>, button: JFXButton) {
-        val actions = FXCollections.observableArrayList<MenuItem>(nestedAction)
+        val actions = FXCollections.observableArrayList(nestedAction)
         val listView = JFXListView<MenuItem>().apply { items = actions }
 
         listView.cellFactory = Callback {

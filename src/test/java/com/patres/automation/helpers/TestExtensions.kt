@@ -4,15 +4,8 @@ import io.kotest.matchers.beInstanceOf
 import io.kotest.matchers.nulls.beNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
 
-
-@OptIn(ExperimentalContracts::class)
 fun <T> T.shouldNotBeNullAndCheck(block: T.() -> Unit) {
-    contract {
-        returns() implies (this@shouldNotBeNullAndCheck != null)
-    }
     this shouldNot beNull()
     block()
 }

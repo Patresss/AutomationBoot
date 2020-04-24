@@ -26,11 +26,10 @@ fun TextInputControl.setIntegerFilter() {
         }
     }
 }
-
+@Suppress("UNCHECKED_CAST")
 fun Parent.swap(node: Node, nodeToSwap: Node) {
     // Workaround for private members
     val childrenFromField = getObjectFromField(Parent::class, this, "children") as ObservableList<Node>
-    val childSetFromField = getObjectFromField(Parent::class, this, "childSet") as Set<Node>
     val childrenTriggerPermutationField = Parent::class.java.getDeclaredField("childrenTriggerPermutation")
     childrenTriggerPermutationField.isAccessible = true
 
@@ -106,7 +105,7 @@ fun GlyphIcons.getIcon(size: String): GlyphIcon<*>? {
     return graphic
 }
 
-
+@Suppress("UNCHECKED_CAST")
 fun <T : Node> Node.calculateTypedParent(type: KClass<T>): T? {
     val potentialParent = parent
     return when {

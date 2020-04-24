@@ -93,8 +93,8 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     private fun addMouseListener() {
         pane.setOnMousePressed { pressedEvent ->
             loadPressedHandler(pressedEvent)
-            pane.onMouseDragged = EventHandler<MouseEvent> { this.loadDraggedHandler(it) }
-            pane.onMouseReleased = EventHandler<MouseEvent> { this.loadReleasedHandler(it) }
+            pane.onMouseDragged = EventHandler { this.loadDraggedHandler(it) }
+            pane.onMouseReleased = EventHandler { this.loadReleasedHandler(it) }
         }
     }
 
@@ -104,6 +104,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
                 MouseButton.PRIMARY -> mode = PointerMode.POINT
                 MouseButton.MIDDLE -> mode = PointerMode.IMAGE
                 MouseButton.SECONDARY -> mode = PointerMode.VECTOR
+                else -> {}
             }
         }
 
