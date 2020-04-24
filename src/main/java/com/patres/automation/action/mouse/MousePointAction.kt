@@ -9,16 +9,11 @@ abstract class MousePointAction(
         actionBoot: ActionBootMousePoint
 ) : AbstractAction(actionBoot) {
 
-    companion object {
-        private const val DELAY = 150L // TODO add to propertied
-    }
-
     override fun runAction() {
         val point = pointDetector.calculatePoint()
         point?.let {
             robot.mouseMove(point.xPositionPointVector, point.yPositionPointVector)
             runMouseAction()
-            Thread.sleep(DELAY)
         }
     }
 

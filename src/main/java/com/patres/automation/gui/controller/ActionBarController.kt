@@ -89,7 +89,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         val listView = JFXListView<MenuItem>().apply { items = actions }
 
         listView.cellFactory = Callback {
-            object : ListCell<MenuItem>() {  // TODO add JFX component JFXListCell if the issue "A bound value cannot be set." will be fixed
+            object : ListCell<MenuItem>() {  // add JFX component JFXListCell if the issue "A bound value cannot be set." will be fixed
                 override fun updateItem(item: MenuItem?, empty: Boolean) {
                     super.updateItem(item, empty)
                     if (item != null) {
