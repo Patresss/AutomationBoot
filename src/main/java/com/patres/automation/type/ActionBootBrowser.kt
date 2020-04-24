@@ -1,7 +1,8 @@
 package com.patres.automation.type
 
 import com.patres.automation.file.FileType
-import com.patres.automation.gui.controller.model.AutomationController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.BrowseFileActionController
 import com.patres.automation.validation.*
 
@@ -32,6 +33,6 @@ enum class ActionBootBrowser(
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { BrowseFileActionController(this) }
+    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(BrowseFileActionController(this)) }
 
 }

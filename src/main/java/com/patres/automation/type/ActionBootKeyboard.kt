@@ -1,6 +1,7 @@
 package com.patres.automation.type
 
-import com.patres.automation.gui.controller.model.AutomationController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.validation.Validationable
 
@@ -28,6 +29,6 @@ enum class ActionBootKeyboard(
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { KeyboardButtonActionController(this) }
+    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(KeyboardButtonActionController(this)) }
 
 }

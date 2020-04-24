@@ -1,6 +1,7 @@
 package com.patres.automation.type
 
-import com.patres.automation.gui.controller.model.AutomationController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.TextAreaActionController
 import com.patres.automation.validation.Validationable
 
@@ -21,6 +22,6 @@ enum class ActionBootTextArea(
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { TextAreaActionController(this) }
+    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(TextAreaActionController(this)) }
 
 }

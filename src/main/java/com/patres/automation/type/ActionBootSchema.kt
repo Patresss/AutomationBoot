@@ -1,6 +1,7 @@
 package com.patres.automation.type
 
-import com.patres.automation.gui.controller.model.AutomationController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.SchemaGroupController
 import com.patres.automation.validation.Validationable
 
 
@@ -19,6 +20,6 @@ enum class ActionBootSchema(
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { TODO() }
+    override fun createActinBox(): () -> AbstractBox<*> = { SchemaGroupController() }
 
 }

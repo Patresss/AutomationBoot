@@ -5,15 +5,9 @@ import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
 import com.patres.automation.gui.controller.MainController
-import com.patres.automation.gui.controller.model.AutomationController
-import com.patres.automation.gui.controller.model.CheckBoxActionController
-import com.patres.automation.gui.controller.model.KeyboardButtonActionController
-import com.patres.automation.gui.controller.model.TextFieldActionController
+import com.patres.automation.gui.controller.model.*
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.type.ActionBootCheckBox
-import com.patres.automation.type.ActionBootKeyboard
-import com.patres.automation.type.ActionBootTextField
-import com.patres.automation.type.ChooseLanguageActionBootComboBox
+import com.patres.automation.type.*
 import javafx.collections.ListChangeListener
 
 

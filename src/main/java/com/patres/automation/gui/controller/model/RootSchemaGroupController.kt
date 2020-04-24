@@ -100,11 +100,6 @@ open class RootSchemaGroupController(
         }
     }
 
-    fun addActionBlocks(actionController: AutomationController<*>) {
-        val actionBox = ActionBox(actionController)
-        addActionBlocks(actionBox)
-    }
-
     fun addActionBlocks(actionBox: AbstractBox<*>) {
         val selectedModelVal = selectedModel
         selectedModelVal.addNewAction(actionBox)

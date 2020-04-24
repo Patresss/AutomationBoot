@@ -16,9 +16,7 @@ import javafx.scene.layout.BorderPane
 import javafx.scene.layout.StackPane
 
 
-abstract class AbstractBox<ActionBootType : ActionBootable>(
-        fxmlFile: String
-) : StackPane() {
+abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : StackPane() {
 
     @FXML
     lateinit var rootPane: StackPane

@@ -1,6 +1,7 @@
 package com.patres.automation.type
 
-import com.patres.automation.gui.controller.model.AutomationController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.validation.PointVectorValidation
 import com.patres.automation.validation.Validationable
@@ -38,6 +39,6 @@ enum class ActionBootMousePoint(
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { MousePointActionController(this) }
+    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(MousePointActionController(this)) }
 
 }

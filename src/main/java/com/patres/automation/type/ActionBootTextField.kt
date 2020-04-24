@@ -1,6 +1,7 @@
 package com.patres.automation.type
 
-import com.patres.automation.gui.controller.model.AutomationController
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.TextFieldActionController
 import com.patres.automation.validation.PortValidation
 import com.patres.automation.validation.PositiveIntegerValidation
@@ -28,6 +29,6 @@ enum class ActionBootTextField(
         return this.bundleName
     }
 
-    override fun createController(): () -> AutomationController<*> = { TextFieldActionController(this) }
+    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(TextFieldActionController(this)) }
 
 }
