@@ -51,13 +51,13 @@ idea {
 def applicationProperties = new Properties()
 file("src/main/resources/system/application.properties").withInputStream { applicationProperties.load(it) }
 
+def title = applicationProperties.getProperty("application.title")
+description = applicationProperties.getProperty("application.description")
+version = applicationProperties.getProperty("application.version")
 
 group 'com.patres'
-version applicationProperties.getProperty("application.version")
 
 mainClassName = 'automationBoot/com.patres.automation.ApplicationLauncher'
-project.version = applicationProperties.getProperty("application.version")
-project.description = applicationProperties.getProperty("application.description")
 project.ext.buildDate = new Date()
 
 sourceCompatibility = "$java_version"
@@ -131,7 +131,7 @@ jlink {
     }
 
     launcher {
-        name = 'automationBoot'
+        name = title
         jvmArgs = [
                 "--add-opens=java.base/java.lang=opencv",
                 "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
@@ -144,13 +144,13 @@ jlink {
 
     jpackage {
         installerOptions = [
-                '--description', project.description,
+                '--description', description,
                 '--copyright', 'Copyrigth 2020 Patres - Patryk Piechaczek'
         ]
 //        installerType = project.findProperty('installerType') // we will pass this from the command line (example: -PinstallerType=msi)
         installerType = 'msi'
         if (installerType == 'msi') {
-            imageOptions += ['--icon', 'src/main/resources/image/icon.ico']
+            imageOptions += ['--icon', 'src/main/resources/icon/desktop/main_icon.ico']
             installerOptions += [
                     '--win-per-user-install',
                     '--win-dir-chooser',
@@ -194,7 +194,7 @@ jar {
     manifest {
         attributes(
                 'Main-Class': 'com.patres.automation.ApplicationLauncher',
-                'Implementation-Title': applicationProperties.getProperty("application.title"),
-                'Implementation-Version': applicationProperties.getProperty("application.version"))
+                'Implementation-Title': title,
+                'Implementation-Version': version)
     }
 }
