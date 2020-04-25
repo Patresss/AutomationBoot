@@ -6,7 +6,6 @@ module automationBoot {
     requires slf4j.api;
     requires java.desktop;
     requires opencv;
-    requires fontawesomefx.fontawesome;
     requires de.jensd.fx.glyphs.commons;
     requires jnativehook;
     requires java.logging;
@@ -16,6 +15,7 @@ module automationBoot {
     requires jackson.module.kotlin;
     requires kotlin.reflect;
     requires jdk.httpserver;
+    requires de.jensd.fx.glyphs.fontawesome;
 
     opens com.patres.automation to javafx.fxml, javafx.graphics;
     opens com.patres.automation.gui.controller to javafx.fxml;

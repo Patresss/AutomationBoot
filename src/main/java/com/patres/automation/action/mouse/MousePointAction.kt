@@ -19,6 +19,6 @@ abstract class MousePointAction(
 
     abstract fun runMouseAction()
 
-    override fun toStringLog() = "Action: `$actionBootType` | Point: ${pointDetector.calculatePoint()}"
+    override fun toStringLog() = "Action: `$actionBootType` | Point: $pointDetector"
 
 }

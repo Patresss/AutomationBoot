@@ -16,4 +16,6 @@ class ImagePointDetector(
         return imageToPointConverter.calculatePointByTemplateMatchAndLogTime()
     }
 
+    override fun toString() = "ImagePointDetector(templateByteArray=${templateByteArray}, threshold=$threshold)"
+
 }

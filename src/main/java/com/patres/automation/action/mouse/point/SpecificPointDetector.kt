@@ -6,4 +6,6 @@ class SpecificPointDetector(val point: Point) : PointDetector {
 
     override fun calculatePoint() = point
 
+    override fun toString() = "SpecificPointDetector(point=$point)"
+
 }

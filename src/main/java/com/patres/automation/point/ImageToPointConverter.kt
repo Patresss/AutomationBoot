@@ -31,8 +31,8 @@ class ImageToPointConverter(private val templateByteArray: ByteArray, private va
 
     private fun calculatePointByTemplateMatch(): Point? {
         val screenShoot = calculateByteArrayFromAllMonitors()
-        val image = Imgcodecs.imdecode(MatOfByte(*screenShoot), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED)
-        val template = Imgcodecs.imdecode(MatOfByte(*templateByteArray), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED)
+        val image = Imgcodecs.imdecode(MatOfByte(*screenShoot), Imgcodecs.IMREAD_UNCHANGED)
+        val template = Imgcodecs.imdecode(MatOfByte(*templateByteArray), Imgcodecs.IMREAD_UNCHANGED)
 
         val resultCols = image.cols() - template.cols() + 1
         val resultRows = image.rows() - template.rows() + 1

@@ -13,6 +13,7 @@ import javafx.scene.image.Image
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
+import nu.pattern.OpenCV
 import org.opencv.core.Core
 import org.slf4j.LoggerFactory
 import java.awt.*
@@ -39,9 +40,7 @@ class ApplicationLauncher : Application() {
         @JvmStatic
         fun main(args: Array<String>) {
             logger.info("Application is starting...")
-            nu.pattern.OpenCV.loadShared()
-            System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
-
+            OpenCV.loadLocally()
             if (globalSettings.enableRest) {
                 ServerBoot.run(globalSettings.port)
             }
