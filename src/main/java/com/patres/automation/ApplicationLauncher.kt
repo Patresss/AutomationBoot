@@ -5,6 +5,7 @@ import com.patres.automation.gui.controller.MainController
 import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
+import com.patres.automation.system.ApplicationInfo
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
@@ -14,7 +15,6 @@ import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import nu.pattern.OpenCV
-import org.opencv.core.Core
 import org.slf4j.LoggerFactory
 import java.awt.*
 import java.io.File
@@ -40,11 +40,18 @@ class ApplicationLauncher : Application() {
         @JvmStatic
         fun main(args: Array<String>) {
             logger.info("Application is starting...")
+            checkVersion()
             OpenCV.loadLocally()
             if (globalSettings.enableRest) {
                 ServerBoot.run(globalSettings.port)
             }
             launch(ApplicationLauncher::class.java)
+        }
+
+        private fun checkVersion() {
+            if (globalSettings.applicationVersion != ApplicationInfo.version) {
+                logger.warn("Versions differ from each other - application version ${ApplicationInfo.version} | setting version: ${globalSettings.applicationVersion}")
+            }
         }
 
         fun getStylesheet(): String = ApplicationLauncher::class.java.getResource("/css/style_day.css").toExternalForm()

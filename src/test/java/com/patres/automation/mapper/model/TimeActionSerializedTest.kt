@@ -12,14 +12,15 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import java.io.File
 
-class DelayActionSerializedTest : JfxSerializedSpec({
+class TimeActionSerializedTest : JfxSerializedSpec({
 
     val actionDirectory = "/actions/TimeAction"
     val valueFromFile = "123"
     val delayTypeFroFile = TimeType.SECONDS
+    val mappableActions = listOf(ActionBootTime.DELAY)
 
     "Should map file to serialized" - {
-        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
+        mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name - {
                 // given
                 val filePath = "$actionDirectory/${verifiedAction.name}.ab"
@@ -43,7 +44,7 @@ class DelayActionSerializedTest : JfxSerializedSpec({
     }
 
     "Should map file to serialized to file" - {
-        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
+        mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name - {
                 val filePath = "$actionDirectory/${verifiedAction.name}.ab"
                 testMapFileToSerializedToFile(filePath)

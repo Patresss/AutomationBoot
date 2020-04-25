@@ -14,5 +14,6 @@
     "runActionsKeys" : [ ],
     "endpointName" : ""
   },
-  "orgFile" : null
+  "orgFile" : null,
+  "applicationVersion" : "${APPLICATION_VERSION}"
 }

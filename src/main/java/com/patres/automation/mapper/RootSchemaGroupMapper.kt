@@ -5,6 +5,7 @@ import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.file.FileType
 import com.patres.automation.mapper.model.RootSchemaGroupSerialized
+import com.patres.automation.system.ApplicationInfo
 import com.patres.automation.validation.FileExistValidation
 import com.patres.automation.validation.FileExtensionValidation
 import javafx.beans.property.BooleanProperty
@@ -16,7 +17,8 @@ object RootSchemaGroupMapper {
         return RootSchemaGroupSerialized(
                 schemaGroupSerialized = SchemaGroupMapper.controllerToSerialized(model.controller.schemaGroupController),
                 localSettings = model.localSettings,
-                orgFile = orgFile?.absolutePath
+                orgFile = orgFile?.absolutePath,
+                applicationVersion = ApplicationInfo.version
         )
     }
 
@@ -30,6 +32,7 @@ object RootSchemaGroupMapper {
         return RootSchemaGroupModel(
                 localSettings = serializedModel.localSettings,
                 rootFiles = rootSchemaFiles
+
         ).apply {
             controller.schemaGroupController = SchemaGroupMapper.serializedToController(serializedModel.schemaGroupSerialized)
         }

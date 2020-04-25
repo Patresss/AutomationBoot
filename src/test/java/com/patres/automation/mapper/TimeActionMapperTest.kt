@@ -6,16 +6,18 @@ import com.patres.automation.gui.controller.model.TimeActionController
 import com.patres.automation.helpers.JfxSpec
 import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.mapper.model.TimeActionSerialized
+import com.patres.automation.type.ActionBootTextField
 import com.patres.automation.type.ActionBootTime
 import io.kotest.matchers.shouldBe
 
-class DelayActionMapperTest : JfxSpec({
+class TimeActionMapperTest : JfxSpec({
 
     val testedValue = "123"
     val testedDelayType = TimeType.SECONDS
+    val mappableActions = listOf(ActionBootTime.DELAY)
 
     "Should map serialized to controller" - {
-        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
+        mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
                 val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue.toLong(), testedDelayType))
@@ -34,7 +36,7 @@ class DelayActionMapperTest : JfxSpec({
     }
 
     "Should map serialized to model" - {
-        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
+        mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
                 val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue.toLong(), testedDelayType))
@@ -53,7 +55,7 @@ class DelayActionMapperTest : JfxSpec({
     }
 
     "Should map controller to serialized" - {
-        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
+        mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
                 val controller = TimeActionController(verifiedAction).apply {
@@ -75,7 +77,7 @@ class DelayActionMapperTest : JfxSpec({
     }
 
     "Should map controller to model" - {
-        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
+        mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
                 val controller = TimeActionController(verifiedAction).apply {

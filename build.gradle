@@ -1,3 +1,4 @@
+
 buildscript {
     ext.java_version = '11'
     ext.kotlin_version = '1.3.72'
@@ -47,11 +48,16 @@ idea {
     }
 }
 
-group 'com.patres'
-version '0.1'
+def applicationProperties = new Properties()
+file("src/main/resources/system/application.properties").withInputStream { applicationProperties.load(it) }
 
-project.version = "0.1"
-project.description = "Tool for automation"
+
+group 'com.patres'
+version applicationProperties.getProperty("application.version")
+
+mainClassName = 'automationBoot/com.patres.automation.ApplicationLauncher'
+project.version = applicationProperties.getProperty("application.version")
+project.description = applicationProperties.getProperty("application.description")
 project.ext.buildDate = new Date()
 
 sourceCompatibility = "$java_version"
@@ -91,7 +97,6 @@ dependencies {
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_module_kotlin_version"
 }
 
-mainClassName = 'automationBoot/com.patres.automation.ApplicationLauncher'
 
 compileKotlin {
     kotlinOptions {
@@ -181,4 +186,13 @@ jlink {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.patres.automation.ApplicationLauncher',
+                'Implementation-Title': applicationProperties.getProperty("application.title"),
+                'Implementation-Version': applicationProperties.getProperty("application.version"))
+    }
 }

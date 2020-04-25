@@ -15,8 +15,10 @@ import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.RootSchemaGroupMapper
 import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import com.patres.automation.settings.GlobalSettingsLoader
+import com.patres.automation.system.ApplicationInfo
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+import javafx.application.Application
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.control.Tab
@@ -32,6 +34,9 @@ class RootSchemaLoader(val mainController: MainController) {
         fun createRootSchemaGroupFromFile(fileToOpen: File): RootSchemaGroupModel {
             val serializedRootGroup = fileToOpen.readText()
             val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
+            if (rootGroupSerialized.applicationVersion != ApplicationInfo.version) {
+                logger.warn("Versions differ from each other - application version ${ApplicationInfo.version} | root version: ${rootGroupSerialized.applicationVersion}")
+            }
             return RootSchemaGroupMapper.serializedToModel(rootGroupSerialized, fileToOpen)
         }
 

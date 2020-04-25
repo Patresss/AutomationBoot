@@ -3,6 +3,7 @@ package com.patres.automation.settings
 import com.patres.automation.ApplicationLauncher
 
 import com.patres.automation.mapper.AutomationMapper
+import com.patres.automation.system.ApplicationInfo
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -34,6 +35,7 @@ object GlobalSettingsLoader {
         logger.info("Global settings are saving...")
         val filesToSave = ApplicationLauncher.mainController.tabContainers.map { it.rootSchema.getFilePathToSettings() }
         globalSettings.previousPathFiles = filesToSave
+        globalSettings.applicationVersion = ApplicationInfo.version
 
         val serializedRootGroup = AutomationMapper.toJson(globalSettings)
         val file = File(path)
