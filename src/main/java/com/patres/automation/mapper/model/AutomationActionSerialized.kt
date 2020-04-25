@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.patres.automation.action.AbstractAction
-import com.patres.automation.action.delay.DelayType
+import com.patres.automation.action.delay.TimeContainer
+import com.patres.automation.action.delay.TimeType
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.keyboard.KeyboardKey
@@ -24,7 +25,7 @@ import javafx.beans.property.BooleanProperty
         Type(value = BrowserActionSerialized::class, name = "BrowserAction"),
         Type(value = TextFieldActionSerialized::class, name = "TextFieldAction"),
         Type(value = TextAreaActionSerialized::class, name = "TextAreaAction"),
-        Type(value = DelayActionSerialized::class, name = "DelayAction")
+        Type(value = TimeActionSerialized::class, name = "DelayAction")
 )
 sealed class AutomationActionSerialized {
     abstract fun serializedToController(): AbstractBox<*>
@@ -91,13 +92,12 @@ class TextAreaActionSerialized(
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $value"
 }
 
-class DelayActionSerialized(
-        val actionBootType: ActionBootDelay,
-        val value: String = "",
-        val delayType: DelayType = DelayType.MILLISECONDS
+class TimeActionSerialized(
+        val actionBootType: ActionBootTime,
+        val timeContainer: TimeContainer = TimeContainer(0)
 ) : AutomationActionSerialized() {
-    override fun serializedToController() = ActionBox(DelayActionMapper.serializedToController(this))
-    override fun serializedToModel(automationRunningProperty: BooleanProperty?) = DelayActionMapper.serializedToModel(this, automationRunningProperty)
-    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $value, $delayType"
+    override fun serializedToController() = ActionBox(TimeActionMapper.serializedToController(this))
+    override fun serializedToModel(automationRunningProperty: BooleanProperty?) = TimeActionMapper.serializedToModel(this, automationRunningProperty)
+    override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $timeContainer"
 
 }

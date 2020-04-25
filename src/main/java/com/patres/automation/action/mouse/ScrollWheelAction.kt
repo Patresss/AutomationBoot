@@ -16,14 +16,11 @@ abstract class ScrollWheelAction(
 
     companion object {
         val robot: Robot = Robot()
-        private const val DELAY = 10L
-
     }
 
     override fun runAction() {
         repeat(numberOfScrolls) {
             robot.mouseWheel(if (down) 1 else -1)
-            Thread.sleep(DELAY)
         }
     }
 

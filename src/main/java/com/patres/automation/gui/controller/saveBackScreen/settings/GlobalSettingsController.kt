@@ -1,6 +1,7 @@
 package com.patres.automation.gui.controller.saveBackScreen.settings
 
 import com.patres.automation.ApplicationLauncher
+import com.patres.automation.action.delay.TimeContainer
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
@@ -8,6 +9,7 @@ import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.model.*
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
 import com.patres.automation.type.*
+import com.patres.automation.util.extension.toLongOrZero
 import javafx.collections.ListChangeListener
 
 
@@ -18,6 +20,8 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
     private val stopRecordKeysSettings = KeyboardButtonActionController(ActionBootKeyboard.STOP_RECORDING_KEYS_SETTINGS)
     private val languageComboBox = ChooseLanguageActionBootComboBox().createController().invoke()
 
+    private val additionalDelayBetweenActionsText = TimeActionController(ActionBootTime.ADDITIONAL_DELAY_BETWEEN_ACTIONS)
+
     private val enableRestCheckBox = CheckBoxActionController(ActionBootCheckBox.ENABLE_REST)
     private val portText = TextFieldActionController(ActionBootTextField.PORT)
 
@@ -26,6 +30,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             stopKeysSetting,
             startRecordKeysSettings,
             stopRecordKeysSettings,
+            additionalDelayBetweenActionsText,
             enableRestCheckBox,
             portText)
 
@@ -41,6 +46,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             startRecordKeys = ArrayList(startRecordKeysSettings.keyboardField.keys)
             stopRecordKeys = ArrayList(stopRecordKeysSettings.keyboardField.keys)
             language = languageComboBox.comboBox.value
+            additionalDelayBetweenActions = TimeContainer(additionalDelayBetweenActionsText.value.toLongOrZero(), additionalDelayBetweenActionsText.selectedDelayTime())
             port = portText.value.toInt()
             enableRest = enableRestCheckBox.checkBox.isSelected
         }
@@ -52,6 +58,8 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         startRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
         stopRecordKeysSettings.keyboardField.keys.addListener(ListChangeListener { changeDetect() })
         languageComboBox.comboBox.valueProperty().addListener { _ -> changeDetect() }
+        additionalDelayBetweenActionsText.valueText.textProperty().addListener { _ -> changeDetect() }
+        additionalDelayBetweenActionsText.comboBox.valueProperty().addListener { _ -> changeDetect() }
         portText.valueText.textProperty().addListener { _ ->
             snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING, "message.snackbar.changesAppliedAfterRestart")
             changeDetect()
@@ -78,6 +86,8 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             stopRecordKeysSettings.keyboardField.setKeyboardButtons(stopRecordKeys)
             languageComboBox.comboBox.value = language
             enableRestCheckBox.checkBox.isSelected = enableRest
+            additionalDelayBetweenActionsText.comboBox.value = additionalDelayBetweenActions.type
+            additionalDelayBetweenActionsText.value = additionalDelayBetweenActions.value.toString()
             portText.isVisible = enableRest
             portText.valueText.text = port.toString()
         }

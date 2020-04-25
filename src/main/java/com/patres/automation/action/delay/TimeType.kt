@@ -2,7 +2,7 @@ package com.patres.automation.action.delay
 
 import java.util.concurrent.TimeUnit
 
-enum class DelayType(private val timeUnit: TimeUnit) {
+enum class TimeType(private val timeUnit: TimeUnit) {
 
     HOURS(TimeUnit.HOURS),
     MINUTES(TimeUnit.MINUTES),

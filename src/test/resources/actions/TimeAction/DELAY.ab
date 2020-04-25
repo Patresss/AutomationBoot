@@ -4,8 +4,10 @@
     "actionList" : [ {
       "type" : "DelayAction",
       "actionBootType" : "DELAY",
-      "value" : "123",
-      "delayType" : "SECONDS"
+      "timeContainer" : {
+        "value" : 123,
+        "type" : "SECONDS"
+      }
     } ],
     "groupName" : "Grupa",
     "numberOfIterations" : "1"

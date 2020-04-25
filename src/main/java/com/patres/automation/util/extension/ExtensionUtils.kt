@@ -10,3 +10,11 @@ fun getObjectFromField(clazz: KClass<out Any>, instance: Any, nameOfField: Strin
 }
 
 fun fromBundle(key: String): String = LanguageManager.getLanguageString(key)
+
+fun String?.toLongOrZero(): Long {
+    return try {
+        this?.toLong()?: 0L
+    } catch (e: Exception) {
+        0L
+    }
+}

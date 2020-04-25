@@ -1,9 +1,9 @@
 package com.patres.automation.gui.controller.model
 
 import com.jfoenix.controls.JFXListCell
-import com.patres.automation.action.delay.DelayType
+import com.patres.automation.action.delay.TimeType
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.type.ActionBootDelay
+import com.patres.automation.type.ActionBootTime
 import javafx.fxml.FXML
 import javafx.scene.control.ComboBox
 import javafx.scene.control.ListCell
@@ -11,28 +11,28 @@ import javafx.scene.control.ListView
 import javafx.scene.text.Text
 import javafx.util.Callback
 
-class DelayActionController(
-        action: ActionBootDelay
-) : TextActionController<ActionBootDelay>("DelayAction.fxml", action) {
+class TimeActionController(
+        action: ActionBootTime
+) : TextActionController<ActionBootTime>("DelayAction.fxml", action) {
 
     @FXML
-    lateinit var comboBox: ComboBox<DelayType>
+    lateinit var comboBox: ComboBox<TimeType>
 
     @FXML
     override fun initialize() {
         super.initialize()
         comboBox.cellFactory = createCellFactory()
         comboBox.buttonCell = createButtonCell()
-        comboBox.items.addAll(DelayType.values())
+        comboBox.items.addAll(TimeType.values())
         if (comboBox.value == null) {
-            comboBox.value = DelayType.MILLISECONDS
+            comboBox.value = TimeType.MILLISECONDS
         }
     }
 
-    private fun createCellFactory(): Callback<ListView<DelayType>, ListCell<DelayType>> {
+    private fun createCellFactory(): Callback<ListView<TimeType>, ListCell<TimeType>> {
         return Callback {
-            object : JFXListCell<DelayType>() {
-                override fun updateItem(item: DelayType?, empty: Boolean) {
+            object : JFXListCell<TimeType>() {
+                override fun updateItem(item: TimeType?, empty: Boolean) {
                     super.updateItem(item, empty)
                     if (item != null) {
                         val wrappedText = Text().apply {
@@ -47,9 +47,9 @@ class DelayActionController(
         }
     }
 
-    private fun createButtonCell(): ListCell<DelayType> {
-        return object : ListCell<DelayType>() {
-            override fun updateItem(item: DelayType?, empty: Boolean) {
+    private fun createButtonCell(): ListCell<TimeType> {
+        return object : ListCell<TimeType>() {
+            override fun updateItem(item: TimeType?, empty: Boolean) {
                 super.updateItem(item, empty)
                 if (empty || item == null) {
                     text = null
@@ -65,6 +65,6 @@ class DelayActionController(
         }
     }
 
-    fun selectedDelayTime(): DelayType = comboBox.value ?: DelayType.MILLISECONDS
+    fun selectedDelayTime(): TimeType = comboBox.value ?: TimeType.MILLISECONDS
 
 }

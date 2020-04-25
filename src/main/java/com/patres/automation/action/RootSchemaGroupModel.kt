@@ -52,7 +52,6 @@ class RootSchemaGroupModel(
                     logger.info("Running root actions...")
                     schemaGroupModel.runAction()
                     logger.info("Completed root actions")
-                    Thread.sleep(200)
                 } catch (e: Throwable) {
                     LogManager.showAndLogException(e)
                 } finally {

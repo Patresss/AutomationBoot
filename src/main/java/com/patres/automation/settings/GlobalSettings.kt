@@ -1,5 +1,6 @@
 package com.patres.automation.settings
 
+import com.patres.automation.action.delay.TimeContainer
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.server.ServerBoot
 import org.slf4j.LoggerFactory
@@ -17,7 +18,8 @@ class GlobalSettings(
         var removeDelay: Boolean = true,
         var removeLastAction: Boolean = true,
         var enableRest: Boolean = true,
-        var activeSchemas: MutableList<String> = mutableListOf()
+        var activeSchemas: MutableList<String> = mutableListOf(),
+        var additionalDelayBetweenActions: TimeContainer = TimeContainer(100)
 ) {
 
     companion object {

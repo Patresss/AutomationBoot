@@ -6,7 +6,7 @@ import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.mapper.model.AutomationActionSerialized
-import com.patres.automation.mapper.model.DelayActionSerialized
+import com.patres.automation.mapper.model.TimeActionSerialized
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import javafx.application.Platform
@@ -47,7 +47,7 @@ class SaveRecordedActionsDialog(
 
     private val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, this, JFXDialog.DialogTransition.CENTER)
     private val actionTextMap: Map<AutomationActionSerialized, Label> = actions.map { it to Label(it.toTranslatedString()) }.toMap()
-    private val delayLabels = actionTextMap.filterKeys { it is DelayActionSerialized }.values
+    private val delayLabels = actionTextMap.filterKeys { it is TimeActionSerialized }.values
 
     init {
         actionContainer.children.addAll(actionTextMap.values)
@@ -94,7 +94,7 @@ class SaveRecordedActionsDialog(
     @FXML
     fun save() {
         val controllers = actions
-                .filterNot { removeDelayCheckBox.isSelected && it is DelayActionSerialized }
+                .filterNot { removeDelayCheckBox.isSelected && it is TimeActionSerialized }
                 .filterNot { removeLastActionCheckBox.isSelected && actions.indexOf(it) + 1 == actions.size }
                 .map { it.serializedToController() }
         controllers.forEach { controller.addActionBlocks(it) }

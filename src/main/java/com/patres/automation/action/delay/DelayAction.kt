@@ -2,14 +2,13 @@ package com.patres.automation.action.delay
 
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.dialog.LogManager
-import com.patres.automation.type.ActionBootDelay
+import com.patres.automation.type.ActionBootTime
 import javafx.beans.property.BooleanProperty
 
 class DelayAction(
-        val delay: Long,
-        private val canBeRunningProperty: BooleanProperty?,
-        val delayType: DelayType = DelayType.MILLISECONDS
-) : AbstractAction(ActionBootDelay.DELAY) {
+        val timeContainer: TimeContainer,
+        private val canBeRunningProperty: BooleanProperty?
+) : AbstractAction(ActionBootTime.DELAY) {
 
     companion object {
         private const val DELAY_STEP = 100
@@ -18,7 +17,7 @@ class DelayAction(
     override fun runAction() {
         try {
             var currentDelay = 0
-            val delayMilliseconds = delayType.toMilliseconds(delay)
+            val delayMilliseconds = timeContainer.calculateMilliseconds()
             while (currentDelay <= delayMilliseconds && canBeRunningProperty?.get() == true) {
                 currentDelay += DELAY_STEP
                 Thread.sleep(DELAY_STEP.toLong())
@@ -28,5 +27,5 @@ class DelayAction(
         }
     }
 
-    override fun toStringLog() = "Action: `$actionBootType` | delay: `$delay`, delayType: `$delayType`"
+    override fun toStringLog() = "Action: `$actionBootType` | timeContainer: `$timeContainer`"
 }

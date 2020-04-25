@@ -1,26 +1,27 @@
 package com.patres.automation.mapper
 
-import com.patres.automation.action.delay.DelayType
-import com.patres.automation.gui.controller.model.DelayActionController
+import com.patres.automation.action.delay.TimeContainer
+import com.patres.automation.action.delay.TimeType
+import com.patres.automation.gui.controller.model.TimeActionController
 import com.patres.automation.helpers.JfxSpec
 import com.patres.automation.helpers.shouldNotBeNullAndCheck
-import com.patres.automation.mapper.model.DelayActionSerialized
-import com.patres.automation.type.ActionBootDelay
+import com.patres.automation.mapper.model.TimeActionSerialized
+import com.patres.automation.type.ActionBootTime
 import io.kotest.matchers.shouldBe
 
 class DelayActionMapperTest : JfxSpec({
 
     val testedValue = "123"
-    val testedDelayType = DelayType.SECONDS
+    val testedDelayType = TimeType.SECONDS
 
     "Should map serialized to controller" - {
-        ActionBootDelay.values().map { verifiedAction: ActionBootDelay ->
+        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
-                val serializedModel = DelayActionSerialized(verifiedAction, testedValue, testedDelayType)
+                val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue.toLong(), testedDelayType))
 
                 // when
-                val controller = DelayActionMapper.serializedToController(serializedModel)
+                val controller = TimeActionMapper.serializedToController(serializedModel)
 
                 // then
                 controller.shouldNotBeNullAndCheck {
@@ -33,63 +34,63 @@ class DelayActionMapperTest : JfxSpec({
     }
 
     "Should map serialized to model" - {
-        ActionBootDelay.values().map { verifiedAction: ActionBootDelay ->
+        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
-                val serializedModel = DelayActionSerialized(verifiedAction, testedValue, testedDelayType)
+                val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue.toLong(), testedDelayType))
 
                 // when
-                val model = DelayActionMapper.serializedToModel(serializedModel, null)
+                val model = TimeActionMapper.serializedToModel(serializedModel, null)
 
                 // then
                 model.shouldNotBeNullAndCheck {
                     actionBootType shouldBe verifiedAction
-                    delay shouldBe testedValue.toLong()
-                    delayType shouldBe testedDelayType
+                    timeContainer.value shouldBe testedValue.toLong()
+                    timeContainer.type shouldBe testedDelayType
                 }
             }
         }
     }
 
     "Should map controller to serialized" - {
-        ActionBootDelay.values().map { verifiedAction: ActionBootDelay ->
+        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
-                val controller = DelayActionController(verifiedAction).apply {
+                val controller = TimeActionController(verifiedAction).apply {
                     comboBox.value = testedDelayType
                     value = testedValue
                 }
 
                 // when
-                val serialized = DelayActionMapper.controllerToSerialized(controller)
+                val serialized = TimeActionMapper.controllerToSerialized(controller)
 
                 // then
                 serialized.shouldNotBeNullAndCheck {
                     actionBootType shouldBe verifiedAction
-                    value shouldBe testedValue
-                    delayType shouldBe testedDelayType
+                    timeContainer.value shouldBe testedValue.toLong()
+                    timeContainer.type shouldBe testedDelayType
                 }
             }
         }
     }
 
     "Should map controller to model" - {
-        ActionBootDelay.values().map { verifiedAction: ActionBootDelay ->
+        ActionBootTime.values().map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
-                val controller = DelayActionController(verifiedAction).apply {
+                val controller = TimeActionController(verifiedAction).apply {
                     comboBox.value = testedDelayType
                     value = testedValue
                 }
 
                 // when
-                val model = DelayActionMapper.controllerToModel(controller)
+                val model = TimeActionMapper.controllerToModel(controller)
 
                 // then
                 model.shouldNotBeNullAndCheck {
                     actionBootType shouldBe verifiedAction
-                    delay shouldBe testedValue.toLong()
-                    delayType shouldBe testedDelayType
+                    timeContainer.value shouldBe testedValue.toLong()
+                    timeContainer.type shouldBe testedDelayType
                 }
             }
         }

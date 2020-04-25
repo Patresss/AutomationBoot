@@ -33,7 +33,6 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     companion object {
         private const val CIRCLE_OPACITY = 0.6
         private const val RADIUS = 12.0
-
         private const val CAPTURE_DELAY = 200L
     }
 

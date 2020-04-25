@@ -1,8 +1,9 @@
 package com.patres.automation.listener.record
 
+import com.patres.automation.action.delay.TimeContainer
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.model.*
-import com.patres.automation.type.ActionBootDelay
+import com.patres.automation.type.ActionBootTime
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.type.ActionBootTextField
@@ -87,7 +88,7 @@ class ActionRecorder {
     }
 
     private fun addDelay(delayMillis: Long) {
-        recordedActions.add(DelayActionSerialized(ActionBootDelay.DELAY, delayMillis.toString()))
+        recordedActions.add(TimeActionSerialized(ActionBootTime.DELAY, TimeContainer(delayMillis)))
     }
 
 }
