@@ -6,8 +6,8 @@ import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
-import com.patres.automation.util.calculateTypedParent
-import com.patres.automation.util.swap
+import com.patres.automation.util.extension.calculateTypedParent
+import com.patres.automation.util.extension.swap
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button

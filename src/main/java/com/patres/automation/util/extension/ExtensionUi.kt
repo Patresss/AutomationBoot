@@ -1,8 +1,7 @@
-package com.patres.automation.util
+package com.patres.automation.util.extension
 
 import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.gui.font.FontAutomationIconView
-import com.patres.automation.settings.LanguageManager
 import de.jensd.fx.glyphs.GlyphIcon
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
@@ -12,20 +11,12 @@ import javafx.animation.Timeline
 import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.Parent
-import javafx.scene.control.TextInputControl
 import javafx.scene.control.Tooltip
 import javafx.util.Duration
 import java.util.*
 import kotlin.reflect.KClass
 
 
-fun TextInputControl.setIntegerFilter() {
-    textProperty().addListener { _, _, newValue ->
-        if (!newValue.matches(Regex("\\d*"))) {
-            text = newValue.replace(Regex("[^\\d]"), "")
-        }
-    }
-}
 @Suppress("UNCHECKED_CAST")
 fun Parent.swap(node: Node, nodeToSwap: Node) {
     // Workaround for private members
@@ -53,20 +44,6 @@ fun Parent.swap(node: Node, nodeToSwap: Node) {
         }
     }
 }
-
-fun <TYPE> MutableList<TYPE>.swap(elementA: TYPE, elementB: TYPE) {
-    val indexOfActionBlock = indexOf(elementA)
-    val indexOfActionBlockToSwap = indexOf(elementB)
-    this[indexOfActionBlock] = set(indexOfActionBlockToSwap, this[indexOfActionBlock])
-}
-
-fun getObjectFromField(clazz: KClass<out Any>, instance: Any, nameOfField: String): Any {
-    val field = clazz.java.getDeclaredField(nameOfField)
-    field.isAccessible = true
-    return field.get(instance)
-}
-
-fun fromBundle(key: String): String = LanguageManager.getLanguageString(key)
 
 fun Tooltip.startTiming(time: Double) {
     try {

@@ -6,8 +6,8 @@ import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoaded
 import com.patres.automation.gui.controller.MainController
+import com.patres.automation.gui.controller.RootSchemaLoader
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
-import com.patres.automation.util.RootSchemaLoader
 import org.slf4j.LoggerFactory
 import java.io.File
 

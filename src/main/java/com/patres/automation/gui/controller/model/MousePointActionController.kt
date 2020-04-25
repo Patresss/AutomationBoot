@@ -10,8 +10,8 @@ import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.util.Base64Converter
 import com.patres.automation.util.MonitorSize
-import com.patres.automation.util.fromBundle
-import com.patres.automation.util.startTiming
+import com.patres.automation.util.extension.fromBundle
+import com.patres.automation.util.extension.startTiming
 import javafx.fxml.FXML
 import javafx.scene.Scene
 import javafx.scene.control.ScrollPane

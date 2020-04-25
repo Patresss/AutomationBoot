@@ -5,7 +5,7 @@ import com.patres.automation.gui.controller.model.*
 import com.patres.automation.mapper.*
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.type.ActionBootable
-import com.patres.automation.util.getAllNodes
+import com.patres.automation.util.extension.getAllNodes
 import javafx.scene.input.MouseEvent
 
 

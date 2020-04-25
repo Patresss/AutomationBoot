@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXDialog
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.util.fromBundle
+import com.patres.automation.util.extension.fromBundle
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label

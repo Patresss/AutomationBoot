@@ -2,7 +2,7 @@ package com.patres.automation.gui.custom
 
 import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.util.getIcon
+import com.patres.automation.util.extension.getIcon
 import javafx.scene.control.ListCell
 import javafx.scene.text.Text
 

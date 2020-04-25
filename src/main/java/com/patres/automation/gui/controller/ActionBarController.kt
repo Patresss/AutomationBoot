@@ -9,7 +9,7 @@ import com.patres.automation.gui.custom.IconButton
 import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.gui.menuItem.MenuItemGroup
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.util.getIcon
+import com.patres.automation.util.extension.getIcon
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.event.EventHandler

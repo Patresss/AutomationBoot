@@ -1,7 +1,7 @@
 package com.patres.automation.gui.custom
 
 import com.jfoenix.controls.JFXButton
-import com.patres.automation.util.getIcon
+import com.patres.automation.util.extension.getIcon
 import de.jensd.fx.glyphs.GlyphIcons
 import javafx.animation.Interpolator
 import javafx.animation.ScaleTransition

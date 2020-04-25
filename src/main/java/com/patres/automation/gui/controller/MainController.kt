@@ -13,7 +13,6 @@ import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.listener.RunStopKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.util.RootSchemaLoader
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections

@@ -1,7 +1,7 @@
 package com.patres.automation.gui.controller.pointer
 
 import com.jfoenix.controls.JFXButton
-import com.patres.automation.util.fromBundle
+import com.patres.automation.util.extension.fromBundle
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.scene.control.Label

@@ -5,7 +5,7 @@ import com.patres.automation.gui.custom.AutomationBootableFactoryCell
 import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
-import com.patres.automation.util.calculateTypedParent
+import com.patres.automation.util.extension.calculateTypedParent
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader

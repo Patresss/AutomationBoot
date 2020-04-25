@@ -2,12 +2,12 @@ package com.patres.automation.gui.dialog
 
 import com.jfoenix.controls.JFXDialog
 import com.patres.automation.ApplicationLauncher
+import com.patres.automation.gui.controller.RootSchemaLoader
 
 import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.custom.KeyboardButton
 import com.patres.automation.settings.LanguageManager
-import com.patres.automation.util.RootSchemaLoader
-import com.patres.automation.util.fromBundle
+import com.patres.automation.util.extension.fromBundle
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
@@ -15,8 +15,8 @@ import javafx.scene.layout.StackPane
 import java.text.MessageFormat
 
 class SaveDialog(
-        val tabContainer: TabContainer,
-        val rootSchemaLoader: RootSchemaLoader
+        private val tabContainer: TabContainer,
+        private val rootSchemaLoader: RootSchemaLoader
 ) : StackPane() {
 
     init {

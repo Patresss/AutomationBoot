@@ -1,4 +1,4 @@
-package com.patres.automation.util
+package com.patres.automation.gui.controller
 
 import com.jfoenix.controls.JFXDialog
 import com.patres.automation.ApplicationLauncher
@@ -10,8 +10,6 @@ import com.patres.automation.file.FileType
 import com.patres.automation.file.TmpFileLoader
 import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguage
-import com.patres.automation.gui.controller.MainController
-import com.patres.automation.gui.controller.TabContainer
 import com.patres.automation.gui.dialog.SaveDialog
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.RootSchemaGroupMapper
