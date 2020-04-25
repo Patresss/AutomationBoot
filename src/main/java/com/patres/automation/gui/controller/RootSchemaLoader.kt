@@ -120,7 +120,7 @@ class RootSchemaLoader(val mainController: MainController) {
                 it?.consume()
             } else {
                 tabContainer.rootSchema.stopAutomation()
-                ApplicationLauncher.mainController.removeTab(tabContainer)
+                ApplicationLauncher.mainController?.removeTab(tabContainer)
             }
         }
     }

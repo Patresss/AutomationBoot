@@ -17,14 +17,18 @@ object ServerBoot {
             GetAllActionsHttpHandler("GET", "/action/buttons"))
 
     fun run(port: Int = DEFAULT_PORT) {
-        val server = HttpServer.create(InetSocketAddress(port), 0)
-        actionHandlers.forEach { actionHandler ->
-            server.createContext(actionHandler.url, actionHandler)
-        }
+        try {
+            val server = HttpServer.create(InetSocketAddress(port), 0)
+            actionHandlers.forEach { actionHandler ->
+                server.createContext(actionHandler.url, actionHandler)
+            }
 
-        server.executor = null // creates a default executor
-        logger.debug("Server is starting...")
-        server.start()
+            server.executor = null // creates a default executor
+            logger.debug("Server is starting...")
+            server.start()
+        } catch (e: Exception) {
+            logger.error("Cannot run a server", e)
+        }
     }
 
 }

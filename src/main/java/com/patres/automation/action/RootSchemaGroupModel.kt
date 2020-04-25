@@ -70,7 +70,7 @@ class RootSchemaGroupModel(
     fun changeDetect() {
         if (loaded) {
             saveTmpFile()
-            ApplicationLauncher.mainController.changeDetect(this)
+            ApplicationLauncher.mainController?.changeDetect(this)
         }
     }
 

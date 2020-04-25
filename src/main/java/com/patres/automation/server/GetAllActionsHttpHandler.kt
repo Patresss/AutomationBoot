@@ -124,7 +124,7 @@ class GetAllActionsHttpHandler(
 
                 <div id="action-container">
                     """.trimIndent() +
-                ApplicationLauncher.mainController.findAllowedAction().sortedBy { it.getEndpointName().toLowerCase() }.joinToString("<br/>") {
+                ApplicationLauncher.mainController?.findAllowedAction()?.sortedBy { it.getEndpointName().toLowerCase() }?.joinToString("<br/>") {
                     val action = if (it.automationRunningProperty.get()) "stop" else "run"
                     val icon = if ("run" == action) "fa-play-circle" else "fa-stop-circle"
                     """

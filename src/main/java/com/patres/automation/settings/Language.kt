@@ -10,4 +10,9 @@ enum class Language(val local: Locale, private val languageName: String) {
     override fun toString(): String {
         return LanguageManager.getLanguageString("settings.chooseLanguage.$languageName")
     }
+
+    companion object {
+        fun calculateLocalLanguage() = values().find { it.local.language == Locale.getDefault().language  }?: ENGLISH
+    }
+
 }

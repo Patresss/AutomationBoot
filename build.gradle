@@ -63,7 +63,7 @@ project.ext.buildDate = new Date()
 sourceCompatibility = "$java_version"
 javafx {
     version = "11.0.2"
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.swing']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing']
 }
 repositories {
     mavenCentral()
@@ -152,8 +152,10 @@ jlink {
         if (installerType == 'msi') {
             imageOptions += ['--icon', 'src/main/resources/image/icon.ico']
             installerOptions += [
-                    '--win-per-user-install', '--win-dir-chooser',
-                    '--win-menu', '--win-shortcut'
+                    '--win-per-user-install',
+                    '--win-dir-chooser',
+                    '--win-menu',
+                    '--win-shortcut'
             ]
         }
 //        if (installerType == 'pkg') {

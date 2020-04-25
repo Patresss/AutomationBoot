@@ -9,7 +9,7 @@ import java.io.File
 
 object GlobalSettingsLoader {
 
-    private const val path = "Settings.json"
+    private const val path = "config/Settings.json"
     private val logger = LoggerFactory.getLogger(GlobalSettingsLoader::class.java)
 
 
@@ -33,12 +33,14 @@ object GlobalSettingsLoader {
 
     fun save(globalSettings: GlobalSettings = ApplicationLauncher.globalSettings) {
         logger.info("Global settings are saving...")
-        val filesToSave = ApplicationLauncher.mainController.tabContainers.map { it.rootSchema.getFilePathToSettings() }
+        val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchema.getFilePathToSettings() }?: emptyList()
         globalSettings.previousPathFiles = filesToSave
         globalSettings.applicationVersion = ApplicationInfo.version
 
         val serializedRootGroup = AutomationMapper.toJson(globalSettings)
-        val file = File(path)
+        val file = File(path).also { file ->
+             file.parentFile.mkdirs()
+        }
         file.writeText(serializedRootGroup)
         logger.info("Global settings are saved")
     }

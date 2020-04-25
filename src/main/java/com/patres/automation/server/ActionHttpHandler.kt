@@ -22,7 +22,7 @@ abstract class ActionHttpHandler(
         logger.debug("Receive request - method: ${exchange.requestMethod}, url: ${exchange.requestURI.path}")
         if (method == exchange.requestMethod) {
             val actionName = exchange.requestURI.path.removePrefix(url)
-            val action = ApplicationLauncher.mainController.findActionByName(actionName)
+            val action = ApplicationLauncher.mainController?.findActionByName(actionName)
             if (action != null) {
                 invokeAction(action)
                 createSuccessResponse(exchange, actionName)

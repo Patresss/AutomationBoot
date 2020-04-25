@@ -15,7 +15,7 @@ class GlobalSettings(
         var stopRecordKeys: List<KeyboardKey> = listOf(KeyboardKey.F12),
         var previousPathFiles: List<String> = emptyList(),
         var lastLoadedPath: String? = null,
-        language: Language = Language.ENGLISH,
+        language: Language = Language.calculateLocalLanguage(),
         var port: Int = ServerBoot.DEFAULT_PORT,
         var removeDelay: Boolean = true,
         var removeLastAction: Boolean = true,

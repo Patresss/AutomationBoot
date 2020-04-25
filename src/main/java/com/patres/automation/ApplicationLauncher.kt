@@ -33,7 +33,7 @@ class ApplicationLauncher : Application() {
         const val sceneBarWeight = 4.0 + 4.0
         var globalSettings = GlobalSettingsLoader.load().also { LanguageManager.setLanguage(it.language) }
         lateinit var mainStage: Stage
-        lateinit var mainController: MainController
+        var mainController: MainController? = null
         var mainPane: StackPane = StackPane()
         var tmpDirector: File = File(System.getProperty("user.dir"), "tmp")
 

@@ -43,7 +43,7 @@ class SaveDialog(
         val saved = rootSchemaLoader.saveExistingRootSchema(tabContainer)
         if (saved) {
             tabContainer.rootSchema.stopAutomation()
-            ApplicationLauncher.mainController.removeTab(tabContainer)
+            ApplicationLauncher.mainController?.removeTab(tabContainer)
             dialogKeeper?.close()
         }
     }
@@ -52,7 +52,7 @@ class SaveDialog(
     fun doNotSave() {
         tabContainer.rootSchema.stopAutomation()
         rootSchemaLoader.removeTmpFile(tabContainer)
-        ApplicationLauncher.mainController.removeTab(tabContainer)
+        ApplicationLauncher.mainController?.removeTab(tabContainer)
         dialogKeeper?.close()
     }
 
