@@ -1,4 +1,3 @@
-
 buildscript {
     ext.java_version = '11'
     ext.kotlin_version = '1.3.72'
@@ -52,8 +51,8 @@ def applicationProperties = new Properties()
 file("src/main/resources/system/application.properties").withInputStream { applicationProperties.load(it) }
 
 def title = applicationProperties.getProperty("application.title")
-description = applicationProperties.getProperty("application.description")
-version = applicationProperties.getProperty("application.version")
+project.version = applicationProperties.getProperty("application.version")
+project.description = applicationProperties.getProperty("application.description")
 
 group 'com.patres'
 
@@ -61,6 +60,17 @@ mainClassName = 'automationBoot/com.patres.automation.ApplicationLauncher'
 project.ext.buildDate = new Date()
 
 sourceCompatibility = "$java_version"
+
+def runArgsValue =  [
+        "--add-opens=java.base/java.lang=opencv",
+        "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
+        "--add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix",
+        "--add-opens=javafx.controls/javafx.scene.control=automationBoot",
+        "--add-opens=javafx.graphics/javafx.scene=automationBoot",
+        "--add-opens=javafx.graphics/javafx.scene.control=automationBoot"
+
+]
+
 javafx {
     version = "11.0.2"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing']
@@ -110,15 +120,7 @@ compileTestKotlin {
 }
 
 run {
-    jvmArgs = [
-            "--add-opens=java.base/java.lang=opencv",
-            "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
-            "--add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix",
-            "--add-opens=javafx.controls/javafx.scene.control=automationBoot",
-            "--add-opens=javafx.graphics/javafx.scene=automationBoot",
-            "--add-opens=javafx.graphics/javafx.scene.control=automationBoot"
-
-    ]
+    jvmArgs = runArgsValue
 }
 
 jlink {
@@ -132,69 +134,44 @@ jlink {
 
     launcher {
         name = title
-        jvmArgs = [
-                "--add-opens=java.base/java.lang=opencv",
-                "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
-                "--add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix",
-                "--add-opens=javafx.controls/javafx.scene.control=automationBoot",
-                "--add-opens=javafx.graphics/javafx.scene=automationBoot",
-                "--add-opens=javafx.graphics/javafx.scene.control=automationBoot"
-        ]
+        jvmArgs = runArgsValue
     }
 
     jpackage {
+        installerType = 'exe'
+        appVersion = project.version
+        outputDir = "../release/${project.version}"
         installerOptions = [
                 '--description', description,
                 '--copyright', 'Copyrigth 2020 Patres - Patryk Piechaczek'
         ]
-//        installerType = project.findProperty('installerType') // we will pass this from the command line (example: -PinstallerType=msi)
-        installerType = 'msi'
-        if (installerType == 'msi') {
-            imageOptions += ['--icon', 'src/main/resources/icon/desktop/main_icon.ico']
+        imageOptions += ['--icon', 'src/main/resources/icon/desktop/main_icon.ico']
+        if (installerType == 'exe') {
             installerOptions += [
-                    '--win-per-user-install',
                     '--win-dir-chooser',
                     '--win-menu',
                     '--win-shortcut'
             ]
         }
-//        if (installerType == 'pkg') {
-//            imageOptions += ['--icon', 'src/main/resources/image/icon.png']
-//        }
-//        if (installerType in ['deb', 'rpm']) {
-//            imageOptions += ['--icon', 'src/main/resources/image/icon.png']
-//            installerOptions += [
-//                    '--linux-shortcut'
-//            ]
-//        }
-//        if (installerType == 'deb') {
-//            installerOptions += [
-//                    '--linux-deb-maintainer', 'app@test.it'
-//            ]
-//        }
-//        if (installerType == 'rpm') {
-//            installerOptions += [
-//                    '--linux-rpm-license-type', 'GPLv3'
-//            ]
-//        }
     }
 }
-
-//jpackage {
-//    doFirst {
-//        project.getProperty('installerType') // throws exception if its missing
-//    }
-//}
 
 test {
     useJUnitPlatform()
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'com.patres.automation.ApplicationLauncher',
-                'Implementation-Title': title,
-                'Implementation-Version': version)
+// Create Installer =======================================
+task createInstaller {
+    doFirst {
+        println 'Create Installer'
+    }
+
+    doLast {
+        println 'Remove unused installer directory'
+        def isDeleted = project.delete(files("${rootDir}\\release\\${project.version}\\$title"))
+        println "Directory is deleted: ${isDeleted}"
     }
 }
+
+createInstaller.dependsOn jpackage
+// ========================================================
