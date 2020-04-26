@@ -9,10 +9,12 @@ import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguage
 import com.patres.automation.gui.controller.saveBackScreen.activeSchema.ActiveSchemasController
 import com.patres.automation.gui.controller.saveBackScreen.settings.GlobalSettingsController
+import com.patres.automation.gui.dialog.DialogHandler
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.listener.RunStopKeyListener
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
+import com.patres.automation.system.ApplicationInfo
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.FXCollections
@@ -254,6 +256,12 @@ class MainController {
                 snackBar.addMessageLanguage(SnackBarType.WARNING, "message.snackbar.saveSchemaBeforeAdding")
             }
         }
+    }
+
+    @FXML
+    fun openAbout() {
+        val dialog = DialogHandler(ApplicationInfo.getApplicationInfoDescription())
+        dialog.show()
     }
 
     fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }

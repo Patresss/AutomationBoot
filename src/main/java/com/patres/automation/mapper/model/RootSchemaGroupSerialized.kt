@@ -7,5 +7,5 @@ data class RootSchemaGroupSerialized(
         val schemaGroupSerialized: SchemaGroupSerialized,
         val localSettings: LocalSettings,
         val orgFile: String?,
-        var applicationVersion: String? = ApplicationInfo.UNKNOWN_VERSION
+        var applicationVersion: String? = ApplicationInfo.version
 )

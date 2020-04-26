@@ -10,7 +10,7 @@ import javafx.scene.layout.Region
 import org.slf4j.LoggerFactory
 import java.io.IOException
 
-class ExceptionHandlerDialog(private val exception: Throwable) {
+class DialogHandler(private val message: String) {
 
     private var dialog: JFXDialog
 
@@ -19,8 +19,8 @@ class ExceptionHandlerDialog(private val exception: Throwable) {
             var content: Region? = null
             try {
                 val loader = FXMLLoader()
-                loader.location = javaClass.getResource("/fxml/dialog/ExceptionHandlerDialog.fxml")
-                loader.setController(DialogController(this, exception))
+                loader.location = javaClass.getResource("/fxml/dialog/OkDialog.fxml")
+                loader.setController(DialogController(this, message))
                 loader.resources = LanguageManager.getBundle()
                 content = loader.load<Region>()
             } catch (e: IOException) {
@@ -44,8 +44,7 @@ class ExceptionHandlerDialog(private val exception: Throwable) {
     }
 
     companion object {
-
-        private val LOGGER = LoggerFactory.getLogger(ExceptionHandlerDialog::class.java)
+        private val LOGGER = LoggerFactory.getLogger(DialogHandler::class.java)
     }
 
 }

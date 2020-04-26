@@ -6,6 +6,7 @@ import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.type.*
 import de.jensd.fx.glyphs.GlyphIcons
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
+import org.apache.commons.lang3.SystemUtils
 
 enum class MenuItem(
         val graphic: GlyphIcons,
@@ -15,7 +16,8 @@ enum class MenuItem(
         val shouldBeDisabled: (controller: RootSchemaGroupController) -> Boolean = { false },
         val menuItemHandler: (rootSchemaGroupModel: RootSchemaGroupModel) -> Unit = actionBoot?.addController() ?: {},
         val actionGraphic: GlyphIcons = graphic,
-        val enabledForChangeDetector: Boolean = true
+        val enabledForChangeDetector: Boolean = true,
+        val shouldBeVisible: Boolean = true
 ) {
 
     RUN(FontAwesomeIcon.PLAY, null, null, "robot.action.runAutomation", menuItemHandler = MenuItemHandlers.runAutomation, enabledForChangeDetector = false),
@@ -66,8 +68,8 @@ enum class MenuItem(
     RUN_EXISTING_SCHEMA(FontAwesomeIcon.PLAY, ActionBootBrowser.RUN_EXISTING_SCHEMA, SCRIPT),
     OPEN_FILE(FontAwesomeIcon.FILE, ActionBootBrowser.OPEN_FILE, SCRIPT),
     OPEN_DIRECTORY(FontAwesomeIcon.FOLDER, ActionBootBrowser.OPEN_DIRECTORY, SCRIPT),
-    WINDOWS_SCRIPT_RUN(FontAwesomeIcon.TERMINAL, ActionBootBrowser.WINDOWS_SCRIPT_RUN, SCRIPT),
-    WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE, SCRIPT),
+    WINDOWS_SCRIPT_RUN(FontAwesomeIcon.TERMINAL, ActionBootBrowser.WINDOWS_SCRIPT_RUN, SCRIPT, shouldBeVisible = SystemUtils.IS_OS_WINDOWS),
+    WINDOWS_SCRIPT_RUN_AND_WAITE(FontAwesomeIcon.TERMINAL, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE, SCRIPT, shouldBeVisible = SystemUtils.IS_OS_WINDOWS),
 
     SETTINGS(FontAwesomeIcon.GEAR, null, null, "menu.settings.localSettings", menuItemHandler = { root: RootSchemaGroupModel -> root.controller.openLocalSettings() });
 

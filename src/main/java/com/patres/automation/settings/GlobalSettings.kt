@@ -3,13 +3,13 @@ package com.patres.automation.settings
 import com.patres.automation.action.delay.TimeContainer
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.server.ServerBoot
-import com.patres.automation.system.ApplicationInfo.UNKNOWN_VERSION
+import com.patres.automation.system.ApplicationInfo
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.properties.Delegates
 
 class GlobalSettings(
-        var applicationVersion: String = UNKNOWN_VERSION,
+        var applicationVersion: String = ApplicationInfo.version,
         var stopActionKeys: List<KeyboardKey> = listOf(KeyboardKey.ESCAPE),
         var startRecordKeys: List<KeyboardKey> = listOf(KeyboardKey.F11),
         var stopRecordKeys: List<KeyboardKey> = listOf(KeyboardKey.F12),

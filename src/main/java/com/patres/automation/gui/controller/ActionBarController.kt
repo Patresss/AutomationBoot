@@ -65,7 +65,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
 
     private fun createGroup(action: MenuItem) {
         val button = IconButton(action.graphic)
-        val nestedAction = MenuItem.findAllWithAction(action)
+        val nestedAction = MenuItem.findAllWithAction(action).filter { it.shouldBeVisible }
         if (nestedAction.isNotEmpty()) {
             createPopup(nestedAction, button)
         } else {
