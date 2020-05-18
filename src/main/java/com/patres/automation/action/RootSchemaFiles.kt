@@ -31,6 +31,7 @@ class RootSchemaFiles(
     }
 
     fun removeTmpFile() {
+        calculateTmpFile()?.delete()
     }
 
     fun setNewTmpFile(tmpFile: File) {

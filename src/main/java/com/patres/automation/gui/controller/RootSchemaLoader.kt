@@ -113,11 +113,16 @@ class RootSchemaLoader(val mainController: MainController) {
     fun createOnCloseRequest(tabContainer: TabContainer): EventHandler<Event> {
         return EventHandler {
             if (!tabContainer.rootSchema.isSaved()) {
-                val saveDialogPane = SaveDialog(tabContainer, mainController.rootSchemaLoader)
-                val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
-                saveDialogPane.dialogKeeper = jfxDialog
-                jfxDialog.show()
-                it?.consume()
+                if (tabContainer.rootSchema.schemaGroupModel.actions.isEmpty()) {
+                    ApplicationLauncher.mainController?.removeTab(tabContainer)
+                    tabContainer.rootSchema.rootFiles.removeTmpFile()
+                } else {
+                    val saveDialogPane = SaveDialog(tabContainer, mainController.rootSchemaLoader)
+                    val jfxDialog = JFXDialog(ApplicationLauncher.mainPane, saveDialogPane, JFXDialog.DialogTransition.CENTER)
+                    saveDialogPane.dialogKeeper = jfxDialog
+                    jfxDialog.show()
+                    it?.consume()
+                }
             } else {
                 tabContainer.rootSchema.stopAutomation()
                 ApplicationLauncher.mainController?.removeTab(tabContainer)
@@ -133,7 +138,7 @@ class RootSchemaLoader(val mainController: MainController) {
     private fun createTabContainer(rootGroup: RootSchemaGroupModel): TabContainer {
         val fileName = getTabName(rootGroup)
         val newTab = Tab(fileName, rootGroup.controller).apply {
-            if (!rootGroup.isSaved()) {
+            if (!rootGroup.isSaved() && rootGroup.schemaGroupModel.actions.isNotEmpty()) {
                 graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
             }
         }
