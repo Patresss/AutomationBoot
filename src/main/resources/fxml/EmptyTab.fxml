@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root styleClass="empty-tab" type="StackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefWidth="469.0">
+         <center>
+            <JFXButton onAction="#createNewTab">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLAY" size="160" styleClass="sub-icon" />
+               </graphic>
+            </JFXButton>
+         </center>
+         <top>
+            <VBox alignment="TOP_CENTER" styleClass="labels-container" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="mainLabel" styleClass="main-label" text="%application.name" textAlignment="CENTER" />
+                  <Label fx:id="secondaryLabel" styleClass="secondary-label" text="%application.ready" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </top>
+      </BorderPane>
+   </children>
+</fx:root>

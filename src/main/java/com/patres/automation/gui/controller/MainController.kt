@@ -96,6 +96,8 @@ class MainController {
         }
 
     private val globalSettingsController = GlobalSettingsController(this)
+    private val emptyTabController = EmptyTabController(this)
+
     val rootSchemaLoader = RootSchemaLoader(this)
     val activeSchemasController = ActiveSchemasController(this)
 
@@ -213,7 +215,7 @@ class MainController {
 
         if (!centerStackPane.children.contains(globalSettingsController)) {
             globalSettingsController.reload()
-            SliderAnimation.goToTheWindow(globalSettingsController, tabPane, centerStackPane)
+            SliderAnimation.goToTheWindow(globalSettingsController, currentTabPane(), centerStackPane)
         }
     }
 
@@ -241,7 +243,7 @@ class MainController {
 
         if (!centerStackPane.children.contains(activeSchemasController)) {
             activeSchemasController.reload()
-            SliderAnimation.goToTheWindow(activeSchemasController, tabPane, centerStackPane)
+            SliderAnimation.goToTheWindow(activeSchemasController, currentTabPane(), centerStackPane)
         }
     }
 
@@ -278,10 +280,14 @@ class MainController {
     fun removeTab(tabContainer: TabContainer) {
         tabContainers.remove(tabContainer)
         tabPane.tabs.remove(tabContainer.tab)
+        if (tabPane.tabs.isEmpty()) {
+            centerStackPane.children.add(emptyTabController)
+        }
     }
 
     fun addTabToContainer(tabContainer: TabContainer) {
         tabContainers.add(tabContainer)
+        centerStackPane.children.remove(emptyTabController)
     }
 
     fun findActionByName(actionName: String): RootSchemaGroupModel? {
@@ -290,5 +296,13 @@ class MainController {
     }
 
     fun findAllowedAction() = openedRootSchemas + activeSchemasController.activeActions
+
+    fun currentTabPane(): Node {
+        return if (tabContainers.isEmpty()) {
+            emptyTabController
+        } else {
+            tabPane
+        }
+    }
 
 }

@@ -94,7 +94,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
     }
 
     override fun backToPreviousWindow() {
-        SliderAnimation.backToTheWindow(mainController.tabPane, this, mainController.centerStackPane)
+        SliderAnimation.backToTheWindow(mainController.currentTabPane(), this, mainController.centerStackPane)
     }
 
     override fun reloadSettings() {

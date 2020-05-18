@@ -935,3 +935,31 @@ root {
 .pane-with-primary-background {
     -fx-background-color: -color-primary;
 }
+
+/*Empty tab*/
+
+.empty-tab .main-label {
+    -fx-font-size: 30pt;
+}
+
+.empty-tab .secondary-label {
+    -fx-text-fill: -color-primary;
+    -fx-font-size: 20pt;
+}
+
+.empty-tab .labels-container {
+    -fx-padding: 30 30 10 30;
+
+}
+
+.empty-tab .button {
+    -fx-background-color: #F1F1F1;
+    -fx-background-radius: 250px;
+    -fx-pref-height: 250px;
+    -fx-pref-width: 250px;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-width: -fx-pref-width;
+    -fx-min-height: -fx-pref-height;
+    -fx-max-height: -fx-pref-height;
+    -jfx-button-type: RAISED;
+}
