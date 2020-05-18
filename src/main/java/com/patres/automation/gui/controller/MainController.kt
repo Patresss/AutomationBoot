@@ -177,7 +177,7 @@ class MainController {
         }
     }
 
-    fun loadModelFromFile(fileToLoad: File) {
+    private fun loadModelFromFile(fileToLoad: File) {
         try {
             rootSchemaLoader.openRootSchema(fileToLoad)
         } catch (e: Exception) {

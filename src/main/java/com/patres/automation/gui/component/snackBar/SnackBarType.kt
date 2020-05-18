@@ -5,7 +5,8 @@ import javafx.css.PseudoClass
 enum class SnackBarType(cssClass: String? = null) {
 
     INFO,
-    WARNING("warning-toast");
+    WARNING("warning-toast"),
+    ERROR("error-toast");
 
     val pseudoClass = if (cssClass != null) {
         PseudoClass.getPseudoClass(cssClass)

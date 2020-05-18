@@ -606,6 +606,10 @@ root {
     -fx-background-color: -color-complementary-bright-2;
 }
 
+.jfx-snackbar-content:error-toast {
+    -fx-background-color: -color-root-error;
+}
+
 .fiche-icon .glyph-icon {
     -fx-fill: -color-primary-text;
 }

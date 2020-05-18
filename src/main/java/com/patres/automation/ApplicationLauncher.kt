@@ -1,6 +1,9 @@
 package com.patres.automation
 
 import com.jfoenix.controls.JFXDecorator
+import com.patres.automation.gui.component.snackBar.SnackBarType
+import com.patres.automation.gui.component.snackBar.addMessage
+import com.patres.automation.gui.component.snackBar.addMessageLanguage
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader
@@ -14,6 +17,7 @@ import javafx.scene.image.Image
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
+import javafx.util.Duration
 import nu.pattern.OpenCV
 import org.slf4j.LoggerFactory
 import java.awt.*
@@ -74,14 +78,21 @@ class ApplicationLauncher : Application() {
 
             if (!SystemTray.isSupported()) {
                 logger.error("SystemTray is not supported")
-                Platform.exit()
             } else {
                 createTrayIcon()
             }
+
+            showServerErrorMessageIfExist()
         } catch (e: IOException) {
             logger.error("Error in start method - I/O Exception", e)
         }
 
+    }
+
+    private fun showServerErrorMessageIfExist() {
+        ServerBoot.errorMessage?.let {message ->
+            mainController?.snackBar?.addMessage(SnackBarType.ERROR, message, Duration.seconds(5.0))
+        }
     }
 
     private fun createTrayIcon() {
