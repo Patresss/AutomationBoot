@@ -15,12 +15,16 @@ object ApplicationInfo {
     private val title = properties.getProperty("application.title")?: "Application Boot"
     private val description = properties.getProperty("application.description")?: ""
     private val author = properties.getProperty("application.author")?: ""
+    private val contact = properties.getProperty("application.contact")?: ""
+    private val website = properties.getProperty("application.website")?: ""
 
 
     fun getApplicationInfoDescription() = """
         $title
         $BULLET ${LanguageManager.getLanguageString("application.version")}: $version
         $BULLET ${LanguageManager.getLanguageString("application.author")}: $author
+        $BULLET ${LanguageManager.getLanguageString("application.contact")}: $contact
+        $BULLET ${LanguageManager.getLanguageString("application.website")}: $website
     """.trimIndent()
 
 }
