@@ -1,5 +1,7 @@
 package com.patres.automation.server
 
+import com.sun.net.httpserver.BasicAuthenticator
+import com.sun.net.httpserver.HttpContext
 import com.sun.net.httpserver.HttpServer
 import org.slf4j.LoggerFactory
 import java.net.BindException
@@ -13,6 +15,7 @@ object ServerBoot {
     const val MIN_PORT = 0
     const val MAX_PORT = 65535
     var errorMessage: String? = null
+
     private val actionHandlers = setOf(
             ActionRunHttpHandler(),
             ActionStopHttpHandler(),
@@ -34,6 +37,33 @@ object ServerBoot {
         } catch (e: Exception) {
             logger.error("Cannot run a server", e)
             errorMessage = e.message
+        }
+    }
+
+    fun runWithAuthenticator(port: Int = DEFAULT_PORT, username: String? = null, password: String? = null) {
+        try {
+            val server = HttpServer.create(InetSocketAddress(port), 0)
+            actionHandlers.forEach { actionHandler ->
+                val context = server.createContext(actionHandler.url, actionHandler)
+                calculateAuthenticator(context, username, password)
+            }
+            server.executor = null // creates a default executor
+            logger.debug("Server is starting...")
+            server.start()
+        } catch (e: BindException) {
+            logger.error("Cannot run a server", e)
+            errorMessage = "Port: $port - ${e.message}"
+        } catch (e: Exception) {
+            logger.error("Cannot run a server", e)
+            errorMessage = e.message
+        }
+    }
+
+    private fun calculateAuthenticator(context: HttpContext, username: String?, password: String?) {
+        context.authenticator = object : BasicAuthenticator("AutomationBoot") {
+            override fun checkCredentials(user: String, pwd: String): Boolean {
+                return user == username && pwd == password
+            }
         }
     }
 

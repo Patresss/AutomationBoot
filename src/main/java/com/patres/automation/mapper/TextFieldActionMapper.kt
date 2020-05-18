@@ -40,6 +40,7 @@ object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction,
 
             ENDPOINT_NAME -> throw ControllerCannotBeMapToModelException(actionType)
             PORT -> throw ControllerCannotBeMapToModelException(actionType)
+            SERVER_USERNAME -> throw ControllerCannotBeMapToModelException(actionType)
         }
     }
 

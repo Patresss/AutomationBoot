@@ -18,7 +18,8 @@ enum class ActionBootTextField(
     SCROLL_WHEEL_DOWN("robot.action.scrollWheel.down", PositiveIntegerValidation()),
 
     PORT("settings.port", PortValidation()),
-    ENDPOINT_NAME("settings.endpointName", StringWithoutWhiteCharactersValidation());
+    ENDPOINT_NAME("settings.endpointName", StringWithoutWhiteCharactersValidation()),
+    SERVER_USERNAME("settings.username", StringWithoutWhiteCharactersValidation());
 
 
     override fun validation(): Validationable? {

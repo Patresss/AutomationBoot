@@ -24,6 +24,9 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
 
     private val enableRestCheckBox = CheckBoxActionController(ActionBootCheckBox.ENABLE_REST)
     private val portText = TextFieldActionController(ActionBootTextField.PORT)
+    private val enableAuthenticatorCheckBox = CheckBoxActionController(ActionBootCheckBox.ENABLE_AUTHENTICATOR)
+    private val serverUsernameText = TextFieldActionController(ActionBootTextField.SERVER_USERNAME)
+    private val serverPasswordText = PasswordFieldActionController(ActionBootPasswordField.SERVER_PASSWORD)
 
     private val allSettings = listOf<AutomationController<*>>(
             languageComboBox,
@@ -32,7 +35,11 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             stopRecordKeysSettings,
             additionalDelayBetweenActionsText,
             enableRestCheckBox,
-            portText)
+            portText,
+            enableAuthenticatorCheckBox,
+            serverUsernameText,
+            serverPasswordText
+    )
 
     init {
         loadGlobalSettings()
@@ -49,6 +56,9 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             additionalDelayBetweenActions = TimeContainer(additionalDelayBetweenActionsText.value.toLongOrZero(), additionalDelayBetweenActionsText.selectedDelayTime())
             port = portText.value.toInt()
             enableRest = enableRestCheckBox.checkBox.isSelected
+            enableAuthenticator = enableAuthenticatorCheckBox.checkBox.isSelected
+            serverUsername = if (enableAuthenticator) serverUsernameText.value else null
+            serverPassword = if (enableAuthenticator) serverPasswordText.value else null
         }
         snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO, "message.snackbar.settingsSave")
     }
@@ -60,15 +70,23 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         languageComboBox.comboBox.valueProperty().addListener { _ -> changeDetect() }
         additionalDelayBetweenActionsText.valueText.textProperty().addListener { _ -> changeDetect() }
         additionalDelayBetweenActionsText.comboBox.valueProperty().addListener { _ -> changeDetect() }
-        portText.valueText.textProperty().addListener { _ ->
-            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING, "message.snackbar.changesAppliedAfterRestart")
-            changeDetect()
-        }
+        portText.valueText.textProperty().addListener { _ -> changeRestDetect() }
         enableRestCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
-            snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING, "message.snackbar.changesAppliedAfterRestart")
             portText.isVisible = newValue
-            changeDetect()
+            changeRestDetect()
         }
+        enableAuthenticatorCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
+            serverUsernameText.isVisible = newValue
+            serverPasswordText.isVisible = newValue
+            changeRestDetect()
+        }
+        serverUsernameText.valueText.textProperty().addListener { _ -> changeRestDetect() }
+        serverPasswordText.valueText.textProperty().addListener { _ -> changeRestDetect() }
+    }
+
+    private fun changeRestDetect() {
+        snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.WARNING, "message.snackbar.changesAppliedAfterRestart")
+        changeDetect()
     }
 
     private fun loadGlobalSettings() {
@@ -89,7 +107,13 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             additionalDelayBetweenActionsText.comboBox.value = additionalDelayBetweenActions.type
             additionalDelayBetweenActionsText.value = additionalDelayBetweenActions.value.toString()
             portText.isVisible = enableRest
-            portText.valueText.text = port.toString()
+            portText.value = port.toString()
+
+            enableAuthenticatorCheckBox.checkBox.isSelected = enableAuthenticator
+            serverUsernameText.isVisible = enableAuthenticator
+            serverUsernameText.value = serverUsername?: ""
+            serverPasswordText.isVisible = enableAuthenticator
+            serverPasswordText.value = serverPassword?: ""
         }
     }
 

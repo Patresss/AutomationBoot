@@ -13,7 +13,7 @@ class GetAllActionsHttpHandler(
         url: String
 ) : ApplicationHttpHandler(url) {
 
-    val ip: String = Inet4Address.getLocalHost().hostAddress
+    private val ip: String = Inet4Address.getLocalHost().hostAddress
 
     companion object {
         val logger = LoggerFactory.getLogger(GetAllActionsHttpHandler::class.java)!!

@@ -46,10 +46,18 @@ class ApplicationLauncher : Application() {
             logger.info("Application is starting...")
             checkVersion()
             OpenCV.loadLocally()
-            if (globalSettings.enableRest) {
-                ServerBoot.run(globalSettings.port)
-            }
+            runServer()
             launch(ApplicationLauncher::class.java)
+        }
+
+        private fun runServer() {
+            if (globalSettings.enableRest) {
+                if (globalSettings.enableAuthenticator) {
+                    ServerBoot.runWithAuthenticator(globalSettings.port, globalSettings.serverUsername, globalSettings.serverPassword)
+                } else {
+                    ServerBoot.run(globalSettings.port)
+                }
+            }
         }
 
         private fun checkVersion() {

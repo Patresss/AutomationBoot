@@ -20,6 +20,9 @@ class GlobalSettings(
         var removeDelay: Boolean = true,
         var removeLastAction: Boolean = true,
         var enableRest: Boolean = true,
+        var enableAuthenticator: Boolean = false,
+        var serverUsername: String? = null,
+        var serverPassword: String? = null,
         var activeSchemas: MutableList<String> = mutableListOf(),
         var additionalDelayBetweenActions: TimeContainer = TimeContainer(100)
 ) {

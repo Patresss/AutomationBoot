@@ -2,17 +2,16 @@ package com.patres.automation.type
 
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
-import com.patres.automation.gui.controller.model.CheckBoxActionController
+import com.patres.automation.gui.controller.model.PasswordFieldActionController
 import com.patres.automation.validation.Validationable
 
 
-enum class ActionBootCheckBox(
+enum class ActionBootPasswordField(
         val bundleName: String,
         val validation: Validationable? = null
 ) : ActionBootable {
 
-    ENABLE_REST("settings.enableRest", null),
-    ENABLE_AUTHENTICATOR("settings.enableAuthenticator", null);
+    SERVER_PASSWORD("settings.password", null);
 
 
     override fun validation(): Validationable? {
@@ -23,6 +22,6 @@ enum class ActionBootCheckBox(
         return this.bundleName
     }
 
-    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(CheckBoxActionController(this)) }
+    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(PasswordFieldActionController(this)) }
 
 }
