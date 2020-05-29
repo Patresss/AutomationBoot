@@ -536,6 +536,8 @@ root {
     -fx-max-height: -fx-pref-height;
 }
 
+
+
 .small-animated-option-button .jfx-rippler {
     -jfx-rippler-fill: -color-primary-text;
 }
