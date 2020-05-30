@@ -8,13 +8,13 @@ import javafx.beans.property.BooleanProperty
 class SchemaGroupModel(
         val actions: List<AbstractAction>,
         val iteration: Int,
-        val automationRunningProperty: BooleanProperty?
+        val automationRunningProperty: BooleanProperty
 ) : AbstractAction(ActionBootSchema.SCHEMA_GROUP) {
 
     override fun runAction() {
         for (i in 0 until iteration) {
             for (action in actions) {
-                if (automationRunningProperty?.get() != false) {
+                if (automationRunningProperty.get()) {
                     action.runAndLogAction()
                     Thread.sleep(ApplicationLauncher.globalSettings.additionalDelayBetweenActions.calculateMilliseconds())
                 } else {

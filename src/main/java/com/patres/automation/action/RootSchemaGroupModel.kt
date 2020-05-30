@@ -17,11 +17,9 @@ class RootSchemaGroupModel(
         val rootFiles: RootSchemaFiles
 ) {
 
-    companion object {
-        private val logger = LoggerFactory.getLogger(RootSchemaGroupModel::class.java)
-    }
-
     var automationRunningProperty = SimpleBooleanProperty(false)
+    var actionRunner = ActionRunner(automationRunningProperty)
+
     val actionRecorder = ActionRecorder()
     var loaded: Boolean = false
 
@@ -30,40 +28,14 @@ class RootSchemaGroupModel(
         get() = controller.schemaGroupController.toModel()
 
     fun runAutomation() {
-        try {
-            val runTask = createRunTask()
-            Thread(runTask).start()
-        } catch (e: Exception) {
-            LogManager.showAndLogException(e)
-        }
+        actionRunner.runAutomation(schemaGroupModel)
     }
 
     fun stopAutomation() {
-        automationRunningProperty.set(false)
+        actionRunner.stopAutomation()
     }
 
-    private fun createRunTask(): Task<Void> {
-        return object : Task<Void>() {
-            override fun call(): Void? {
-                automationRunningProperty.set(true)
-                val applicationStageIsActive = ApplicationLauncher.mainStage.isIconified
-                try {
-                    Platform.runLater { ApplicationLauncher.mainStage.isIconified = true }
-                    logger.info("Running root actions...")
-                    schemaGroupModel.runAction()
-                    logger.info("Completed root actions")
-                } catch (e: Throwable) {
-                    LogManager.showAndLogException(e)
-                } finally {
-                    Platform.runLater { ApplicationLauncher.mainStage.isIconified = applicationStageIsActive }
-                    automationRunningProperty.set(false)
-                }
-                return null
-            }
-        }
-    }
-
-    fun saveTmpFile() {
+    private fun saveTmpFile() {
         TmpFileLoader.saveTmpFile(this)
     }
 
@@ -104,4 +76,5 @@ class RootSchemaGroupModel(
 
     fun isSaved() = rootFiles.orgFile == null && !rootFiles.currentFileIsTemp()
 
+    fun hasActions() = controller.schemaGroupController.abstractBlocks.isNotEmpty()
 }

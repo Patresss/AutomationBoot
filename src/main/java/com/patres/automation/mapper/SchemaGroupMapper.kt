@@ -13,7 +13,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
     override fun controllerToModel(controller: SchemaGroupController): SchemaGroupModel {
         val actionBlockModels: List<AbstractAction> = controller.abstractBlocks.mapNotNull { it.toModel() }
         val iteration = controller.getNumberOfIteration()
-        val automationRunningProperty = controller.root?.automationRunningProperty
+        val automationRunningProperty = controller.root.automationRunningProperty
         return SchemaGroupModel(actionBlockModels, iteration, automationRunningProperty)
     }
 
@@ -34,7 +34,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
         }
     }
 
-    override fun serializedToModel(serialized: SchemaGroupSerialized, automationRunningProperty: BooleanProperty?): SchemaGroupModel {
+    override fun serializedToModel(serialized: SchemaGroupSerialized, automationRunningProperty: BooleanProperty): SchemaGroupModel {
         val serializedModels: List<AbstractAction> = serialized.actionList.map { it.serializedToModel(automationRunningProperty) }
         return SchemaGroupModel(serializedModels, serialized.numberOfIterations.toInt(), automationRunningProperty)
     }

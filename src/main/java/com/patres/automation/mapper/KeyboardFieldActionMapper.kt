@@ -31,7 +31,7 @@ object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, Keyboa
         }
     }
 
-    override fun serializedToModel(serialized: KeyboardFieldActionSerialized, automationRunningProperty: BooleanProperty?): KeyboardButtonAction {
+    override fun serializedToModel(serialized: KeyboardFieldActionSerialized, automationRunningProperty: BooleanProperty): KeyboardButtonAction {
         return calculateKeyboardFieldAction(serialized.actionBootType, serialized.keys)
     }
 

@@ -32,13 +32,12 @@ object RootSchemaGroupMapper {
         return RootSchemaGroupModel(
                 localSettings = serializedModel.localSettings,
                 rootFiles = rootSchemaFiles
-
         ).apply {
             controller.schemaGroupController = SchemaGroupMapper.serializedToController(serializedModel.schemaGroupSerialized)
         }
     }
 
-    fun serializedToMainSchemaModel(filePath: String, automationRunningProperty: BooleanProperty?): SchemaGroupModel {
+    fun serializedToMainSchemaModel(filePath: String, automationRunningProperty: BooleanProperty): SchemaGroupModel {
         validateAutomationBootFile(filePath)
         val file = File(filePath)
         val serializedRootGroup = file.readText()

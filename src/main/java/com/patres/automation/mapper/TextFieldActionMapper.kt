@@ -29,7 +29,7 @@ object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction,
         }
     }
 
-    override fun serializedToModel(serialized: TextFieldActionSerialized, automationRunningProperty: BooleanProperty?): AbstractAction {
+    override fun serializedToModel(serialized: TextFieldActionSerialized, automationRunningProperty: BooleanProperty): AbstractAction {
         return calculateTextFieldModel(serialized.actionBootType, serialized.value.toInt())
     }
 

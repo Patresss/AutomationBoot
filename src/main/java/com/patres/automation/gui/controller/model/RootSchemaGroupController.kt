@@ -77,7 +77,7 @@ open class RootSchemaGroupController(
         futureSelectedNode?.selectAction()
     }
 
-    fun loadControllerContent() {
+    private fun loadControllerContent() {
         selectedModel = schemaGroupController
         insidePane.content = schemaGroupController
         schemaGroupController.minHeightProperty().bind(heightProperty())

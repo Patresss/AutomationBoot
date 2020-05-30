@@ -1,8 +1,10 @@
 package com.patres.automation.gui.controller.saveBackScreen.activeSchema
 
 import com.jfoenix.controls.JFXButton
+import com.patres.automation.action.ActionRunner
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.settings.LanguageManager
+import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
@@ -24,8 +26,16 @@ class ActiveSchemaItemController(
     lateinit var closeButton: JFXButton
 
     @FXML
+    lateinit var runButton: JFXButton
+
+    @FXML
+    lateinit var stopButton: JFXButton
+
+    @FXML
     lateinit var nameTooltip: Tooltip
 
+    private val actionRunner = ActionRunner(rootSchemaGroupModel.automationRunningProperty)
+    val schemaGroupModel = rootSchemaGroupModel.schemaGroupModel
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/ActiveActionItem.fxml"))
@@ -36,8 +46,14 @@ class ActiveSchemaItemController(
 
         activeSchemaLabel.text = "• ${rootSchemaGroupModel.rootFiles.getName()}"
         nameTooltip.text = rootSchemaGroupModel.rootFiles.currentFile.absolutePath
+
+
     }
 
+    fun initialize() {
+        manageRunStopButtons(rootSchemaGroupModel.automationRunningProperty.get())
+        rootSchemaGroupModel.automationRunningProperty.addListener { _, _, isRunning -> manageRunStopButtons(isRunning) }
+    }
 
     @FXML
     fun editActiveSchema() {
@@ -52,6 +68,23 @@ class ActiveSchemaItemController(
         activeSchemasController.removeActiveSchemaFromUiList(this)
         activeSchemasController.toRemoveSchema.add(rootSchemaGroupModel)
 
+    }
+
+    @FXML
+    fun runAction() {
+        actionRunner.runAutomation(schemaGroupModel)
+    }
+
+    @FXML
+    fun stopAction() {
+        actionRunner.stopAutomation()
+    }
+
+    private fun manageRunStopButtons(isRunning: Boolean) {
+        Platform.runLater {
+            runButton.isVisible = !isRunning
+            stopButton.isVisible = isRunning
+        }
     }
 
 }

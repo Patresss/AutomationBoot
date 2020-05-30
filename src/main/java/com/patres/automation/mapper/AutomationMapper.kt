@@ -9,7 +9,7 @@ object AutomationMapper {
 
     val mapper = jacksonObjectMapper().apply {
         enable(SerializationFeature.INDENT_OUTPUT)  // pretty-printing
-        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
     }
 
     inline fun <reified T> toObject(json: String): T = mapper.readValue(json)

@@ -26,7 +26,7 @@ object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, T
         }
     }
 
-    override fun serializedToModel(serialized: TextAreaActionSerialized, automationRunningProperty: BooleanProperty?): AbstractAction {
+    override fun serializedToModel(serialized: TextAreaActionSerialized, automationRunningProperty: BooleanProperty): AbstractAction {
         return calculateTextAreaModel(serialized.actionBootType, serialized.value, automationRunningProperty)
     }
 

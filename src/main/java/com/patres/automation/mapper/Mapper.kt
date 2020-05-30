@@ -12,6 +12,6 @@ interface Mapper<ControllerType : Any, ActionType : AbstractAction, SerializedTy
 
     fun serializedToController(serialized: SerializedType): ControllerType
 
-    fun serializedToModel(serialized: SerializedType, automationRunningProperty: BooleanProperty?): ActionType
+    fun serializedToModel(serialized: SerializedType, automationRunningProperty: BooleanProperty): ActionType
 
 }

@@ -4,6 +4,7 @@ import com.patres.automation.excpetion.AutomationBootFileIsInvalidException
 import com.patres.automation.file.FileType
 import com.patres.automation.mapper.RootSchemaGroupMapper
 import com.patres.automation.settings.LanguageManager
+import javafx.beans.property.SimpleBooleanProperty
 
 class AutomationBootFileValidation : Validationable() {
 
@@ -15,7 +16,7 @@ class AutomationBootFileValidation : Validationable() {
 
     private fun isAutomationBootFileValid(value: String): Boolean {
         return try {
-            val schemaModel = RootSchemaGroupMapper.serializedToMainSchemaModel(value, null)
+            val schemaModel = RootSchemaGroupMapper.serializedToMainSchemaModel(value, SimpleBooleanProperty(false))
             schemaModel.validate()
             true
         } catch (e: Throwable) {

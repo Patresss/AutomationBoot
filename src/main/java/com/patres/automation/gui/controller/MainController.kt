@@ -108,10 +108,10 @@ class MainController {
         tabPane.tabClosingPolicy = TabPane.TabClosingPolicy.ALL_TABS
 
         val previousOpenModels = ApplicationLauncher.globalSettings.calculatePreviousOpenModels()
-        if (previousOpenModels.isEmpty()) {
-            createNewRootSchema()
-        } else {
-            previousOpenModels.forEach { loadModelFromFile(it) }
+        previousOpenModels.forEach { loadModelFromFile(it) }
+
+        if (tabContainers.isEmpty()) {
+            centerStackPane.children.add(emptyTabController)
         }
 
         listenTabContainers()
@@ -183,7 +183,7 @@ class MainController {
         try {
             rootSchemaLoader.openRootSchema(fileToLoad)
         } catch (e: Exception) {
-            logger.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message)
+            logger.error("Cannot load file ${fileToLoad.absolutePath} Exception: {}", e.message, e)
         }
     }
 

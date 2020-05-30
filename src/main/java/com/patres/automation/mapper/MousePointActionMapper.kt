@@ -37,7 +37,7 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
         }
     }
 
-    override fun serializedToModel(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty?): MousePointAction {
+    override fun serializedToModel(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty): MousePointAction {
         val pointDetector = calculatePointDetectorFromSerialized(serialized)
         return createModel(serialized.actionBootType, pointDetector)
     }

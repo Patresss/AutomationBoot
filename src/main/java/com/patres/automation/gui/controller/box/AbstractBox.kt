@@ -2,6 +2,7 @@ package com.patres.automation.gui.controller.box
 
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
 import com.patres.automation.settings.LanguageManager
@@ -33,8 +34,8 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
     @FXML
     lateinit var selectActionButton: Button
 
-    val root: RootSchemaGroupModel?
-        get() = calculateTypedParent(RootSchemaGroupController::class)?.model
+    val root: RootSchemaGroupModel
+        get() = calculateTypedParent(RootSchemaGroupController::class)?.model ?: throw CannotFindRootSchemaException()
 
     val schemaGroupParent: SchemaGroupController?
         get() = calculateTypedParent(SchemaGroupController::class)

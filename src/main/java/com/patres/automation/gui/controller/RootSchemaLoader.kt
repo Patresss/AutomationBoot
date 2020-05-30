@@ -18,7 +18,6 @@ import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.system.ApplicationInfo
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
-import javafx.application.Application
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.control.Tab
@@ -113,7 +112,7 @@ class RootSchemaLoader(val mainController: MainController) {
     fun createOnCloseRequest(tabContainer: TabContainer): EventHandler<Event> {
         return EventHandler {
             if (!tabContainer.rootSchema.isSaved()) {
-                if (tabContainer.rootSchema.schemaGroupModel.actions.isEmpty()) {
+                if (!tabContainer.rootSchema.hasActions()) {
                     ApplicationLauncher.mainController?.removeTab(tabContainer)
                     tabContainer.rootSchema.rootFiles.removeTmpFile()
                 } else {
@@ -138,7 +137,7 @@ class RootSchemaLoader(val mainController: MainController) {
     private fun createTabContainer(rootGroup: RootSchemaGroupModel): TabContainer {
         val fileName = getTabName(rootGroup)
         val newTab = Tab(fileName, rootGroup.controller).apply {
-            if (!rootGroup.isSaved() && rootGroup.schemaGroupModel.actions.isNotEmpty()) {
+            if (!rootGroup.isSaved() && rootGroup.hasActions()) {
                 graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
             }
         }

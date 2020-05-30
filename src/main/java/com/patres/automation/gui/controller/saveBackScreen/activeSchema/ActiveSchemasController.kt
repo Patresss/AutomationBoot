@@ -63,7 +63,6 @@ class ActiveSchemasController(
     override fun reloadSettings() {
         mainVBox.children.clear()
         toEditSchema.clear()
-//        calculateRootSchemaModels()
         val activeActionsItems = activeActions.map { mapRootToActiveSchemaItem(it) }
         mainVBox.children.addAll(activeActionsItems)
     }

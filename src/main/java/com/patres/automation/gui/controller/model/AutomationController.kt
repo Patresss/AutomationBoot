@@ -1,6 +1,7 @@
 package com.patres.automation.gui.controller.model
 
 import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.gui.custom.AutomationBootableFactoryCell
 import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.settings.LanguageManager
