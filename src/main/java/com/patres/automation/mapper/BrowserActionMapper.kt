@@ -15,7 +15,11 @@ object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, 
 
     override fun controllerToModel(controller: BrowseFileActionController): AbstractAction {
         val root = controller.root ?: throw CannotFindRootSchemaException()
-        return calculateBrowserAction(controller.actionBoot, controller.value, root.automationRunningProperty)
+        return controllerToModel(controller, root.actionRunner.automationRunningProperty)
+    }
+
+    fun controllerToModel(controller: BrowseFileActionController, automationRunningProperty: BooleanProperty): AbstractAction {
+        return calculateBrowserAction(controller.actionBoot, controller.value, automationRunningProperty)
     }
 
     override fun controllerToSerialized(controller: BrowseFileActionController): BrowserActionSerialized {
@@ -47,5 +51,9 @@ object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, 
                 RunExistingSchemaAction(schemaModel, actionType)
             }
         }
+    }
+
+    fun modelToController( ) {
+
     }
 }

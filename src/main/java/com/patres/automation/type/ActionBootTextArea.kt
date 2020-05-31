@@ -22,6 +22,6 @@ enum class ActionBootTextArea(
         return this.bundleName
     }
 
-    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(TextAreaActionController(this)) }
+    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(TextAreaActionController(this)) }
 
 }

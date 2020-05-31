@@ -3,6 +3,7 @@ package com.patres.automation.file
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.excpetion.ApplicationException
+import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.mapper.RootSchemaGroupMapper
 import com.patres.automation.settings.GlobalSettingsLoader
@@ -21,15 +22,15 @@ object TmpFileLoader {
         }
     }
 
-    fun saveTmpFile(rootSchemaGroupModel: RootSchemaGroupModel) {
-        if (rootSchemaGroupModel.rootFiles.calculateTmpFile() == null) {
+    fun saveTmpFile(rootSchemaController: RootSchemaGroupController) {
+        if (rootSchemaController.actionRunner.rootFiles.calculateTmpFile() == null) {
             val createNewTmpFile = createNewTmpFile()
-            rootSchemaGroupModel.rootFiles.setNewTmpFile(createNewTmpFile)
+            rootSchemaController.actionRunner.rootFiles.setNewTmpFile(createNewTmpFile)
             GlobalSettingsLoader.save()
         }
-        val tmpFile = rootSchemaGroupModel.rootFiles.calculateTmpFile()
-                ?: throw ApplicationException("Temp file for ${rootSchemaGroupModel.getName()} cannot be found")
-        val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(rootSchemaGroupModel)
+        val tmpFile = rootSchemaController.actionRunner.rootFiles.calculateTmpFile()
+                ?: throw ApplicationException("Temp file for ${rootSchemaController.actionRunner.getName()} cannot be found")
+        val rootSchemaGroupSerialized = RootSchemaGroupMapper.controllerToSerialize(rootSchemaController)
         val serializedRootGroup = AutomationMapper.toJson(rootSchemaGroupSerialized)
 
         tmpFile.writeText(serializedRootGroup)

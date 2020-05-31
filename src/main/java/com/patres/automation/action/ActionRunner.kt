@@ -2,6 +2,7 @@ package com.patres.automation.action
 
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.file.TmpFileLoader
+import com.patres.automation.gui.controller.box.SchemaGroupController
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.gui.dialog.SaveRecordedActionsDialog
@@ -13,7 +14,11 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.concurrent.Task
 import org.slf4j.LoggerFactory
 
-class ActionRunner(val automationRunningProperty: BooleanProperty) {
+class ActionRunner(
+        val automationRunningProperty: BooleanProperty,
+        val localSettings: LocalSettings,
+        val rootFiles: RootSchemaFiles
+) {
 
     companion object {
         private val logger = LoggerFactory.getLogger(ActionRunner::class.java)
@@ -33,6 +38,18 @@ class ActionRunner(val automationRunningProperty: BooleanProperty) {
         logger.info("Stop automation")
         automationRunningProperty.set(false)
     }
+
+    fun isRunning() = automationRunningProperty.get()
+
+    fun isSaved() = rootFiles.orgFile == null && !rootFiles.currentFileIsTemp()
+
+    fun getFilePathToSettings(): String {
+        return rootFiles.currentFile.absolutePath
+    }
+
+    fun getName() = rootFiles.getName()
+
+    fun getEndpointName() = if (localSettings.endpointName.isNotBlank()) localSettings.endpointName else rootFiles.getName().replace("\\s".toRegex(), "")
 
     private fun createRunTask(schemaGroupModel: SchemaGroupModel): Task<Void> {
         return object : Task<Void>() {

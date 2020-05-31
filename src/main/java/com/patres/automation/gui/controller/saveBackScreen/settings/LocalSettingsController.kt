@@ -64,7 +64,7 @@ class LocalSettingsController(
             runKeysSetting.keyboardField.setKeyboardButtons(runActionsKeys)
             stopKeysSetting.keyboardField.setKeyboardButtons(stopActionsKeys)
             endpointNameTextField.value = endpointName
-            endpointNameTextField.valueText.promptText = rootSchemaGroupController.model.getEndpointName()
+            endpointNameTextField.valueText.promptText = rootSchemaGroupController.actionRunner.getEndpointName()
         }
     }
 

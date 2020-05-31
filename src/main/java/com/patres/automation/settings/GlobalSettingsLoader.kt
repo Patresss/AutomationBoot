@@ -33,7 +33,7 @@ object GlobalSettingsLoader {
 
     fun save(globalSettings: GlobalSettings = ApplicationLauncher.globalSettings) {
         logger.info("Global settings are saving...")
-        val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchema.getFilePathToSettings() }?: emptyList()
+        val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchemaController.actionRunner.getFilePathToSettings() }?: emptyList()
         globalSettings.previousPathFiles = filesToSave
         globalSettings.applicationVersion = ApplicationInfo.version
 

@@ -13,11 +13,11 @@ class RunStopRecordKeyListener(
     override fun stopKeyboardKey() = ApplicationLauncher.globalSettings.stopRecordKeys.map { it.keyValue }
 
     override fun invokeRunAction() {
-        mainController.getSelectedTabContainer()?.rootSchema?.startRecord()
+        mainController.getSelectedTabContainer()?.rootSchemaController?.startRecord()
     }
 
     override fun invokeStopAction() {
-        mainController.getSelectedTabContainer()?.rootSchema?.stopRecord()
+        mainController.getSelectedTabContainer()?.rootSchemaController?.stopRecord()
     }
 
 }

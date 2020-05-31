@@ -4,14 +4,17 @@ import com.jfoenix.controls.JFXSnackbar
 import com.jfoenix.controls.JFXTabPane
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.gui.animation.SliderAnimation
 import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessageLanguage
+import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.controller.saveBackScreen.activeSchema.ActiveSchemasController
 import com.patres.automation.gui.controller.saveBackScreen.settings.GlobalSettingsController
 import com.patres.automation.gui.dialog.DialogHandler
 import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.listener.RunStopKeyListener
+import com.patres.automation.mapper.RootSchemaGroupMapper
 import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.system.ApplicationInfo
@@ -90,9 +93,9 @@ class MainController {
     lateinit var snackBar: JFXSnackbar
 
     val tabContainers: ObservableList<TabContainer> = FXCollections.observableList(ArrayList<TabContainer>())
-    val openedRootSchemas: List<RootSchemaGroupModel>
+    val openedRootSchemas: List<RootSchemaGroupController>
         get() {
-            return tabContainers.map { it.rootSchema }
+            return tabContainers.map { it.rootSchemaController }
         }
 
     private val globalSettingsController = GlobalSettingsController(this)
@@ -192,7 +195,7 @@ class MainController {
         getSelectedTabContainer()?.let {
             val saved = rootSchemaLoader.saveExistingRootSchema(it)
             if (saved) {
-                createSaveFileSnackBar(it.rootSchema.rootFiles.getName())
+                createSaveFileSnackBar(it.rootSchemaController.actionRunner.rootFiles.getName())
             }
         }
     }
@@ -202,7 +205,7 @@ class MainController {
         getSelectedTabContainer()?.let {
             val saved = rootSchemaLoader.saveAsRootSchema(it)
             if (saved) {
-                createSaveFileSnackBar(it.rootSchema.rootFiles.getName())
+                createSaveFileSnackBar(it.rootSchemaController.actionRunner.rootFiles.getName())
             }
         }
     }
@@ -225,7 +228,7 @@ class MainController {
             globalSettingsController.close()
         }
 
-        getSelectedTabContainer()?.rootSchema?.controller?.openLocalSettings()
+        getSelectedTabContainer()?.rootSchemaController?.openLocalSettings()
     }
 
     @FXML
@@ -249,14 +252,20 @@ class MainController {
 
     @FXML
     fun addActiveSchema() {
-        getSelectedTabContainer()?.let { tabContainer ->
-            if (tabContainer.rootSchema.isSaved()) {
-                activeSchemasController.addNewSchemaModel(tabContainer.rootSchema)
-                removeTab(tabContainer)
-                snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaAdded")
-            } else {
-                snackBar.addMessageLanguage(SnackBarType.WARNING, "message.snackbar.saveSchemaBeforeAdding")
+        try {
+            getSelectedTabContainer()?.let { tabContainer ->
+                if (tabContainer.rootSchemaController.actionRunner.isSaved()) {
+                    val rootSchema = RootSchemaGroupMapper.controllerToModel(tabContainer.rootSchemaController)
+                    val serialized = RootSchemaGroupMapper.controllerToSerialize(tabContainer.rootSchemaController)
+                    activeSchemasController.addNewSchemaModel(rootSchema, serialized)
+                    removeTab(tabContainer)
+                    snackBar.addMessageLanguage(SnackBarType.INFO, "message.snackbar.schemaAdded")
+                } else {
+                    snackBar.addMessageLanguage(SnackBarType.WARNING, "message.snackbar.saveSchemaBeforeAdding")
+                }
             }
+        } catch (e: ApplicationException) {
+            LogManager.showAndLogException(e)
         }
     }
 
@@ -268,8 +277,8 @@ class MainController {
 
     fun getSelectedTabContainer(): TabContainer? = tabContainers.find { it.tab == tabPane.selectionModel?.selectedItem }
 
-    fun changeDetect(rootSchemaGroupModel: RootSchemaGroupModel) {
-        val tabContainer = tabContainers.find { it.rootSchema == rootSchemaGroupModel }
+    fun changeDetect(controller: RootSchemaGroupController) {
+        val tabContainer = tabContainers.find { it.rootSchemaController == controller }
         tabContainer?.tab?.graphic = FontAwesomeIconView(FontAwesomeIcon.SAVE)
     }
 
@@ -291,11 +300,18 @@ class MainController {
     }
 
     fun findActionByName(actionName: String): RootSchemaGroupModel? {
-        return findAllowedAction()
-                .find { it.getEndpointName() == actionName }
+        val actionFromActive = activeSchemasController.activeActions.find { it.model.actionRunner.getEndpointName() == actionName }
+        if (actionFromActive != null) {
+            return actionFromActive.model
+        }
+        val actionFromUi = openedRootSchemas.find { it.actionRunner.getEndpointName() == actionName }
+        if (actionFromUi != null) {
+            return RootSchemaGroupMapper.controllerToModel(actionFromUi)
+        }
+        return null
     }
 
-    fun findAllowedAction() = openedRootSchemas + activeSchemasController.activeActions
+    fun findAllowedActionRunner() = openedRootSchemas.map { it.actionRunner } + activeSchemasController.activeActions.map { it.model.actionRunner }
 
     fun currentTabPane(): Node {
         return if (tabContainers.isEmpty()) {

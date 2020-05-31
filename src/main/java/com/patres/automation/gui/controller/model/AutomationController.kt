@@ -46,8 +46,8 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     open fun changeErrorMessage() {}
     open fun shouldCheckUiValidation() = true
 
-    val root: RootSchemaGroupModel?
-        get() = calculateTypedParent(RootSchemaGroupController::class)?.model
+    val root: RootSchemaGroupController?
+        get() = calculateTypedParent(RootSchemaGroupController::class)
 
     private var actionComboBox: ComboBox<MenuItem>? = null
 

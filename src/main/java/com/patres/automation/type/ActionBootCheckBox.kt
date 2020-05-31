@@ -23,6 +23,6 @@ enum class ActionBootCheckBox(
         return this.bundleName
     }
 
-    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(CheckBoxActionController(this)) }
+    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(CheckBoxActionController(this)) }
 
 }

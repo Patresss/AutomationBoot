@@ -17,9 +17,9 @@ open class JfxSerializedSpec(body: FreeSpec.() -> Unit = {}) : JfxSpec(body) {
             // when
             val textFromFile = loadTextFromFile(filePath)
             val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(textFromFile)
-            val serializedToModel = RootSchemaGroupMapper.serializedToModel(rootGroupSerialized, File("/"))
+            val serializedToModel = RootSchemaGroupMapper.serializedToController(rootGroupSerialized, File("/"))
 
-            val rootSchemaGroupSerialized = RootSchemaGroupMapper.modelToSerialize(serializedToModel)
+            val rootSchemaGroupSerialized = RootSchemaGroupMapper.controllerToSerialize(serializedToModel)
             val json = AutomationMapper.toJson(rootSchemaGroupSerialized)
 
             // then

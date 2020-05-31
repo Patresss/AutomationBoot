@@ -9,6 +9,7 @@ import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.mapper.model.TextAreaActionSerialized
 import com.patres.automation.type.ActionBootTextArea
 import io.kotest.matchers.shouldBe
+import javafx.beans.property.SimpleBooleanProperty
 
 class TextAreaActionMapperTest : JfxSpec({
 
@@ -37,7 +38,7 @@ class TextAreaActionMapperTest : JfxSpec({
             val serializedModel = TextAreaActionSerialized(ActionBootTextArea.PASTE_TEXT, testedValueText)
 
             // when
-            val model = TextAreaActionMapper.serializedToModel(serializedModel, null)
+            val model = TextAreaActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<PasteTextFromFieldAction> {
@@ -49,7 +50,7 @@ class TextAreaActionMapperTest : JfxSpec({
             val serializedModel = TextAreaActionSerialized(ActionBootTextArea.TYPE_TEXT, testedValueText)
 
             // when
-            val model = TextAreaActionMapper.serializedToModel(serializedModel, null)
+            val model = TextAreaActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<TypeTextFromFieldAction> {
@@ -84,7 +85,7 @@ class TextAreaActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextAreaActionMapper.controllerToModel(controller)
+            val model = TextAreaActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<PasteTextFromFieldAction> {
@@ -99,7 +100,7 @@ class TextAreaActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextAreaActionMapper.controllerToModel(controller)
+            val model = TextAreaActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<TypeTextFromFieldAction> {

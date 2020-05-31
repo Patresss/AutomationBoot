@@ -9,6 +9,7 @@ import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.mapper.model.TextFieldActionSerialized
 import com.patres.automation.type.ActionBootTextField
 import io.kotest.matchers.shouldBe
+import javafx.beans.property.SimpleBooleanProperty
 
 internal class TextFieldActionMapperTest : JfxSpec({
 
@@ -38,7 +39,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             val serializedModel = TextFieldActionSerialized(ActionBootTextField.SCROLL_WHEEL_UP, testedValueText)
 
             // when
-            val model = TextFieldActionMapper.serializedToModel(serializedModel, null)
+            val model = TextFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelUpAction> {
@@ -52,7 +53,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             val serializedModel = TextFieldActionSerialized(ActionBootTextField.SCROLL_WHEEL_DOWN, testedValueText)
 
             // when
-            val model = TextFieldActionMapper.serializedToModel(serializedModel, null)
+            val model = TextFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelDownAction> {

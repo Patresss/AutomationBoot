@@ -34,8 +34,8 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
     @FXML
     lateinit var selectActionButton: Button
 
-    val root: RootSchemaGroupModel
-        get() = calculateTypedParent(RootSchemaGroupController::class)?.model ?: throw CannotFindRootSchemaException()
+    val root: RootSchemaGroupController
+        get() = calculateTypedParent(RootSchemaGroupController::class) ?: throw CannotFindRootSchemaException()
 
     val schemaGroupParent: SchemaGroupController?
         get() = calculateTypedParent(SchemaGroupController::class)
@@ -53,9 +53,9 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
 
     @FXML
     fun selectAction() {
-        root?.controller?.unselectAllButton()
+        root?.unselectAllButton()
         selectActionButton.styleClass.add("select-action-button-selected")
-        root?.controller?.selectedModel = this
+        root?.selectedModel = this
     }
 
 
@@ -93,7 +93,7 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
         }
     }
 
-    private fun hasTheSameParentAsRoot() = root?.controller?.schemaGroupController != schemaGroupParent
+    private fun hasTheSameParentAsRoot() = root?.schemaGroupController != schemaGroupParent
 
     fun findNodeOnTheTop(): AbstractBox<*>? {
         val topNodeInGroup = findNodeOnTheTopFromGroup()

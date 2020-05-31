@@ -29,6 +29,6 @@ enum class ActionBootKeyboard(
         return this.bundleName
     }
 
-    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(KeyboardButtonActionController(this)) }
+    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(KeyboardButtonActionController(this)) }
 
 }

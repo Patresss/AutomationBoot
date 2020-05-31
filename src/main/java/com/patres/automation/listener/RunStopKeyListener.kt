@@ -3,7 +3,8 @@ package com.patres.automation.listener
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.keyboard.KeyAdapter
 import com.patres.automation.listener.action.RunStopGlobalRootSchemaKeyListener
-import com.patres.automation.listener.action.RunStopLocalRootSchemaKeyListener
+import com.patres.automation.listener.action.RunStopLocalRootSchemaControllerKeyListener
+import com.patres.automation.listener.action.RunStopLocalRootSchemaModelKeyListener
 import com.patres.automation.listener.action.RunStopRecordKeyListener
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
@@ -60,7 +61,9 @@ class RunStopKeyListener(private val mainController: MainController) : NativeKey
         pressedKeys.clear()
     }
 
-    private fun calculateActiveSchemaListeners() = mainController.findAllowedAction().map { RunStopLocalRootSchemaKeyListener(it) }
+    private fun calculateActiveSchemaListeners() =
+            mainController.activeSchemasController.activeActions.map { RunStopLocalRootSchemaModelKeyListener(it.model) } +
+            mainController.openedRootSchemas.map { RunStopLocalRootSchemaControllerKeyListener(it) }
 
     private fun calculateAllListeners() = constListeners + calculateActiveSchemaListeners()
 

@@ -43,4 +43,6 @@ class RootSchemaFiles(
 
     fun currentFileIsTemp() = currentFile.extension == FileType.TEMP_AUTOMATION_BOOT.extension
 
+    fun getFilePathToSettings(): String = currentFile.absolutePath
+
 }

@@ -35,14 +35,14 @@ class SaveDialog(
 
     @FXML
     fun initialize() {
-        label.text = MessageFormat.format(fromBundle("dialog.save.saveFile"), tabContainer.rootSchema.getName())
+        label.text = MessageFormat.format(fromBundle("dialog.save.saveFile"), tabContainer.rootSchemaController.actionRunner.getName())
     }
 
     @FXML
     fun save() {
         val saved = rootSchemaLoader.saveExistingRootSchema(tabContainer)
         if (saved) {
-            tabContainer.rootSchema.stopAutomation()
+            tabContainer.rootSchemaController.stopAutomation()
             ApplicationLauncher.mainController?.removeTab(tabContainer)
             dialogKeeper?.close()
         }
@@ -50,7 +50,7 @@ class SaveDialog(
 
     @FXML
     fun doNotSave() {
-        tabContainer.rootSchema.stopAutomation()
+        tabContainer.rootSchemaController.stopAutomation()
         rootSchemaLoader.removeTmpFile(tabContainer)
         ApplicationLauncher.mainController?.removeTab(tabContainer)
         dialogKeeper?.close()

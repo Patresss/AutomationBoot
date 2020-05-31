@@ -12,6 +12,7 @@ import com.patres.automation.type.ActionBootTextField
 import io.kotest.matchers.collections.shouldBeSameSizeAs
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
+import javafx.beans.property.SimpleBooleanProperty
 
 class SchemaGroupMapperTest : JfxSpec({
 
@@ -47,7 +48,7 @@ class SchemaGroupMapperTest : JfxSpec({
                 val serializedModel = SchemaGroupSerialized(testedActionList, testedGroupName, testedNumberOfIterations)
 
                 // when
-                val model = SchemaGroupMapper.serializedToModel(serializedModel, null)
+                val model = SchemaGroupMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
                 // then
                 model.shouldNotBeNullAndCheck {
@@ -92,7 +93,7 @@ class SchemaGroupMapperTest : JfxSpec({
                 }
 
                 // when
-                val model = SchemaGroupMapper.controllerToModel(controller)
+                val model = SchemaGroupMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
                 // then
                 model.shouldNotBeNullAndCheck {

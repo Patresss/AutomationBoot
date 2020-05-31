@@ -12,6 +12,7 @@ import com.patres.automation.util.Base64Converter
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeTypeOf
+import javafx.beans.property.SimpleBooleanProperty
 
 
 class MousePointActionMapperTest : JfxSpec({
@@ -76,7 +77,7 @@ class MousePointActionMapperTest : JfxSpec({
                     val serializedModel = MousePointActionSerialized(verifiedAction, testedPoint)
 
                     // when
-                    val model = MousePointActionMapper.serializedToModel(serializedModel, null)
+                    val model = MousePointActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
                     // then
                     model.shouldNotBeNullAndCheck {
@@ -94,7 +95,7 @@ class MousePointActionMapperTest : JfxSpec({
                     val serializedModel = MousePointActionSerialized(verifiedAction, null, testedImageBase64, testedThreshold)
 
                     // when
-                    val model = MousePointActionMapper.serializedToModel(serializedModel, null)
+                    val model = MousePointActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
                     // then
                     model.shouldNotBeNullAndCheck {

@@ -1,8 +1,8 @@
 package com.patres.automation.gui.controller.saveBackScreen.activeSchema
 
 import com.jfoenix.controls.JFXButton
-import com.patres.automation.action.ActionRunner
 import com.patres.automation.action.RootSchemaGroupModel
+import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import com.patres.automation.settings.LanguageManager
 import javafx.application.Platform
 import javafx.fxml.FXML
@@ -14,7 +14,9 @@ import javafx.scene.layout.StackPane
 
 class ActiveSchemaItemController(
         private val activeSchemasController: ActiveSchemasController,
-        val rootSchemaGroupModel: RootSchemaGroupModel) : StackPane() {
+        val model: RootSchemaGroupModel,
+        val serialized: RootSchemaGroupSerialized
+) : StackPane() {
 
     @FXML
     lateinit var activeSchemaLabel: Label
@@ -34,9 +36,6 @@ class ActiveSchemaItemController(
     @FXML
     lateinit var nameTooltip: Tooltip
 
-    private val actionRunner = ActionRunner(rootSchemaGroupModel.automationRunningProperty)
-    val schemaGroupModel = rootSchemaGroupModel.schemaGroupModel
-
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/ActiveActionItem.fxml"))
         fxmlLoader.setRoot(this)
@@ -44,40 +43,38 @@ class ActiveSchemaItemController(
         fxmlLoader.resources = LanguageManager.getBundle()
         fxmlLoader.load<ActiveSchemaItemController>()
 
-        activeSchemaLabel.text = "• ${rootSchemaGroupModel.rootFiles.getName()}"
-        nameTooltip.text = rootSchemaGroupModel.rootFiles.currentFile.absolutePath
-
-
+        activeSchemaLabel.text = "• ${model.actionRunner.rootFiles.getName()}"
+        nameTooltip.text = model.actionRunner.rootFiles.currentFile.absolutePath
     }
 
     fun initialize() {
-        manageRunStopButtons(rootSchemaGroupModel.automationRunningProperty.get())
-        rootSchemaGroupModel.automationRunningProperty.addListener { _, _, isRunning -> manageRunStopButtons(isRunning) }
+        manageRunStopButtons(model.actionRunner.isRunning())
+        model.actionRunner.automationRunningProperty.addListener { _, _, isRunning -> manageRunStopButtons(isRunning) }
     }
 
     @FXML
     fun editActiveSchema() {
         activeSchemasController.changeDetect()
         activeSchemasController.removeActiveSchemaFromUiList(this)
-        activeSchemasController.toEditSchema.add(rootSchemaGroupModel)
+        activeSchemasController.toEditSchema.add(this)
     }
 
     @FXML
     fun closeActiveSchema() {
         activeSchemasController.changeDetect()
         activeSchemasController.removeActiveSchemaFromUiList(this)
-        activeSchemasController.toRemoveSchema.add(rootSchemaGroupModel)
+        activeSchemasController.toRemoveSchema.add(this)
 
     }
 
     @FXML
     fun runAction() {
-        actionRunner.runAutomation(schemaGroupModel)
+        model.runAutomation()
     }
 
     @FXML
     fun stopAction() {
-        actionRunner.stopAutomation()
+        model.stopAutomation()
     }
 
     private fun manageRunStopButtons(isRunning: Boolean) {

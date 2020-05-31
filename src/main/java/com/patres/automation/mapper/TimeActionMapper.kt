@@ -9,17 +9,17 @@ import com.patres.automation.mapper.model.TimeActionSerialized
 import com.patres.automation.type.ActionBootTime
 import com.patres.automation.util.extension.toLongOrZero
 import javafx.beans.property.BooleanProperty
-import javafx.beans.property.SimpleBooleanProperty
 
 object TimeActionMapper : Mapper<TimeActionController, DelayAction, TimeActionSerialized> {
 
     override fun controllerToModel(controller: TimeActionController): DelayAction {
-        val timeContainer = TimeContainer(controller.value.toLong(), controller.selectedDelayTime())
-        println("=============== controllerToModel")
-        println("=============== ${controller.root}")
-        val root = controller.root?.automationRunningProperty ?: SimpleBooleanProperty(false)
-        return calculateDelayActionModel(controller.actionBoot, timeContainer, root)
+        val root = controller.root ?: throw CannotFindRootSchemaException()
+        return controllerToModel(controller, root.actionRunner.automationRunningProperty)
+    }
 
+    fun controllerToModel(controller: TimeActionController, automationRunningProperty: BooleanProperty): DelayAction {
+        val timeContainer = TimeContainer(controller.value.toLong(), controller.selectedDelayTime())
+        return calculateDelayActionModel(controller.actionBoot, timeContainer, automationRunningProperty)
     }
 
     override fun controllerToSerialized(controller: TimeActionController): TimeActionSerialized {

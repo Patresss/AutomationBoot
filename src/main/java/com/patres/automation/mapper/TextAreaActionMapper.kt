@@ -3,6 +3,7 @@ package com.patres.automation.mapper
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.text.PasteTextFromFieldAction
 import com.patres.automation.action.text.TypeTextFromFieldAction
+import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.gui.controller.model.TextAreaActionController
 import com.patres.automation.mapper.model.TextAreaActionSerialized
 import com.patres.automation.type.ActionBootTextArea
@@ -11,7 +12,12 @@ import javafx.beans.property.BooleanProperty
 object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, TextAreaActionSerialized> {
 
     override fun controllerToModel(controller: TextAreaActionController): AbstractAction {
-        return calculateTextAreaModel(controller.actionBoot, controller.value, controller.root?.automationRunningProperty)
+        val root = controller.root ?: throw CannotFindRootSchemaException()
+        return controllerToModel(controller, root.actionRunner.automationRunningProperty)
+    }
+
+    fun controllerToModel(controller: TextAreaActionController, automationRunningProperty: BooleanProperty): AbstractAction {
+        return calculateTextAreaModel(controller.actionBoot, controller.value, automationRunningProperty)
     }
 
     override fun controllerToSerialized(controller: TextAreaActionController): TextAreaActionSerialized {

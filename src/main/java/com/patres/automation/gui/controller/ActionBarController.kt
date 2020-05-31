@@ -116,12 +116,11 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
     }
 
     private fun updateActions() {
-        val model = rootSchemaGroupController.model
         nodeActionMap.forEach { (button, action) ->
             button.onMouseClicked = EventHandler {
-                action.menuItemHandler(model)
+                action.menuItemHandler(rootSchemaGroupController)
                 if (action.enabledForChangeDetector) {
-                    model.changeDetect()
+                    rootSchemaGroupController.changeDetect()
                 }
             }
 
@@ -131,8 +130,8 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
         }
         listViews.forEach { listView ->
             listView.onMouseClicked = EventHandler {
-                listView.selectionModel.selectedItem.menuItemHandler(model)
-                model.changeDetect()
+                listView.selectionModel.selectedItem.menuItemHandler(rootSchemaGroupController)
+                rootSchemaGroupController.changeDetect()
             }
         }
     }
@@ -153,7 +152,7 @@ class ActionBarController(private val rootSchemaGroupController: RootSchemaGroup
 
     private fun initRecordButtonListener() {
         setRunRecordIcon()
-        rootSchemaGroupController.model.actionRecorder.recordRunningProperty.addListener { _, _, newValue ->
+        rootSchemaGroupController.actionRecorder.recordRunningProperty.addListener { _, _, newValue ->
             Platform.runLater {
                 if (newValue) {
                     setStopRecordIcon()

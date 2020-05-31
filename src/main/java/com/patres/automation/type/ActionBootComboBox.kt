@@ -20,6 +20,6 @@ abstract class ActionBootComboBox(
 
 // new class because I cannot create enum with generic
 class ChooseLanguageActionBootComboBox : ActionBootComboBox("settings.chooseLanguage") {
-    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(ComboBoxController(this, Language.values().toList())) }
+    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(ComboBoxController(this, Language.values().toList())) }
     fun createController(): () -> ComboBoxController<Language> = { ComboBoxController(this, Language.values().toList()) }
 }

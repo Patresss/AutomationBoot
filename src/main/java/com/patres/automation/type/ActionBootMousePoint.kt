@@ -39,6 +39,6 @@ enum class ActionBootMousePoint(
         return this.bundleName
     }
 
-    override fun createActinBox(): () -> AbstractBox<*> = { ActionBox(MousePointActionController(this)) }
+    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(MousePointActionController(this)) }
 
 }

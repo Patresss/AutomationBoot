@@ -10,6 +10,8 @@ import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.mapper.model.BrowserActionSerialized
 import com.patres.automation.type.ActionBootBrowser
 import io.kotest.matchers.shouldBe
+import javafx.beans.property.BooleanProperty
+import javafx.beans.property.SimpleBooleanProperty
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
@@ -43,7 +45,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             val serializedModel = BrowserActionSerialized(ActionBootBrowser.PASTE_TEXT_FROM_FILE, testedFilePath)
 
             // when
-            val model = BrowserActionMapper.serializedToModel(serializedModel, null)
+            val model = BrowserActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<PasteTextFromFileAction> {
@@ -56,7 +58,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             val serializedModel = BrowserActionSerialized(ActionBootBrowser.TYPE_TEXT_FROM_FILE, testedFilePath)
 
             // when
-            val model = BrowserActionMapper.serializedToModel(serializedModel, null)
+            val model = BrowserActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<TypeTextFromFileAction> {
@@ -69,7 +71,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             val serializedModel = BrowserActionSerialized(ActionBootBrowser.OPEN_FILE, testedFilePath)
 
             // when
-            val model = BrowserActionMapper.serializedToModel(serializedModel, null)
+            val model = BrowserActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<OpenFileAction> {
@@ -82,7 +84,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             val serializedModel = BrowserActionSerialized(ActionBootBrowser.OPEN_DIRECTORY, testedFilePath)
 
             // when
-            val model = BrowserActionMapper.serializedToModel(serializedModel, null)
+            val model = BrowserActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<OpenDirectoryAction> {
@@ -95,7 +97,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             val serializedModel = BrowserActionSerialized(ActionBootBrowser.WINDOWS_SCRIPT_RUN, testedFilePath)
 
             // when
-            val model = BrowserActionMapper.serializedToModel(serializedModel, null)
+            val model = BrowserActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<WindowsRunScriptAction> {
@@ -108,7 +110,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             val serializedModel = BrowserActionSerialized(ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE, testedFilePath)
 
             // when
-            val model = BrowserActionMapper.serializedToModel(serializedModel, null)
+            val model = BrowserActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<WindowsRunAndWaitScriptAction> {
@@ -121,7 +123,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             val serializedModel = BrowserActionSerialized(ActionBootBrowser.RUN_EXISTING_SCHEMA, testedFileAbPath)
 
             // when
-            val model = BrowserActionMapper.serializedToModel(serializedModel, null)
+            val model = BrowserActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<RunExistingSchemaAction> {
@@ -151,12 +153,13 @@ internal class BrowserActionMapperTest : JfxSpec({
     "Should map controller to model" - {
         ActionBootBrowser.PASTE_TEXT_FROM_FILE.name - {
             // given
-            val serializedModel = BrowseFileActionController(ActionBootBrowser.PASTE_TEXT_FROM_FILE).apply {
+            val controller = BrowseFileActionController(ActionBootBrowser.PASTE_TEXT_FROM_FILE).apply {
                 value = testedFilePath
+                root
             }
 
             // when
-            val model = BrowserActionMapper.controllerToModel(serializedModel)
+            val model = BrowserActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<PasteTextFromFileAction> {
@@ -171,7 +174,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = BrowserActionMapper.controllerToModel(serializedModel)
+            val model = BrowserActionMapper.controllerToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<TypeTextFromFileAction> {
@@ -186,7 +189,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = BrowserActionMapper.controllerToModel(serializedModel)
+            val model = BrowserActionMapper.controllerToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<OpenFileAction> {
@@ -201,7 +204,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = BrowserActionMapper.controllerToModel(serializedModel)
+            val model = BrowserActionMapper.controllerToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<OpenDirectoryAction> {
@@ -216,7 +219,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = BrowserActionMapper.controllerToModel(serializedModel)
+            val model = BrowserActionMapper.controllerToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<WindowsRunScriptAction> {
@@ -231,7 +234,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = BrowserActionMapper.controllerToModel(serializedModel)
+            val model = BrowserActionMapper.controllerToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<WindowsRunAndWaitScriptAction> {
@@ -246,7 +249,7 @@ internal class BrowserActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = BrowserActionMapper.controllerToModel(serializedModel)
+            val model = BrowserActionMapper.controllerToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<RunExistingSchemaAction> {

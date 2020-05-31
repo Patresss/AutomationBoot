@@ -11,6 +11,7 @@ import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.model.KeyboardFieldActionSerialized
 import com.patres.automation.type.ActionBootKeyboard
 import io.kotest.matchers.shouldBe
+import javafx.beans.property.SimpleBooleanProperty
 
 
 class KeyboardFieldActionMapperTest : JfxSpec({
@@ -42,7 +43,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             val serializedModel = KeyboardFieldActionSerialized(ActionBootKeyboard.PRESS_KEYBOARD_BUTTON, testedKeys)
 
             // when
-            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, null)
+            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<PressKeyboardButtonAction> {
@@ -55,7 +56,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             val serializedModel = KeyboardFieldActionSerialized(ActionBootKeyboard.HOLD_KEYBOARD_BUTTON, testedKeys)
 
             // when
-            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, null)
+            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<HoldKeyboardButtonAction> {
@@ -68,7 +69,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             val serializedModel = KeyboardFieldActionSerialized(ActionBootKeyboard.RELEASE_KEYBOARD_BUTTON, testedKeys)
 
             // when
-            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, null)
+            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<ReleaseKeyboardButtonAction> {

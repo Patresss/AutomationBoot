@@ -8,6 +8,8 @@ import com.patres.automation.gui.component.snackBar.addMessageLanguageWhenIsLoad
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.gui.controller.RootSchemaLoader
 import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenController
+import com.patres.automation.mapper.RootSchemaGroupMapper
+import com.patres.automation.mapper.model.RootSchemaGroupSerialized
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -21,13 +23,12 @@ class ActiveSchemasController(
     }
 
     private val rootSchemaLoader = RootSchemaLoader(mainController)
-    val toEditSchema: MutableList<RootSchemaGroupModel> = mutableListOf()
-    val toRemoveSchema: MutableList<RootSchemaGroupModel> = mutableListOf()
+    val toEditSchema: MutableList<ActiveSchemaItemController> = mutableListOf()
+    val toRemoveSchema: MutableList<ActiveSchemaItemController> = mutableListOf()
 
-    val activeActions: MutableList<RootSchemaGroupModel> = mutableListOf()
+    val activeActions: MutableList<ActiveSchemaItemController> = mutableListOf()
 
     init {
-        initChangeDetectors()
         calculateRootSchemaModels()
     }
 
@@ -37,18 +38,27 @@ class ActiveSchemasController(
         ApplicationLauncher.globalSettings.editAndSave {
             activeSchemas = getActiveSchemaFromUi()
         }
-        activeActions.removeIf { !ApplicationLauncher.globalSettings.activeSchemas.contains(it.getFilePathToSettings()) }
+        activeActions.removeIf {
+            val filePath = it.model.actionRunner.rootFiles.getFilePathToSettings()
+            !ApplicationLauncher.globalSettings.activeSchemas.contains(filePath)
+        }
 
         logger.debug("Saved ${activeActions.size} schema models as active")
         snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO, "message.snackbar.settingsSave")
     }
 
     private fun openSchemasToEdit() {
-        toEditSchema.forEach { rootSchemaLoader.openRootSchema(it) }
+        toEditSchema
+                .map { RootSchemaGroupMapper.serializedToController(it.serialized, it.model.actionRunner.rootFiles.currentFile) }
+                .forEach {
+                    rootSchemaLoader.openRootSchema(it)
+                }
     }
 
     private fun stopSchemasToClose() {
-        toRemoveSchema.forEach { it.stopAutomation() }
+        toRemoveSchema
+                .map { it.model }
+                .forEach { it.stopAutomation() }
 
     }
 
@@ -63,12 +73,7 @@ class ActiveSchemasController(
     override fun reloadSettings() {
         mainVBox.children.clear()
         toEditSchema.clear()
-        val activeActionsItems = activeActions.map { mapRootToActiveSchemaItem(it) }
-        mainVBox.children.addAll(activeActionsItems)
-    }
-
-    private fun mapRootToActiveSchemaItem(rootSchemaGroupModel: RootSchemaGroupModel): ActiveSchemaItemController {
-        return ActiveSchemaItemController(this, rootSchemaGroupModel)
+        mainVBox.children.addAll(activeActions)
     }
 
     fun removeActiveSchemaFromUiList(action: ActiveSchemaItemController) {
@@ -78,36 +83,40 @@ class ActiveSchemasController(
     private fun getActiveSchemaFromUi(): MutableList<String> {
         return mainVBox.children
                 .filterIsInstance<ActiveSchemaItemController>()
-                .map { it.rootSchemaGroupModel.rootFiles.currentFile.path }
+                .map { it.model.actionRunner.rootFiles.currentFile.path }
                 .toMutableList()
     }
 
     private fun calculateRootSchemaModels() {
         activeActions.clear()
-        val rootSchemaModels = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles().mapNotNull { mapFileToRootSchema(it) }
+        val rootSchemaModels = ApplicationLauncher.globalSettings.calculateActiveSchemasAsFiles().mapNotNull {
+            mapFileToActiveSchema(it)
+        }
         activeActions.addAll(rootSchemaModels)
     }
 
-    private fun mapFileToRootSchema(file: File): RootSchemaGroupModel? {
+    private fun mapFileToActiveSchema(file: File): ActiveSchemaItemController? {
         return try {
-            RootSchemaLoader.createRootSchemaGroupFromFile(file)
+            val serialized = RootSchemaLoader.createRootSchemaSerializedFromFile(file)
+            val model = RootSchemaGroupMapper.serializedToModel(serialized, file)
+            ActiveSchemaItemController(this, model, serialized)
         } catch (e: Exception) {
             logger.error("Cannot create RootSchemaModel from file ${file.absoluteFile}", e)
             null
         }
     }
 
-    fun addNewSchemaModel(rootSchema: RootSchemaGroupModel) {
+    fun addNewSchemaModel(model: RootSchemaGroupModel, serialized: RootSchemaGroupSerialized) {
         ApplicationLauncher.globalSettings.editAndSave {
-            activeSchemas.add(rootSchema.getFilePathToSettings())
+            activeSchemas.add(model.actionRunner.rootFiles.getFilePathToSettings())
         }
-        activeActions.add(rootSchema)
+        activeActions.add(ActiveSchemaItemController(this, model, serialized))
     }
 
     fun removeActiveSchemaFromList(rootSchema: RootSchemaGroupModel) {
-        activeActions.remove(rootSchema)
+        activeActions.removeIf { it.model == rootSchema }
         ApplicationLauncher.globalSettings.editAndSave {
-            activeSchemas.removeIf { it == rootSchema.rootFiles.currentFile.absolutePath }
+            activeSchemas.removeIf { it == rootSchema.actionRunner.rootFiles.currentFile.absolutePath }
         }
     }
 
