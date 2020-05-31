@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.action.delay.TimeContainer
-import com.patres.automation.action.delay.TimeType
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.keyboard.KeyboardKey

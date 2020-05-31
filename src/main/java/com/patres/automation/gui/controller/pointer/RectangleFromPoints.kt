@@ -2,8 +2,8 @@ package com.patres.automation.gui.controller.pointer
 
 
 import java.awt.Rectangle
-import java.lang.Math.abs
-import java.lang.Math.min
+import kotlin.math.min
+import kotlin.math.abs
 
 class RectangleFromPoints(
         private val startX: Int,
@@ -12,12 +12,12 @@ class RectangleFromPoints(
         private val endY: Int
 ) {
 
-    val positionX: Int
+    private val positionX: Int
         get() {
             return min(startX, endX)
         }
 
-    val positionY: Int
+    private val positionY: Int
         get() {
             return min(startY, endY)
         }
@@ -27,7 +27,7 @@ class RectangleFromPoints(
             return abs(startX - endX)
         }
 
-    val height: Int
+    private val height: Int
         get() {
             return abs(startY - endY)
         }

@@ -24,8 +24,6 @@ class SaveRecordedActionsDialog(
 
     companion object {
         const val STRIKE_STYLE = "strike-label"
-        private val logger = LoggerFactory.getLogger(SaveRecordedActionsDialog::class.java)
-
     }
 
     init {

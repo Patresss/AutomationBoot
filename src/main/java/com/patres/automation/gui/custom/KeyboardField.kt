@@ -59,7 +59,7 @@ class KeyboardField : StackPane() {
     }
 
     private fun createPopup() {
-        val keyboardKeys = FXCollections.observableArrayList<KeyboardKey>(KeyboardKey.values().asList())
+        val keyboardKeys = FXCollections.observableArrayList(KeyboardKey.values().asList())
         val listView = JFXListView<KeyboardKey>().apply { items = keyboardKeys }
         listView.cellFactory = Callback {
             object : JFXListCell<KeyboardKey>() {

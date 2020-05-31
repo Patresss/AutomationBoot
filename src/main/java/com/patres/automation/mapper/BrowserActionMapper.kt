@@ -53,7 +53,4 @@ object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, 
         }
     }
 
-    fun modelToController( ) {
-
-    }
 }

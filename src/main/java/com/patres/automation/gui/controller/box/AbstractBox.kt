@@ -1,7 +1,6 @@
 package com.patres.automation.gui.controller.box
 
 import com.patres.automation.action.AbstractAction
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
@@ -53,9 +52,9 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
 
     @FXML
     fun selectAction() {
-        root?.unselectAllButton()
+        root.unselectAllButton()
         selectActionButton.styleClass.add("select-action-button-selected")
-        root?.selectedModel = this
+        root.selectedModel = this
     }
 
 
@@ -93,7 +92,7 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
         }
     }
 
-    private fun hasTheSameParentAsRoot() = root?.schemaGroupController != schemaGroupParent
+    private fun hasTheSameParentAsRoot() = root.schemaGroupController != schemaGroupParent
 
     fun findNodeOnTheTop(): AbstractBox<*>? {
         val topNodeInGroup = findNodeOnTheTopFromGroup()

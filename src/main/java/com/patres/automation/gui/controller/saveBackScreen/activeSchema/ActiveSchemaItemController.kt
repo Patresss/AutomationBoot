@@ -22,12 +22,6 @@ class ActiveSchemaItemController(
     lateinit var activeSchemaLabel: Label
 
     @FXML
-    lateinit var editButton: JFXButton
-
-    @FXML
-    lateinit var closeButton: JFXButton
-
-    @FXML
     lateinit var runButton: JFXButton
 
     @FXML

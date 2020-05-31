@@ -6,7 +6,6 @@ import com.patres.automation.gui.controller.model.TimeActionController
 import com.patres.automation.helpers.JfxSpec
 import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.mapper.model.TimeActionSerialized
-import com.patres.automation.type.ActionBootTextField
 import com.patres.automation.type.ActionBootTime
 import io.kotest.matchers.shouldBe
 import javafx.beans.property.SimpleBooleanProperty

@@ -1,16 +1,10 @@
 package com.patres.automation.action
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.file.TmpFileLoader
-import com.patres.automation.gui.controller.box.SchemaGroupController
-import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.dialog.LogManager
-import com.patres.automation.gui.dialog.SaveRecordedActionsDialog
-import com.patres.automation.listener.record.ActionRecorder
 import com.patres.automation.settings.LocalSettings
 import javafx.application.Platform
 import javafx.beans.property.BooleanProperty
-import javafx.beans.property.SimpleBooleanProperty
 import javafx.concurrent.Task
 import org.slf4j.LoggerFactory
 

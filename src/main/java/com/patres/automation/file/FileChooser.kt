@@ -1,7 +1,6 @@
 package com.patres.automation.file
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.settings.GlobalSettingsLoader
 import com.patres.automation.settings.LanguageManager
 import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser

@@ -2,7 +2,6 @@ package com.patres.automation.action
 
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.type.ActionBootSchema
-import javafx.application.Application
 import javafx.beans.property.BooleanProperty
 
 class SchemaGroupModel(

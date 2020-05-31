@@ -46,7 +46,7 @@ class PointerController(private val stage: Stage, private val pointPane: MousePo
     private var rectangle: javafx.scene.shape.Rectangle? = null
     private var mode: PointerMode? = null
 
-    val startWidth = Screen.getScreens().map { it.bounds.minX }.min() ?: 0.0
+    private val startWidth = Screen.getScreens().map { it.bounds.minX }.min() ?: 0.0
 
     init {
         setScene()

@@ -3,7 +3,6 @@ package com.patres.automation
 import com.jfoenix.controls.JFXDecorator
 import com.patres.automation.gui.component.snackBar.SnackBarType
 import com.patres.automation.gui.component.snackBar.addMessage
-import com.patres.automation.gui.component.snackBar.addMessageLanguage
 import com.patres.automation.gui.controller.MainController
 import com.patres.automation.server.ServerBoot
 import com.patres.automation.settings.GlobalSettingsLoader

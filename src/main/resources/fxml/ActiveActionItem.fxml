@@ -30,7 +30,7 @@
         <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
       <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-                <JFXButton fx:id="closeButton" onAction="#closeActiveSchema" styleClass="sub-action-button">
+                <JFXButton onAction="#closeActiveSchema" styleClass="sub-action-button">
                     <graphic>
                         <FontAwesomeIconView glyphName="REMOVE" styleClass="sub-icon" />
                     </graphic>
@@ -38,7 +38,7 @@
                         <Tooltip text="%menu.activeSchemas.remove" />
                     </tooltip>
                 </JFXButton>
-                <JFXButton fx:id="editButton" onAction="#editActiveSchema" styleClass="sub-action-button">
+                <JFXButton onAction="#editActiveSchema" styleClass="sub-action-button">
                     <graphic>
                         <FontAwesomeIconView glyphName="EDIT" styleClass="sub-icon" />
                     </graphic>

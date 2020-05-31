@@ -2,7 +2,6 @@ package com.patres.automation.type
 
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
-import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.gui.controller.model.TimeActionController
 import com.patres.automation.validation.PositiveIntegerValidation
 import com.patres.automation.validation.Validationable

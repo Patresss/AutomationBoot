@@ -1,7 +1,6 @@
 package com.patres.automation.file
 
 import com.patres.automation.ApplicationLauncher
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.AutomationMapper

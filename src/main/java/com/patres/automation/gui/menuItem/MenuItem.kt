@@ -1,6 +1,5 @@
 package com.patres.automation.gui.menuItem
 
-import com.patres.automation.action.RootSchemaGroupModel
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.gui.font.FontAutomationIcon
 import com.patres.automation.type.*

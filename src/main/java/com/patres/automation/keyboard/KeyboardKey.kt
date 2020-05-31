@@ -124,7 +124,7 @@ enum class KeyboardKey(
     CONTEXT_MENU(KeyEvent.VK_CONTEXT_MENU);
 
     companion object {
-        fun findById(id: Int): KeyboardKey? = KeyboardKey.values().find { it.keyValue == id }
+        fun findById(id: Int): KeyboardKey? = values().find { it.keyValue == id }
     }
 
 }

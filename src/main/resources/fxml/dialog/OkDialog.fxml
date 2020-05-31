@@ -18,7 +18,7 @@
             <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
         <Label fx:id="messageLabel" alignment="TOP_LEFT" prefWidth="360.0" text="Label" wrapText="true" />
-        <JFXButton fx:id="okButton" defaultButton="true" mnemonicParsing="false" onAction="#closeDialog" styleClass="button-popup" text="%dialog.button.ok" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+        <JFXButton fx:id="okButton" defaultButton="true" mnemonicParsing="false" onAction="#closeDialog" styleClass="button-primary" text="%dialog.button.ok" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets bottom="5.0" right="10.0" top="10.0" />
             </GridPane.margin>

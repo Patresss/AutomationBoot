@@ -26,7 +26,7 @@ import javafx.util.StringConverter
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
-import java.lang.Math.min
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 class MousePointActionController(

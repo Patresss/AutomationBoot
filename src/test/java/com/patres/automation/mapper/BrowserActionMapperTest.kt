@@ -10,7 +10,6 @@ import com.patres.automation.helpers.shouldNotBeNullAndCheck
 import com.patres.automation.mapper.model.BrowserActionSerialized
 import com.patres.automation.type.ActionBootBrowser
 import io.kotest.matchers.shouldBe
-import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
