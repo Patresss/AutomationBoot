@@ -15,7 +15,7 @@ import javafx.beans.property.BooleanProperty
 
 object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, KeyboardButtonAction, KeyboardFieldActionSerialized> {
 
-    override fun controllerToModel(controller: KeyboardButtonActionController): KeyboardButtonAction {
+    override fun controllerToModel(controller: KeyboardButtonActionController, automationRunningProperty: BooleanProperty): KeyboardButtonAction {
         return calculateKeyboardFieldAction(controller.actionBoot, controller.keyboardField.keys)
     }
 

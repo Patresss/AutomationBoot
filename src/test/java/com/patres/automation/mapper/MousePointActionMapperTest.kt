@@ -162,7 +162,7 @@ class MousePointActionMapperTest : JfxSpec({
                     }
 
                     // when
-                    val model = MousePointActionMapper.controllerToModel(controller)
+                    val model = MousePointActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
                     // then
                     model.shouldNotBeNullAndCheck {
@@ -183,7 +183,7 @@ class MousePointActionMapperTest : JfxSpec({
                     }
 
                     // when
-                    val model = MousePointActionMapper.controllerToModel(controller)
+                    val model = MousePointActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
                     // then
                     model.shouldNotBeNullAndCheck {

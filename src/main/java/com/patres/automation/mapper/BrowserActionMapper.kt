@@ -13,12 +13,7 @@ import javafx.beans.property.BooleanProperty
 
 object BrowserActionMapper : Mapper<BrowseFileActionController, AbstractAction, BrowserActionSerialized> {
 
-    override fun controllerToModel(controller: BrowseFileActionController): AbstractAction {
-        val root = controller.root ?: throw CannotFindRootSchemaException()
-        return controllerToModel(controller, root.actionRunner.automationRunningProperty)
-    }
-
-    fun controllerToModel(controller: BrowseFileActionController, automationRunningProperty: BooleanProperty): AbstractAction {
+    override fun controllerToModel(controller: BrowseFileActionController, automationRunningProperty: BooleanProperty): AbstractAction {
         return calculateBrowserAction(controller.actionBoot, controller.value, automationRunningProperty)
     }
 

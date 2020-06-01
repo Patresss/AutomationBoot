@@ -43,7 +43,7 @@ object RootSchemaGroupMapper {
     fun controllerToModel(rootSchemaController: RootSchemaGroupController): RootSchemaGroupModel {
         logger.debug("RootSchemaGroup Mapping: Controller to Model")
         return RootSchemaGroupModel(
-                schemaGroupModel = SchemaGroupMapper.controllerToModel(rootSchemaController.schemaGroupController),
+                schemaGroupModel = SchemaGroupMapper.controllerToModel(rootSchemaController.schemaGroupController, rootSchemaController.actionRunner.automationRunningProperty),
                 actionRunner = rootSchemaController.actionRunner
         )
     }
@@ -67,14 +67,6 @@ object RootSchemaGroupMapper {
                 schemaGroupController = SchemaGroupMapper.serializedToController(rootGroupSerialized.schemaGroupSerialized)
         )
     }
-
-//    fun modelToController(model: RootSchemaGroupModel): RootSchemaGroupController {
-//        logger.debug("RootSchemaGroup Mapping: Model to Controller")
-//        return RootSchemaGroupController(
-//                actionRunner = model.actionRunner,
-//                schemaGroupController = SchemaGroupMapper.modelToController(model.schemaGroupModel)
-//        )
-//    }
 
     private fun validateAutomationBootFile(filePath: String) {
         FileExistValidation().check(filePath)

@@ -8,6 +8,7 @@ import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.extension.calculateTypedParent
 import com.patres.automation.util.extension.swap
+import javafx.beans.property.BooleanProperty
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
@@ -122,7 +123,7 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
         }
     }
 
-    abstract fun toModel(): AbstractAction?
+    abstract fun toModel(automationRunningProperty: BooleanProperty): AbstractAction?
     abstract fun toSerialized(): AutomationActionSerialized
 
 }

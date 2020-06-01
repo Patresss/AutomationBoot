@@ -6,7 +6,7 @@ import javafx.beans.property.BooleanProperty
 
 interface Mapper<ControllerType : Any, ActionType : AbstractAction, SerializedType : Any> {
 
-    fun controllerToModel(controller: ControllerType): ActionType?
+    fun controllerToModel(controller: ControllerType, automationRunningProperty: BooleanProperty): ActionType?
 
     fun controllerToSerialized(controller: ControllerType): SerializedType
 

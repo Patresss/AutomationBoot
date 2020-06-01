@@ -89,7 +89,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextFieldActionMapper.controllerToModel(controller)
+            val model = TextFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelUpAction> {
@@ -105,7 +105,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextFieldActionMapper.controllerToModel(controller)
+            val model = TextFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelDownAction> {

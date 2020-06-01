@@ -12,7 +12,7 @@ import javafx.beans.property.BooleanProperty
 
 object TextFieldActionMapper : Mapper<TextFieldActionController, AbstractAction, TextFieldActionSerialized> {
 
-    override fun controllerToModel(controller: TextFieldActionController): AbstractAction {
+    override fun controllerToModel(controller: TextFieldActionController, automationRunningProperty: BooleanProperty): AbstractAction {
         return calculateTextFieldModel(controller.actionBoot, controller.value.toInt())
 
     }

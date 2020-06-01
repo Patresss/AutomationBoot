@@ -13,14 +13,9 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
 
     private val logger = LoggerFactory.getLogger(SchemaGroupMapper::class.java)
 
-    override fun controllerToModel(controller: SchemaGroupController): SchemaGroupModel {
-        val automationRunningProperty = controller.root.actionRunner.automationRunningProperty
-        return controllerToModel(controller, automationRunningProperty)
-    }
-
-    fun controllerToModel(controller: SchemaGroupController, automationRunningProperty: BooleanProperty): SchemaGroupModel {
+    override fun controllerToModel(controller: SchemaGroupController, automationRunningProperty: BooleanProperty): SchemaGroupModel {
         logger.debug("SchemaGroup Mapping: Controller to Model")
-        val actionBlockModels: List<AbstractAction> = controller.abstractBlocks.mapNotNull { it.toModel() }
+        val actionBlockModels: List<AbstractAction> = controller.abstractBlocks.mapNotNull { it.toModel(automationRunningProperty) }
         return SchemaGroupModel(actionBlockModels, controller.getNumberOfIteration(), automationRunningProperty)
     }
 

@@ -144,7 +144,7 @@ open class RootSchemaGroupController(
     fun hasActions() = schemaGroupController.abstractBlocks.isNotEmpty()
 
     fun runAutomation() {
-        actionRunner.runAutomation(SchemaGroupMapper.controllerToModel(schemaGroupController))
+        actionRunner.runAutomation(SchemaGroupMapper.controllerToModel(schemaGroupController, actionRunner.automationRunningProperty))
     }
 
     fun stopAutomation() {

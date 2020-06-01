@@ -12,12 +12,7 @@ import javafx.beans.property.BooleanProperty
 
 object TimeActionMapper : Mapper<TimeActionController, DelayAction, TimeActionSerialized> {
 
-    override fun controllerToModel(controller: TimeActionController): DelayAction {
-        val root = controller.root ?: throw CannotFindRootSchemaException()
-        return controllerToModel(controller, root.actionRunner.automationRunningProperty)
-    }
-
-    fun controllerToModel(controller: TimeActionController, automationRunningProperty: BooleanProperty): DelayAction {
+    override fun controllerToModel(controller: TimeActionController, automationRunningProperty: BooleanProperty ): DelayAction {
         val timeContainer = TimeContainer(controller.value.toLong(), controller.selectedDelayTime())
         return calculateDelayActionModel(controller.actionBoot, timeContainer, automationRunningProperty)
     }

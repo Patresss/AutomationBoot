@@ -11,12 +11,7 @@ import javafx.beans.property.BooleanProperty
 
 object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, TextAreaActionSerialized> {
 
-    override fun controllerToModel(controller: TextAreaActionController): AbstractAction {
-        val root = controller.root ?: throw CannotFindRootSchemaException()
-        return controllerToModel(controller, root.actionRunner.automationRunningProperty)
-    }
-
-    fun controllerToModel(controller: TextAreaActionController, automationRunningProperty: BooleanProperty): AbstractAction {
+    override fun controllerToModel(controller: TextAreaActionController, automationRunningProperty: BooleanProperty): AbstractAction {
         return calculateTextAreaModel(controller.actionBoot, controller.value, automationRunningProperty)
     }
 

@@ -107,7 +107,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = KeyboardFieldActionMapper.controllerToModel(controller)
+            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<PressKeyboardButtonAction> {
@@ -122,7 +122,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = KeyboardFieldActionMapper.controllerToModel(controller)
+            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<HoldKeyboardButtonAction> {
@@ -137,7 +137,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = KeyboardFieldActionMapper.controllerToModel(controller)
+            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
 
             // then
             model.shouldBeInstanceOfAndCheck<ReleaseKeyboardButtonAction> {

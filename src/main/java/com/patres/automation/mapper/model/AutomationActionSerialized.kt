@@ -37,7 +37,7 @@ class MousePointActionSerialized(
         val point: String? = null,
         val image: String? = null,
         val threshold: Double? = null,
-        val ignoreIfNotFound: Boolean = true
+        val ignoreIfNotFound: Boolean? = null
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox(MousePointActionMapper.serializedToController(this))
     override fun serializedToModel(automationRunningProperty: BooleanProperty) = MousePointActionMapper.serializedToModel(this, automationRunningProperty)

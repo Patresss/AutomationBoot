@@ -13,17 +13,17 @@ open class JfxSerializedSpec(body: FreeSpec.() -> Unit = {}) : JfxSpec(body) {
     companion object {
         fun testMapFileToSerializedToFile(filePath: String) {
             // given
-
-            // when
             val textFromFile = loadTextFromFile(filePath)
             val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(textFromFile)
-            val serializedToModel = RootSchemaGroupMapper.serializedToController(rootGroupSerialized, File("/"))
 
-            val rootSchemaGroupSerialized = RootSchemaGroupMapper.controllerToSerialize(serializedToModel)
+            // when
+            val controller = RootSchemaGroupMapper.serializedToController(rootGroupSerialized, File("/"))
+
+            val rootSchemaGroupSerialized = RootSchemaGroupMapper.controllerToSerialize(controller)
             val json = AutomationMapper.toJson(rootSchemaGroupSerialized)
 
             // then
-            textFromFile shouldBe json
+            json shouldBe textFromFile
         }
 
         fun String.replaceProperties() = this

@@ -5,6 +5,7 @@ import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.mapper.SchemaGroupMapper
 import com.patres.automation.mapper.model.SchemaGroupSerialized
 import com.patres.automation.type.ActionBootSchema
+import javafx.beans.property.BooleanProperty
 import javafx.fxml.FXML
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.VBox
@@ -55,8 +56,8 @@ class SchemaGroupController : AbstractBox<ActionBootSchema>("SchemaGroup.fxml") 
         return SchemaGroupMapper.controllerToSerialized(this)
     }
 
-    override fun toModel(): SchemaGroupModel {
-        return SchemaGroupMapper.controllerToModel(this)
+    override fun toModel(automationRunningProperty: BooleanProperty): SchemaGroupModel {
+        return SchemaGroupMapper.controllerToModel(this, automationRunningProperty)
     }
 
     fun addActionBlockToList(abstractController: AbstractBox<*>, index: Int) {
