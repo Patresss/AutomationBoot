@@ -6,6 +6,7 @@ import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.system.ApplicationInfo
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.lang.RuntimeException
 
 object GlobalSettingsLoader {
 
@@ -32,6 +33,13 @@ object GlobalSettingsLoader {
     }
 
     fun save(globalSettings: GlobalSettings = ApplicationLauncher.globalSettings) {
+try {
+    throw RuntimeException("ddd")
+
+} catch (e:RuntimeException) {
+    logger.error("Exception during load Global settings - creating new", e)
+
+}
         logger.info("Global settings are saving...")
         val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchemaController.actionRunner.getFilePathToSettings() }?: emptyList()
         globalSettings.previousPathFiles = filesToSave

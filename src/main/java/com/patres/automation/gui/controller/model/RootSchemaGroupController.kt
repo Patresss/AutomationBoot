@@ -27,7 +27,6 @@ open class RootSchemaGroupController(
         val schemaGroupController: SchemaGroupController
 ) : StackPane() {
 
-
     @FXML
     lateinit var rootBorderPane: BorderPane
 

@@ -4,6 +4,7 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.type.ActionBootBrowser
 import com.patres.automation.type.ActionBootTextArea
 import com.patres.automation.type.ActionBootable
+import org.slf4j.LoggerFactory
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 import java.awt.event.KeyEvent
@@ -23,10 +24,22 @@ abstract class PasteTextAction(
         val value: String
 ) : AbstractAction(actionBoot) {
 
+    companion object {
+        private val logger = LoggerFactory.getLogger(PasteTextAction::class.java)
+    }
+
     override fun runAction() {
         val stringSelection = StringSelection(getText())
         val clipboard = Toolkit.getDefaultToolkit().systemClipboard
-        clipboard.setContents(stringSelection, stringSelection)
+
+        try {
+            clipboard.setContents(stringSelection, stringSelection)
+        } catch (e: IllegalStateException) {
+            // Clipboard currently unavailable. On some platforms, the system clipboard is unavailable while it is accessed by another application.
+            logger.warn("Cannot load clipboard, trying again... ")
+            Thread.sleep(15)
+            clipboard.setContents(stringSelection, stringSelection)
+        }
         paste()
     }
 
