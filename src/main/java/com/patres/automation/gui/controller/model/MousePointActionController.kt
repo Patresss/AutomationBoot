@@ -1,6 +1,7 @@
 package com.patres.automation.gui.controller.model
 
 import com.jfoenix.controls.JFXButton
+import com.jfoenix.controls.JFXCheckBox
 import com.jfoenix.controls.JFXDecorator
 import com.jfoenix.controls.JFXSlider
 import com.patres.automation.ApplicationLauncher
@@ -48,6 +49,9 @@ class MousePointActionController(
     @FXML
     lateinit var thresholdSlider: JFXSlider
 
+    @FXML
+    lateinit var ignoreIfNotFoundCheckBox: JFXCheckBox
+
     var image: Image? = null
 
     private var imageByteArrayOutputStream: ByteArrayOutputStream? = null
@@ -67,14 +71,20 @@ class MousePointActionController(
         super.initialize()
         setHandler()
         imageView.fitHeightProperty().bind(valueText.heightProperty())
-        valueText.widthProperty().addListener { _, _, newValue -> imageView.fitWidth = newValue.toDouble() - zoomButton.width }
+        valueText.widthProperty().addListener { _, _, newValue -> calculateImageWidth(newValue.toDouble()) }
+        ignoreIfNotFoundCheckBox.widthProperty().addListener { _, _, _ -> calculateImageWidth(valueText.width) } // size of the checkbox is unknown (0) at the beginning
 
         setupVisible(true)
 
         thresholdSlider.tooltip = Tooltip(fromBundle("menu.percentMatch")).apply { startTiming(500.0) }
         thresholdSlider.valueChangingProperty().addListener { _, _, _ -> (root?.changeDetect()) }
+        ignoreIfNotFoundCheckBox.selectedProperty().addListener { _, _, _ -> (root?.changeDetect()) }
 
         thresholdSlider.labelFormatter = percentConverter
+    }
+
+    private fun calculateImageWidth(valueTextWidth: Double) {
+        imageView.fitWidth = valueTextWidth - zoomButton.width - ignoreIfNotFoundCheckBox.width - 2 * imageBox.spacing
     }
 
     override fun checkValidation() {

@@ -5,6 +5,7 @@ import com.patres.automation.action.mouse.point.ImagePointDetector
 import com.patres.automation.action.mouse.point.PointDetector
 import com.patres.automation.action.mouse.point.SpecificPointDetector
 import com.patres.automation.excpetion.ApplicationException
+import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.mapper.model.MousePointActionSerialized
 import com.patres.automation.point.Point
@@ -23,7 +24,7 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
 
     override fun controllerToSerialized(controller: MousePointActionController): MousePointActionSerialized {
         return controller.run {
-            MousePointActionSerialized(actionBoot, value, bytesArrayToBase64(calculateImageBytesArray()), thresholdSlider.value)
+            MousePointActionSerialized(actionBoot, value, bytesArrayToBase64(calculateImageBytesArray()), thresholdSlider.value, ignoreIfNotFoundCheckBox.isSelected)
         }
     }
 
@@ -33,12 +34,13 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
             serialized.image?.let {
                 setImage(Base64Converter.base64ToInputStream(it))
                 thresholdSlider.value = serialized.threshold ?: 90.0
+                ignoreIfNotFoundCheckBox.isSelected = serialized.ignoreIfNotFound
             }
         }
     }
 
     override fun serializedToModel(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty): MousePointAction {
-        val pointDetector = calculatePointDetectorFromSerialized(serialized)
+        val pointDetector = calculatePointDetectorFromSerialized(serialized, automationRunningProperty)
         return createModel(serialized.actionBootType, pointDetector)
     }
 
@@ -68,7 +70,9 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
     private fun calculatePointDetector(controller: MousePointActionController): PointDetector {
         val calculatedImageBytesArray = controller.calculateImageBytesArray()
         return if (calculatedImageBytesArray != null) {
-            ImagePointDetector(calculatedImageBytesArray, controller.thresholdSlider.value)
+            val root = controller.root ?: throw CannotFindRootSchemaException()
+            val automationRunningProperty = root.actionRunner.automationRunningProperty
+            ImagePointDetector(calculatedImageBytesArray, controller.thresholdSlider.value, controller.ignoreIfNotFoundCheckBox.isSelected, automationRunningProperty)
         } else {
             SpecificPointDetector(Point.stringToPoint(controller.value))
         }
@@ -82,12 +86,12 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
     }
 
 
-    private fun calculatePointDetectorFromSerialized(serialized: MousePointActionSerialized): PointDetector {
+    private fun calculatePointDetectorFromSerialized(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty): PointDetector {
         return when {
             serialized.image != null -> {
                 val templateByteArray: ByteArray = Base64Converter.base64ToByteArray(serialized.image)
                 val threshold = serialized.threshold ?: 90.0
-                ImagePointDetector(templateByteArray, threshold)
+                ImagePointDetector(templateByteArray, threshold, serialized.ignoreIfNotFound, automationRunningProperty)
             }
             serialized.point != null -> {
                 SpecificPointDetector(Point.stringToPoint(serialized.point))

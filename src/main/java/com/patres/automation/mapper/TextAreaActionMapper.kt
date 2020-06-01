@@ -36,7 +36,7 @@ object TextAreaActionMapper : Mapper<TextAreaActionController, AbstractAction, T
         return calculateTextAreaModel(serialized.actionBootType, serialized.value, automationRunningProperty)
     }
 
-    private fun calculateTextAreaModel(actionType: ActionBootTextArea, value: String, automationRunningProperty: BooleanProperty?): AbstractAction {
+    private fun calculateTextAreaModel(actionType: ActionBootTextArea, value: String, automationRunningProperty: BooleanProperty): AbstractAction {
         return when (actionType) {
             ActionBootTextArea.PASTE_TEXT -> PasteTextFromFieldAction(value)
             ActionBootTextArea.TYPE_TEXT -> TypeTextFromFieldAction(value, automationRunningProperty)

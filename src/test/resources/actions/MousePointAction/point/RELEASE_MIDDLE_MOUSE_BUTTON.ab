@@ -6,7 +6,8 @@
       "actionBootType" : "RELEASE_MIDDLE_MOUSE_BUTTON",
       "point" : "(823;213)",
       "image" : null,
-      "threshold" : 90.0
+      "threshold" : 90.0,
+      "ignoreIfNotFound" : false
     } ],
     "groupName" : "Grupa",
     "numberOfIterations" : "1"

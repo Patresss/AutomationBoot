@@ -6,7 +6,8 @@
       "actionBootType" : "DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON",
       "point" : "V(154;135)",
       "image" : null,
-      "threshold" : 90.0
+      "threshold" : 90.0,
+      "ignoreIfNotFound" : false
     } ],
     "groupName" : "Grupa",
     "numberOfIterations" : "1"
