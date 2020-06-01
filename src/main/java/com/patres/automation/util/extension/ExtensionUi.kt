@@ -92,6 +92,16 @@ fun <T : Node> Node.calculateTypedParent(type: KClass<T>): T? {
     }
 }
 
+@Suppress("UNCHECKED_CAST")
+fun <T : Node> Node.hasParent(type: KClass<T>): Boolean {
+    val potentialParent = parent
+    return when {
+        type.isInstance(potentialParent) -> true
+        potentialParent is Node -> potentialParent.hasParent(type)
+        else -> false
+    }
+}
+
 fun Parent.getAllNodes(): ArrayList<Node> {
     val nodes = ArrayList<Node>()
     fun recurseNodes(node: Node) {

@@ -33,13 +33,6 @@ object GlobalSettingsLoader {
     }
 
     fun save(globalSettings: GlobalSettings = ApplicationLauncher.globalSettings) {
-try {
-    throw RuntimeException("ddd")
-
-} catch (e:RuntimeException) {
-    logger.error("Exception during load Global settings - creating new", e)
-
-}
         logger.info("Global settings are saving...")
         val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchemaController.actionRunner.getFilePathToSettings() }?: emptyList()
         globalSettings.previousPathFiles = filesToSave

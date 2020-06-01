@@ -38,10 +38,11 @@ class LocalSettingsController(
     override fun saveChanges() {
         allSettings.forEach { it.checkValidation() }
         settings.run {
-            runActionsKeys = runKeysSetting.keyboardField.keys
-            stopActionsKeys = stopKeysSetting.keyboardField.keys
+            runActionsKeys = runKeysSetting.keyboardField.keys.toList()
+            stopActionsKeys = stopKeysSetting.keyboardField.keys.toList()
             endpointName = endpointNameTextField.value
         }
+        rootSchemaGroupController.changeDetect()
         snackBar.addMessageLanguageWhenIsLoaded(isLoaded, SnackBarType.INFO, "message.snackbar.settingsSave")
     }
 

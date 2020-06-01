@@ -1,10 +1,12 @@
 package com.patres.automation.gui.controller.model
 
+import com.patres.automation.gui.controller.saveBackScreen.settings.LocalSettingsController
 import com.patres.automation.gui.custom.AutomationBootableFactoryCell
 import com.patres.automation.gui.menuItem.MenuItem
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.extension.calculateTypedParent
+import com.patres.automation.util.extension.hasParent
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -45,7 +47,7 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
     open fun shouldCheckUiValidation() = true
 
     val root: RootSchemaGroupController?
-        get() = calculateTypedParent(RootSchemaGroupController::class)
+        get() = if (hasParent(LocalSettingsController::class)) null else calculateTypedParent(RootSchemaGroupController::class)
 
     private var actionComboBox: ComboBox<MenuItem>? = null
 

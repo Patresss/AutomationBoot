@@ -40,10 +40,7 @@ class KeyboardField : StackPane() {
     fun setKeyboardButtons(keyList: List<KeyboardKey>) {
         keyboardButtonHBox.children.clear()
         keys.clear()
-        keyList.distinct().forEach {
-            keys.add(it)
-            keyboardButtonHBox.children.add(KeyboardButton(it, this))
-        }
+        keyList.forEach { addKeyboardButton(it) }
     }
 
     fun addKeyboardButton(key: KeyboardKey) {
