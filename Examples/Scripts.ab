@@ -1,0 +1,35 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "BrowserAction",
+      "actionBootType" : "OPEN_FILE",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\example.txt"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "OPEN_DIRECTORY",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "WINDOWS_SCRIPT_RUN",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\createNewFile.bat"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "WINDOWS_SCRIPT_RUN_AND_WAITE",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\createNewFile.bat"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "RUN_EXISTING_SCHEMA",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\Move mouse.ab"
+    } ],
+    "groupName" : "Group",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null,
+  "applicationVersion" : "0.3.0"
+}

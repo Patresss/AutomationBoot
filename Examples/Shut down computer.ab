@@ -1,0 +1,36 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "MousePointAction",
+      "actionBootType" : "CLICK_RIGHT_MOUSE_BUTTON",
+      "point" : "(22;1059)",
+      "image" : null,
+      "threshold" : 90.0,
+      "ignoreIfNotFound" : false
+    }, {
+      "type" : "MousePointAction",
+      "actionBootType" : "CLICK_LEFT_MOUSE_BUTTON",
+      "point" : "(157;1002)",
+      "image" : null,
+      "threshold" : 90.0,
+      "ignoreIfNotFound" : false
+    }, {
+      "type" : "MousePointAction",
+      "actionBootType" : "CLICK_LEFT_MOUSE_BUTTON",
+      "point" : "(349;969)",
+      "image" : null,
+      "threshold" : 90.0,
+      "ignoreIfNotFound" : false
+    } ],
+    "groupName" : "Group",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null,
+  "applicationVersion" : "0.3.0"
+}

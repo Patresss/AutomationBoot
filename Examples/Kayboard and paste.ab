@@ -1,0 +1,35 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "TextAreaAction",
+      "actionBootType" : "PASTE_TEXT",
+      "value" : "My text to paste"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "PASTE_TEXT_FROM_FILE",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\example.txt"
+    }, {
+      "type" : "TextAreaAction",
+      "actionBootType" : "TYPE_TEXT",
+      "value" : "My text to type"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "TYPE_TEXT_FROM_FILE",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\example.txt"
+    }, {
+      "type" : "KeyboardFieldAction",
+      "actionBootType" : "PRESS_KEYBOARD_BUTTON",
+      "keys" : [ "A", "B", "C" ]
+    } ],
+    "groupName" : "Group",
+    "numberOfIterations" : "1"
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null,
+  "applicationVersion" : "0.3.0"
+}
