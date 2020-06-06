@@ -2,8 +2,8 @@ package com.patres.automation.mapper
 
 import com.patres.automation.action.delay.DelayAction
 import com.patres.automation.action.delay.TimeContainer
-import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.excpetion.ControllerCannotBeMapToModelException
+import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.model.TimeActionController
 import com.patres.automation.mapper.model.TimeActionSerialized
 import com.patres.automation.type.ActionBootTime
@@ -14,7 +14,7 @@ object TimeActionMapper : Mapper<TimeActionController, DelayAction, TimeActionSe
 
     override fun controllerToModel(controller: TimeActionController, automationRunningProperty: BooleanProperty ): DelayAction {
         val timeContainer = TimeContainer(controller.value.toLong(), controller.selectedDelayTime())
-        return calculateDelayActionModel(controller.actionBoot, timeContainer, automationRunningProperty)
+        return calculateDelayActionModel(controller.actionBoot, timeContainer, automationRunningProperty, controller.box)
     }
 
     override fun controllerToSerialized(controller: TimeActionController): TimeActionSerialized {
@@ -35,9 +35,9 @@ object TimeActionMapper : Mapper<TimeActionController, DelayAction, TimeActionSe
         return calculateDelayActionModel(serialized.actionBootType, serialized.timeContainer, automationRunningProperty)
     }
 
-    private fun calculateDelayActionModel(actionType: ActionBootTime, timeContainer: TimeContainer, automationRunningProperty: BooleanProperty): DelayAction {
+    private fun calculateDelayActionModel(actionType: ActionBootTime, timeContainer: TimeContainer, automationRunningProperty: BooleanProperty, box: AbstractBox<*>? = null): DelayAction {
         return when (actionType) {
-            ActionBootTime.DELAY -> DelayAction(timeContainer, automationRunningProperty)
+            ActionBootTime.DELAY -> DelayAction(timeContainer, automationRunningProperty, box)
             ActionBootTime.ADDITIONAL_DELAY_BETWEEN_ACTIONS -> throw ControllerCannotBeMapToModelException(actionType)
         }
     }

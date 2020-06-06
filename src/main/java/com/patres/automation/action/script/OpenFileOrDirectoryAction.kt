@@ -1,17 +1,20 @@
 package com.patres.automation.action.script
 
 import com.patres.automation.action.AbstractAction
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.type.ActionBootBrowser
 import java.awt.Desktop
 import java.io.File
 
-class OpenFileAction(path: String) : OpenFileOrDirectoryAction(path, ActionBootBrowser.OPEN_FILE)
-class OpenDirectoryAction(path: String) : OpenFileOrDirectoryAction(path, ActionBootBrowser.OPEN_DIRECTORY)
+class OpenFileAction(path: String, box: AbstractBox<*>?) : OpenFileOrDirectoryAction(path, ActionBootBrowser.OPEN_FILE, box)
+class OpenDirectoryAction(path: String, box: AbstractBox<*>?) : OpenFileOrDirectoryAction(path, ActionBootBrowser.OPEN_DIRECTORY, box)
 
 abstract class OpenFileOrDirectoryAction(
         val path: String,
-        action: ActionBootBrowser
-) : AbstractAction(action) {
+        action: ActionBootBrowser,
+        box: AbstractBox<*>?
+) : AbstractAction(action, box) {
 
     override fun runAction() {
         val file = File(path)

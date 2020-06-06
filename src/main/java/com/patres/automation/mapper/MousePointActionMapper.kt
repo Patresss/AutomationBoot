@@ -6,6 +6,7 @@ import com.patres.automation.action.mouse.point.PointDetector
 import com.patres.automation.action.mouse.point.SpecificPointDetector
 import com.patres.automation.excpetion.ApplicationException
 import com.patres.automation.excpetion.CannotFindRootSchemaException
+import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.mapper.model.MousePointActionSerialized
 import com.patres.automation.point.Point
@@ -19,7 +20,7 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
 
     override fun controllerToModel(controller: MousePointActionController, automationRunningProperty: BooleanProperty): MousePointAction {
         val pointDetector = calculatePointDetector(controller, automationRunningProperty)
-        return createModel(controller.actionBoot, pointDetector)
+        return createModel(controller.actionBoot, pointDetector, controller.box)
     }
 
     override fun controllerToSerialized(controller: MousePointActionController): MousePointActionSerialized {
@@ -44,25 +45,25 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
         return createModel(serialized.actionBootType, pointDetector)
     }
 
-    private fun createModel(actionType: ActionBootMousePoint, pointDetector: PointDetector): MousePointAction {
+    private fun createModel(actionType: ActionBootMousePoint, pointDetector: PointDetector, box: AbstractBox<*>? = null): MousePointAction {
         return when (actionType) {
-            ActionBootMousePoint.MOVE_MOUSE -> MoveMouseAction(pointDetector)
+            ActionBootMousePoint.MOVE_MOUSE -> MoveMouseAction(pointDetector, box)
 
-            ActionBootMousePoint.CLICK_LEFT_MOUSE_BUTTON -> LeftMouseClickAction(pointDetector)
-            ActionBootMousePoint.CLICK_MIDDLE_MOUSE_BUTTON -> MiddleMouseClickAction(pointDetector)
-            ActionBootMousePoint.CLICK_RIGHT_MOUSE_BUTTON -> RightMouseClickAction(pointDetector)
+            ActionBootMousePoint.CLICK_LEFT_MOUSE_BUTTON -> LeftMouseClickAction(pointDetector, box)
+            ActionBootMousePoint.CLICK_MIDDLE_MOUSE_BUTTON -> MiddleMouseClickAction(pointDetector, box)
+            ActionBootMousePoint.CLICK_RIGHT_MOUSE_BUTTON -> RightMouseClickAction(pointDetector, box)
 
-            ActionBootMousePoint.DOUBLE_CLICK_LEFT_MOUSE_BUTTON -> LeftDoubleMouseClickAction(pointDetector)
-            ActionBootMousePoint.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON -> MiddleDoubleMouseClickAction(pointDetector)
-            ActionBootMousePoint.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON -> RightDoubleMouseClickAction(pointDetector)
+            ActionBootMousePoint.DOUBLE_CLICK_LEFT_MOUSE_BUTTON -> LeftDoubleMouseClickAction(pointDetector, box)
+            ActionBootMousePoint.DOUBLE_CLICK_MIDDLE_MOUSE_BUTTON -> MiddleDoubleMouseClickAction(pointDetector, box)
+            ActionBootMousePoint.DOUBLE_CLICK_RIGHT_MOUSE_BUTTON -> RightDoubleMouseClickAction(pointDetector, box)
 
-            ActionBootMousePoint.PRESS_LEFT_MOUSE_BUTTON -> PressLeftMouseAction(pointDetector)
-            ActionBootMousePoint.PRESS_MIDDLE_MOUSE_BUTTON -> PressMiddleMouseAction(pointDetector)
-            ActionBootMousePoint.PRESS_RIGHT_MOUSE_BUTTON -> PressRightMouseAction(pointDetector)
+            ActionBootMousePoint.PRESS_LEFT_MOUSE_BUTTON -> PressLeftMouseAction(pointDetector, box)
+            ActionBootMousePoint.PRESS_MIDDLE_MOUSE_BUTTON -> PressMiddleMouseAction(pointDetector, box)
+            ActionBootMousePoint.PRESS_RIGHT_MOUSE_BUTTON -> PressRightMouseAction(pointDetector, box)
 
-            ActionBootMousePoint.RELEASE_LEFT_MOUSE_BUTTON -> ReleaseLeftMouseAction(pointDetector)
-            ActionBootMousePoint.RELEASE_MIDDLE_MOUSE_BUTTON -> ReleaseMiddleMouseAction(pointDetector)
-            ActionBootMousePoint.RELEASE_RIGHT_MOUSE_BUTTON -> ReleaseRightMouseAction(pointDetector)
+            ActionBootMousePoint.RELEASE_LEFT_MOUSE_BUTTON -> ReleaseLeftMouseAction(pointDetector, box)
+            ActionBootMousePoint.RELEASE_MIDDLE_MOUSE_BUTTON -> ReleaseMiddleMouseAction(pointDetector, box)
+            ActionBootMousePoint.RELEASE_RIGHT_MOUSE_BUTTON -> ReleaseRightMouseAction(pointDetector, box)
         }
     }
 

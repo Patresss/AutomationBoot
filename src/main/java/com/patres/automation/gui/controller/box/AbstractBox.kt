@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.BorderPane
+import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 
 
@@ -34,12 +35,14 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
     @FXML
     lateinit var selectActionButton: Button
 
+    @FXML
+    lateinit var currentActionRunningPane: Pane
+
     val root: RootSchemaGroupController
         get() = calculateTypedParent(RootSchemaGroupController::class) ?: throw CannotFindRootSchemaException()
 
     val schemaGroupParent: SchemaGroupController?
         get() = calculateTypedParent(SchemaGroupController::class)
-
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/$fxmlFile"))
@@ -64,7 +67,6 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
     }
 
     abstract fun addNewAction(abstractBox: AbstractBox<*>)
-
 
     private fun isLast(): Boolean = schemaGroupParent?.abstractBlocks?.last() == this
 

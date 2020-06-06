@@ -2,18 +2,17 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.*?>
-<fx:root fx:id="rootPane" styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111"
-         xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root fx:id="rootPane" styleClass="action-node-pane" type="StackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <BorderPane fx:id="borderPane">
         <left>
-            <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity"
-                       styleClass="select-button-pane" BorderPane.alignment="CENTER">
-                <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY"
-                           graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button"
-                           StackPane.alignment="CENTER">
+            <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" BorderPane.alignment="CENTER">
+                <JFXButton fx:id="selectActionButton" alignment="TOP_LEFT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" onAction="#selectAction" styleClass="select-action-button" StackPane.alignment="CENTER">
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
                 </JFXButton>
             </StackPane>
@@ -21,12 +20,13 @@
         <center>
             <StackPane fx:id="actionPlaceholder" BorderPane.alignment="CENTER">
                 <BorderPane.margin>
-                    <Insets left="10.0"/>
+                    <Insets left="10.0" />
                 </BorderPane.margin>
                 <opaqueInsets>
-                    <Insets/>
+                    <Insets />
                 </opaqueInsets>
             </StackPane>
         </center>
     </BorderPane>
+   <AnchorPane fx:id="currentActionRunningPane" styleClass="current-action-running" visible="false" />
 </fx:root>

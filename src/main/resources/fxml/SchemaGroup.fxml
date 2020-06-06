@@ -40,6 +40,7 @@
           <VBox fx:id="innerBox" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0" />
       </children>
    </AnchorPane>
+   <StackPane fx:id="currentActionRunningPane" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="10.0" StackPane.alignment="CENTER_LEFT" />
     <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" StackPane.alignment="CENTER_LEFT">
         <StackPane.margin>
             <Insets left="-10.0" />

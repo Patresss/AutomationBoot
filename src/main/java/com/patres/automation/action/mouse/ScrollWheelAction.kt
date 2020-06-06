@@ -1,18 +1,21 @@
 package com.patres.automation.action.mouse
 
 import com.patres.automation.action.AbstractAction
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.type.ActionBootTextField
 import com.patres.automation.type.ActionBootable
 import java.awt.Robot
 
-class ScrollWheelDownAction(numberOfScrolls: Int) : ScrollWheelAction(numberOfScrolls, true, ActionBootTextField.SCROLL_WHEEL_DOWN)
-class ScrollWheelUpAction(numberOfScrolls: Int) : ScrollWheelAction(numberOfScrolls, false, ActionBootTextField.SCROLL_WHEEL_UP)
+class ScrollWheelDownAction(numberOfScrolls: Int, box: AbstractBox<*>?) : ScrollWheelAction(numberOfScrolls, true, ActionBootTextField.SCROLL_WHEEL_DOWN, box)
+class ScrollWheelUpAction(numberOfScrolls: Int, box: AbstractBox<*>?) : ScrollWheelAction(numberOfScrolls, false, ActionBootTextField.SCROLL_WHEEL_UP, box)
 
 abstract class ScrollWheelAction(
         val numberOfScrolls: Int,
         val down: Boolean,
-        actionBoot: ActionBootable
-) : AbstractAction(actionBoot) {
+        actionBoot: ActionBootable,
+        box: AbstractBox<*>?
+) : AbstractAction(actionBoot, box) {
 
     companion object {
         val robot: Robot = Robot()

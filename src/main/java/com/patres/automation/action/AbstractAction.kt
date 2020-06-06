@@ -1,11 +1,14 @@
 package com.patres.automation.action
 
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.type.ActionBootable
 import org.slf4j.LoggerFactory
 import java.awt.Robot
 
 abstract class AbstractAction(
-        var actionBootType: ActionBootable
+        var actionBootType: ActionBootable,
+        val box: AbstractBox<*>? = null
 ) {
 
     companion object {

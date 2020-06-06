@@ -965,3 +965,9 @@ root {
     -fx-max-height: -fx-pref-height;
     -jfx-button-type: RAISED;
 }
+
+.current-action-running {
+    -fx-background-color: -color-primary;
+    -fx-opacity: 0.1;
+    -fx-background-radius: 10;
+}

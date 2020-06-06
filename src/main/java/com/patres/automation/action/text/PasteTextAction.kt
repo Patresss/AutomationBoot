@@ -1,6 +1,8 @@
 package com.patres.automation.action.text
 
 import com.patres.automation.action.AbstractAction
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.type.ActionBootBrowser
 import com.patres.automation.type.ActionBootTextArea
 import com.patres.automation.type.ActionBootable
@@ -11,18 +13,19 @@ import java.awt.event.KeyEvent
 import java.io.File
 
 
-class PasteTextFromFieldAction(text: String) : PasteTextAction(ActionBootTextArea.PASTE_TEXT, text) {
+class PasteTextFromFieldAction(text: String, box: AbstractBox<*>?) : PasteTextAction(ActionBootTextArea.PASTE_TEXT, text, box) {
     override fun getText() = value
 }
 
-class PasteTextFromFileAction(path: String) : PasteTextAction(ActionBootBrowser.PASTE_TEXT_FROM_FILE, path) {
+class PasteTextFromFileAction(path: String, box: AbstractBox<*>?) : PasteTextAction(ActionBootBrowser.PASTE_TEXT_FROM_FILE, path, box) {
     override fun getText() = File(value).readText()
 }
 
 abstract class PasteTextAction(
         actionBoot: ActionBootable,
-        val value: String
-) : AbstractAction(actionBoot) {
+        val value: String,
+        box: AbstractBox<*>?
+) : AbstractAction(actionBoot, box) {
 
     companion object {
         private val logger = LoggerFactory.getLogger(PasteTextAction::class.java)

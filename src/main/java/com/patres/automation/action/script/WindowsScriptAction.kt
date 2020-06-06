@@ -1,17 +1,20 @@
 package com.patres.automation.action.script
 
 import com.patres.automation.action.AbstractAction
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.type.ActionBootBrowser
 import java.io.File
 
-class WindowsRunAndWaitScriptAction(path: String) : WindowsScriptAction(path, true, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE)
-class WindowsRunScriptAction(path: String) : WindowsScriptAction(path, false, ActionBootBrowser.WINDOWS_SCRIPT_RUN)
+class WindowsRunAndWaitScriptAction(path: String, box: AbstractBox<*>?) : WindowsScriptAction(path, true, ActionBootBrowser.WINDOWS_SCRIPT_RUN_AND_WAITE, box)
+class WindowsRunScriptAction(path: String, box: AbstractBox<*>?) : WindowsScriptAction(path, false, ActionBootBrowser.WINDOWS_SCRIPT_RUN, box)
 
 abstract class WindowsScriptAction(
         val path: String,
         private val wait: Boolean,
-        actionBoot: ActionBootBrowser
-) : AbstractAction(actionBoot) {
+        actionBoot: ActionBootBrowser,
+        box: AbstractBox<*>?
+) : AbstractAction(actionBoot, box) {
 
     override fun runAction() {
         val file = File(path)

@@ -1,5 +1,7 @@
 package com.patres.automation.gui.controller.model
 
+import com.patres.automation.action.AbstractAction
+import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.saveBackScreen.settings.LocalSettingsController
 import com.patres.automation.gui.custom.AutomationBootableFactoryCell
 import com.patres.automation.gui.menuItem.MenuItem
@@ -48,6 +50,9 @@ abstract class AutomationController<ActionBootType : ActionBootable>(
 
     val root: RootSchemaGroupController?
         get() = if (hasParent(LocalSettingsController::class)) null else calculateTypedParent(RootSchemaGroupController::class)
+
+    val box: AbstractBox<*>?
+        get() = calculateTypedParent(AbstractBox::class)
 
     private var actionComboBox: ComboBox<MenuItem>? = null
 

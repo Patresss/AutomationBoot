@@ -1,12 +1,15 @@
 package com.patres.automation.action.keyboard
 
+import com.patres.automation.gui.controller.box.AbstractBox
+import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.type.ActionBootKeyboard
 
 
 class PressKeyboardButtonAction(
-        keyboardKeys: List<KeyboardKey>
-) : KeyboardButtonAction(keyboardKeys, ActionBootKeyboard.PRESS_KEYBOARD_BUTTON) {
+        keyboardKeys: List<KeyboardKey>,
+        box: AbstractBox<*>?
+) : KeyboardButtonAction(keyboardKeys, ActionBootKeyboard.PRESS_KEYBOARD_BUTTON, box) {
 
     override fun runAction() {
         keyValues
