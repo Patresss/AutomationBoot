@@ -13,6 +13,7 @@ import com.patres.automation.settings.LocalSettings
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootTextField
 import javafx.collections.ListChangeListener
+import javafx.scene.control.Separator
 
 
 class LocalSettingsController(
@@ -57,7 +58,11 @@ class LocalSettingsController(
     }
 
     private fun loadLocalSettings() {
-        mainVBox.children.addAll(allSettings)
+        allSettings.forEach {
+            mainVBox.children.add(Separator())
+            mainVBox.children.add(it)
+        }
+        mainVBox.children.add(Separator())
     }
 
     override fun reloadSettings() {

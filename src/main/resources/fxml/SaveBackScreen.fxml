@@ -15,12 +15,12 @@
         <StackPane fx:id="rootStackPane" styleClass="settings-pane">
             <BorderPane>
                 <center>
-               <ScrollPane>
+               <ScrollPane fitToWidth="true">
                   <content>
       
-                          <VBox fx:id="mainVBox" minHeight="-Infinity" minWidth="-Infinity">
+                          <VBox fx:id="mainVBox" minHeight="-Infinity">
                               <padding>
-                                  <Insets top="30.0" />
+                                  <Insets right="10.0" top="30.0" />
                               </padding>
                           </VBox>
                   </content>

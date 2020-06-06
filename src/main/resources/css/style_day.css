@@ -52,7 +52,7 @@ root {
 }
 
 
-.jfx-text-field, .jfx-text-area {
+.jfx-text-field, .jfx-text-area, .jfx-password-field {
     -jfx-unfocus-color: -color-primary-dark;
     -jfx-focus-color: -color-primary;
 }

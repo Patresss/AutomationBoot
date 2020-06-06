@@ -11,6 +11,9 @@ import com.patres.automation.gui.controller.saveBackScreen.SaveBackScreenControl
 import com.patres.automation.type.*
 import com.patres.automation.util.extension.toLongOrZero
 import javafx.collections.ListChangeListener
+import javafx.scene.control.Label
+import javafx.scene.control.Separator
+import javafx.scene.shape.Line
 
 
 class GlobalSettingsController(private val mainController: MainController) : SaveBackScreenController("menu.settings.globalSettings") {
@@ -76,12 +79,12 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         goToPointSelectionWhenNewMouseActionIsAddedCheckBox.checkBox.selectedProperty().addListener { _, _, _ -> changeDetect() }
         portText.valueText.textProperty().addListener { _ -> changeRestDetect() }
         enableRestCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
-            portText.isVisible = newValue
+            portText.isDisable = !newValue
             changeRestDetect()
         }
         enableAuthenticatorCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
-            serverUsernameText.isVisible = newValue
-            serverPasswordText.isVisible = newValue
+            serverUsernameText.isDisable = !newValue
+            serverPasswordText.isDisable = !newValue
             changeRestDetect()
         }
         serverUsernameText.valueText.textProperty().addListener { _ -> changeRestDetect() }
@@ -94,7 +97,11 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
     }
 
     private fun loadGlobalSettings() {
-        mainVBox.children.addAll(allSettings)
+        allSettings.forEach {
+            mainVBox.children.add(Separator())
+            mainVBox.children.add(it)
+        }
+        mainVBox.children.add(Separator())
     }
 
     override fun backToPreviousWindow() {
@@ -111,13 +118,13 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             additionalDelayBetweenActionsText.comboBox.value = additionalDelayBetweenActions.type
             additionalDelayBetweenActionsText.value = additionalDelayBetweenActions.value.toString()
             goToPointSelectionWhenNewMouseActionIsAddedCheckBox.checkBox.isSelected = goToPointSelectionWhenNewMouseActionIsAdded
-            portText.isVisible = enableRest
+            portText.isDisable = enableRest
             portText.value = port.toString()
 
             enableAuthenticatorCheckBox.checkBox.isSelected = enableAuthenticator
-            serverUsernameText.isVisible = enableAuthenticator
+            serverUsernameText.isDisable = !enableAuthenticator
             serverUsernameText.value = serverUsername?: ""
-            serverPasswordText.isVisible = enableAuthenticator
+            serverPasswordText.isDisable = !enableAuthenticator
             serverPasswordText.value = serverPassword?: ""
         }
     }
