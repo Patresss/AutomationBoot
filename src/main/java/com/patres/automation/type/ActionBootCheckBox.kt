@@ -12,8 +12,8 @@ enum class ActionBootCheckBox(
 ) : ActionBootable {
 
     ENABLE_REST("settings.enableRest", null),
-    ENABLE_AUTHENTICATOR("settings.enableAuthenticator", null);
-
+    ENABLE_AUTHENTICATOR("settings.enableAuthenticator", null),
+    GO_TO_POINT_SELECTION_WHEN_NEW_MOUSE_ACTION_IS_ADDED("settings.gotToPointSelection", null);
 
     override fun validation(): Validationable? {
         return this.validation
@@ -23,6 +23,6 @@ enum class ActionBootCheckBox(
         return this.bundleName
     }
 
-    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(CheckBoxActionController(this)) }
+    override fun createNewActionBox(): () -> AbstractBox<*> = { ActionBox(CheckBoxActionController(this)) }
 
 }

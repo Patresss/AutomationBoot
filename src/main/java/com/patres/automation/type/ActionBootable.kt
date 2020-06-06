@@ -9,10 +9,10 @@ interface ActionBootable {
 
     fun bundleName(): String
     fun validation(): Validationable?
-    fun createActionBox(): () -> AbstractBox<*>
+    fun createNewActionBox(): () -> AbstractBox<*>
 
-    fun addController(): (RootSchemaGroupController) -> Unit {
-        return { controller: RootSchemaGroupController -> controller.addActionBlocks(createActionBox().invoke()) }
+    fun addNewController(): (RootSchemaGroupController) -> Unit {
+        return { controller: RootSchemaGroupController -> controller.addActionBlocks(createNewActionBox().invoke()) }
     }
 
 }

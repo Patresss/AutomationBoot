@@ -1,5 +1,6 @@
 package com.patres.automation.type
 
+import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.gui.controller.model.MousePointActionController
@@ -39,6 +40,12 @@ enum class ActionBootMousePoint(
         return this.bundleName
     }
 
-    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(MousePointActionController(this)) }
+    override fun createNewActionBox(): () -> AbstractBox<*> = {
+        val controller = MousePointActionController(this)
+        if (ApplicationLauncher.globalSettings.goToPointSelectionWhenNewMouseActionIsAdded) {
+            controller.showPointerStage()
+        }
+        ActionBox(controller)
+    }
 
 }

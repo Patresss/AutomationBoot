@@ -33,6 +33,6 @@ enum class ActionBootBrowser(
         return this.bundleName
     }
 
-    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(BrowseFileActionController(this)) }
+    override fun createNewActionBox(): () -> AbstractBox<*> = { ActionBox(BrowseFileActionController(this)) }
 
 }

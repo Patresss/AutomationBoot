@@ -153,13 +153,12 @@ class MousePointActionController(
     }
 
     private fun setHandler() {
-        pointButton.setOnAction {
-            ApplicationLauncher.mainStage.isIconified = true
-            showPointerStage()
-        }
+        pointButton.setOnAction { showPointerStage() }
     }
 
-    private fun showPointerStage() {
+    fun showPointerStage() {
+        ApplicationLauncher.mainStage.isIconified = true
+
         val stage = Stage()
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.title = "Set point"

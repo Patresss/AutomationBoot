@@ -23,7 +23,7 @@ enum class ActionBootTime(
         return this.bundleName
     }
 
-    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(TimeActionController(this)) }
+    override fun createNewActionBox(): () -> AbstractBox<*> = { ActionBox(TimeActionController(this)) }
 
 }
 

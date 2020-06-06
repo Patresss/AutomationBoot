@@ -20,6 +20,6 @@ enum class ActionBootSchema(
         return this.bundleName
     }
 
-    override fun createActionBox(): () -> AbstractBox<*> = { SchemaGroupController() }
+    override fun createNewActionBox(): () -> AbstractBox<*> = { SchemaGroupController() }
 
 }

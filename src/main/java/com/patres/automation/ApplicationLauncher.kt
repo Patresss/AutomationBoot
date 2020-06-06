@@ -97,7 +97,7 @@ class ApplicationLauncher : Application() {
     }
 
     private fun showServerErrorMessageIfExist() {
-        ServerBoot.errorMessage?.let {message ->
+        ServerBoot.errorMessage?.let { message ->
             mainController?.snackBar?.addMessage(SnackBarType.ERROR, message, Duration.seconds(5.0))
         }
     }

@@ -19,6 +19,7 @@ class GlobalSettings(
         var port: Int = ServerBoot.DEFAULT_PORT,
         var removeDelay: Boolean = true,
         var removeLastAction: Boolean = true,
+        var goToPointSelectionWhenNewMouseActionIsAdded: Boolean = true,
         var enableRest: Boolean = true,
         var enableAuthenticator: Boolean = false,
         var serverUsername: String? = null,

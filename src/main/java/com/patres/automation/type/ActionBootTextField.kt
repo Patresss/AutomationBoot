@@ -30,6 +30,6 @@ enum class ActionBootTextField(
         return this.bundleName
     }
 
-    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(TextFieldActionController(this)) }
+    override fun createNewActionBox(): () -> AbstractBox<*> = { ActionBox(TextFieldActionController(this)) }
 
 }

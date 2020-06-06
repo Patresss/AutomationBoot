@@ -22,6 +22,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
 
     private val additionalDelayBetweenActionsText = TimeActionController(ActionBootTime.ADDITIONAL_DELAY_BETWEEN_ACTIONS)
 
+    private val goToPointSelectionWhenNewMouseActionIsAddedCheckBox = CheckBoxActionController(ActionBootCheckBox.GO_TO_POINT_SELECTION_WHEN_NEW_MOUSE_ACTION_IS_ADDED)
     private val enableRestCheckBox = CheckBoxActionController(ActionBootCheckBox.ENABLE_REST)
     private val portText = TextFieldActionController(ActionBootTextField.PORT)
     private val enableAuthenticatorCheckBox = CheckBoxActionController(ActionBootCheckBox.ENABLE_AUTHENTICATOR)
@@ -34,6 +35,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             startRecordKeysSettings,
             stopRecordKeysSettings,
             additionalDelayBetweenActionsText,
+            goToPointSelectionWhenNewMouseActionIsAddedCheckBox,
             enableRestCheckBox,
             portText,
             enableAuthenticatorCheckBox,
@@ -54,6 +56,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             stopRecordKeys = ArrayList(stopRecordKeysSettings.keyboardField.keys)
             language = languageComboBox.comboBox.value
             additionalDelayBetweenActions = TimeContainer(additionalDelayBetweenActionsText.value.toLongOrZero(), additionalDelayBetweenActionsText.selectedDelayTime())
+            goToPointSelectionWhenNewMouseActionIsAdded = goToPointSelectionWhenNewMouseActionIsAddedCheckBox.checkBox.isSelected
             port = portText.value.toInt()
             enableRest = enableRestCheckBox.checkBox.isSelected
             enableAuthenticator = enableAuthenticatorCheckBox.checkBox.isSelected
@@ -70,6 +73,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
         languageComboBox.comboBox.valueProperty().addListener { _ -> changeDetect() }
         additionalDelayBetweenActionsText.valueText.textProperty().addListener { _ -> changeDetect() }
         additionalDelayBetweenActionsText.comboBox.valueProperty().addListener { _ -> changeDetect() }
+        goToPointSelectionWhenNewMouseActionIsAddedCheckBox.checkBox.selectedProperty().addListener { _, _, _ -> changeDetect() }
         portText.valueText.textProperty().addListener { _ -> changeRestDetect() }
         enableRestCheckBox.checkBox.selectedProperty().addListener { _, _, newValue ->
             portText.isVisible = newValue
@@ -106,6 +110,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             enableRestCheckBox.checkBox.isSelected = enableRest
             additionalDelayBetweenActionsText.comboBox.value = additionalDelayBetweenActions.type
             additionalDelayBetweenActionsText.value = additionalDelayBetweenActions.value.toString()
+            goToPointSelectionWhenNewMouseActionIsAddedCheckBox.checkBox.isSelected = goToPointSelectionWhenNewMouseActionIsAdded
             portText.isVisible = enableRest
             portText.value = port.toString()
 

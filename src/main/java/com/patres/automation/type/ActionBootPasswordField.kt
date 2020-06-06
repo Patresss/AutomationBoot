@@ -22,6 +22,6 @@ enum class ActionBootPasswordField(
         return this.bundleName
     }
 
-    override fun createActionBox(): () -> AbstractBox<*> = { ActionBox(PasswordFieldActionController(this)) }
+    override fun createNewActionBox(): () -> AbstractBox<*> = { ActionBox(PasswordFieldActionController(this)) }
 
 }
