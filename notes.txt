@@ -21,3 +21,165 @@ To run it with Java 11:
 --add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix
 --add-opens javafx.controls/javafx.scene.control=automationBoot
 --add-opens javafx.graphics/javafx.scene=automationBoot
+
+
+Kotlin DLS migration:
+import java.io.FileInputStream
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.Properties
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url = uri("https://dl.bintray.com/kotlin/kotlinx")
+        }
+    }
+}
+
+object DependencyVersions {
+    const val java_version = "11"
+    const val ktor_version = "1.3.0"
+    const val kotest_version = "4.0.4"
+    const val jlink_version = "2.17.7"
+    const val jfoenix_version = "9.0.9"
+    const val commons_lang3_version = "3.5"
+    const val jnativehook_version = "2.1.0"
+    const val log4j_version = "1.2.17"
+    const val slf4j_version = "1.7.5"
+    const val fontawesomefx_fontawesome_version = "4.7.0-9.1.2"
+    const val fontawesomefx_commons_version = "9.1.2"
+    const val opencv_version = "4.3.0-1"
+    const val commons_io_version = "2.6"
+    const val jackson_module_kotlin_version = "2.10.3"
+}
+
+plugins {
+    application
+    java
+    idea
+    id("org.jetbrains.kotlin.jvm") version "1.3.72"
+    id("org.openjfx.javafxplugin") version "0.0.8"
+    id("org.beryx.jlink") version "2.17.7"
+    id("org.gradle.kotlin.kotlin-dsl") version "1.3.1"
+}
+
+val applicationProperties = Properties()
+applicationProperties.load(FileInputStream("src/main/resources/system/application.properties"))
+
+val title = applicationProperties.getProperty("application.title")
+project.version = applicationProperties.getProperty("application.version")
+project.description = applicationProperties.getProperty("application.description")
+
+group = "com.patres"
+
+application {
+    mainClassName = "automationBoot/com.patres.automation.ApplicationLauncher"
+}
+
+val runArgsValue = listOf(
+        "--add-opens=java.base/java.lang=opencv",
+        "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
+        "--add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix",
+        "--add-opens=javafx.controls/javafx.scene.control=automationBoot",
+        "--add-opens=javafx.graphics/javafx.scene=automationBoot",
+        "--add-opens=javafx.graphics/javafx.scene.control=automationBoot"
+)
+
+javafx {
+    version = "11.0.2"
+    modules("javafx.controls", "javafx.fxml", "javafx.swing")
+}
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://dl.bintray.com/kotlin/kotlinx")
+    }
+}
+
+dependencies {
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:${DependencyVersions.kotest_version}")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:${DependencyVersions.kotest_version}")
+
+    implementation("com.jfoenix:jfoenix:${DependencyVersions.jfoenix_version}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
+
+    implementation("org.apache.commons:commons-lang3:${DependencyVersions.commons_lang3_version}")
+    implementation("com.1stleg:jnativehook:${DependencyVersions.jnativehook_version}")
+
+    implementation("log4j:log4j:${DependencyVersions.log4j_version}")
+    implementation("org.slf4j:slf4j-api:${DependencyVersions.slf4j_version}")
+    implementation("org.slf4j:slf4j-log4j12:${DependencyVersions.slf4j_version}")
+
+    implementation("de.jensd:fontawesomefx-fontawesome:${DependencyVersions.fontawesomefx_fontawesome_version}")
+    implementation("de.jensd:fontawesomefx-commons:${DependencyVersions.fontawesomefx_commons_version}")
+
+    implementation("commons-io:commons-io:${DependencyVersions.commons_io_version}")
+    implementation("org.openpnp:opencv:${DependencyVersions.opencv_version}")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${DependencyVersions.jackson_module_kotlin_version}")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = DependencyVersions.java_version
+}
+
+tasks.named<JavaExec>("run") {
+    doFirst {
+        jvmArgs = runArgsValue
+    }
+}
+
+
+//
+//tasks.jlink {
+//    addExtraDependencies("javafx")
+//    mergedModule {
+//        additive = true
+//        uses "kotlin.reflect.jvm.internal.impl.util.ModuleVisibilityHelper"
+//        uses "kotlin.reflect.jvm.internal.impl.resolve.ExternalOverridabilityCondition"
+//        uses "kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoader"
+//    }
+//
+//    launcher {
+//        name = title
+//        jvmArgs = runArgsValue
+//    }
+//
+//    jpackage {
+//        installerType", "exe"
+//        appVersion = project.version
+//        outputDir", "../release/${project.version}"
+//        installerOptions = [
+//            "--description", description,
+//            "--copyright", "Copyrigth 2020 Patres - Patryk Piechaczek"
+//        ]
+//        imageOptions += ["--icon", "src/main/resources/icon/desktop/main_icon.ico"]
+//        if (installerType == "exe") {
+//            installerOptions += [
+//                "--win-dir-chooser",
+//                "--win-menu",
+//                "--win-shortcut"
+//            ]
+//        }
+//    }
+//}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+// Create Installer =======================================
+task("createInstaller") {
+    doFirst {
+        println("Create Installer")
+    }
+
+    doLast {
+        println("Remove unused installer directory")
+        val isDeleted = project.delete(files("${rootDir}\\release\\${project.version}\\$title"))
+        println("Directory is deleted: $isDeleted")
+    }
+}
+
+//createInstaller.dependsOn jpackage
+// ========================================================

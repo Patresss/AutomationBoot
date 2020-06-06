@@ -17,8 +17,8 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="40" minWidth="40.0" prefWidth="40.0" />
         </columnConstraints>
         <rowConstraints>
-         <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="15.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.rowIndex="1" GridPane.valignment="CENTER" />

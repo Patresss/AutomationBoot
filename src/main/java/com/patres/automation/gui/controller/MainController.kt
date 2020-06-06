@@ -120,6 +120,8 @@ class MainController {
         listenTabContainers()
         listenRootSchemaIsDisplayed()
         initLanguage()
+
+        calculateEnableState(tabContainers.isNotEmpty())
     }
 
     private fun initLanguage() {
@@ -158,8 +160,8 @@ class MainController {
     }
 
     private fun calculateEnableState(state: Boolean) {
-        newMenuItem.isDisable = !state
-        openMenuItem.isDisable = !state
+        newMenuItem.isDisable = !(tabContainers.isEmpty() || state)
+        openMenuItem.isDisable = !(tabContainers.isEmpty() || state)
         saveMenuItem.isDisable = !state
         saveAsMenuItem.isDisable = !state
         closeTabMenuItem.isDisable = !state
