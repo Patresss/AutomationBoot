@@ -2,11 +2,8 @@ package com.patres.automation.action
 
 import com.patres.automation.ApplicationLauncher
 import com.patres.automation.gui.controller.box.AbstractBox
-import com.patres.automation.gui.controller.box.SchemaGroupController
-import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.type.ActionBootSchema
 import javafx.beans.property.BooleanProperty
-import kotlin.system.measureNanoTime
 
 class SchemaGroupModel(
         val actions: List<AbstractAction>,

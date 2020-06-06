@@ -118,7 +118,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             additionalDelayBetweenActionsText.comboBox.value = additionalDelayBetweenActions.type
             additionalDelayBetweenActionsText.value = additionalDelayBetweenActions.value.toString()
             goToPointSelectionWhenNewMouseActionIsAddedCheckBox.checkBox.isSelected = goToPointSelectionWhenNewMouseActionIsAdded
-            portText.isDisable = enableRest
+            portText.isDisable = !enableRest
             portText.value = port.toString()
 
             enableAuthenticatorCheckBox.checkBox.isSelected = enableAuthenticator

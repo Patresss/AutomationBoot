@@ -103,8 +103,7 @@ class MainController {
 
     val rootSchemaLoader = RootSchemaLoader(this)
     val activeSchemasController = ActiveSchemasController(this)
-
-    val keyListener: RunStopKeyListener = RunStopKeyListener(this)
+    private val keyListener: RunStopKeyListener = RunStopKeyListener(this)
 
     fun initialize() {
         snackBar = JFXSnackbar(root)
@@ -117,6 +116,7 @@ class MainController {
             centerStackPane.children.add(emptyTabController)
         }
 
+        keyListener.activeListener()
         listenTabContainers()
         listenRootSchemaIsDisplayed()
         initLanguage()
@@ -158,6 +158,12 @@ class MainController {
     }
 
     private fun calculateEnableState(state: Boolean) {
+        newMenuItem.isDisable = !state
+        openMenuItem.isDisable = !state
+        saveMenuItem.isDisable = !state
+        saveAsMenuItem.isDisable = !state
+        closeTabMenuItem.isDisable = !state
+
         localSettingsMenuItem.isDisable = !state
         activeSchemasAddMenuItem.isDisable = !state
     }

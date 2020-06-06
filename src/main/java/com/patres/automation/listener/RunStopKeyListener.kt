@@ -16,10 +16,6 @@ class RunStopKeyListener(private val mainController: MainController) : NativeKey
             RunStopRecordKeyListener(mainController)
     )
 
-    init {
-        activeListener()
-    }
-
     private val pressedKeys = HashSet<Int>()
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
@@ -53,7 +49,7 @@ class RunStopKeyListener(private val mainController: MainController) : NativeKey
     override fun nativeKeyTyped(keyEvent: NativeKeyEvent) {
     }
 
-    private fun activeListener() {
+    fun activeListener() {
         GlobalKeyMouseListener.activeKeyListener(this)
     }
 

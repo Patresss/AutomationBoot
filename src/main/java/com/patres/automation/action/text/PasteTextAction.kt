@@ -2,7 +2,6 @@ package com.patres.automation.action.text
 
 import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.controller.box.AbstractBox
-import com.patres.automation.gui.controller.model.AutomationController
 import com.patres.automation.type.ActionBootBrowser
 import com.patres.automation.type.ActionBootTextArea
 import com.patres.automation.type.ActionBootable
@@ -34,7 +33,6 @@ abstract class PasteTextAction(
     override fun runAction() {
         val stringSelection = StringSelection(getText())
         val clipboard = Toolkit.getDefaultToolkit().systemClipboard
-
         try {
             clipboard.setContents(stringSelection, stringSelection)
         } catch (e: IllegalStateException) {
@@ -51,6 +49,7 @@ abstract class PasteTextAction(
         robot.keyPress(KeyEvent.VK_V)
         robot.keyRelease(KeyEvent.VK_V)
         robot.keyRelease(KeyEvent.VK_CONTROL)
+        Thread.sleep(50) // next action override clipboard
     }
 
     abstract fun getText(): String
