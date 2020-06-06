@@ -11,7 +11,7 @@ object LogManager {
     fun showAndLogException(e: Throwable) {
         logger.error("ApplicationException: {}", e.message, e)
         Platform.runLater {
-            val errorMessage: String = LanguageManager.getLanguageString("error") + e.message
+            val errorMessage = "${LanguageManager.getLanguageString("error")}: ${e.message}"
             val dialog = DialogHandler(errorMessage)
             dialog.show()
         }

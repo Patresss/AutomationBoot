@@ -8,6 +8,7 @@ import com.patres.automation.gui.controller.ActionBarController
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.SchemaGroupController
 import com.patres.automation.gui.controller.saveBackScreen.settings.LocalSettingsController
+import com.patres.automation.gui.dialog.LogManager
 import com.patres.automation.gui.dialog.SaveRecordedActionsDialog
 import com.patres.automation.listener.record.ActionRecorder
 import com.patres.automation.mapper.SchemaGroupMapper
@@ -143,7 +144,11 @@ open class RootSchemaGroupController(
     fun hasActions() = schemaGroupController.abstractBlocks.isNotEmpty()
 
     fun runAutomation() {
-        actionRunner.runAutomation(SchemaGroupMapper.controllerToModel(schemaGroupController, actionRunner.automationRunningProperty))
+        try {
+            actionRunner.runAutomation(SchemaGroupMapper.controllerToModel(schemaGroupController, actionRunner.automationRunningProperty))
+        } catch (e: Exception) {
+            LogManager.showAndLogException(e)
+        }
     }
 
     fun stopAutomation() {
