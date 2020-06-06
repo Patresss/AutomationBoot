@@ -17,7 +17,7 @@
         <rowConstraints>
          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="15.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <Label fx:id="actionLabel" maxHeight="1.7976931348623157E308" text="Label" wrapText="true" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
         <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />

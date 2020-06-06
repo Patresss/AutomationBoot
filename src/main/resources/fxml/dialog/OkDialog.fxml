@@ -14,7 +14,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
         <Label fx:id="messageLabel" alignment="TOP_LEFT" prefWidth="360.0" text="Label" wrapText="true" />

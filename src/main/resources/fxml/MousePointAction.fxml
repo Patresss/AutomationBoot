@@ -23,9 +23,9 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="40" minWidth="40.0" prefWidth="40.0" />
         </columnConstraints>
         <rowConstraints>
-         <RowConstraints minHeight="20.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="15.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <Label fx:id="actionLabel" text="Label" wrapText="true" GridPane.rowIndex="1" />
         <Label fx:id="validLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="error" text="Label" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
