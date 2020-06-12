@@ -1,11 +1,11 @@
 # AutomationBoot
 Application for process automation. Controls mouse and keyboard, records actions, executes scripts, etc. AutomationBoot gives you the ability to control actions using the button, keyboard shortcuts and via the website.
 
-![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/My%20work.png)
+![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/My%20work.png)
  
 ## Download
-* Installer exe (windows) - [download exe](https://github.com/Patresss/AutmationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.exe)
-* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutmationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.zip)
+* Installer exe (windows) - [download exe](https://github.com/Patresss/AutomationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.exe)
+* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutomationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.zip)
 
 ## Possibilities
 
@@ -53,21 +53,21 @@ Application for process automation. Controls mouse and keyboard, records actions
 ## Examples
 * Actions
 
-| Move mouse [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.ab) | Keyboard and paste [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.ab) | Shut down computer [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.ab) |
+| Move mouse [abJson](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Move%20mouse.ab) | Keyboard and paste [abJson](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Keyboard%20and%20paste.ab) | Shut down computer [abJson](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Shut%20down%20computer.ab) |
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.png)
+![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Move%20mouse.png) | ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Keyboard%20and%20paste.png) | ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Shut%20down%20computer.png)
 
 * Settings
 
 | Global | Local | Active shemas |
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Global%20settings.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Local%20settings.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Active%20schemas.png)
+![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Global%20settings.png) | ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Local%20settings.png) | ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Active%20schemas.png)
 
 * Web
 
 | Web view |
 :-------------------------:
-![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Web.png) 
+![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Web.png) 
 
 
 ## Running
