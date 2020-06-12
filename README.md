@@ -53,9 +53,13 @@ Application for process automation. Controls mouse and keyboard, records actions
 ## Examples
 * Actions
 
-| Move mouse [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.ab) | Keyboard and paste [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.ab) | Shut down computer [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.ab) |
-:-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.png)
+| Move mouse [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.ab) | Keyboard and paste [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.ab) |
+:-------------------------:|:-------------------------:
+![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.png)
+
+| Scripts [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Scripts.ab) | Shut down computer [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.ab) |
+:-------------------------:|:-------------------------:
+![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Scripts.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.png)
 
 * Settings
 
