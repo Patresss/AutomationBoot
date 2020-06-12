@@ -91,3 +91,20 @@ To run use VM options
         > The value for task ':compileJava' property 'destinationDirectory' is final and cannot be changed any further.
    *Use version of gradle: 6.0.1*       
 
+## Built With
+
+* [JFoenix](https://github.com/jfoenixadmin/JFoenix)
+* [Kotest](https://github.com/kotest/kotest)
+* [commons-lang](https://github.com/apache/commons-lang)
+* [jnativehook](https://github.com/kwhat/jnativehook)
+* [log4j](https://logging.apache.org/log4j/2.x/)
+* [slf4j](http://www.slf4j.org/)
+* [FontAwesomeFx](https://www.jensd.de/wordpress/?tag=fontawesomefx)
+* [Commons IO](http://commons.apache.org/proper/commons-io/)
+* [OpenCV](https://github.com/openpnp/opencv)
+* [Jackson](https://github.com/FasterXML/jackson-module-kotlin)
+
+
+## License
+
+This project is licensed under the Apache License 2.0 
