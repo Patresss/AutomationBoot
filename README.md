@@ -1,6 +1,7 @@
 # AutomationBoot
 Application for process automation. Controls mouse and keyboard, records actions, executes scripts, etc. AutomationBoot gives you the ability to control actions using the button, keyboard shortcuts and via the website.
 
+![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/My%20work.png)
  
 ## Download
 * Installer exe (windows) - [download exe](https://github.com/Patresss/AutmationBoot/raw/master/release/Automation%20Boot-1.0.0.exe)
