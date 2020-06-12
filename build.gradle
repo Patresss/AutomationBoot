@@ -136,7 +136,7 @@ jlink {
     jpackage {
         installerType = 'exe'
         appVersion = project.version
-        outputDir = "../release/${project.version}"
+        outputDir = "../release"
         installerOptions = [
                 '--description', description,
                 '--copyright', 'Copyrigth 2020 Patres - Patryk Piechaczek'
@@ -147,6 +147,17 @@ jlink {
                     '--win-dir-chooser',
                     '--win-menu',
                     '--win-shortcut'
+            ]
+        }
+
+        if (installerType == 'pkg') {
+            imageOptions += ['--icon', 'src/main/resources/icon/desktop/main_icon.icns']
+        }
+
+        if (installerType in ['deb', 'rpm']) {
+            imageOptions += ['--icon', 'src/main/resources/icon/desktop/main_icon.ico']
+            installerOptions += [
+                    '--linux-shortcut'
             ]
         }
     }
@@ -164,10 +175,17 @@ task createInstaller {
 
     doLast {
         println 'Remove unused installer directory'
-        def isDeleted = project.delete(files("${rootDir}\\release\\${project.version}\\$title"))
+        def isDeleted = project.delete(files("${rootDir}\\release\\$title"))
         println "Directory is deleted: ${isDeleted}"
     }
+
 }
 
 createInstaller.dependsOn jpackage
 // ========================================================
+
+task packageExecutableZip(type: Zip) {
+    archiveFileName = "${title}-${project.version}.zip"
+    destinationDirectory = file("${rootDir}\\release")
+    from "$buildDir/image"
+}

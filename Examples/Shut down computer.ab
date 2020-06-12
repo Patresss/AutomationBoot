@@ -9,12 +9,26 @@
       "threshold" : 90.0,
       "ignoreIfNotFound" : false
     }, {
+      "type" : "DelayAction",
+      "actionBootType" : "DELAY",
+      "timeContainer" : {
+        "value" : 50,
+        "type" : "MILLISECONDS"
+      }
+    }, {
       "type" : "MousePointAction",
       "actionBootType" : "CLICK_LEFT_MOUSE_BUTTON",
       "point" : "(157;1002)",
       "image" : null,
       "threshold" : 90.0,
       "ignoreIfNotFound" : false
+    }, {
+      "type" : "DelayAction",
+      "actionBootType" : "DELAY",
+      "timeContainer" : {
+        "value" : 50,
+        "type" : "MILLISECONDS"
+      }
     }, {
       "type" : "MousePointAction",
       "actionBootType" : "CLICK_LEFT_MOUSE_BUTTON",
@@ -32,5 +46,5 @@
     "endpointName" : ""
   },
   "orgFile" : null,
-  "applicationVersion" : "0.3.0"
+  "applicationVersion" : "1.0.0"
 }
