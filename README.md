@@ -1,8 +1,10 @@
 # AutomationBoot
 Application for process automation. Controls mouse and keyboard, records actions, executes scripts, etc. AutomationBoot gives you the ability to control actions using the button, keyboard shortcuts and via the website.
 
+ 
 ## Download
-The newest version - [download windows installer](https://github.com/Patresss/AutomationBoot/raw/master/release/1.0.0/Automation Boot-1.0.0.exe)   
+* Installer exe (windows) - [download exe](https://github.com/Patresss/AutmationBoot/raw/master/release/Automation%20Boot-1.0.0.exe)
+* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutmationBoot/raw/master/release/Automation%20Boot-1.0.0.zip)
 
 ## Possibilities
 
@@ -44,17 +46,65 @@ The newest version - [download windows installer](https://github.com/Patresss/Au
         * Possibility of changing port
 * Supported languages: English, Polish
 * Delay control between actions
- 
 
-# Build
-To build AutomationBoot, execute the following command:
 
-    gradlew build
 
-To run the simulation, execute the following command:
+## Examples
+* Actions
 
-    gradlew run
-    
-To run tests, execute the following command:
+| Move mouse [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.ab) | Keyboard and paste [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.ab) | Shut down computer [abJson](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.ab) |
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Move%20mouse.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Kayboard%20and%20paste.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Shut%20down%20computer.png)
 
-    gradlew test
+* Settings
+
+| Global | Local | Active shemas |
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Global%20settings.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Local%20settings.png) | ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Active%20schemas.png)
+
+* Web
+
+| Web view |
+:-------------------------:
+![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/Web.png) 
+
+
+## Running
+To run use VM options
+
+        --add-opens=java.base/java.lang=opencv
+        --add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix
+        --add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix
+        --add-opens=javafx.controls/javafx.scene.control=automationBoot
+        --add-opens=javafx.graphics/javafx.scene=automationBoot
+        
+## Known issues
+*  https://github.com/kotest/kotest/issues/1495
+         
+        Could not write standard input to Gradle Test Executor 26.
+        java.io.IOException: The pipe is being closed
+   *Do not use gradlew to build the pojrect*
+   
+*  https://github.com/beryx/badass-jlink-plugin/issues/116
+         
+        Execution failed for task ':compileJava'.
+        > The value for task ':compileJava' property 'destinationDirectory' is final and cannot be changed any further.
+   *Use version of gradle: 6.0.1*       
+
+## Built With
+
+* [JFoenix](https://github.com/jfoenixadmin/JFoenix)
+* [Kotest](https://github.com/kotest/kotest)
+* [commons-lang](https://github.com/apache/commons-lang)
+* [jnativehook](https://github.com/kwhat/jnativehook)
+* [log4j](https://logging.apache.org/log4j/2.x/)
+* [slf4j](http://www.slf4j.org/)
+* [FontAwesomeFx](https://www.jensd.de/wordpress/?tag=fontawesomefx)
+* [Commons IO](http://commons.apache.org/proper/commons-io/)
+* [OpenCV](https://github.com/openpnp/opencv)
+* [Jackson](https://github.com/FasterXML/jackson-module-kotlin)
+
+
+## License
+
+This project is licensed under the Apache License 2.0 
