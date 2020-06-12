@@ -4,8 +4,8 @@ Application for process automation. Controls mouse and keyboard, records actions
 ![](https://github.com/Patresss/AutmationBoot/blob/master/Examples/My%20work.png)
  
 ## Download
-* Installer exe (windows) - [download exe](https://github.com/Patresss/AutmationBoot/raw/master/release/Automation%20Boot-1.0.0.exe)
-* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutmationBoot/raw/master/release/Automation%20Boot-1.0.0.zip)
+* Installer exe (windows) - [download exe](https://github.com/Patresss/AutmationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.exe)
+* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutmationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.zip)
 
 ## Possibilities
 
@@ -105,6 +105,10 @@ To run use VM options
 * [OpenCV](https://github.com/openpnp/opencv)
 * [Jackson](https://github.com/FasterXML/jackson-module-kotlin)
 
+## Donate me
+
+* [Buy me a coffee](https://www.buymeacoffee.com/Patres)
+* [Paypal](https://www.paypal.me/Patresssss)
 
 ## License
 
