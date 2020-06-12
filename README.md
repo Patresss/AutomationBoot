@@ -7,6 +7,7 @@ Application for process automation. Controls mouse and keyboard, records actions
 * Installer exe (windows) - [download exe](https://github.com/Patresss/AutomationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.exe)
 * Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutomationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.zip)
 
+*If the program does not respond, please run it as administrator*
 ## Possibilities
 
 * Actions:
@@ -84,6 +85,10 @@ To run use VM options
         --add-opens=javafx.graphics/javafx.scene=automationBoot
         
 ## Known issues
+* Program not responding
+    
+    *Please run it as administrator*
+
 *  https://github.com/kotest/kotest/issues/1495
          
         Could not write standard input to Gradle Test Executor 26.
