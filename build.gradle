@@ -136,7 +136,7 @@ jlink {
     jpackage {
         installerType = 'exe'
         appVersion = project.version
-        outputDir = "../release"
+        outputDir = "../release/${project.version}"
         installerOptions = [
                 '--description', description,
                 '--copyright', 'Copyrigth 2020 Patres - Patryk Piechaczek'
@@ -175,7 +175,7 @@ task createInstaller {
 
     doLast {
         println 'Remove unused installer directory'
-        def isDeleted = project.delete(files("${rootDir}\\release\\$title"))
+        def isDeleted = project.delete(files("${rootDir}\\release\\${project.version}\\$title"))
         println "Directory is deleted: ${isDeleted}"
     }
 
@@ -186,6 +186,6 @@ createInstaller.dependsOn jpackage
 
 task packageExecutableZip(type: Zip) {
     archiveFileName = "${title}-${project.version}.zip"
-    destinationDirectory = file("${rootDir}\\release")
+    destinationDirectory = file("${rootDir}\\release\\${project.version}")
     from "$buildDir/image"
 }

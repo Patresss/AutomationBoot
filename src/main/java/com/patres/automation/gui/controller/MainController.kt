@@ -178,7 +178,11 @@ class MainController {
 
     @FXML
     fun createNewRootSchema() {
-        rootSchemaLoader.createNewRootSchema()
+        try {
+            rootSchemaLoader.createNewRootSchema()
+        } catch (e: Exception) {
+            LogManager.showAndLogException(LanguageManager.getLanguageString("error.createFile.noPermission"), e)
+        }
     }
 
     @FXML

@@ -1,12 +1,12 @@
 package com.patres.automation.settings
 
 import com.patres.automation.ApplicationLauncher
+import com.patres.automation.gui.dialog.LogManager
 
 import com.patres.automation.mapper.AutomationMapper
 import com.patres.automation.system.ApplicationInfo
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.lang.RuntimeException
 
 object GlobalSettingsLoader {
 
@@ -33,17 +33,22 @@ object GlobalSettingsLoader {
     }
 
     fun save(globalSettings: GlobalSettings = ApplicationLauncher.globalSettings) {
-        logger.info("Global settings are saving...")
-        val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchemaController.actionRunner.getFilePathToSettings() }?: emptyList()
-        globalSettings.previousPathFiles = filesToSave
-        globalSettings.applicationVersion = ApplicationInfo.version
+        try {
+            logger.info("Global settings are saving...")
+            val filesToSave = ApplicationLauncher.mainController?.tabContainers?.map { it.rootSchemaController.actionRunner.getFilePathToSettings() }
+                    ?: emptyList()
+            globalSettings.previousPathFiles = filesToSave
+            globalSettings.applicationVersion = ApplicationInfo.version
 
-        val serializedRootGroup = AutomationMapper.toJson(globalSettings)
-        val file = File(path).also { file ->
-             file.parentFile.mkdirs()
+            val serializedRootGroup = AutomationMapper.toJson(globalSettings)
+            val file = File(path).also { file ->
+                file.parentFile.mkdirs()
+            }
+            file.writeText(serializedRootGroup)
+            logger.info("Global settings are saved")
+        } catch (e: Exception) {
+            LogManager.showAndLogException(LanguageManager.getLanguageString("error.createFile.noPermission"), e)
         }
-        file.writeText(serializedRootGroup)
-        logger.info("Global settings are saved")
     }
 
 }
