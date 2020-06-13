@@ -8,7 +8,7 @@ Application for process automation. Controls mouse and keyboard, records actions
 * Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutomationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.zip)
 
 *If the program does not respond, please run it as administrator*
-## Possibilities
+## Capabilities
 
 * Actions:
     * Delay
@@ -93,7 +93,7 @@ To run use VM options
          
         Could not write standard input to Gradle Test Executor 26.
         java.io.IOException: The pipe is being closed
-   *Do not use gradlew to build the pojrect*
+   *Do not use gradlew to build the project*
    
 *  https://github.com/beryx/badass-jlink-plugin/issues/116
          
