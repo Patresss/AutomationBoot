@@ -122,3 +122,9 @@ To run use VM options
 ## License
 
 This project is licensed under the Apache License 2.0 
+
+## Special Thanks
+
+Special thanks to <a href="https://www.jetbrains.com/?from=AutomationBoot">JetBrains</a> for supporting this project.
+
+<img src="https://github.com/Patresss/AutomationBoot/blob/master/image/jetbrains.png" alt="jetbrains" width="100" height="100"/>
