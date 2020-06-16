@@ -3,9 +3,9 @@ Application for process automation. Controls mouse and keyboard, records actions
 
 ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/My%20work.png)
  
-## Download
-* Installer exe (windows) - [download exe](https://github.com/Patresss/AutomationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.exe)
-* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutomationBoot/releases/download/1.0.0/Automation.Boot-1.0.0.zip)
+## Download - 1.0.1 version 
+* Installer exe (windows) - [download exe](https://github.com/Patresss/AutomationBoot/releases/download/1.0.1/Automation.Boot-1.0.1.exe)
+* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutomationBoot/releases/download/1.0.1/Automation.Boot-1.0.1.zip)
 
 *If the program does not respond, please run it as administrator*
 ## Capabilities
