@@ -5,7 +5,6 @@ import com.patres.automation.settings.LanguageManager
 import com.sun.net.httpserver.HttpExchange
 import org.slf4j.LoggerFactory
 import java.net.HttpURLConnection
-import java.net.Inet4Address
 
 
 class GetAllActionsHttpHandler(
@@ -13,10 +12,13 @@ class GetAllActionsHttpHandler(
         url: String
 ) : ApplicationHttpHandler(url) {
 
-    private val ip: String = Inet4Address.getLocalHost().hostAddress
-
     companion object {
         val logger = LoggerFactory.getLogger(GetAllActionsHttpHandler::class.java)!!
+        private val ip: String = IpProvider.getIp()
+    }
+
+    init {
+        logger.debug("Ip address: $ip")
     }
 
     override fun handle(exchange: HttpExchange) {
