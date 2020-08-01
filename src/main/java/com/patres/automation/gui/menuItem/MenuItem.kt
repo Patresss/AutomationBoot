@@ -23,6 +23,7 @@ enum class MenuItem(
     STOP(FontAwesomeIcon.STOP, null, null, "robot.action.stop", menuItemHandler = MenuItemHandlers.stopAutomation, enabledForChangeDetector = false),
     MOVE_TO_UP(FontAwesomeIcon.ARROW_UP, null, null, "robot.action.moveToUp", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToUp),
     MOVE_TO_DOWN(FontAwesomeIcon.ARROW_DOWN, null, null, "robot.action.moveToDown", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.moveToDown),
+    DUPLICATE(FontAwesomeIcon.COPY, null, null, "robot.action.duplicate", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.duplicate),
     REMOVE(FontAwesomeIcon.REMOVE, null, null, "robot.action.remove", MenuItemValidators.isNotSelectedActionOrIsRoot, MenuItemHandlers.remove),
     START_RECORD(FontAwesomeIcon.CIRCLE, null, null, "robot.action.record.start", menuItemHandler = MenuItemHandlers.startRecord),
     STOP_RECORD(FontAwesomeIcon.CIRCLE_ALT, null, null, "robot.action.record.stop", menuItemHandler = MenuItemHandlers.stopRecord),

@@ -73,6 +73,11 @@ open class RootSchemaGroupController(
         allChildrenAbstractBlocksRoot.forEach { it.unselectSelectActionButton() }
     }
 
+    fun duplicateSelectedModel() {
+        val copy = selectedModel.toSerialized().serializedToController()
+        addActionBlocks(copy)
+    }
+
     fun removeSelectedModel() {
         val futureSelectedNode = selectedModel.findNodeOnTheTop()
         selectedModel.schemaGroupParent?.removeNode(selectedModel)

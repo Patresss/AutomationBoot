@@ -9,6 +9,7 @@ object MenuItemHandlers {
     val stopAutomation: (rootSchemaGroupController: RootSchemaGroupController) -> Unit = { it.stopAutomation() }
     val moveToDown: (rootSchemaGroupController: RootSchemaGroupController) -> Unit = { it.selectedModel.downActionBlock() }
     val moveToUp: (rootSchemaGroupController: RootSchemaGroupController) -> Unit = { it.selectedModel.upActionBlock() }
+    val duplicate: (rootSchemaGroupController: RootSchemaGroupController) -> Unit = { it.duplicateSelectedModel() }
     val remove: (rootSchemaGroupController: RootSchemaGroupController) -> Unit = { it.removeSelectedModel() }
     val startRecord: (rootSchemaGroupController: RootSchemaGroupController) -> Unit = { it.startRecord() }
     val stopRecord: (rootSchemaGroupController: RootSchemaGroupController) -> Unit = { it.stopRecord() }
