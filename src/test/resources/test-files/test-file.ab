@@ -9,7 +9,8 @@
       "threshold" : 90.0
     } ],
     "groupName" : "Grupa",
-    "numberOfIterations" : "1"
+    "numberOfIterations" : "1",
+    "turnOn" : true
   },
   "localSettings" : {
     "stopActionsKeys" : [ ],

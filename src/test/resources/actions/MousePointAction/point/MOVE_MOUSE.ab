@@ -10,7 +10,8 @@
       "ignoreIfNotFound" : false
     } ],
     "groupName" : "Grupa",
-    "numberOfIterations" : "1"
+    "numberOfIterations" : "1",
+    "turnOn" : true
   },
   "localSettings" : {
     "stopActionsKeys" : [ ],

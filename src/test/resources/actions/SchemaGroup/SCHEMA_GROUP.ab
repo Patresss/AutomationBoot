@@ -28,10 +28,12 @@
           "ignoreIfNotFound" : false
         } ],
         "groupName" : "Grupa",
-        "numberOfIterations" : "1"
+        "numberOfIterations" : "1",
+        "turnOn" : true
       } ],
       "groupName" : "Grupa",
-      "numberOfIterations" : "1"
+      "numberOfIterations" : "1",
+      "turnOn" : true
     }, {
       "type" : "MousePointAction",
       "actionBootType" : "MOVE_MOUSE",
@@ -41,7 +43,8 @@
       "ignoreIfNotFound" : false
     } ],
     "groupName" : "Grupa",
-    "numberOfIterations" : "1"
+    "numberOfIterations" : "1",
+    "turnOn" : true
   },
   "localSettings" : {
     "stopActionsKeys" : [ ],
