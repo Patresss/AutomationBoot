@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -10,36 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="outsideBox" minHeight="100.0" minWidth="-Infinity" styleClass="outside-schema-box" type="StackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane fx:id="gridPane" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="grid-outside-schema-box" vgap="10.0" StackPane.alignment="TOP_LEFT">
-        <columnConstraints>
-            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
-            <ColumnConstraints />
-            <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="-Infinity" />
-        </rowConstraints>
-        <StackPane.margin>
-            <Insets left="20.0" top="-12.0" />
-        </StackPane.margin>
-        <children>
-            <JFXTextField fx:id="groupNameTextField" alignment="TOP_LEFT" promptText="%group" text="%group" />
-            <JFXTextField fx:id="iterationsTextField" promptText="%iternation.1" text="1" GridPane.columnIndex="1" />
-        </children>
-        <padding>
-            <Insets right="10.0" />
-        </padding>
-    </GridPane>
-   <AnchorPane>
-      <StackPane.margin>
-         <Insets />
-      </StackPane.margin>
-      <children>
-          <VBox fx:id="innerBox" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0" />
-      </children>
-   </AnchorPane>
+<fx:root fx:id="outsideBox" minHeight="100.0" minWidth="100.0" styleClass="outside-schema-box" type="StackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <StackPane fx:id="currentActionRunningPane" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="10.0" StackPane.alignment="CENTER_LEFT" />
     <StackPane fx:id="selectStackPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="select-button-pane" StackPane.alignment="CENTER_LEFT">
         <StackPane.margin>
@@ -51,4 +23,35 @@
             </opaqueInsets>
         </JFXButton>
     </StackPane>
+   <AnchorPane>
+      <StackPane.margin>
+         <Insets />
+      </StackPane.margin>
+      <children>
+          <VBox fx:id="innerBox" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0" />
+      </children>
+   </AnchorPane>
+    <AnchorPane fx:id="turnOffPane" prefWidth="242.0" styleClass="turn-off-pane" visible="false" />
+    <GridPane fx:id="gridPane" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="grid-outside-schema-box" vgap="10.0" StackPane.alignment="TOP_LEFT">
+        <columnConstraints>
+            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+            <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="70.0" />
+            <ColumnConstraints prefWidth="150.0" />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="-Infinity" valignment="CENTER" />
+        </rowConstraints>
+        <StackPane.margin>
+            <Insets left="20.0" top="-12.0" />
+        </StackPane.margin>
+        <children>
+            <JFXTextField fx:id="groupNameTextField" alignment="TOP_LEFT" editable="false" promptText="%group" text="%group" />
+            <JFXTextField fx:id="iterationsTextField" promptText="%iternation.1" text="1" GridPane.columnIndex="1" />
+        </children>
+        <padding>
+            <Insets right="10.0" />
+        </padding>
+    </GridPane>
+   <JFXToggleButton fx:id="turnOnToggleButton" alignment="TOP_RIGHT" selected="true" size="5.0" styleClass="toggle-button-disable" StackPane.alignment="TOP_RIGHT" />
 </fx:root>

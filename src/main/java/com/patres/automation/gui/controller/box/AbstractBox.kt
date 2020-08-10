@@ -42,6 +42,9 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
     val root: RootSchemaGroupController
         get() = calculateTypedParent(RootSchemaGroupController::class) ?: throw CannotFindRootSchemaException()
 
+    val rootOrNull: RootSchemaGroupController?
+        get() = calculateTypedParent(RootSchemaGroupController::class)
+
     val schemaGroupParent: SchemaGroupController?
         get() = calculateTypedParent(SchemaGroupController::class)
 

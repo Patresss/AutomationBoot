@@ -57,7 +57,8 @@ class KeyboardFieldActionSerialized(
 class SchemaGroupSerialized(
         val actionList: List<AutomationActionSerialized> = ArrayList(),
         val groupName: String = "Group",
-        val numberOfIterations: String = "1"
+        val numberOfIterations: String = "1",
+        val turnOn: Boolean = true
 ) : AutomationActionSerialized() {
     override fun serializedToController() = SchemaGroupMapper.serializedToController(this)
     override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = SchemaGroupMapper.serializedToModel(this, automationRunningProperty, parameters)

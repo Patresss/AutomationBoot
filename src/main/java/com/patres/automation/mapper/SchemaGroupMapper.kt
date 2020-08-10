@@ -16,7 +16,11 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
 
     override fun controllerToModel(controller: SchemaGroupController, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): SchemaGroupModel {
         logger.debug("SchemaGroup Mapping: Controller to Model")
-        val actionBlockModels: List<AbstractAction> = controller.abstractBlocks.mapNotNull { it.toModel(automationRunningProperty, parameters) }
+        val actionBlockModels: List<AbstractAction> = if (controller.turnOnToggleButton.isSelected) {
+            controller.abstractBlocks.mapNotNull { it.toModel(automationRunningProperty, parameters) }
+        } else {
+            emptyList()
+        }
         return SchemaGroupModel(actionBlockModels, controller.getNumberOfIteration(), automationRunningProperty, controller)
     }
 
@@ -24,7 +28,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
         logger.debug("SchemaGroup Mapping: Controller to Serialized")
         return controller.run {
             val serializedModels: List<AutomationActionSerialized> = abstractBlocks.map { it.toSerialized() }
-            SchemaGroupSerialized(serializedModels, groupNameTextField.text, iterationsTextField.text)
+            SchemaGroupSerialized(serializedModels, groupNameTextField.text, iterationsTextField.text, turnOnToggleButton.isSelected)
         }
     }
 
@@ -33,6 +37,7 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
         return SchemaGroupController().apply {
             groupNameTextField.text = serialized.groupName
             iterationsTextField.text = serialized.numberOfIterations
+            turnOnToggleButton.isSelected = serialized.turnOn
             serialized.actionList
                     .map { it.serializedToController() }
                     .forEach { this.addNewAction(it) }
@@ -41,7 +46,11 @@ object SchemaGroupMapper : Mapper<SchemaGroupController, SchemaGroupModel, Schem
 
     override fun serializedToModel(serialized: SchemaGroupSerialized, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): SchemaGroupModel {
         logger.debug("SchemaGroup Mapping: Serialized to Model")
-        val serializedModels: List<AbstractAction> = serialized.actionList.map { it.serializedToModel(automationRunningProperty, parameters) }
+        val serializedModels: List<AbstractAction> = if (serialized.turnOn) {
+            serialized.actionList.map { it.serializedToModel(automationRunningProperty, parameters) }
+        } else {
+            emptyList()
+        }
         return SchemaGroupModel(serializedModels, serialized.numberOfIterations.toInt(), automationRunningProperty, null)
     }
 

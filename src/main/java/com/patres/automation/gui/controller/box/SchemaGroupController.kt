@@ -1,6 +1,7 @@
 package com.patres.automation.gui.controller.box
 
 import com.jfoenix.controls.JFXTextField
+import com.jfoenix.controls.JFXToggleButton
 import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.mapper.SchemaGroupMapper
 import com.patres.automation.mapper.model.SchemaGroupSerialized
@@ -9,6 +10,7 @@ import com.patres.automation.type.ActionBootSchema
 import javafx.beans.property.BooleanProperty
 import javafx.fxml.FXML
 import javafx.scene.input.MouseEvent
+import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.VBox
 
 
@@ -23,9 +25,26 @@ class SchemaGroupController : AbstractBox<ActionBootSchema>("SchemaGroup.fxml") 
     @FXML
     lateinit var iterationsTextField: JFXTextField
 
+    @FXML
+    lateinit var turnOnToggleButton: JFXToggleButton
 
-    init {
-        listOf(groupNameTextField, iterationsTextField).forEach { node -> node.addEventHandler(MouseEvent.MOUSE_PRESSED) { selectAction() } }
+    @FXML
+    lateinit var turnOffPane: AnchorPane
+
+
+    @FXML
+    fun initialize() {
+        listOf(groupNameTextField, iterationsTextField, turnOnToggleButton).forEach { node -> node.addEventHandler(MouseEvent.MOUSE_PRESSED) { selectAction() } }
+        turnOnToggleButton.selectedProperty().addListener { _, _, newValue -> calculateEnabled(newValue) }
+        calculateEnabled(turnOnToggleButton.isSelected)
+        listOf(groupNameTextField.textProperty(), iterationsTextField.textProperty(), turnOnToggleButton.selectedProperty()).forEach {
+            property -> property.addListener { _, _, _ -> rootOrNull?.changeDetect() }
+        }
+    }
+
+    fun calculateEnabled(turnOff: Boolean) {
+        turnOffPane.isVisible = !turnOff
+        innerBox.isDisable = !turnOff
     }
 
     fun getNumberOfIteration(): Int {

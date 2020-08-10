@@ -34,6 +34,7 @@ class SchemaGroupMapperTest : JfxSpec({
                 // then
                 controller.shouldNotBeNullAndCheck {
                     abstractBlocks shouldHaveSize testedActionList.size
+                    turnOnToggleButton.isSelected shouldBe true
                     groupNameTextField.text shouldBe testedGroupName
                     getNumberOfIteration() shouldBe testedNumberOfIterations.toInt()
                 }
