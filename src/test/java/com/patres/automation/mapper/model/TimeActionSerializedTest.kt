@@ -35,7 +35,7 @@ class TimeActionSerializedTest : JfxSerializedSpec({
                     actions shouldHaveSize 1
                     actions[0].shouldBeInstanceOfAndCheck<DelayAction> {
                         actionBootType shouldBe verifiedAction
-                        timeContainer.value shouldBe valueFromFile.toLong()
+                        timeContainer.value shouldBe valueFromFile
                         timeContainer.type shouldBe delayTypeFroFile
                     }
                 }

@@ -9,6 +9,7 @@ import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.box.ActionBox
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.*
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.*
 import javafx.beans.property.BooleanProperty
@@ -28,7 +29,7 @@ import javafx.beans.property.BooleanProperty
 )
 sealed class AutomationActionSerialized {
     abstract fun serializedToController(): AbstractBox<*>
-    abstract fun serializedToModel(automationRunningProperty: BooleanProperty): AbstractAction
+    abstract fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): AbstractAction
     abstract fun toTranslatedString(): String
 }
 
@@ -40,7 +41,7 @@ class MousePointActionSerialized(
         val ignoreIfNotFound: Boolean? = null
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox(MousePointActionMapper.serializedToController(this))
-    override fun serializedToModel(automationRunningProperty: BooleanProperty) = MousePointActionMapper.serializedToModel(this, automationRunningProperty)
+    override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = MousePointActionMapper.serializedToModel(this, automationRunningProperty, parameters)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $point"
 }
 
@@ -49,7 +50,7 @@ class KeyboardFieldActionSerialized(
         val keys: List<KeyboardKey> = emptyList()
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox(KeyboardFieldActionMapper.serializedToController(this))
-    override fun serializedToModel(automationRunningProperty: BooleanProperty) = KeyboardFieldActionMapper.serializedToModel(this, automationRunningProperty)
+    override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = KeyboardFieldActionMapper.serializedToModel(this, automationRunningProperty, parameters)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $keys"
 }
 
@@ -59,7 +60,7 @@ class SchemaGroupSerialized(
         val numberOfIterations: String = "1"
 ) : AutomationActionSerialized() {
     override fun serializedToController() = SchemaGroupMapper.serializedToController(this)
-    override fun serializedToModel(automationRunningProperty: BooleanProperty) = SchemaGroupMapper.serializedToModel(this, automationRunningProperty)
+    override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = SchemaGroupMapper.serializedToModel(this, automationRunningProperty, parameters)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString("group")}: $groupName"
 
 }
@@ -69,7 +70,7 @@ class BrowserActionSerialized(
         val path: String = ""
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox(BrowserActionMapper.serializedToController(this))
-    override fun serializedToModel(automationRunningProperty: BooleanProperty) = BrowserActionMapper.serializedToModel(this, automationRunningProperty)
+    override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = BrowserActionMapper.serializedToModel(this, automationRunningProperty, parameters)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $path"
 }
 
@@ -78,7 +79,7 @@ class TextFieldActionSerialized(
         val value: String = ""
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox(TextFieldActionMapper.serializedToController(this))
-    override fun serializedToModel(automationRunningProperty: BooleanProperty) = TextFieldActionMapper.serializedToModel(this, automationRunningProperty)
+    override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = TextFieldActionMapper.serializedToModel(this, automationRunningProperty, parameters)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $value"
 
 }
@@ -88,16 +89,16 @@ class TextAreaActionSerialized(
         val value: String = ""
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox(TextAreaActionMapper.serializedToController(this))
-    override fun serializedToModel(automationRunningProperty: BooleanProperty) = TextAreaActionMapper.serializedToModel(this, automationRunningProperty)
+    override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = TextAreaActionMapper.serializedToModel(this, automationRunningProperty, parameters)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $value"
 }
 
 class TimeActionSerialized(
         val actionBootType: ActionBootTime,
-        val timeContainer: TimeContainer = TimeContainer(0)
+        val timeContainer: TimeContainer = TimeContainer("0")
 ) : AutomationActionSerialized() {
     override fun serializedToController() = ActionBox(TimeActionMapper.serializedToController(this))
-    override fun serializedToModel(automationRunningProperty: BooleanProperty) = TimeActionMapper.serializedToModel(this, automationRunningProperty)
+    override fun serializedToModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>) = TimeActionMapper.serializedToModel(this, automationRunningProperty, parameters)
     override fun toTranslatedString() = "• ${LanguageManager.getLanguageString(actionBootType.bundleName)}: $timeContainer"
 
 }

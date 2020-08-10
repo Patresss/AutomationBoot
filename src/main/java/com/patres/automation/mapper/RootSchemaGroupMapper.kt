@@ -7,6 +7,7 @@ import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.file.FileType
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.model.RootSchemaGroupSerialized
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.system.ApplicationInfo
 import com.patres.automation.validation.FileExistValidation
 import com.patres.automation.validation.FileExtensionValidation
@@ -24,26 +25,28 @@ object RootSchemaGroupMapper {
         val orgFile = serializedModel.orgFile?.let { File(it) }
         val rootSchemaFiles = RootSchemaFiles(rootSchemaFile, orgFile)
         val automationRunningProperty = SimpleBooleanProperty(false)
+        val parameters = emptySet<SentParameter>()
         return RootSchemaGroupModel(
-                schemaGroupModel = SchemaGroupMapper.serializedToModel(serializedModel.schemaGroupSerialized, automationRunningProperty),
+                schemaGroupModel = SchemaGroupMapper.serializedToModel(serializedModel.schemaGroupSerialized, automationRunningProperty, parameters),
                 actionRunner = ActionRunner(automationRunningProperty, serializedModel.localSettings, rootSchemaFiles)
         )
     }
 
-    fun serializedToMainSchemaModel(filePath: String, automationRunningProperty: BooleanProperty): SchemaGroupModel {
+    fun serializedToMainSchemaModel(filePath: String, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): SchemaGroupModel {
         validateAutomationBootFile(filePath)
         val file = File(filePath)
         val serializedRootGroup = file.readText()
         val rootGroupSerialized: RootSchemaGroupSerialized = AutomationMapper.toObject(serializedRootGroup)
 
-        return SchemaGroupMapper.serializedToModel(rootGroupSerialized.schemaGroupSerialized, automationRunningProperty)
+        return SchemaGroupMapper.serializedToModel(rootGroupSerialized.schemaGroupSerialized, automationRunningProperty, parameters)
     }
 
 
     fun controllerToModel(rootSchemaController: RootSchemaGroupController): RootSchemaGroupModel {
         logger.debug("RootSchemaGroup Mapping: Controller to Model")
+        val parameters = emptySet<SentParameter>()
         return RootSchemaGroupModel(
-                schemaGroupModel = SchemaGroupMapper.controllerToModel(rootSchemaController.schemaGroupController, rootSchemaController.actionRunner.automationRunningProperty),
+                schemaGroupModel = SchemaGroupMapper.controllerToModel(rootSchemaController.schemaGroupController, rootSchemaController.actionRunner.automationRunningProperty, parameters),
                 actionRunner = rootSchemaController.actionRunner
         )
     }

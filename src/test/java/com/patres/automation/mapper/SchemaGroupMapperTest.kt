@@ -48,7 +48,7 @@ class SchemaGroupMapperTest : JfxSpec({
                 val serializedModel = SchemaGroupSerialized(testedActionList, testedGroupName, testedNumberOfIterations)
 
                 // when
-                val model = SchemaGroupMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+                val model = SchemaGroupMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
                 // then
                 model.shouldNotBeNullAndCheck {
@@ -93,7 +93,7 @@ class SchemaGroupMapperTest : JfxSpec({
                 }
 
                 // when
-                val model = SchemaGroupMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+                val model = SchemaGroupMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
                 // then
                 model.shouldNotBeNullAndCheck {

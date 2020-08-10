@@ -4,6 +4,7 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.gui.controller.model.RootSchemaGroupController
 import com.patres.automation.mapper.model.AutomationActionSerialized
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.settings.LanguageManager
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.extension.calculateTypedParent
@@ -125,7 +126,7 @@ abstract class AbstractBox<ActionBootType : ActionBootable>(fxmlFile: String) : 
         }
     }
 
-    abstract fun toModel(automationRunningProperty: BooleanProperty): AbstractAction?
+    abstract fun toModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): AbstractAction?
     abstract fun toSerialized(): AutomationActionSerialized
 
 }

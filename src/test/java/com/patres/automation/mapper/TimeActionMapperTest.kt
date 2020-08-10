@@ -20,7 +20,7 @@ class TimeActionMapperTest : JfxSpec({
         mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
-                val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue.toLong(), testedDelayType))
+                val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue, testedDelayType))
 
                 // when
                 val controller = TimeActionMapper.serializedToController(serializedModel)
@@ -39,15 +39,15 @@ class TimeActionMapperTest : JfxSpec({
         mappableActions.map { verifiedAction: ActionBootTime ->
             verifiedAction.name {
                 // given
-                val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue.toLong(), testedDelayType))
+                val serializedModel = TimeActionSerialized(verifiedAction, TimeContainer(testedValue, testedDelayType))
 
                 // when
-                val model = TimeActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+                val model = TimeActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
                 // then
                 model.shouldNotBeNullAndCheck {
                     actionBootType shouldBe verifiedAction
-                    timeContainer.value shouldBe testedValue.toLong()
+                    timeContainer.value shouldBe testedValue
                     timeContainer.type shouldBe testedDelayType
                 }
             }
@@ -69,7 +69,7 @@ class TimeActionMapperTest : JfxSpec({
                 // then
                 serialized.shouldNotBeNullAndCheck {
                     actionBootType shouldBe verifiedAction
-                    timeContainer.value shouldBe testedValue.toLong()
+                    timeContainer.value shouldBe testedValue
                     timeContainer.type shouldBe testedDelayType
                 }
             }
@@ -86,12 +86,12 @@ class TimeActionMapperTest : JfxSpec({
                 }
 
                 // when
-                val model = TimeActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+                val model = TimeActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
                 // then
                 model.shouldNotBeNullAndCheck {
                     actionBootType shouldBe verifiedAction
-                    timeContainer.value shouldBe testedValue.toLong()
+                    timeContainer.value shouldBe testedValue
                     timeContainer.type shouldBe testedDelayType
                 }
             }

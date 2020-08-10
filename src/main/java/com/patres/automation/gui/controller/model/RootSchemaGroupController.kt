@@ -150,7 +150,7 @@ open class RootSchemaGroupController(
 
     fun runAutomation() {
         try {
-            actionRunner.runAutomation(SchemaGroupMapper.controllerToModel(schemaGroupController, actionRunner.automationRunningProperty))
+            actionRunner.runAutomation(SchemaGroupMapper.controllerToModel(schemaGroupController, actionRunner.automationRunningProperty, emptySet()))
         } catch (e: Exception) {
             LogManager.showAndLogException(e)
         }

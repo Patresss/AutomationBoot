@@ -6,7 +6,7 @@ import java.io.File
 
 class DirectoryExistValidation : Validationable() {
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         val file = File(value)
         return file.exists() && file.isDirectory
     }
@@ -15,6 +15,6 @@ class DirectoryExistValidation : Validationable() {
         throw DirectoryNotExistException(value)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.directoryDoesntExist")
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.directoryDoesntExist")
 
 }

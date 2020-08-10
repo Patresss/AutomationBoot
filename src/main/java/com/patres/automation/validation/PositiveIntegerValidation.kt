@@ -5,7 +5,7 @@ import com.patres.automation.settings.LanguageManager
 
 class PositiveIntegerValidation : Validationable() {
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         return try {
             Integer.parseInt(value) >= 0
         } catch (e: NumberFormatException) {
@@ -19,6 +19,6 @@ class PositiveIntegerValidation : Validationable() {
         throw PositiveIntegerFormatException(value)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.mustBePositiveNumber")
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.mustBePositiveNumber")
 
 }

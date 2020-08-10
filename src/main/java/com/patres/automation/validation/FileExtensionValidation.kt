@@ -9,7 +9,7 @@ class FileExtensionValidation(fileType: FileType) : Validationable() {
 
     private val extension = fileType.extension
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         return File(value).exists() && File(value).isFile && File(value).name.endsWith(extension)
     }
 
@@ -17,6 +17,6 @@ class FileExtensionValidation(fileType: FileType) : Validationable() {
         throw FileHasWrongExtensionException(value, extension)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.fileHasWrongExtension")
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.fileHasWrongExtension")
 
 }

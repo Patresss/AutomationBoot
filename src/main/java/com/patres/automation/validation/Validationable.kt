@@ -1,5 +1,6 @@
 package com.patres.automation.validation
 
+import com.patres.automation.parameter.received.ReceivedParameterConverter
 import javafx.beans.binding.StringBinding
 import javafx.scene.Node
 
@@ -9,10 +10,14 @@ abstract class Validationable {
         const val ERROR_STYLE = "error"
     }
 
-    abstract fun isValid(value: String): Boolean
-    abstract fun throwException(value: String)
+    fun isValid(value: String): Boolean {
+        if (ReceivedParameterConverter.PARAMETER_PATTERN.containsMatchIn(value)) {
+            return true
+        }
+        return isValidBySpecificValidator(value)
+    }
 
-    fun check(value: String) {
+    open fun check(value: String) {
         if (!isValid(value)) {
             throwException(value)
         }
@@ -30,6 +35,8 @@ abstract class Validationable {
         }
     }
 
-    abstract fun getErrorMessageStringBinding(): StringBinding
+    abstract fun getErrorMessageStringBinding(textValue: String? = null): StringBinding
+    abstract fun isValidBySpecificValidator(value: String): Boolean
+    abstract fun throwException(value: String)
 
 }

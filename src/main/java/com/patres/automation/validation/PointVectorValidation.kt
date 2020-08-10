@@ -10,7 +10,7 @@ class PointVectorValidation : Validationable() {
         private const val vectorPattern = "V?\\((-?\\d+);(-?\\d+)\\)" // V(-12;34)
     }
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         return value.matches(pointPattern.toRegex()) || value.matches(vectorPattern.toRegex())
     }
 
@@ -18,7 +18,7 @@ class PointVectorValidation : Validationable() {
         throw PointVectorFormatException(value)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.mustBePointOrVector")
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.mustBePointOrVector")
 
 }
 

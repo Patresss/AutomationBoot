@@ -39,7 +39,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             val serializedModel = TextFieldActionSerialized(ActionBootTextField.SCROLL_WHEEL_UP, testedValueText)
 
             // when
-            val model = TextFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+            val model = TextFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelUpAction> {
@@ -53,7 +53,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             val serializedModel = TextFieldActionSerialized(ActionBootTextField.SCROLL_WHEEL_DOWN, testedValueText)
 
             // when
-            val model = TextFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+            val model = TextFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelDownAction> {
@@ -89,7 +89,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+            val model = TextFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelUpAction> {
@@ -105,7 +105,7 @@ internal class TextFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+            val model = TextFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<ScrollWheelDownAction> {

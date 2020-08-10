@@ -58,7 +58,7 @@ class GlobalSettingsController(private val mainController: MainController) : Sav
             startRecordKeys = ArrayList(startRecordKeysSettings.keyboardField.keys)
             stopRecordKeys = ArrayList(stopRecordKeysSettings.keyboardField.keys)
             language = languageComboBox.comboBox.value
-            additionalDelayBetweenActions = TimeContainer(additionalDelayBetweenActionsText.value.toLongOrZero(), additionalDelayBetweenActionsText.selectedDelayTime())
+            additionalDelayBetweenActions = TimeContainer(additionalDelayBetweenActionsText.value, additionalDelayBetweenActionsText.selectedDelayTime())
             goToPointSelectionWhenNewMouseActionIsAdded = goToPointSelectionWhenNewMouseActionIsAddedCheckBox.checkBox.isSelected
             port = portText.value.toInt()
             enableRest = enableRestCheckBox.checkBox.isSelected

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField
 import com.patres.automation.action.SchemaGroupModel
 import com.patres.automation.mapper.SchemaGroupMapper
 import com.patres.automation.mapper.model.SchemaGroupSerialized
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.type.ActionBootSchema
 import javafx.beans.property.BooleanProperty
 import javafx.fxml.FXML
@@ -56,8 +57,8 @@ class SchemaGroupController : AbstractBox<ActionBootSchema>("SchemaGroup.fxml") 
         return SchemaGroupMapper.controllerToSerialized(this)
     }
 
-    override fun toModel(automationRunningProperty: BooleanProperty): SchemaGroupModel {
-        return SchemaGroupMapper.controllerToModel(this, automationRunningProperty)
+    override fun toModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): SchemaGroupModel {
+        return SchemaGroupMapper.controllerToModel(this, automationRunningProperty, parameters)
     }
 
     fun addActionBlockToList(abstractController: AbstractBox<*>, index: Int) {

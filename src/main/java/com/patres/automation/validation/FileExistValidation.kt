@@ -6,7 +6,7 @@ import java.io.File
 
 class FileExistValidation : Validationable() {
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         return File(value).exists() && !File(value).isDirectory
     }
 
@@ -14,6 +14,6 @@ class FileExistValidation : Validationable() {
         throw FileNotExistException(value)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.fileDoesntExist")
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.fileDoesntExist")
 
 }

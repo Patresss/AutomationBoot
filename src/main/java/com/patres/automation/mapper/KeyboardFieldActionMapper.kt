@@ -9,6 +9,7 @@ import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.model.KeyboardButtonActionController
 import com.patres.automation.keyboard.KeyboardKey
 import com.patres.automation.mapper.model.KeyboardFieldActionSerialized
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.type.ActionBootKeyboard
 import com.patres.automation.type.ActionBootKeyboard.*
 import javafx.beans.property.BooleanProperty
@@ -16,7 +17,7 @@ import javafx.beans.property.BooleanProperty
 
 object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, KeyboardButtonAction, KeyboardFieldActionSerialized> {
 
-    override fun controllerToModel(controller: KeyboardButtonActionController, automationRunningProperty: BooleanProperty): KeyboardButtonAction {
+    override fun controllerToModel(controller: KeyboardButtonActionController, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): KeyboardButtonAction {
         return calculateKeyboardFieldAction(controller.actionBoot, controller.keyboardField.keys, controller.box)
     }
 
@@ -32,7 +33,7 @@ object KeyboardFieldActionMapper : Mapper<KeyboardButtonActionController, Keyboa
         }
     }
 
-    override fun serializedToModel(serialized: KeyboardFieldActionSerialized, automationRunningProperty: BooleanProperty): KeyboardButtonAction {
+    override fun serializedToModel(serialized: KeyboardFieldActionSerialized, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): KeyboardButtonAction {
         return calculateKeyboardFieldAction(serialized.actionBootType, serialized.keys)
     }
 

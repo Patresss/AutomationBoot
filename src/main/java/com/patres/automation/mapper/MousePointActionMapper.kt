@@ -9,6 +9,8 @@ import com.patres.automation.excpetion.CannotFindRootSchemaException
 import com.patres.automation.gui.controller.box.AbstractBox
 import com.patres.automation.gui.controller.model.MousePointActionController
 import com.patres.automation.mapper.model.MousePointActionSerialized
+import com.patres.automation.parameter.received.ReceivedParameterConverter
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.point.Point
 import com.patres.automation.type.ActionBootMousePoint
 import com.patres.automation.util.Base64Converter
@@ -18,8 +20,8 @@ import java.util.*
 
 object MousePointActionMapper : Mapper<MousePointActionController, MousePointAction, MousePointActionSerialized> {
 
-    override fun controllerToModel(controller: MousePointActionController, automationRunningProperty: BooleanProperty): MousePointAction {
-        val pointDetector = calculatePointDetector(controller, automationRunningProperty)
+    override fun controllerToModel(controller: MousePointActionController, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): MousePointAction {
+        val pointDetector = calculatePointDetector(controller, automationRunningProperty, parameters)
         return createModel(controller.actionBoot, pointDetector, controller.box)
     }
 
@@ -40,8 +42,8 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
         }
     }
 
-    override fun serializedToModel(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty): MousePointAction {
-        val pointDetector = calculatePointDetectorFromSerialized(serialized, automationRunningProperty)
+    override fun serializedToModel(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): MousePointAction {
+        val pointDetector = calculatePointDetectorFromSerialized(serialized, automationRunningProperty, parameters)
         return createModel(serialized.actionBootType, pointDetector)
     }
 
@@ -68,12 +70,12 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
     }
 
 
-    private fun calculatePointDetector(controller: MousePointActionController, automationRunningProperty: BooleanProperty): PointDetector {
+    private fun calculatePointDetector(controller: MousePointActionController, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): PointDetector {
         val calculatedImageBytesArray = controller.calculateImageBytesArray()
         return if (calculatedImageBytesArray != null) {
             ImagePointDetector(calculatedImageBytesArray, controller.thresholdSlider.value, controller.ignoreIfNotFoundCheckBox.isSelected, automationRunningProperty)
         } else {
-            SpecificPointDetector(Point.stringToPoint(controller.value))
+            SpecificPointDetector(Point.stringToPoint(controller.calculateParametrizedValue(parameters)))
         }
     }
 
@@ -85,7 +87,7 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
     }
 
 
-    private fun calculatePointDetectorFromSerialized(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty): PointDetector {
+    private fun calculatePointDetectorFromSerialized(serialized: MousePointActionSerialized, automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): PointDetector {
         return when {
             serialized.image != null -> {
                 val templateByteArray: ByteArray = Base64Converter.base64ToByteArray(serialized.image)
@@ -94,7 +96,8 @@ object MousePointActionMapper : Mapper<MousePointActionController, MousePointAct
                 ImagePointDetector(templateByteArray, threshold, ignoreIfNotFound, automationRunningProperty)
             }
             serialized.point != null -> {
-                SpecificPointDetector(Point.stringToPoint(serialized.point))
+                val parametrizedValue = ReceivedParameterConverter(serialized.point, parameters).replaceValue()
+                SpecificPointDetector(Point.stringToPoint(parametrizedValue))
             }
             else -> {
                 throw ApplicationException("Point cannot be found")

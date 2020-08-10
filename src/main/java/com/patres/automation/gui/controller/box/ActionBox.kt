@@ -4,6 +4,7 @@ import com.patres.automation.action.AbstractAction
 import com.patres.automation.gui.controller.model.*
 import com.patres.automation.mapper.*
 import com.patres.automation.mapper.model.AutomationActionSerialized
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.type.ActionBootable
 import com.patres.automation.util.extension.getAllNodes
 import javafx.beans.property.BooleanProperty
@@ -24,15 +25,15 @@ class ActionBox<ActionBootType : ActionBootable>(
         schemaGroupParent?.addActionBlockToList(abstractBox, index + 1)
     }
 
-    override fun toModel(automationRunningProperty: BooleanProperty): AbstractAction {
+    override fun toModel(automationRunningProperty: BooleanProperty, parameters: Set<SentParameter>): AbstractAction {
         controller.checkValidation()
         return when (controller) {
-            is BrowseFileActionController -> BrowserActionMapper.controllerToModel(controller, automationRunningProperty)
-            is KeyboardButtonActionController -> KeyboardFieldActionMapper.controllerToModel(controller, automationRunningProperty)
-            is MousePointActionController -> MousePointActionMapper.controllerToModel(controller, automationRunningProperty)
-            is TextAreaActionController -> TextAreaActionMapper.controllerToModel(controller, automationRunningProperty)
-            is TextFieldActionController -> TextFieldActionMapper.controllerToModel(controller, automationRunningProperty)
-            is TimeActionController -> TimeActionMapper.controllerToModel(controller, automationRunningProperty)
+            is BrowseFileActionController -> BrowserActionMapper.controllerToModel(controller, automationRunningProperty, parameters)
+            is KeyboardButtonActionController -> KeyboardFieldActionMapper.controllerToModel(controller, automationRunningProperty, parameters)
+            is MousePointActionController -> MousePointActionMapper.controllerToModel(controller, automationRunningProperty, parameters)
+            is TextAreaActionController -> TextAreaActionMapper.controllerToModel(controller, automationRunningProperty, parameters)
+            is TextFieldActionController -> TextFieldActionMapper.controllerToModel(controller, automationRunningProperty, parameters)
+            is TimeActionController -> TimeActionMapper.controllerToModel(controller, automationRunningProperty, parameters)
             else -> throw IllegalStateException("Controller ${controller.javaClass.name} toModel is not correct") // If sealed class will be allowed it should be replaced
         }
     }

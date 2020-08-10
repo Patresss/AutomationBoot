@@ -6,7 +6,7 @@ import com.patres.automation.settings.LanguageManager
 
 class PortValidation : Validationable() {
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         return try {
             val parseInt = Integer.parseInt(value)
             parseInt in ServerBoot.MIN_PORT..ServerBoot.MAX_PORT
@@ -21,6 +21,6 @@ class PortValidation : Validationable() {
         throw NumberMustBeBetweenException(value)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.mustBeNumberBetween", ServerBoot.MIN_PORT, ServerBoot.MAX_PORT)
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.mustBeNumberBetween", ServerBoot.MIN_PORT, ServerBoot.MAX_PORT)
 
 }

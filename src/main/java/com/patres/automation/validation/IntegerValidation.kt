@@ -5,7 +5,7 @@ import com.patres.automation.settings.LanguageManager
 
 class IntegerValidation : Validationable() {
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         try {
             Integer.parseInt(value)
         } catch (e: NumberFormatException) {
@@ -20,6 +20,6 @@ class IntegerValidation : Validationable() {
         throw IntegerFormatException(value)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.mustBeNumber")
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.mustBeNumber")
 
 }

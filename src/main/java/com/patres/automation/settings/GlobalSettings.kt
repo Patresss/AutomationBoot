@@ -25,7 +25,7 @@ class GlobalSettings(
         var serverUsername: String? = null,
         var serverPassword: String? = null,
         var activeSchemas: MutableList<String> = mutableListOf(),
-        var additionalDelayBetweenActions: TimeContainer = TimeContainer(100)
+        var additionalDelayBetweenActions: TimeContainer = TimeContainer("100")
 ) {
 
     companion object {

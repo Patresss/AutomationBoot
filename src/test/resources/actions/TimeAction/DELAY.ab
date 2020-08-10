@@ -5,7 +5,7 @@
       "type" : "DelayAction",
       "actionBootType" : "DELAY",
       "timeContainer" : {
-        "value" : 123,
+        "value" : "123",
         "type" : "SECONDS"
       }
     } ],

@@ -1,5 +1,7 @@
 package com.patres.automation.gui.controller.model
 
+import com.patres.automation.parameter.received.ReceivedParameterConverter
+import com.patres.automation.parameter.sent.SentParameter
 import com.patres.automation.type.ActionBootable
 import javafx.fxml.FXML
 import javafx.scene.control.Label
@@ -20,11 +22,11 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
     override fun initialize() {
         super.initialize()
         valueText.textProperty().addListener { _, _, _ ->
+            changeErrorMessage()
             root?.changeDetect()
             checkUiValidation()
         }
         checkUiValidation()
-        changeErrorMessage()
     }
 
     override fun shouldCheckUiValidation() = value.isNotEmpty()
@@ -39,7 +41,7 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
     }
 
     override fun changeErrorMessage() {
-        actionBoot.validation()?.getErrorMessageStringBinding()?.let {
+        actionBoot.validation()?.getErrorMessageStringBinding(value)?.let {
             validLabel.textProperty().bind(it)
         }
     }
@@ -49,5 +51,9 @@ abstract class TextActionController<ActionBootType : ActionBootable>(
         set(value) {
             valueText.text = value
         }
+
+    fun calculateParametrizedValue(sentParameters: Set<SentParameter>): String {
+        return ReceivedParameterConverter(value, sentParameters).replaceValue()
+    }
 
 }

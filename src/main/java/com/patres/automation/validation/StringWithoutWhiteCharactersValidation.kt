@@ -5,7 +5,7 @@ import com.patres.automation.settings.LanguageManager
 
 class StringWithoutWhiteCharactersValidation : Validationable() {
 
-    override fun isValid(value: String): Boolean {
+    override fun isValidBySpecificValidator(value: String): Boolean {
         return value.toCharArray().none { it.isWhitespace() }
     }
 
@@ -13,6 +13,6 @@ class StringWithoutWhiteCharactersValidation : Validationable() {
         throw StringWithWhiteCharactersException(value)
     }
 
-    override fun getErrorMessageStringBinding() = LanguageManager.createStringBinding("error.stringWithWhiteCharacters")
+    override fun getErrorMessageStringBinding(textValue: String?) = LanguageManager.createStringBinding("error.stringWithWhiteCharacters")
 
 }

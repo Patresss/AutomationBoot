@@ -43,7 +43,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             val serializedModel = KeyboardFieldActionSerialized(ActionBootKeyboard.PRESS_KEYBOARD_BUTTON, testedKeys)
 
             // when
-            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<PressKeyboardButtonAction> {
@@ -56,7 +56,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             val serializedModel = KeyboardFieldActionSerialized(ActionBootKeyboard.HOLD_KEYBOARD_BUTTON, testedKeys)
 
             // when
-            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<HoldKeyboardButtonAction> {
@@ -69,7 +69,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             val serializedModel = KeyboardFieldActionSerialized(ActionBootKeyboard.RELEASE_KEYBOARD_BUTTON, testedKeys)
 
             // when
-            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+            val model = KeyboardFieldActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<ReleaseKeyboardButtonAction> {
@@ -107,7 +107,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<PressKeyboardButtonAction> {
@@ -122,7 +122,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<HoldKeyboardButtonAction> {
@@ -137,7 +137,7 @@ class KeyboardFieldActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+            val model = KeyboardFieldActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<ReleaseKeyboardButtonAction> {

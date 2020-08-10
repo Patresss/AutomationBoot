@@ -77,7 +77,7 @@ class MousePointActionMapperTest : JfxSpec({
                     val serializedModel = MousePointActionSerialized(verifiedAction, testedPoint)
 
                     // when
-                    val model = MousePointActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+                    val model = MousePointActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
                     // then
                     model.shouldNotBeNullAndCheck {
@@ -95,7 +95,7 @@ class MousePointActionMapperTest : JfxSpec({
                     val serializedModel = MousePointActionSerialized(verifiedAction, null, testedImageBase64, testedThreshold)
 
                     // when
-                    val model = MousePointActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+                    val model = MousePointActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
                     // then
                     model.shouldNotBeNullAndCheck {
@@ -162,7 +162,7 @@ class MousePointActionMapperTest : JfxSpec({
                     }
 
                     // when
-                    val model = MousePointActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+                    val model = MousePointActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
                     // then
                     model.shouldNotBeNullAndCheck {
@@ -183,7 +183,7 @@ class MousePointActionMapperTest : JfxSpec({
                     }
 
                     // when
-                    val model = MousePointActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+                    val model = MousePointActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
                     // then
                     model.shouldNotBeNullAndCheck {

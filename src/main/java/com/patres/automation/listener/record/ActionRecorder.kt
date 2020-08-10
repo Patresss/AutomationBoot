@@ -88,7 +88,7 @@ class ActionRecorder {
     }
 
     private fun addDelay(delayMillis: Long) {
-        recordedActions.add(TimeActionSerialized(ActionBootTime.DELAY, TimeContainer(delayMillis)))
+        recordedActions.add(TimeActionSerialized(ActionBootTime.DELAY, TimeContainer(delayMillis.toString())))
     }
 
 }

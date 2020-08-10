@@ -38,7 +38,7 @@ class TextAreaActionMapperTest : JfxSpec({
             val serializedModel = TextAreaActionSerialized(ActionBootTextArea.PASTE_TEXT, testedValueText)
 
             // when
-            val model = TextAreaActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+            val model = TextAreaActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<PasteTextFromFieldAction> {
@@ -50,7 +50,7 @@ class TextAreaActionMapperTest : JfxSpec({
             val serializedModel = TextAreaActionSerialized(ActionBootTextArea.TYPE_TEXT, testedValueText)
 
             // when
-            val model = TextAreaActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false))
+            val model = TextAreaActionMapper.serializedToModel(serializedModel, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<TypeTextFromFieldAction> {
@@ -85,7 +85,7 @@ class TextAreaActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextAreaActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+            val model = TextAreaActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<PasteTextFromFieldAction> {
@@ -100,7 +100,7 @@ class TextAreaActionMapperTest : JfxSpec({
             }
 
             // when
-            val model = TextAreaActionMapper.controllerToModel(controller, SimpleBooleanProperty(false))
+            val model = TextAreaActionMapper.controllerToModel(controller, SimpleBooleanProperty(false), emptySet())
 
             // then
             model.shouldBeInstanceOfAndCheck<TypeTextFromFieldAction> {
