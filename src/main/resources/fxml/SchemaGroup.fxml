@@ -46,7 +46,7 @@
             <Insets left="20.0" top="-12.0" />
         </StackPane.margin>
         <children>
-            <JFXTextField fx:id="groupNameTextField" alignment="TOP_LEFT" editable="false" promptText="%group" text="%group" />
+            <JFXTextField fx:id="groupNameTextField" alignment="TOP_LEFT" promptText="%group" text="%group" />
             <JFXTextField fx:id="iterationsTextField" promptText="%iternation.1" text="1" GridPane.columnIndex="1" />
         </children>
         <padding>
