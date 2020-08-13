@@ -10,12 +10,12 @@ module automationBoot {
     requires jnativehook;
     requires java.logging;
     requires com.fasterxml.jackson.databind;
-    requires commons.lang3;
     requires kotlin.stdlib;
     requires jackson.module.kotlin;
     requires kotlin.reflect;
     requires jdk.httpserver;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires org.apache.commons.lang3;
 
     opens com.patres.automation to javafx.fxml, javafx.graphics;
     opens com.patres.automation.gui.controller to javafx.fxml;

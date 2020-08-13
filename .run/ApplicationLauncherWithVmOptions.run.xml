@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ApplicationLauncherWithVmOptions" type="JetRunConfigurationType">
     <module name="AutomationBoot.main" />
-    <option name="VM_PARAMETERS" value="--add-opens java.base/java.lang=opencv --add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix --add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix --add-opens javafx.controls/javafx.scene.control=automationBoot --add-opens javafx.graphics/javafx.scene=automationBoot" />
+    <option name="VM_PARAMETERS" value="--add-opens java.base/java.lang=opencv --add-opens java.base/java.lang.reflect=com.jfoenix --add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix --add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix --add-opens javafx.controls/javafx.scene.control=automationBoot --add-opens javafx.graphics/javafx.scene=automationBoot" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" />
