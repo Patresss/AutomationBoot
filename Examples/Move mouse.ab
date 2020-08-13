@@ -18,7 +18,7 @@
         "type" : "DelayAction",
         "actionBootType" : "DELAY",
         "timeContainer" : {
-          "value" : 100,
+          "value" : "100",
           "type" : "MILLISECONDS"
         }
       }, {
@@ -30,7 +30,8 @@
         "ignoreIfNotFound" : false
       } ],
       "groupName" : "Move",
-      "numberOfIterations" : "5"
+      "numberOfIterations" : "5",
+      "turnOn" : true
     }, {
       "type" : "MousePointAction",
       "actionBootType" : "CLICK_LEFT_MOUSE_BUTTON",
@@ -40,7 +41,8 @@
       "ignoreIfNotFound" : false
     } ],
     "groupName" : "Group",
-    "numberOfIterations" : "1"
+    "numberOfIterations" : "1",
+    "turnOn" : true
   },
   "localSettings" : {
     "stopActionsKeys" : [ "F8" ],
@@ -48,5 +50,5 @@
     "endpointName" : ""
   },
   "orgFile" : null,
-  "applicationVersion" : "1.0.0"
+  "applicationVersion" : "1.1.0"
 }

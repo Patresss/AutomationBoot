@@ -23,7 +23,8 @@
       "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\Move mouse.ab"
     } ],
     "groupName" : "Group",
-    "numberOfIterations" : "1"
+    "numberOfIterations" : "1",
+    "turnOn" : true
   },
   "localSettings" : {
     "stopActionsKeys" : [ ],
@@ -31,5 +32,5 @@
     "endpointName" : ""
   },
   "orgFile" : null,
-  "applicationVersion" : "1.0.0"
+  "applicationVersion" : "1.1.0"
 }

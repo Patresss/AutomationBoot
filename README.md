@@ -3,9 +3,9 @@ Application for process automation. Controls mouse and keyboard, records actions
 
 ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/My%20work.png)
  
-## Download - 1.0.1 version 
-* Installer exe (windows) - [download exe](https://github.com/Patresss/AutomationBoot/releases/download/1.0.1/Automation.Boot-1.0.1.exe)
-* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutomationBoot/releases/download/1.0.1/Automation.Boot-1.0.1.zip)
+## Download - 1.1.0 version 
+* Installer exe (windows) - [download exe](https://github.com/Patresss/AutomationBoot/releases/download/1.1.0/Automation.Boot-1.1.0.exe)
+* Executable jar (bin/Automation Boot) - [download zip](https://github.com/Patresss/AutomationBoot/releases/download/1.1.0/Automation.Boot-1.1.0.zip)
 
 *If the program does not respond, please run it as administrator*
 ## Capabilities
@@ -48,7 +48,9 @@ Application for process automation. Controls mouse and keyboard, records actions
         * Possibility of changing port
 * Supported languages: English, Polish
 * Delay control between actions
-
+* Duplicate action
+* Parameters (to send <path>?parameter1=value1&parameter2=value2, to receive: {{parameter1}})
+* Turn off group
 
 
 ## Examples
@@ -61,6 +63,11 @@ Application for process automation. Controls mouse and keyboard, records actions
 | Scripts [abJson](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Scripts.ab) | Shut down computer [abJson](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Shut%20down%20computer.ab) |
 :-------------------------:|:-------------------------:
 ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Scripts.png) | ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Shut%20down%20computer.png)
+
+| Parameters - send [abJson](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Click%20and%20wait%20more%20points.ab) | Parameters - receive [abJson](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Click%20and%20wait.ab) |
+:-------------------------:|:-------------------------:
+![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Click%20and%20wait%20more%20points.png) | ![](https://github.com/Patresss/AutomationBoot/blob/master/Examples/Click%20and%20wait.png)
+
 
 * Settings
 

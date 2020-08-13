@@ -1,0 +1,28 @@
+{
+  "schemaGroupSerialized" : {
+    "type" : "SchemaGroup",
+    "actionList" : [ {
+      "type" : "BrowserAction",
+      "actionBootType" : "RUN_EXISTING_SCHEMA",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\Click and wait.ab?pointParameter.x=100"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "RUN_EXISTING_SCHEMA",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\Click and wait.ab?pointParameter.x=200&pointParameter.y=200"
+    }, {
+      "type" : "BrowserAction",
+      "actionBootType" : "RUN_EXISTING_SCHEMA",
+      "path" : "P:\\Programowanie\\Projekty\\AutomationBoot\\Examples\\Click and wait.ab?pointParameter.x=300&pointParameter.y=200"
+    } ],
+    "groupName" : "Group",
+    "numberOfIterations" : "1",
+    "turnOn" : true
+  },
+  "localSettings" : {
+    "stopActionsKeys" : [ ],
+    "runActionsKeys" : [ ],
+    "endpointName" : ""
+  },
+  "orgFile" : null,
+  "applicationVersion" : "1.1.0"
+}
