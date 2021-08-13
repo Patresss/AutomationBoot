@@ -112,7 +112,6 @@ class ApplicationLauncher : Application() {
         trayIcon.addActionListener { Platform.runLater { this.showStage() } }
 
         val tray = SystemTray.getSystemTray()
-
         val openItem = MenuItem(LanguageManager.createStringBinding("button.open").get())
         val exitItem = MenuItem(LanguageManager.createStringBinding("button.exit").get())
 
@@ -147,7 +146,6 @@ class ApplicationLauncher : Application() {
 
         mainPane = loader.load()
         mainController = loader.getController()
-
         return mainPane
     }
 
