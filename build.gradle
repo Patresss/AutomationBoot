@@ -86,7 +86,7 @@ dependencies {
     testImplementation "io.kotest:kotest-property-jvm:$kotest_version"
 
     implementation "com.jfoenix:jfoenix:$jfoenix_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.72"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.21"
 
     implementation "org.apache.commons:commons-lang3:$commons_lang3_version"
     implementation "com.1stleg:jnativehook:$jnativehook_version"
